@@ -1,0 +1,20 @@
+{
+  "author": "Luca Zampetti <lzampetti@gmail.com>",
+  "name": "ws-events",
+  "description": "ws-events",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/actarian/ws-events.git"
+  },
+  "engines": {
+    "node": "10.x"
+  },
+  "dependencies": {
+    "swiper": "~5.3.8"
+  },
+  "devDependencies": {
+    "gulpfile-config": "~1.0.0-alpha.9"
+  }
+}

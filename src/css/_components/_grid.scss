@@ -1,0 +1,49 @@
+@import './../mixins';
+
+@include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
+@include _assert-starts-at-zero($grid-breakpoints, "$grid-breakpoints");
+
+.wse__container {
+	@include make-container();
+	@include make-container-max-widths();
+}
+
+.wse__container-fluid {
+	@include make-container();
+	@include make-container-fluid-max-widths();
+}
+
+.wse__row {
+	@include make-row();
+	min-width: 100%;
+}
+
+.wse__container {
+	position: relative;
+}
+
+@include make-grid-columns();
+
+@include media-between(md, lg) {
+	@for $i from 1 through 20 {
+		.wse__o-md-#{$i} {
+			order: $i;
+		}
+	}
+}
+
+@include media-between(sm, md) {
+	@for $i from 1 through 20 {
+		.wse__o-sm-#{$i} {
+			order: $i;
+		}
+	}
+}
+
+@include media-down(sm) {
+	@for $i from 1 through 20 {
+		.wse__o-#{$i} {
+			order: $i;
+		}
+	}
+}

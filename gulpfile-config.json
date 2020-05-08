@@ -1,0 +1,47 @@
+﻿{
+  "targets": {
+    "browser": {
+      "compile": [
+        {
+          "input": "src/*.html",
+          "output": "docs/",
+          "minify": true
+        },
+        {
+          "input": "src/css/main.scss",
+          "output": "docs/css/main.css",
+          "minify": true
+        },
+        {
+          "input": "src/js/main.js",
+          "output": "docs/js/main.js",
+          "minify": true
+        }
+      ],
+      "bundle": [
+        {
+          "input": [
+            "node_modules/swiper/js/swiper.js"
+          ],
+          "output": "docs/js/vendors.js",
+          "minify": true
+        },
+        {
+          "input": [
+            "node_modules/swiper/css/swiper.css"
+          ],
+          "output": "docs/css/vendors.css",
+          "minify": true
+        }
+      ]
+    }
+  },
+  "tfs": false,
+  "server": {
+    "root": "./docs",
+    "path": "/ws-events/",
+    "host": "0.0.0.0",
+    "port": 40333,
+    "log": false
+  }
+}

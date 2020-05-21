@@ -1,6 +1,6 @@
 <div class="wse__card--listing">
-	<div class="wse__card--listing__picture" [style]="{ 'padding-top': (event.picture.height / event.picture.width * 100) + '%' }">
-		<img [lazy]="event.picture.src + event.picture.width + 'x' + event.picture.height + '?sig=' + event.id" />
+	<div class="wse__card--listing__picture">
+		<img [lazy]="event.picture.src + event.picture.width + 'x' + event.picture.width + '?sig=' + event.id" />
 	</div>
 	<div class="wse__card--listing__content">
 		<a [href]="event.url" class="wse__card--listing__title" [innerHTML]="event.name"></a>

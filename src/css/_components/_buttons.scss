@@ -247,3 +247,8 @@
 .wse__btn--rounded {
 	@extend %btn-rounded;
 }
+
+.wse__btn--mode,
+.wse__btn--filter {
+	@extend %btn-circle;
+}

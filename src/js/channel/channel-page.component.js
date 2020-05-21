@@ -1,6 +1,5 @@
 import { combineLatest } from 'rxjs';
 import { first, takeUntil } from 'rxjs/operators';
-import EventService from '../event/event.service';
 import FilterService from '../filter/filter.service';
 import LocationService from '../location/location.service';
 import PageComponent from '../page/page.component';
@@ -88,47 +87,9 @@ export default class ChannelPageComponent extends PageComponent {
 		});
 	}
 
-	getItems() {
-		const fakeChannel = {
-			id: 101,
-			name: 'Channel A',
-			url: '/ws-events/channel.html'
-		};
-		const fakeEvent = {
-			id: 1001,
-			name: 'Evento XYZ',
-			title: 'Evento XYZ',
-			abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-			picture: {
-				src: 'https://source.unsplash.com/random/',
-				width: 700,
-				height: 700,
-			},
-			url: '/ws-events/event.html',
-			creationDate: '2020-05-20T08:11:17.827Z',
-			startDate: '2020-05-20T08:11:17.827Z',
-			info: {
-				started: false,
-				ended: false,
-				subscribers: 100,
-				subscribed: false,
-				likes: 100,
-				liked: false
-			},
-			channel: fakeChannel
-		};
-		return new Array(250).fill(true).map((x, i) => {
-			const item = Object.assign({}, fakeEvent);
-			item.id = 1000 + i + 1;
-			const width = 700;
-			const height = [700, 900, 1100][i % 3];
-			item.picture = {
-				src: `https://source.unsplash.com/random/`,
-				width,
-				height,
-			};
-			return EventService.fake(new Event(item));
-		});
+	toggleGrid() {
+		this.grid.width = this.grid.width === 350 ? 700 : 350;
+		this.pushChanges();
 	}
 
 }

@@ -59,255 +59,6 @@
     selector: '[app-component]'
   };
 
-  var STATIC = window.location.port === '40333' || window.location.host === 'actarian.github.io';
-  var DEVELOPMENT = ['localhost', '127.0.0.1', '0.0.0.0'].indexOf(window.location.host.split(':')[0]) !== -1;
-
-  var HttpService = /*#__PURE__*/function () {
-    function HttpService() {}
-
-    HttpService.http$ = function http$(method, url, data, format) {
-      var _this = this;
-
-      if (format === void 0) {
-        format = 'json';
-      }
-
-      var methods = ['POST', 'PUT', 'PATCH'];
-      var response_ = null;
-      return rxjs.from(fetch(this.getUrl(url, format), {
-        method: method,
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: methods.indexOf(method) !== -1 ? JSON.stringify(data) : undefined
-      }).then(function (response) {
-        response_ = response; // console.log(response);
-
-        if (response.ok) {
-          return response[format]();
-        } else {
-          return response.json().then(function (json) {
-            return Promise.reject(json);
-          });
-        }
-      })).pipe(operators.catchError(function (error) {
-        return rxjs.throwError(_this.getError(error, response_));
-      }));
-    };
-
-    HttpService.get$ = function get$(url, data, format) {
-      var query = this.query(data);
-      return this.http$('GET', "" + url + query, undefined, format);
-    };
-
-    HttpService.delete$ = function delete$(url) {
-      return this.http$('DELETE', url);
-    };
-
-    HttpService.post$ = function post$(url, data) {
-      return this.http$('POST', url, data);
-    };
-
-    HttpService.put$ = function put$(url, data) {
-      return this.http$('PUT', url, data);
-    };
-
-    HttpService.patch$ = function patch$(url, data) {
-      return this.http$('PATCH', url, data);
-    };
-
-    HttpService.query = function query(data) {
-      return ''; // todo
-    };
-
-    HttpService.getUrl = function getUrl(url, format) {
-      if (format === void 0) {
-        format = 'json';
-      }
-
-      // console.log(url);
-      return STATIC && format === 'json' && url.indexOf('/') === 0 ? "." + url + ".json" : url;
-    };
-
-    HttpService.getError = function getError(object, response) {
-      var error = typeof object === 'object' ? object : {};
-
-      if (!error.statusCode) {
-        error.statusCode = response ? response.status : 0;
-      }
-
-      if (!error.statusMessage) {
-        error.statusMessage = response ? response.statusText : object;
-      }
-
-      console.log('HttpService.getError', error, object);
-      return error;
-    };
-
-    return HttpService;
-  }();
-
-  var Event$1 = /*#__PURE__*/function () {
-    _createClass(Event, [{
-      key: "live",
-      get: function get() {
-        return this.info.started && !this.info.ended;
-      }
-    }, {
-      key: "incoming",
-      get: function get() {
-        var now = new Date();
-        var diff = this.startDate - now;
-        var hoursDiff = Math.floor(diff / 1000 / 60 / 60);
-        return !this.info.started && this.startDate > now && hoursDiff < 24;
-      }
-    }, {
-      key: "future",
-      get: function get() {
-        var now = new Date();
-        var diff = this.startDate - now;
-        var hoursDiff = Math.floor(diff / 1000 / 60 / 60);
-        return !this.info.started && this.startDate > now && hoursDiff >= 24;
-      }
-    }, {
-      key: "past",
-      get: function get() {
-        return this.info.ended;
-      }
-    }]);
-
-    function Event(data) {
-      if (data) {
-        Object.assign(this, data);
-
-        if (this.creationDate) {
-          this.creationDate = new Date(this.creationDate);
-        }
-
-        if (this.startDate) {
-          this.startDate = new Date(this.startDate);
-        }
-
-        if (this.endDate) {
-          this.endDate = new Date(this.endDate);
-        }
-      }
-    }
-
-    return Event;
-  }();
-
-  var EventService = /*#__PURE__*/function () {
-    function EventService() {}
-
-    EventService.detail$ = function detail$(eventId) {
-      return HttpService.get$("/api/event/" + eventId + "/detail").pipe(operators.map(function (x) {
-        return EventService.fake(new Event$1(x));
-      }) // map(x => new Event(x))
-      );
-    };
-
-    EventService.top$ = function top$() {
-      return HttpService.get$("/api/event/evidence").pipe(operators.map(function (items) {
-        return items.map(function (x) {
-          return EventService.fake(new Event$1(x));
-        });
-      }) // map(items => items.map(x => new Event(x)))
-      );
-    };
-
-    EventService.upcoming$ = function upcoming$() {
-      return HttpService.get$("/api/event/upcoming").pipe( // map(items => items.map(x => EventService.fake(new Event(x))))
-      operators.map(function (items) {
-        return items.map(function (x) {
-          return new Event$1(x);
-        });
-      }));
-    };
-
-    EventService.subscribe$ = function subscribe$(eventId) {
-      return rxjs.of(null);
-    };
-
-    EventService.unsubscribe$ = function unsubscribe$(eventId) {
-      return rxjs.of(null);
-    };
-
-    EventService.like$ = function like$(eventId) {
-      return rxjs.of(null);
-    };
-
-    EventService.unlike$ = function unlike$(eventId) {
-      return rxjs.of(null);
-    };
-
-    EventService.mapEvents = function mapEvents(events) {
-      var _this = this;
-
-      return events ? events.map(function (x) {
-        return _this.fake(new Event$1(x));
-      }) : [];
-    };
-
-    EventService.fake = function fake(item) {
-      // console.log('EventService.fake', item);
-      var now = new Date();
-      var index = item.id % 1000;
-      item.url = item.url + "?eventId=" + item.id;
-      item.channel.url = item.channel.url + "?channelId=" + item.channel.id;
-      item.info.subscribers = 50 + Math.floor(Math.random() * 200);
-      item.info.likes = 50 + Math.floor(Math.random() * 200);
-
-      switch (index) {
-        case 1:
-          item.startDate = new Date(new Date().setMinutes(now.getMinutes() - 10));
-          item.endDate = null;
-          item.info.started = true;
-          item.info.ended = false;
-          break;
-
-        case 2:
-          item.startDate = new Date(new Date().setHours(now.getHours() + 2));
-          item.endDate = null;
-          item.info.started = false;
-          item.info.ended = false;
-          break;
-
-        case 3:
-          item.startDate = new Date(new Date().setHours(now.getHours() - 7));
-          item.endDate = new Date(new Date().setHours(now.getHours() - 6));
-          item.info.started = true;
-          item.info.ended = true;
-          break;
-
-        case 4:
-          item.startDate = new Date(new Date().setDate(now.getDate() + 7));
-          item.endDate = null;
-          item.info.started = false;
-          item.info.ended = false;
-          break;
-
-        case 5:
-          item.startDate = new Date(new Date().setDate(now.getDate() + 14));
-          item.endDate = null;
-          item.info.started = false;
-          item.info.ended = false;
-          break;
-
-        default:
-          item.startDate = new Date(new Date().setDate(now.getDate() - 14 - Math.floor(Math.random() * 150)));
-          item.endDate = new Date(new Date(item.startDate.getTime()).setHours(item.startDate.getHours() + 1));
-          item.info.started = true;
-          item.info.ended = true;
-      }
-
-      return item;
-    };
-
-    return EventService;
-  }();
-
   var LocationService = /*#__PURE__*/function () {
     function LocationService() {}
 
@@ -672,6 +423,255 @@
     selector: '[page]'
   };
 
+  var STATIC = window.location.port === '40333' || window.location.host === 'actarian.github.io';
+  var DEVELOPMENT = ['localhost', '127.0.0.1', '0.0.0.0'].indexOf(window.location.host.split(':')[0]) !== -1;
+
+  var HttpService = /*#__PURE__*/function () {
+    function HttpService() {}
+
+    HttpService.http$ = function http$(method, url, data, format) {
+      var _this = this;
+
+      if (format === void 0) {
+        format = 'json';
+      }
+
+      var methods = ['POST', 'PUT', 'PATCH'];
+      var response_ = null;
+      return rxjs.from(fetch(this.getUrl(url, format), {
+        method: method,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: methods.indexOf(method) !== -1 ? JSON.stringify(data) : undefined
+      }).then(function (response) {
+        response_ = response; // console.log(response);
+
+        if (response.ok) {
+          return response[format]();
+        } else {
+          return response.json().then(function (json) {
+            return Promise.reject(json);
+          });
+        }
+      })).pipe(operators.catchError(function (error) {
+        return rxjs.throwError(_this.getError(error, response_));
+      }));
+    };
+
+    HttpService.get$ = function get$(url, data, format) {
+      var query = this.query(data);
+      return this.http$('GET', "" + url + query, undefined, format);
+    };
+
+    HttpService.delete$ = function delete$(url) {
+      return this.http$('DELETE', url);
+    };
+
+    HttpService.post$ = function post$(url, data) {
+      return this.http$('POST', url, data);
+    };
+
+    HttpService.put$ = function put$(url, data) {
+      return this.http$('PUT', url, data);
+    };
+
+    HttpService.patch$ = function patch$(url, data) {
+      return this.http$('PATCH', url, data);
+    };
+
+    HttpService.query = function query(data) {
+      return ''; // todo
+    };
+
+    HttpService.getUrl = function getUrl(url, format) {
+      if (format === void 0) {
+        format = 'json';
+      }
+
+      // console.log(url);
+      return STATIC && format === 'json' && url.indexOf('/') === 0 ? "." + url + ".json" : url;
+    };
+
+    HttpService.getError = function getError(object, response) {
+      var error = typeof object === 'object' ? object : {};
+
+      if (!error.statusCode) {
+        error.statusCode = response ? response.status : 0;
+      }
+
+      if (!error.statusMessage) {
+        error.statusMessage = response ? response.statusText : object;
+      }
+
+      console.log('HttpService.getError', error, object);
+      return error;
+    };
+
+    return HttpService;
+  }();
+
+  var Event = /*#__PURE__*/function () {
+    _createClass(Event, [{
+      key: "live",
+      get: function get() {
+        return this.info.started && !this.info.ended;
+      }
+    }, {
+      key: "incoming",
+      get: function get() {
+        var now = new Date();
+        var diff = this.startDate - now;
+        var hoursDiff = Math.floor(diff / 1000 / 60 / 60);
+        return !this.info.started && this.startDate > now && hoursDiff < 24;
+      }
+    }, {
+      key: "future",
+      get: function get() {
+        var now = new Date();
+        var diff = this.startDate - now;
+        var hoursDiff = Math.floor(diff / 1000 / 60 / 60);
+        return !this.info.started && this.startDate > now && hoursDiff >= 24;
+      }
+    }, {
+      key: "past",
+      get: function get() {
+        return this.info.ended;
+      }
+    }]);
+
+    function Event(data) {
+      if (data) {
+        Object.assign(this, data);
+
+        if (this.creationDate) {
+          this.creationDate = new Date(this.creationDate);
+        }
+
+        if (this.startDate) {
+          this.startDate = new Date(this.startDate);
+        }
+
+        if (this.endDate) {
+          this.endDate = new Date(this.endDate);
+        }
+      }
+    }
+
+    return Event;
+  }();
+
+  var EventService = /*#__PURE__*/function () {
+    function EventService() {}
+
+    EventService.detail$ = function detail$(eventId) {
+      return HttpService.get$("/api/event/" + eventId + "/detail").pipe(operators.map(function (x) {
+        return EventService.fake(new Event(x));
+      }) // map(x => new Event(x))
+      );
+    };
+
+    EventService.top$ = function top$() {
+      return HttpService.get$("/api/event/evidence").pipe(operators.map(function (items) {
+        return items.map(function (x) {
+          return EventService.fake(new Event(x));
+        });
+      }) // map(items => items.map(x => new Event(x)))
+      );
+    };
+
+    EventService.upcoming$ = function upcoming$() {
+      return HttpService.get$("/api/event/upcoming").pipe( // map(items => items.map(x => EventService.fake(new Event(x))))
+      operators.map(function (items) {
+        return items.map(function (x) {
+          return new Event(x);
+        });
+      }));
+    };
+
+    EventService.subscribe$ = function subscribe$(eventId) {
+      return rxjs.of(null);
+    };
+
+    EventService.unsubscribe$ = function unsubscribe$(eventId) {
+      return rxjs.of(null);
+    };
+
+    EventService.like$ = function like$(eventId) {
+      return rxjs.of(null);
+    };
+
+    EventService.unlike$ = function unlike$(eventId) {
+      return rxjs.of(null);
+    };
+
+    EventService.mapEvents = function mapEvents(events) {
+      var _this = this;
+
+      return events ? events.map(function (x) {
+        return _this.fake(new Event(x));
+      }) : [];
+    };
+
+    EventService.fake = function fake(item) {
+      // console.log('EventService.fake', item);
+      var now = new Date();
+      var index = item.id % 1000;
+      item.url = item.url + "?eventId=" + item.id;
+      item.channel.url = item.channel.url + "?channelId=" + item.channel.id;
+      item.info.subscribers = 50 + Math.floor(Math.random() * 200);
+      item.info.likes = 50 + Math.floor(Math.random() * 200);
+
+      switch (index) {
+        case 1:
+          item.startDate = new Date(new Date().setMinutes(now.getMinutes() - 10));
+          item.endDate = null;
+          item.info.started = true;
+          item.info.ended = false;
+          break;
+
+        case 2:
+          item.startDate = new Date(new Date().setHours(now.getHours() + 2));
+          item.endDate = null;
+          item.info.started = false;
+          item.info.ended = false;
+          break;
+
+        case 3:
+          item.startDate = new Date(new Date().setHours(now.getHours() - 7));
+          item.endDate = new Date(new Date().setHours(now.getHours() - 6));
+          item.info.started = true;
+          item.info.ended = true;
+          break;
+
+        case 4:
+          item.startDate = new Date(new Date().setDate(now.getDate() + 7));
+          item.endDate = null;
+          item.info.started = false;
+          item.info.ended = false;
+          break;
+
+        case 5:
+          item.startDate = new Date(new Date().setDate(now.getDate() + 14));
+          item.endDate = null;
+          item.info.started = false;
+          item.info.ended = false;
+          break;
+
+        default:
+          item.startDate = new Date(new Date().setDate(now.getDate() - 14 - Math.floor(Math.random() * 150)));
+          item.endDate = new Date(new Date(item.startDate.getTime()).setHours(item.startDate.getHours() + 1));
+          item.info.started = true;
+          item.info.ended = true;
+      }
+
+      return item;
+    };
+
+    return EventService;
+  }();
+
   var Channel = function Channel(data) {
     if (data) {
       Object.assign(this, data);
@@ -871,7 +871,7 @@
 
           switch (type) {
             case 'event':
-              item = EventService.fake(new Event$1(item));
+              item = EventService.fake(new Event(item));
               break;
           }
 
@@ -916,7 +916,7 @@
           item.picture.height = [700, 900, 1100][i % 3];
           item.info = Object.assign({}, event_.info);
           item.channel = Object.assign({}, x);
-          return EventService.fake(new Event$1(item));
+          return EventService.fake(new Event(item));
         });
       }) // map(x => new Channel(x))
       );
@@ -1020,47 +1020,9 @@
       });
     };
 
-    _proto.getItems = function getItems() {
-      var fakeChannel = {
-        id: 101,
-        name: 'Channel A',
-        url: '/ws-events/channel.html'
-      };
-      var fakeEvent = {
-        id: 1001,
-        name: 'Evento XYZ',
-        title: 'Evento XYZ',
-        abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-        picture: {
-          src: 'https://source.unsplash.com/random/',
-          width: 700,
-          height: 700
-        },
-        url: '/ws-events/event.html',
-        creationDate: '2020-05-20T08:11:17.827Z',
-        startDate: '2020-05-20T08:11:17.827Z',
-        info: {
-          started: false,
-          ended: false,
-          subscribers: 100,
-          subscribed: false,
-          likes: 100,
-          liked: false
-        },
-        channel: fakeChannel
-      };
-      return new Array(250).fill(true).map(function (x, i) {
-        var item = Object.assign({}, fakeEvent);
-        item.id = 1000 + i + 1;
-        var width = 700;
-        var height = [700, 900, 1100][i % 3];
-        item.picture = {
-          src: "https://source.unsplash.com/random/",
-          width: width,
-          height: height
-        };
-        return EventService.fake(new Event(item));
-      });
+    _proto.toggleGrid = function toggleGrid() {
+      this.grid.width = this.grid.width === 350 ? 700 : 350;
+      this.pushChanges();
     };
 
     return ChannelPageComponent;
@@ -1083,7 +1045,14 @@
 
       var flag = this.channel.info.subscribed;
       ChannelService[flag ? 'unsubscribe$' : 'subscribe$'](this.channel.id).pipe(operators.first()).subscribe(function () {
-        _this.channel.info.subscribed = !flag;
+        flag = !flag;
+        _this.channel.info.subscribed = flag;
+
+        if (flag) {
+          _this.channel.info.subscribers++;
+        } else {
+          _this.channel.info.subscribers--;
+        }
 
         _this.pushChanges();
       });
@@ -1094,7 +1063,14 @@
 
       var flag = this.channel.info.liked;
       ChannelService[flag ? 'unlike$' : 'like$'](this.channel.id).pipe(operators.first()).subscribe(function () {
-        _this2.channel.info.liked = !flag;
+        flag = !flag;
+        _this2.channel.info.liked = flag;
+
+        if (flag) {
+          _this2.channel.info.likes++;
+        } else {
+          _this2.channel.info.likes--;
+        }
 
         _this2.pushChanges();
       });
@@ -1758,7 +1734,14 @@
 
       var flag = this.event.info.subscribed;
       EventService[flag ? 'unsubscribe$' : 'subscribe$'](this.event.id).pipe(operators.first()).subscribe(function () {
-        _this.event.info.subscribed = !flag;
+        flag = !flag;
+        _this.event.info.subscribed = flag;
+
+        if (flag) {
+          _this.event.info.subscribers++;
+        } else {
+          _this.event.info.subscribers--;
+        }
 
         _this.pushChanges();
       });
@@ -1769,7 +1752,14 @@
 
       var flag = this.event.info.liked;
       EventService[flag ? 'unlike$' : 'like$'](this.event.id).pipe(operators.first()).subscribe(function () {
-        _this2.event.info.liked = !flag;
+        flag = !flag;
+        _this2.event.info.liked = flag;
+
+        if (flag) {
+          _this2.event.info.likes++;
+        } else {
+          _this2.event.info.likes--;
+        }
 
         _this2.pushChanges();
       });

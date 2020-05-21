@@ -5,21 +5,33 @@ import EventService from './event.service';
 export default class EventComponent extends Component {
 
 	toggleSubscribe() {
-		const flag = this.event.info.subscribed;
+		let flag = this.event.info.subscribed;
 		EventService[flag ? 'unsubscribe$' : 'subscribe$'](this.event.id).pipe(
 			first()
 		).subscribe(() => {
-			this.event.info.subscribed = !flag;
+			flag = !flag;
+			this.event.info.subscribed = flag;
+			if (flag) {
+				this.event.info.subscribers++;
+			} else {
+				this.event.info.subscribers--;
+			}
 			this.pushChanges();
 		});
 	}
 
 	toggleLike() {
-		const flag = this.event.info.liked;
+		let flag = this.event.info.liked;
 		EventService[flag ? 'unlike$' : 'like$'](this.event.id).pipe(
 			first()
 		).subscribe(() => {
-			this.event.info.liked = !flag;
+			flag = !flag;
+			this.event.info.liked = flag;
+			if (flag) {
+				this.event.info.likes++;
+			} else {
+				this.event.info.likes--;
+			}
 			this.pushChanges();
 		});
 	}

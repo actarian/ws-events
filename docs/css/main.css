@@ -213,7 +213,8 @@ strong {
 }
 
 */
-.wse__btn--rounded, .wse__section--channel__menu .wse__nav--menu > li > a, .wse__section--filters .wse__nav--filters > li > .wse__filter__option {
+.wse__btn--mode,
+.wse__btn--filter, .wse__btn--rounded, .wse__section--channel__menu .wse__nav--menu > li > a, .wse__section--filters .wse__nav--filters > li > .wse__filter__option {
   display: inline-block;
   padding: 0;
   border: none;
@@ -225,14 +226,43 @@ strong {
   font: inherit;
   cursor: pointer;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
-  .wse__btn--rounded, .wse__section--channel__menu .wse__nav--menu > li > a, .wse__section--filters .wse__nav--filters > li > .wse__filter__option, .wse__btn--rounded:active, .wse__section--channel__menu .wse__nav--menu > li > a:active, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:active, .wse__btn--rounded:focus, .wse__section--channel__menu .wse__nav--menu > li > a:focus, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:focus, .wse__btn--rounded:hover, .wse__section--channel__menu .wse__nav--menu > li > a:hover, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:hover, .wse__btn--rounded:visited, .wse__section--channel__menu .wse__nav--menu > li > a:visited, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:visited {
+  .wse__btn--mode,
+  .wse__btn--filter, .wse__btn--rounded, .wse__section--channel__menu .wse__nav--menu > li > a, .wse__section--filters .wse__nav--filters > li > .wse__filter__option, .wse__btn--mode:active,
+  .wse__btn--filter:active, .wse__btn--rounded:active, .wse__section--channel__menu .wse__nav--menu > li > a:active, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:active, .wse__btn--mode:focus,
+  .wse__btn--filter:focus, .wse__btn--rounded:focus, .wse__section--channel__menu .wse__nav--menu > li > a:focus, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:focus, .wse__btn--mode:hover,
+  .wse__btn--filter:hover, .wse__btn--rounded:hover, .wse__section--channel__menu .wse__nav--menu > li > a:hover, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:hover, .wse__btn--mode:visited,
+  .wse__btn--filter:visited, .wse__btn--rounded:visited, .wse__section--channel__menu .wse__nav--menu > li > a:visited, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:visited {
     color: inherit;
     text-decoration: none;
     outline: none; }
 
-.wse__btn--rounded[disabled], .wse__section--channel__menu .wse__nav--menu > li > a[disabled], .wse__section--filters .wse__nav--filters > li > .wse__filter__option[disabled] {
+.wse__btn--mode[disabled],
+.wse__btn--filter[disabled], .wse__btn--rounded[disabled], .wse__section--channel__menu .wse__nav--menu > li > a[disabled], .wse__section--filters .wse__nav--filters > li > .wse__filter__option[disabled] {
   opacity: 0.5;
   pointer-events: none; }
+
+.wse__btn--mode,
+.wse__btn--filter {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  transition: all ease-in-out 350ms; }
+  .wse__btn--mode svg, .wse__btn--filter svg {
+    width: 24px;
+    height: 24px; }
+  .wse__btn--mode,
+  .wse__btn--filter, .wse__btn--mode:active,
+  .wse__btn--filter:active, .wse__btn--mode:focus,
+  .wse__btn--filter:focus, .wse__btn--mode:hover,
+  .wse__btn--filter:hover, .wse__btn--mode:visited,
+  .wse__btn--filter:visited {
+    background: #ffffff;
+    color: #262626; }
+    .wse__btn--mode svg, .wse__btn--filter svg, .wse__btn--mode:active svg, .wse__btn--filter:active svg, .wse__btn--mode:focus svg, .wse__btn--filter:focus svg, .wse__btn--mode:hover svg, .wse__btn--filter:hover svg, .wse__btn--mode:visited svg, .wse__btn--filter:visited svg {
+      fill: #262626; }
 
 .wse__btn--rounded {
   height: 50px;
@@ -4378,20 +4408,23 @@ errors-component {
     display: flex;
     align-items: center;
     justify-content: flex-start; }
-  .wse__event__info .wse__date.wse__date--live,
-  .wse__channel__info .wse__date.wse__date--live {
-    background: #f70a36;
-    text-transform: uppercase;
-    color: white; }
-  .wse__event__info .wse__date.wse__date--countdown,
-  .wse__channel__info .wse__date.wse__date--countdown {
-    background: rgba(0, 0, 0, 0.8);
-    text-transform: uppercase;
-    color: white; }
-    .wse__event__info .wse__date.wse__date--countdown .mono,
-    .wse__channel__info .wse__date.wse__date--countdown .mono {
-      letter-spacing: 0.02em;
-      font-family: monospace; }
+  .wse__event__info .wse__date,
+  .wse__channel__info .wse__date {
+    font-family: 'DM Mono', monospace; }
+    .wse__event__info .wse__date.wse__date--live,
+    .wse__channel__info .wse__date.wse__date--live {
+      background: #f70a36;
+      text-transform: uppercase;
+      color: white; }
+    .wse__event__info .wse__date.wse__date--countdown,
+    .wse__channel__info .wse__date.wse__date--countdown {
+      background: rgba(0, 0, 0, 0.8);
+      text-transform: uppercase;
+      color: white; }
+      .wse__event__info .wse__date.wse__date--countdown .mono,
+      .wse__channel__info .wse__date.wse__date--countdown .mono {
+        letter-spacing: 0.02em;
+        font-family: monospace; }
   .wse__event__info .wse__date,
   .wse__event__info .wse__subscribe,
   .wse__event__info .wse__like,
@@ -4405,8 +4438,10 @@ errors-component {
     margin: 0 1px;
     padding: 4px 9px;
     border-radius: 4px;
+    font-family: 'DM Mono', monospace;
     font-size: 11px;
     font-weight: 600;
+    text-transform: uppercase;
     white-space: nowrap;
     cursor: pointer; }
   .wse__event__info .wse__subscribe .wse__label,
@@ -4419,40 +4454,36 @@ errors-component {
     transform: translateX(-50%) translateY(-50%);
     opacity: 0;
     pointer-events: none; }
-  .wse__event__info .wse__subscribe:hover .wse__info, .wse__event__info .wse__subscribe.wse__active .wse__info,
+  .wse__event__info .wse__subscribe:hover .wse__info,
   .wse__event__info .wse__like:hover .wse__info,
-  .wse__event__info .wse__like.wse__active .wse__info,
   .wse__channel__info .wse__subscribe:hover .wse__info,
-  .wse__channel__info .wse__subscribe.wse__active .wse__info,
-  .wse__channel__info .wse__like:hover .wse__info,
-  .wse__channel__info .wse__like.wse__active .wse__info {
+  .wse__channel__info .wse__like:hover .wse__info {
     opacity: 0; }
-  .wse__event__info .wse__subscribe:hover .wse__label, .wse__event__info .wse__subscribe.wse__active .wse__label,
+  .wse__event__info .wse__subscribe:hover .wse__label,
   .wse__event__info .wse__like:hover .wse__label,
-  .wse__event__info .wse__like.wse__active .wse__label,
   .wse__channel__info .wse__subscribe:hover .wse__label,
-  .wse__channel__info .wse__subscribe.wse__active .wse__label,
-  .wse__channel__info .wse__like:hover .wse__label,
-  .wse__channel__info .wse__like.wse__active .wse__label {
+  .wse__channel__info .wse__like:hover .wse__label {
     opacity: 1; }
-  .wse__event__info .wse__subscribe:hover, .wse__event__info .wse__subscribe.wse__active,
-  .wse__channel__info .wse__subscribe:hover,
-  .wse__channel__info .wse__subscribe.wse__active {
+  .wse__event__info .wse__subscribe:hover,
+  .wse__channel__info .wse__subscribe:hover {
     background: #5a80fb;
     color: white; }
-    .wse__event__info .wse__subscribe:hover svg, .wse__event__info .wse__subscribe.wse__active svg,
-    .wse__channel__info .wse__subscribe:hover svg,
-    .wse__channel__info .wse__subscribe.wse__active svg {
+    .wse__event__info .wse__subscribe:hover svg,
+    .wse__channel__info .wse__subscribe:hover svg {
       fill: white; }
-  .wse__event__info .wse__like:hover, .wse__event__info .wse__like.wse__active,
-  .wse__channel__info .wse__like:hover,
-  .wse__channel__info .wse__like.wse__active {
+  .wse__event__info .wse__subscribe:not(:hover).wse__active svg,
+  .wse__channel__info .wse__subscribe:not(:hover).wse__active svg {
+    fill: #5a80fb; }
+  .wse__event__info .wse__like:hover,
+  .wse__channel__info .wse__like:hover {
     background: #f70a36;
     color: white; }
-    .wse__event__info .wse__like:hover svg, .wse__event__info .wse__like.wse__active svg,
-    .wse__channel__info .wse__like:hover svg,
-    .wse__channel__info .wse__like.wse__active svg {
+    .wse__event__info .wse__like:hover svg,
+    .wse__channel__info .wse__like:hover svg {
       fill: white; }
+  .wse__event__info .wse__like:not(:hover).wse__active svg,
+  .wse__channel__info .wse__like:not(:hover).wse__active svg {
+    fill: #f70a36; }
   .wse__event__info .wse__calendar,
   .wse__event__info .wse__bell,
   .wse__event__info .wse__bell-active,
@@ -4471,11 +4502,17 @@ errors-component {
 .wse__channel__info .wse__like {
   background: #ffffff; }
 
-.wse__channel__info .wse__subscribe:hover, .wse__channel__info .wse__subscribe.wse__active {
+.wse__channel__info .wse__subscribe:hover {
   background: #5a80fb; }
 
-.wse__channel__info .wse__like:hover, .wse__channel__info .wse__like.wse__active {
+.wse__channel__info .wse__subscribe:not(:hover).wse__active svg {
+  fill: #5a80fb; }
+
+.wse__channel__info .wse__like:hover {
   background: #f70a36; }
+
+.wse__channel__info .wse__like:not(:hover).wse__active svg {
+  fill: #f70a36; }
 
 .wse__section--channel__menu {
   padding: 0 0 40px 0; }
@@ -4510,12 +4547,23 @@ errors-component {
   border-bottom: 2px solid #edf1fe; }
   .wse__section--filters .wse__container-fluid {
     max-width: 1440px; }
-  .wse__section--filters .wse__nav--filters > li {
-    flex: 0 1 auto; }
-    .wse__section--filters .wse__nav--filters > li > .wse__filter__option {
-      border-radius: 0; }
-  .wse__section--filters .wse__nav--filters > li + li {
-    margin-left: 40px; }
+  .wse__section--filters .wse__group--filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+  .wse__section--filters .wse__group--actions {
+    flex: 0 1 auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; }
+  .wse__section--filters .wse__nav--filters {
+    flex: 1 1 auto; }
+    .wse__section--filters .wse__nav--filters > li {
+      flex: 0 1 auto; }
+      .wse__section--filters .wse__nav--filters > li > .wse__filter__option {
+        border-radius: 0; }
+    .wse__section--filters .wse__nav--filters > li + li {
+      margin-left: 40px; }
 
 .wse__section--channel__listing .wse__container-fluid {
   max-width: 1440px; }

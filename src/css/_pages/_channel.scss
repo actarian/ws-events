@@ -71,8 +71,22 @@
 		max-width: 1440px;
 	}
 
+	.wse__group--filters {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.wse__group--actions {
+		flex: 0 1 auto;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+
 	.wse__nav--filters {
 		@extend %nav;
+		flex: 1 1 auto;
 
 		&>li {
 			@extend %nav-item;

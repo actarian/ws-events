@@ -6,11 +6,19 @@
 					<a [href]="channel.url" class="wse__section--channel__title" [innerHTML]="channel.name"></a>
 					<div class="wse__channel__info">
 						<div class="wse__subscribe" [class]="{ 'wse__active': channel.info.subscribed }" (click)="toggleSubscribe()">
-							<div class="wse__info"><svg class="wse__bell"><use xlink:href="#bell"></use></svg> <span [innerHTML]="channel.info.subscribers"></span>&nbsp;<span>iscritti</span></div>
+							<div class="wse__info">
+								<svg class="wse__bell" *if="!channel.info.subscribed"><use xlink:href="#bell"></use></svg>
+								<svg class="wse__bell" *if="channel.info.subscribed"><use xlink:href="#bell-active"></use></svg>
+								<span [innerHTML]="channel.info.subscribers"></span>&nbsp;<span>iscritti</span>
+							</div>
 							<div class="wse__label"><svg class="wse__bell-active"><use xlink:href="#bell-active"></use></svg> <span [innerHTML]="channel.info.subscribed ? 'iscritto' : 'iscriviti'"></span></div>
 						</div>
 						<div class="wse__like" [class]="{ 'wse__active': channel.info.liked }" (click)="toggleLike()">
-							<div class="wse__info"><svg class="wse__heart"><use xlink:href="#heart"></use></svg> <span [innerHTML]="channel.info.likes"></span>&nbsp;<span>mi piace</span></div>
+							<div class="wse__info">
+								<svg class="wse__heart" *if="!channel.info.liked"><use xlink:href="#heart"></use></svg>
+								<svg class="wse__heart" *if="channel.info.liked"><use xlink:href="#heart-active"></use></svg>
+								<span [innerHTML]="channel.info.likes"></span>&nbsp;<span>mi piace</span>
+							</div>
 							<div class="wse__label"><svg class="wse__heart-active"><use xlink:href="#heart-active"></use></svg> <span>mi piace</span></div>
 						</div>
 					</div>

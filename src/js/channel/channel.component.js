@@ -5,21 +5,33 @@ import ChannelService from './channel.service';
 export default class ChannelComponent extends Component {
 
 	toggleSubscribe() {
-		const flag = this.channel.info.subscribed;
+		let flag = this.channel.info.subscribed;
 		ChannelService[flag ? 'unsubscribe$' : 'subscribe$'](this.channel.id).pipe(
 			first()
 		).subscribe(() => {
-			this.channel.info.subscribed = !flag;
+			flag = !flag;
+			this.channel.info.subscribed = flag;
+			if (flag) {
+				this.channel.info.subscribers++;
+			} else {
+				this.channel.info.subscribers--;
+			}
 			this.pushChanges();
 		});
 	}
 
 	toggleLike() {
-		const flag = this.channel.info.liked;
+		let flag = this.channel.info.liked;
 		ChannelService[flag ? 'unlike$' : 'like$'](this.channel.id).pipe(
 			first()
 		).subscribe(() => {
-			this.channel.info.liked = !flag;
+			flag = !flag;
+			this.channel.info.liked = flag;
+			if (flag) {
+				this.channel.info.likes++;
+			} else {
+				this.channel.info.likes--;
+			}
 			this.pushChanges();
 		});
 	}

@@ -1,0 +1,12 @@
+<a [href]="event.url" class="wse__card--upcoming">
+	<span class="wse__card--upcoming__picture">
+		<img [lazy]="event.picture.src + '375x375?sig=' + event.id" />
+	</span>
+	<span class="wse__card--upcoming__content">
+		<span class="wse__card--upcoming__title" [innerHTML]="event.title"></span>
+		<span class="wse__card--upcoming__abstract" [innerHTML]="event.abstract"></span>
+		<span class="wse__card--upcoming__group--cta">
+			<span class="wse__btn--rounded"><span>Scopri</span></span>
+		</span>
+	</span>
+</a>

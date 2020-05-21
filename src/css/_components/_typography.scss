@@ -15,6 +15,7 @@ body {
 }
 
 %category {
+	@extend %reset-link;
 	font-family: $font-secondary;
 	font-size: 18px;
 	line-height: 1.15;
@@ -22,6 +23,7 @@ body {
 }
 
 %title {
+	@extend %reset-link;
 	font-family: $font-secondary;
 	font-size: 64px;
 	line-height: 0.88;
@@ -34,10 +36,11 @@ body {
 }
 
 %subtitle {
+	@extend %reset-link;
 	font-family: $font-primary;
-	font-size: 32px;
+	font-size: 40px;
 	line-height: 1.1;
-	font-weight: $font-semibold;
+	font-weight: $font-bold;
 }
 
 %abstract {

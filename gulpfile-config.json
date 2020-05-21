@@ -14,13 +14,37 @@
         },
         {
           "input": "src/js/main.js",
-          "output": "docs/js/main.js",
+          "output": {
+            "file": "docs/js/main.js",
+            "format": "umd"
+          },
+          "globals": {
+            "gsap": "gsap",
+            "rxjs": "rxjs",
+            "rxjs/operators": "rxjs.operators",
+            "rxcomp": "rxcomp",
+            "rxcomp-form": "rxcomp.form",
+            "swiper": "Swiper"
+          },
+          "minify": true
+        },
+        {
+          "input": "src/js/image/image.service.worker.js",
+          "output": {
+            "file": "docs/js/workers/image.service.worker.js",
+            "format": "umd"
+          },
           "minify": true
         }
       ],
       "bundle": [
         {
           "input": [
+            "node_modules/gsap/dist/EasePack.js",
+            "node_modules/gsap/dist/gsap.js",
+            "node_modules/rxjs/bundles/rxjs.umd.js",
+            "node_modules/rxcomp/dist/iife/rxcomp.js",
+            "node_modules/rxcomp-form/dist/iife/rxcomp-form.js",
             "node_modules/swiper/js/swiper.js"
           ],
           "output": "docs/js/vendors.js",

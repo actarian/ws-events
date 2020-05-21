@@ -1,0 +1,9 @@
+<div class="wse__card--product">
+	<div class="wse__card--product__picture">
+		<img [lazy]="item.picture.src + '375x375?sig=' + item.id" />
+	</div>
+	<div class="wse__card--product__content">
+		<a [href]="item.category.url" class="wse__card--product__category" [innerHTML]="item.category.name"></a>
+		<a [href]="item.url" class="wse__card--product__title" [innerHTML]="item.name"></a>
+	</div>
+</div>

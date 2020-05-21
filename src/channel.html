@@ -2,10 +2,100 @@
 
 <!-- @@block = main-->
 
-<div class="wse__section--channel-header"></div>
+<div class="channel-page" channel-page>
 
-<div class="wse__section--hero-reel"></div>
+	<div class="wse__section--channel__menu" *if="channel && channels?.length">
+		<div class="wse__container">
+			<ul class="wse__nav--menu">
+				<li class="wse__nav--menu__item" *for="let item of channels">
+					<a [href]="item.url" [class]="{ active: channel.id === item.id }" [innerHTML]="item.name"></a>
+				</li>
+			</ul>
+		</div>
+	</div>
 
-<div class="wse__section--listing"></div>
+	<div class="wse__section--channel__header" *if="channel">
+		<div class="wse__container">
+			<div class="wse__row">
+				<div class="wse__col-md-6">
+					<div class="wse__section--channel__content">
+						<a [href]="channel.url" class="wse__section--channel__title" [innerHTML]="channel.name"></a>
+						<div class="wse__section--channel__abstract" [innerHTML]="channel.abstract"></div>
+					</div>
+				</div>
+				<div class="wse__col-md-6">
+					<div class="wse__channel__info">
+						<div class="wse__subscribe" [class]="{ 'wse__active': channel.info.subscribed }" (click)="toggleSubscribe()">
+							<div class="wse__info"><svg class="wse__bell"><use xlink:href="#bell"></use></svg> <span [innerHTML]="channel.info.subscribers"></span>&nbsp;<span>iscritti</span></div>
+							<div class="wse__label"><svg class="wse__bell-active"><use xlink:href="#bell-active"></use></svg> <span [innerHTML]="channel.info.subscribed ? 'iscritto' : 'iscriviti'"></span></div>
+						</div>
+						<div class="wse__like" [class]="{ 'wse__active': channel.info.liked }" (click)="toggleLike()">
+							<div class="wse__info"><svg class="wse__heart"><use xlink:href="#heart"></use></svg> <span [innerHTML]="channel.info.likes"></span>&nbsp;<span>mi piace</span></div>
+							<div class="wse__label"><svg class="wse__heart-active"><use xlink:href="#heart-active"></use></svg> <span>mi piace</span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="wse__section--channel__top-events" *if="channel?.events.length">
+		<div class="wse__container-fluid wse__section--channel__top-events__swiper">
+			<div class="swiper-container" swiper-top-events>
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" [event]="event" *for="let event of channel.events">
+						<!-- @@include ./templates/shared/event/card-top.html -->
+					</div>
+				</div>
+				<div class="swiper-button-prev">
+					<svg class="wse_arrow-left"><use xlink:href="#arrow-left"></use></svg>
+				</div>
+				<div class="swiper-button-next">
+					<svg class="wse_arrow-right"><use xlink:href="#arrow-right"></use></svg>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="wse__section--filters" *if="listing?.length">
+		<div class="wse__container-fluid">
+			<ul class="wse__nav--filters">
+				<li class="wse__nav--filters__item wse__filter" *for="let option of filters.type.options">
+					<span class="wse__filter__option" [class]="{ active: filters.type.has(option), disabled: option.disabled }" (click)="filters.type.set(option)">
+						<span class="name" *if="option.value === undefined">Tutti</span>
+						<span class="name" *if="option.value === 'event'">Eventi</span>
+						<span class="name" *if="option.value === 'picture'">Immagini</span>
+						<span class="name" *if="option.value === 'product'">Prodotti</span>
+						<span class="name" *if="option.value === 'magazine'">Magazine</span>
+						<span class="count" [innerHTML]="option.count || ''"></span>
+					</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="wse__section--channel__listing">
+		<div class="wse__container-fluid">
+			<div class="wse__group--grid" *virtual="let item of filteredItems" [mode]="grid.mode" [width]="grid.width" [gutter]="grid.gutter">
+				<!-- serve un nodo figlio -->
+				<div class="wse__section--channel__listing__item">
+					<div [event]="item" *if="item.type === 'event'">
+						<!-- @@include ./templates/shared/event/card-listing.html -->
+					</div>
+					<div *if="item.type === 'picture'">
+						<!-- @@include ./templates/shared/generic/card-picture.html -->
+					</div>
+					<div *if="item.type === 'product'">
+						<!-- @@include ./templates/shared/generic/card-product.html -->
+					</div>
+					<div *if="item.type === 'magazine'">
+						<!-- @@include ./templates/shared/generic/card-magazine.html -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
 
 <!-- @@close-->

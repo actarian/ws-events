@@ -111,10 +111,21 @@
 
 	.wse__date {
 
-		&.wse__date--now {
+		&.wse__date--live {
 			background: #f70a36;
 			text-transform: uppercase;
 			color: white;
+		}
+
+		&.wse__date--countdown {
+			background: rgba(0, 0, 0, 0.8);
+			text-transform: uppercase;
+			color: white;
+
+			.mono {
+				letter-spacing: 0.02em;
+				font-family: monospace;
+			}
 		}
 	}
 
@@ -146,7 +157,8 @@
 			pointer-events: none;
 		}
 
-		&:hover {
+		&:hover,
+		&.wse__active {
 
 			.wse__info {
 				opacity: 0;
@@ -160,7 +172,8 @@
 
 	.wse__subscribe {
 
-		&:hover {
+		&:hover,
+		&.wse__active {
 			background: $foreground-primary;
 			color: white;
 
@@ -172,7 +185,8 @@
 
 	.wse__like {
 
-		&:hover {
+		&:hover,
+		&.wse__active {
 			background: #f70a36;
 			color: white;
 
@@ -201,13 +215,17 @@
 	}
 
 	.wse__subscribe {
-		&:hover {
+
+		&:hover,
+		&.wse__active {
 			background: $foreground-primary;
 		}
 	}
 
 	.wse__like {
-		&:hover {
+
+		&:hover,
+		&.wse__active {
 			background: #f70a36;
 		}
 	}

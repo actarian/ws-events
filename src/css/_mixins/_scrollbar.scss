@@ -1,8 +1,9 @@
 @mixin scrollbar() {
 
 	&::-webkit-scrollbar {
-		width: 6px;
-		border-radius: 3px;
+		width: 12px;
+		border-radius: 0px;
+		background-color: #edf1fe;
 	}
 
 	&::-webkit-scrollbar-button {
@@ -14,21 +15,22 @@
 	}
 
 	&::-webkit-scrollbar-thumb {
-		background-color: rgba(#16255b, 0.95);
+		background-color: #5a80fb;
 		box-shadow: none;
-		border-radius: 3px;
+		border-radius: 8px;
+		border: 2px solid #edf1fe;
 
 		&:hover {
-			background-color: rgba(#16255b, 0.95);
+			background-color: #5a80fb;
 		}
 	}
 
 	&::-webkit-scrollbar-track {
-		background-color: transparent;
-		border-radius: 3px;
+		background-color: #edf1fe;
+		border-radius: 0px;
 
 		&:hover {
-			background-color: transparent;
+			background-color: #edf1fe;
 		}
 	}
 

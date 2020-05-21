@@ -1,0 +1,13 @@
+<div class="wse__card--magazine">
+	<div class="wse__card--magazine__picture">
+		<img [lazy]="item.picture.src + '375x375?sig=' + item.id" />
+	</div>
+	<div class="wse__card--magazine__content">
+		<a [href]="item.category.url" class="wse__card--magazine__category" [innerHTML]="item.category.name"></a>
+		<a [href]="item.url" class="wse__card--magazine__title" [innerHTML]="item.name"></a>
+		<div class="wse__card--magazine__abstract" [innerHTML]="item.abstract"></div>
+		<div class="wse__card--magazine__group--cta">
+			<a [href]="item.url" class="wse__btn--rounded"><span>Leggi</span></a>
+		</div>
+	</div>
+</div>

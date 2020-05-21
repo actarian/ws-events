@@ -7,6 +7,7 @@ import DatePipe from './date/date.pipe';
 import DropdownItemDirective from './dropdown/dropdown-item.directive';
 import DropdownDirective from './dropdown/dropdown.directive';
 import EventDateComponent from './event/event-date.component';
+import EventPageComponent from './event/event-page.component';
 import EventComponent from './event/event.component';
 import ErrorsComponent from './forms/errors.component';
 import HtmlPipe from './html/html.pipe';
@@ -22,6 +23,7 @@ import SwiperEventsDirective from './swiper/swiper-events.directive';
 import SwiperSlidesDirective from './swiper/swiper-slides.directive';
 import SwiperTopEventsDirective from './swiper/swiper-top-events.directive';
 import SwiperDirective from './swiper/swiper.directive';
+import ThronComponent from './thron/thron.component';
 import VideoComponent from './video/video.component';
 import VirtualStructure from './virtual/virtual.structure';
 import YoutubeComponent from './youtube/youtube.component';
@@ -42,6 +44,7 @@ AppModule.meta = {
 		ErrorsComponent,
 		EventComponent,
 		EventDateComponent,
+		EventPageComponent,
 		HtmlPipe,
 		IndexPageComponent,
 		LazyDirective,
@@ -55,6 +58,7 @@ AppModule.meta = {
 		SwiperEventsDirective,
 		SwiperSlidesDirective,
 		SwiperTopEventsDirective,
+		ThronComponent,
 		VirtualStructure,
 		VideoComponent,
 		YoutubeComponent,

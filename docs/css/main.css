@@ -4139,6 +4139,31 @@ errors-component {
     position: relative;
     margin-top: 10px; }
 
+.wse__player {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  overflow: hidden; }
+  .wse__player > img,
+  .wse__player > svg,
+  .wse__player > video,
+  .wse__player > canvas,
+  .wse__player > .video,
+  .wse__player > iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; }
+  .wse__player > .wse__thron {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translateX(-50%); }
+
 @media screen {
   .wse__section--hero-reel .swiper-container, .wse__section--channel__swiper .swiper-container, .wse__section--channel__top-events__swiper .swiper-container {
     line-height: 0; }

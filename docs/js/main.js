@@ -566,10 +566,18 @@
     function EventService() {}
 
     EventService.detail$ = function detail$(eventId) {
+      eventId = 1001; // !!!
+
       return HttpService.get$("/api/event/" + eventId + "/detail").pipe(operators.map(function (x) {
         return EventService.fake(new Event(x));
       }) // map(x => new Event(x))
       );
+    };
+
+    EventService.listing$ = function listing$(eventId) {
+      // return HttpService.get$(`/api/event/${eventId}/listing`);
+      return EventService.fakeListing(eventId).pipe(operators.tap(function (items) {// console.log(JSON.stringify(items));
+      }));
     };
 
     EventService.top$ = function top$() {
@@ -667,6 +675,150 @@
       }
 
       return item;
+    };
+
+    EventService.fakeListing = function fakeListing(eventId) {
+      eventId = 1001;
+      return HttpService.get$("/api/event/" + eventId + "/detail").pipe(operators.map(function (x) {
+        var channel_ = new Event(x).channel;
+        var info_ = {
+          started: false,
+          ended: false,
+          subscribers: 100,
+          subscribed: false,
+          likes: 100,
+          liked: false
+        };
+        var image_ = {
+          id: 100000,
+          width: 700,
+          height: 700,
+          src: 'https://source.unsplash.com/random/'
+        };
+        var category_ = {
+          id: 10000,
+          name: 'Category',
+          url: '/ws-events/category.html'
+        };
+        var event_ = {
+          id: 1000,
+          type: 'event',
+          name: 'Evento',
+          title: 'Evento',
+          abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
+          url: '/ws-events/event.html',
+          creationDate: '2020-05-20T08:11:17.827Z',
+          startDate: '2020-05-20T08:11:17.827Z',
+          picture: image_,
+          info: info_,
+          channel: channel_
+        };
+        var picture_ = {
+          id: 1000,
+          type: 'picture',
+          name: 'Picture',
+          title: 'Picture',
+          abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
+          url: '/ws-events/document.html',
+          picture: image_,
+          category: category_
+        };
+        var product_ = {
+          id: 1000,
+          type: 'product',
+          name: 'Product',
+          title: 'Product',
+          abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
+          url: '/ws-events/product.html',
+          picture: image_,
+          category: category_
+        };
+        var magazine_ = {
+          id: 1000,
+          type: 'magazine',
+          name: 'Magazine',
+          title: 'Magazine',
+          abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
+          url: '/ws-events/product.html',
+          picture: image_,
+          category: category_
+        };
+        var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L'];
+        return new Array(250).fill(true).map(function (x, i) {
+          var type = 'event';
+
+          if (i > 3) {
+            if (i % 5 === 0) {
+              type = 'picture';
+            }
+
+            if (i % 7 === 0) {
+              type = 'product';
+            }
+
+            if (i % 11 === 0) {
+              type = 'magazine';
+            }
+          }
+
+          var item;
+
+          switch (type) {
+            case 'picture':
+              item = Object.assign({}, picture_);
+              break;
+
+            case 'product':
+              item = Object.assign({}, product_);
+              break;
+
+            case 'magazine':
+              item = Object.assign({}, magazine_);
+              break;
+
+            case 'event':
+              item = Object.assign({}, event_);
+              break;
+          }
+
+          item.id = (channel_.id - 100) * 1000 + 1 + i;
+          item.name = item.title = item.name + " " + letters[(item.id - 1) % 10];
+          item.type = type;
+
+          if (item.picture) {
+            item.picture = Object.assign({}, image_, {
+              id: 100001 + i,
+              width: 700,
+              height: [700, 900, 1100][i % 3]
+            });
+          }
+
+          if (item.info) {
+            item.info = Object.assign({}, info_);
+          }
+
+          if (item.channel) {
+            item.channel = Object.assign({}, x);
+          }
+
+          if (item.category) {
+            var categoryId = 10001 + i % 10;
+            item.category = Object.assign({}, category_, {
+              id: categoryId,
+              name: 'Category ' + letters[categoryId % 10],
+              url: category_.url + "?categoryId=" + categoryId
+            });
+          }
+
+          switch (type) {
+            case 'event':
+              item = EventService.fake(new Event(item));
+              break;
+          }
+
+          return item;
+        });
+      }));
     };
 
     return EventService;
@@ -1718,6 +1870,111 @@
   EventDateComponent.meta = {
     selector: '[eventDate]',
     inputs: ['eventDate']
+  };
+
+  var EventPageComponent = /*#__PURE__*/function (_PageComponent) {
+    _inheritsLoose(EventPageComponent, _PageComponent);
+
+    function EventPageComponent() {
+      return _PageComponent.apply(this, arguments) || this;
+    }
+
+    var _proto = EventPageComponent.prototype;
+
+    _proto.onInit = function onInit() {
+      var _this = this;
+
+      this.event = this.listing = null;
+      this.grid = {
+        mode: 1,
+        width: 350,
+        gutter: 2
+      };
+      this.filteredItems = [];
+      var filters = {
+        type: {
+          label: 'Type',
+          mode: 'select',
+          options: [{
+            label: 'Event',
+            value: 'event'
+          }, {
+            label: 'Picture',
+            value: 'picture'
+          }, {
+            label: 'Product',
+            value: 'product'
+          }, {
+            label: 'Magazine',
+            value: 'magazine'
+          }]
+        }
+      };
+      var filterService = this.filterService = new FilterService(filters, {}, function (key, filter) {
+        switch (key) {
+          case 'type':
+            filter.filter = function (item, value) {
+              return item.type === value;
+            };
+
+            break;
+
+          case 'tag':
+            filter.filter = function (item, value) {
+              return item.tags.indexOf(value) !== -1;
+            };
+
+            break;
+
+          default:
+            filter.filter = function (item, value) {
+              return item.features.indexOf(value) !== -1;
+            };
+
+        }
+      });
+      this.filters = filterService.filters;
+      this.load$().pipe(operators.first()).subscribe(function (data) {
+        _this.event = data[0];
+        _this.listing = data[1];
+
+        _this.startFilter(_this.listing);
+
+        _this.pushChanges();
+      });
+    };
+
+    _proto.load$ = function load$() {
+      var eventId = LocationService.get('eventId');
+      return rxjs.combineLatest(EventService.detail$(eventId), EventService.listing$(eventId));
+    };
+
+    _proto.startFilter = function startFilter(items) {
+      var _this2 = this;
+
+      this.filterService.items$(items).pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (filteredItems) {
+        _this2.filteredItems = [];
+
+        _this2.pushChanges();
+
+        setTimeout(function () {
+          _this2.filteredItems = filteredItems;
+
+          _this2.pushChanges();
+        }, 1);
+        console.log('EventPageComponent.filteredItems', filteredItems.length);
+      });
+    };
+
+    _proto.toggleGrid = function toggleGrid() {
+      this.grid.width = this.grid.width === 350 ? 700 : 350;
+      this.pushChanges();
+    };
+
+    return EventPageComponent;
+  }(PageComponent);
+  EventPageComponent.meta = {
+    selector: '[event-page]'
   };
 
   var EventComponent = /*#__PURE__*/function (_Component) {
@@ -3316,6 +3573,143 @@
     selector: '[swiper-top-events]'
   };
 
+  var ThronComponent = /*#__PURE__*/function (_Component) {
+    _inheritsLoose(ThronComponent, _Component);
+
+    function ThronComponent() {
+      return _Component.apply(this, arguments) || this;
+    }
+
+    var _proto = ThronComponent.prototype;
+
+    _proto.onInit = function onInit() {
+      var THRON = window.THRONContentExperience || window.THRONPlayer;
+
+      if (!THRON) {
+        return;
+      }
+
+      var _getContext = rxcomp.getContext(this),
+          node = _getContext.node,
+          rxcompId = _getContext.rxcompId;
+
+      node.setAttribute('id', "thron-" + rxcompId);
+      var media = this.thron;
+
+      if (media.indexOf('pkey=') === -1) {
+        var splitted = media.split('/');
+        var clientId = splitted[6];
+        var xcontentId = splitted[7];
+        var pkey = splitted[8];
+        media = "https://gruppoconcorde-view.thron.com/api/xcontents/resources/delivery/getContentDetail?clientId=" + clientId + "&xcontentId=" + xcontentId + "&pkey=" + pkey; // console.log(media);
+      }
+
+      var controls = node.hasAttribute('controls') ? true : false,
+          loop = node.hasAttribute('loop') ? true : false,
+          autoplay = node.hasAttribute('autoplay') ? true : false;
+      var player = this.player = THRON(node.id, {
+        media: media,
+        loop: loop,
+        autoplay: autoplay,
+        muted: !controls,
+        displayLinked: 'close',
+        noSkin: !controls // lockBitrate: 'max',
+
+      });
+      this.onReady = this.onReady.bind(this);
+      this.onCanPlay = this.onCanPlay.bind(this);
+      this.onPlaying = this.onPlaying.bind(this);
+      this.onComplete = this.onComplete.bind(this);
+      player.on('ready', this.onReady);
+      player.on('canPlay', this.onCanPlay);
+      player.on('playing', this.onPlaying);
+      player.on('complete', this.onComplete);
+    };
+
+    _proto.onReady = function onReady() {
+      var _getContext2 = rxcomp.getContext(this),
+          node = _getContext2.node;
+
+      var controls = node.hasAttribute('controls') ? true : false;
+
+      if (!controls) {
+        var player = this.player;
+        var mediaContainer = player.mediaContainer();
+        var video = mediaContainer.querySelector('video');
+        video.setAttribute('playsinline', 'true');
+      }
+
+      this.ready.next(this);
+    };
+
+    _proto.onCanPlay = function onCanPlay() {
+      this.canPlay.next(this);
+    };
+
+    _proto.onPlaying = function (_onPlaying) {
+      function onPlaying() {
+        return _onPlaying.apply(this, arguments);
+      }
+
+      onPlaying.toString = function () {
+        return _onPlaying.toString();
+      };
+
+      return onPlaying;
+    }(function () {
+      var player = this.player;
+      player.off('playing', onPlaying);
+      var controls = node.hasAttribute('controls') ? true : false;
+
+      if (!controls) {
+        var qualities = player.qualityLevels();
+
+        if (qualities.length) {
+          var highestQuality = qualities[qualities.length - 1].index;
+          var lowestQuality = qualities[0].index;
+          player.currentQuality(highestQuality);
+        }
+      }
+    });
+
+    _proto.onComplete = function onComplete() {
+      this.complete.next(this);
+    };
+
+    _proto.onDestroy = function onDestroy() {
+      var player = this.player;
+      player.off('ready', this.onReady);
+      player.off('canPlay', this.onCanPlay);
+      player.off('playing', this.onPlaying);
+      player.off('complete', this.onComplete);
+    };
+
+    _proto.play = function play() {
+      var player = this.player;
+      var status = player.status();
+
+      if (status && !status.playing) {
+        player.play();
+      }
+    };
+
+    _proto.pause = function pause() {
+      var player = this.player;
+      var status = player.status();
+
+      if (status && status.playing) {
+        player.pause();
+      }
+    };
+
+    return ThronComponent;
+  }(rxcomp.Component);
+  ThronComponent.meta = {
+    selector: '[thron]',
+    outputs: ['ready', 'canPlay', 'complete'],
+    inputs: ['thron']
+  };
+
   function push_(event) {
     var dataLayer = window.dataLayer || [];
     dataLayer.push(event);
@@ -4139,7 +4533,7 @@
   }(rxcomp.Module);
   AppModule.meta = {
     imports: [rxcomp.CoreModule, rxcompForm.FormModule],
-    declarations: [ChannelComponent, ChannelPageComponent, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, HtmlPipe, IndexPageComponent, LazyDirective, ModalComponent, ModalOutletComponent, RegisterOrLoginComponent, RelativeDatePipe, ScrollToDirective, SecureDirective, SwiperDirective, SwiperEventsDirective, SwiperSlidesDirective, SwiperTopEventsDirective, VirtualStructure, VideoComponent, YoutubeComponent],
+    declarations: [ChannelComponent, ChannelPageComponent, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, EventPageComponent, HtmlPipe, IndexPageComponent, LazyDirective, ModalComponent, ModalOutletComponent, RegisterOrLoginComponent, RelativeDatePipe, ScrollToDirective, SecureDirective, SwiperDirective, SwiperEventsDirective, SwiperSlidesDirective, SwiperTopEventsDirective, ThronComponent, VirtualStructure, VideoComponent, YoutubeComponent],
     bootstrap: AppComponent
   };
 

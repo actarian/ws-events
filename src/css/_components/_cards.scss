@@ -809,3 +809,16 @@
 		@extend %btn-md;
 	}
 }
+
+.wse__player {
+	@include aspect-clip(16, 9);
+
+	&>.wse__thron {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		width: 100%;
+		height: 100%;
+		transform: translateX(-50%);
+	}
+}

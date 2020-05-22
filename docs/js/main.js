@@ -47,7 +47,7 @@
       var _getContext = rxcomp.getContext(this),
           node = _getContext.node;
 
-      node.classList.remove('hidden');
+      node.classList.remove('wse__hidden');
     } // onView() { const context = getContext(this); }
     // onChanges() {}
     // onDestroy() {}
@@ -1326,7 +1326,7 @@
           }
 
           if (item.channel) {
-            item.channel = Object.assign({}, x);
+            item.channel = Object.assign({}, channel_);
           }
 
           if (item.category) {

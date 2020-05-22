@@ -183,10 +183,6 @@
 		.wse__share {
 			font-size: 28px;
 		}
-
-		svg {
-			fill: white;
-		}
 	}
 
 	@include media-down(sm) {
@@ -221,10 +217,6 @@
 		.wse__save,
 		.wse__share {
 			font-size: 14px;
-		}
-
-		svg {
-			fill: white;
 		}
 	}
 

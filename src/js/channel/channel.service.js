@@ -182,7 +182,7 @@ export default class ChannelService {
 						item.info = Object.assign({}, info_);
 					}
 					if (item.channel) {
-						item.channel = Object.assign({}, x);
+						item.channel = Object.assign({}, channel_);
 					}
 					if (item.category) {
 						const categoryId = (10001 + (i % 10));

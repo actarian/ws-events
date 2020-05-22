@@ -4,7 +4,7 @@ export default class AppComponent extends Component {
 
 	onInit() {
 		const { node } = getContext(this);
-		node.classList.remove('hidden');
+		node.classList.remove('wse__hidden');
 	}
 
 	// onView() { const context = getContext(this); }

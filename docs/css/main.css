@@ -59,10 +59,12 @@ img {
       -ms-user-select: none;
           user-select: none; }
 
-.app {
+.wse__app {
   position: relative; }
+  .wse__app svg {
+    fill: currentColor; }
 
-.hidden {
+.wse__hidden {
   display: none; }
 
 .sticky--menu {
@@ -757,7 +759,7 @@ errors-component {
 
 [control-custom-select] {
   position: relative; }
-  [control-custom-select].hidden {
+  [control-custom-select].wse__hidden {
     display: block;
     visibility: hidden;
     pointer-events: none; }
@@ -3542,8 +3544,6 @@ errors-component {
     .wse__card--hero .wse__event__info .wse__save,
     .wse__card--hero .wse__event__info .wse__share {
       font-size: 14px; }
-    .wse__card--hero .wse__event__info svg {
-      fill: white; }
   .wse__card--hero__abstract {
     display: block;
     position: relative;
@@ -3827,8 +3827,6 @@ errors-component {
     .wse__card--top .wse__event__info .wse__date.wse__date--countdown {
       background: rgba(0, 0, 0, 0.8);
       padding: 4px 9px; }
-  .wse__card--top .wse__event__info .wse__calendar {
-    fill: white; }
   .wse__card--top__abstract {
     display: block;
     position: relative;
@@ -3921,8 +3919,6 @@ errors-component {
       background: #f70a36; }
     .wse__card--listing .wse__event__info .wse__date.wse__date--countdown {
       background: rgba(0, 0, 0, 0.8); }
-  .wse__card--listing .wse__event__info .wse__calendar {
-    fill: white; }
   .wse__card--listing__abstract {
     display: block;
     position: relative;
@@ -4214,8 +4210,6 @@ errors-component {
       background: #f70a36; }
     .wse__card--preview .wse__event__info .wse__date.wse__date--countdown {
       background: rgba(0, 0, 0, 0.8); }
-  .wse__card--preview .wse__event__info .wse__calendar {
-    fill: white; }
   .wse__card--preview__abstract {
     display: block;
     position: relative;
@@ -4576,9 +4570,6 @@ errors-component {
   .wse__channel__info .wse__subscribe:hover {
     background: #5a80fb;
     color: white; }
-    .wse__event__info .wse__subscribe:hover svg,
-    .wse__channel__info .wse__subscribe:hover svg {
-      fill: white; }
   .wse__event__info .wse__subscribe:not(:hover).wse__active svg,
   .wse__channel__info .wse__subscribe:not(:hover).wse__active svg {
     fill: #5a80fb; }
@@ -4586,9 +4577,6 @@ errors-component {
   .wse__channel__info .wse__like:hover {
     background: #f70a36;
     color: white; }
-    .wse__event__info .wse__like:hover svg,
-    .wse__channel__info .wse__like:hover svg {
-      fill: white; }
   .wse__event__info .wse__like:not(:hover).wse__active svg,
   .wse__channel__info .wse__like:not(:hover).wse__active svg {
     fill: #f70a36; }
@@ -4874,8 +4862,6 @@ errors-component {
     .wse__event-incoming .wse__event__info .wse__save,
     .wse__event-incoming .wse__event__info .wse__share {
       font-size: 28px; }
-    .wse__event-incoming .wse__event__info svg {
-      fill: white; }
   @media (max-width: 1023.98px) {
     .wse__event-incoming__content {
       padding: 15px 30px; } }
@@ -4916,8 +4902,6 @@ errors-component {
     .wse__player .wse__event__info .wse__save,
     .wse__player .wse__event__info .wse__share {
       font-size: 14px; }
-    .wse__player .wse__event__info svg {
-      fill: white; }
 
 .wse__section--event__listing .wse__container-fluid {
   max-width: 1440px; }

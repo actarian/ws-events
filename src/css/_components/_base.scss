@@ -36,11 +36,15 @@ img {
 	user-select: none;
 }
 
-.app {
+.wse__app {
 	position: relative;
+
+	svg {
+		fill: currentColor;
+	}
 }
 
-.hidden {
+.wse__hidden {
 	display: none;
 }
 

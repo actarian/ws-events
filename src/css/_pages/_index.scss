@@ -180,10 +180,6 @@
 		&:hover {
 			background: $foreground-primary;
 			color: white;
-
-			svg {
-				fill: white;
-			}
 		}
 
 		&:not(:hover).wse__active {
@@ -198,10 +194,6 @@
 		&:hover {
 			background: #f70a36;
 			color: white;
-
-			svg {
-				fill: white;
-			}
 		}
 
 		&:not(:hover).wse__active {

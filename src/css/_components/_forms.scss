@@ -501,7 +501,7 @@ errors-component {
 [control-custom-select] {
 	position: relative;
 
-	&.hidden {
+	&.wse__hidden {
 		display: block;
 		visibility: hidden;
 		pointer-events: none;

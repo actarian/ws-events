@@ -913,7 +913,7 @@
 
     EventService.fake = function fake(item) {
       // console.log('EventService.fake', item);
-      var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L'];
+      var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
       var index = item.id % 1000;
       item.url = item.url + "?eventId=" + item.id;
 
@@ -1057,7 +1057,7 @@
           picture: image_,
           category: category_
         };
-        var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L'];
+        var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
         return new Array(30).fill(true).map(function (x, i) {
           var type = 'event';
 
@@ -1271,7 +1271,7 @@
           picture: image_,
           category: category_
         };
-        var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L'];
+        var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
         return new Array(250).fill(true).map(function (x, i) {
           var type = 'event';
 

@@ -139,7 +139,7 @@ export default class ChannelService {
 					picture: image_,
 					category: category_,
 				};
-				const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L'];
+				const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
 				return new Array(250).fill(true).map((x, i) => {
 					let type = 'event';
 					if (i > 3) {

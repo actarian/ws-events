@@ -116,7 +116,7 @@ export default class EventService {
 
 	static fake(item) {
 		// console.log('EventService.fake', item);
-		const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L'];
+		const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
 		const index = item.id % 1000;
 		item.url = `${item.url}?eventId=${item.id}`;
 		if (item.channel) {
@@ -248,7 +248,7 @@ export default class EventService {
 					picture: image_,
 					category: category_,
 				};
-				const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L'];
+				const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
 				return new Array(30).fill(true).map((x, i) => {
 					let type = 'event';
 					if (i > 3) {

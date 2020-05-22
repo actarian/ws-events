@@ -3,6 +3,7 @@ import { FormModule } from 'rxcomp-form';
 import AppComponent from './app.component';
 import ChannelPageComponent from './channel/channel-page.component';
 import ChannelComponent from './channel/channel.component';
+import CountPipe from './count/count.pipe';
 import DatePipe from './date/date.pipe';
 import DropdownItemDirective from './dropdown/dropdown-item.directive';
 import DropdownDirective from './dropdown/dropdown.directive';
@@ -16,6 +17,7 @@ import LazyDirective from './lazy/lazy.directive';
 import ModalOutletComponent from './modal/modal-outlet.component';
 import ModalComponent from './modal/modal.component';
 import RegisterOrLoginComponent from './register-or-login/register-or-login.component';
+import RelativeDateDirective from './relative-date/relative-date.component';
 import RelativeDatePipe from './relative-date/relative-date.pipe';
 import ScrollToDirective from './scroll-to/scroll-to.directive';
 import SecureDirective from './secure/secure.directive';
@@ -38,6 +40,7 @@ AppModule.meta = {
 	declarations: [
 		ChannelComponent,
 		ChannelPageComponent,
+		CountPipe,
 		DatePipe,
 		DropdownDirective,
 		DropdownItemDirective,
@@ -51,6 +54,7 @@ AppModule.meta = {
 		ModalComponent,
 		ModalOutletComponent,
 		RegisterOrLoginComponent,
+		RelativeDateDirective,
 		RelativeDatePipe,
 		ScrollToDirective,
 		SecureDirective,

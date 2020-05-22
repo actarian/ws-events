@@ -2,40 +2,103 @@
 
 <!-- @@block = main-->
 
-<div class="event-page" event-page>
+<div class="wse__event-page" event-page>
 
-	<div class="wse__container">
-		<div class="wse__player">
-			<div class="wse__thron" controls thron="https://gruppoconcorde-view.thron.com/api/xcontents/resources/delivery/getContentDetail?clientId=gruppoconcorde&xcontentId=16ef3c0a-ba0c-4e3a-a10a-32bc7f9a4297&pkey=yz1hpd"></div>
-		</div>
-	</div>
-
-	<div class="wse__section--channel__header" [event]="event" *if="event">
-		<div class="wse__container">
+	<div class="wse__section--event__hero" *if="event">
+		<div [class]="{ 'wse__container-fluid': event.hasRelated, 'wse__container': !event.hasRelated }">
 			<div class="wse__row">
-				<div class="wse__col-md-6">
-					<div class="wse__section--channel__content">
-						<div class="wse__section--channel__title" [innerHTML]="event.name"></div>
-						<div class="wse__section--channel__abstract" [innerHTML]="event.abstract"></div>
+				<div [class]="{ 'wse__col-md-9': event.hasRelated, 'wse__col-md-12': !event.hasRelated }">
+					<div *if="event.future">
+						<!-- @@include ./templates/shared/event/card-incoming.html -->
+					</div>
+					<div *if="!event.future && event.thron && event.live">
+						<!-- @@include ./templates/shared/event/player-thron-live.html -->
+					</div>
+					<div *if="!event.future && event.thron && !event.live">
+						<!-- @@include ./templates/shared/event/player-thron.html -->
+					</div>
+					<div class="wse__section--event__header">
+						<div class="wse__row">
+							<div class="wse__col-md-6">
+								<div class="wse__section--event__header__content">
+									<div class="wse__section--event__header__title" [class]="{ 'wse__section--event__header__title--future': event.future }" [innerHTML]="event.name"></div>
+								</div>
+							</div>
+							<div class="wse__col-md-6">
+								<div class="wse__channel__info">
+									<div class="wse__subscribe" [class]="{ 'wse__active': event.info.subscribed }" (click)="toggleSubscribe()">
+										<div class="wse__info">
+											<svg class="wse__icon--bell" *if="!event.info.subscribed"><use xlink:href="#bell"></use></svg>
+											<svg class="wse__icon--bell" *if="event.info.subscribed"><use xlink:href="#bell-active"></use></svg>
+											<span [innerHTML]="event.info.subscribers | count"></span>
+										</div>
+										<div class="wse__label"><svg class="wse__icon--bell"><use xlink:href="#bell-active"></use></svg></div>
+									</div>
+									<div class="wse__like" [class]="{ 'wse__active': event.info.liked }" (click)="toggleLike()">
+										<div class="wse__info">
+											<svg class="wse__icon--heart" *if="!event.info.liked"><use xlink:href="#heart"></use></svg>
+											<svg class="wse__icon--heart" *if="event.info.liked"><use xlink:href="#heart-active"></use></svg>
+											<span [innerHTML]="event.info.likes | count"></span>
+										</div>
+										<div class="wse__label"><svg class="wse__icon--heart"><use xlink:href="#heart-active"></use></svg></div>
+									</div>
+									<div class="wse__save" [class]="{ 'wse__active': event.info.saved }" (click)="toggleSave()">
+										<div class="wse__info">
+											<svg class="wse__icon--favourite" *if="!event.info.saved"><use xlink:href="#favourite"></use></svg>
+											<svg class="wse__icon--favourite-active" *if="event.info.saved"><use xlink:href="#favourite-active"></use></svg>
+											<span>salva</span>
+										</div>
+										<div class="wse__label">
+											<svg class="wse__icon--favourite"><use xlink:href="#favourite-active"></use></svg>
+											<span [innerHTML]="event.info.subscribed ? 'salvato' : 'salva'"></span>
+										</div>
+									</div>
+									<div class="wse__share" (click)="share()">
+										<div class="wse__info">
+											<svg class="wse__icon--share"><use xlink:href="#share"></use></svg>
+											<span>condividi</span>
+										</div>
+										<div class="wse__label">
+											<svg class="wse__icon--share"><use xlink:href="#share"></use></svg>
+											<span>condividi</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="wse__row">
+							<div class="wse__col-md-6">
+								<div class="wse__section--event__header__content">
+									<a [href]="event.channel.url" class="wse__section--event__header__category" [innerHTML]="event.channel.name"></a>
+									<div class="wse__section--event__header__abstract" [innerHTML]="event.abstract"></div>
+								</div>
+							</div>
+							<div class="wse__col-md-6"></div>
+						</div>
+					</div>
+					<div class="wse__group--questions">
+						<div class="wse__group--question" *if="user">
+							<div class="wse__group--question__avatar" [innerHTML]="user.avatar"></div>
+							<div class="wse__group--message">
+								<input type="text" class="wse__group--message__input" placeholder="Aggiungi una domanda pubblica..." />
+							</div>
+						</div>
+						<div class="wse__group--question" *for="let question of event.questions">
+							<div class="wse__group--question__avatar" [innerHTML]="question.user.avatar"></div>
+							<div class="wse__group--message">
+								<div class="wse__group--message__head">
+									<div class="wse__group--message__user" [innerHTML]="question.user.fullName"></div>
+									<div class="wse__group--message__date" [relativeDate]="question.creationDate"></div>
+								</div>
+								<div class="wse__group--message__body" [innerHTML]="question.body"></div>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="wse__col-md-6">
-					<div class="wse__channel__info">
-						<div class="wse__subscribe" [class]="{ 'wse__active': event.info.subscribed }" (click)="toggleSubscribe()">
-							<div class="wse__info">
-								<svg class="wse__bell" *if="!event.info.subscribed"><use xlink:href="#bell"></use></svg>
-								<svg class="wse__bell" *if="event.info.subscribed"><use xlink:href="#bell-active"></use></svg>
-								<span [innerHTML]="event.info.subscribers"></span>&nbsp;<span>iscritti</span>
-							</div>
-							<div class="wse__label"><svg class="wse__bell-active"><use xlink:href="#bell-active"></use></svg> <span [innerHTML]="event.info.subscribed ? 'iscritto' : 'iscriviti'"></span></div>
-						</div>
-						<div class="wse__like" [class]="{ 'wse__active': event.info.liked }" (click)="toggleLike()">
-							<div class="wse__info">
-								<svg class="wse__heart" *if="!event.info.liked"><use xlink:href="#heart"></use></svg>
-								<svg class="wse__heart" *if="event.info.liked"><use xlink:href="#heart-active"></use></svg>
-								<span [innerHTML]="event.info.likes"></span>&nbsp;<span>mi piace</span>
-							</div>
-							<div class="wse__label"><svg class="wse__heart-active"><use xlink:href="#heart-active"></use></svg> <span>mi piace</span></div>
+				<div class="wse__col-md-3" *if="event.hasRelated">
+					<div class="wse__group--previews">
+						<div class="wse__card--preview" [event]="related" *for="let related of event.related">
+							<!-- @@include ./templates/shared/event/card-preview.html -->
 						</div>
 					</div>
 				</div>
@@ -71,7 +134,7 @@
 		</div>
 	</div>
 
-	<div class="wse__section--channel__listing">
+	<div class="wse__section--event__listing">
 		<div class="wse__container-fluid">
 			<div class="wse__group--grid" *virtual="let item of filteredItems" [mode]="grid.mode" [width]="grid.width" [gutter]="grid.gutter">
 				<!-- serve un nodo figlio -->
@@ -92,6 +155,7 @@
 			</div>
 		</div>
 	</div>
+
 
 </div>
 

@@ -3,11 +3,17 @@ import { first, takeUntil } from 'rxjs/operators';
 import FilterService from '../filter/filter.service';
 import LocationService from '../location/location.service';
 import PageComponent from '../page/page.component';
+import { User } from '../user/user.service';
 import EventService from './event.service';
 
 export default class EventPageComponent extends PageComponent {
 
 	onInit() {
+		this.user = new User({
+			firstName: 'Sergio',
+			lastName: 'Arcuri'
+		});
+		console.log(this.user);
 		this.event = this.listing = null;
 		this.grid = {
 			mode: 1,
@@ -85,9 +91,56 @@ export default class EventPageComponent extends PageComponent {
 		});
 	}
 
+	onChange($event) {
+		this.pushChanges();
+	}
+
 	toggleGrid() {
 		this.grid.width = this.grid.width === 350 ? 700 : 350;
 		this.pushChanges();
+	}
+
+	toggleSubscribe() {
+		let flag = this.event.info.subscribed;
+		EventService[flag ? 'unsubscribe$' : 'subscribe$'](this.event.id).pipe(
+			first()
+		).subscribe(() => {
+			flag = !flag;
+			this.event.info.subscribed = flag;
+			if (flag) {
+				this.event.info.subscribers++;
+			} else {
+				this.event.info.subscribers--;
+			}
+			this.pushChanges();
+		});
+	}
+
+	toggleLike() {
+		let flag = this.event.info.liked;
+		EventService[flag ? 'unlike$' : 'like$'](this.event.id).pipe(
+			first()
+		).subscribe(() => {
+			flag = !flag;
+			this.event.info.liked = flag;
+			if (flag) {
+				this.event.info.likes++;
+			} else {
+				this.event.info.likes--;
+			}
+			this.pushChanges();
+		});
+	}
+
+	toggleSave() {
+		let flag = this.event.info.saved;
+		EventService[flag ? 'unsave$' : 'save$'](this.event.id).pipe(
+			first()
+		).subscribe(() => {
+			flag = !flag;
+			this.event.info.saves = flag;
+			this.pushChanges();
+		});
 	}
 
 }

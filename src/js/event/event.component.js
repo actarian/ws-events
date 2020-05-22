@@ -4,6 +4,10 @@ import EventService from './event.service';
 
 export default class EventComponent extends Component {
 
+	onChange($event) {
+		this.pushChanges();
+	}
+
 	toggleSubscribe() {
 		let flag = this.event.info.subscribed;
 		EventService[flag ? 'unsubscribe$' : 'subscribe$'](this.event.id).pipe(
@@ -32,6 +36,17 @@ export default class EventComponent extends Component {
 			} else {
 				this.event.info.likes--;
 			}
+			this.pushChanges();
+		});
+	}
+
+	toggleSave() {
+		let flag = this.event.info.saved;
+		EventService[flag ? 'unsave$' : 'save$'](this.event.id).pipe(
+			first()
+		).subscribe(() => {
+			flag = !flag;
+			this.event.info.saves = flag;
 			this.pushChanges();
 		});
 	}

@@ -5,12 +5,12 @@
 	<div class="wse__card--event__content">
 		<a [href]="event.url" class="wse__card--event__title" [innerHTML]="event.name"></a>
 		<div class="wse__event__info">
-			<div [eventDate]="event">
+			<div [eventDate]="event" (change)="onChange($event)">
 				<div class="wse__date" [class]="{ 'wse__date--live': mode === 'live', 'wse__date--countdown': mode === 'countdown' }">
 					<div class="wse__info" *if="mode === 'live'">Adesso</div>
 					<div class="wse__info" *if="mode === 'countdown'">A breve&nbsp;<span [innerHTML]="countdown"></span></div>
 					<div class="wse__info" *if="mode === 'relative' || mode === 'watchRelative'" [innerHTML]="eventDate.startDate | relativeDate"></div>
-					<div class="wse__info" *if="mode === 'date'"><svg class="wse__calendar"><use xlink:href="#calendar"></use></svg> <span [innerHTML]="eventDate.startDate | date : 'EEE dd MMMM yyyy'"></span></div>
+					<div class="wse__info" *if="mode === 'date'"><svg class="wse__icon--calendar"><use xlink:href="#calendar"></use></svg> <span [innerHTML]="eventDate.startDate | date : 'EEE dd MMMM yyyy'"></span></div>
 				</div>
 			</div>
 		</div>
@@ -19,7 +19,7 @@
 			<a [href]="event.url" class="wse__btn--rounded">
 				<span *if="event.live">Guarda ora</span>
 				<span *if="event.incoming">Scopri</span>
-				<span *if="event.future">Scopri</span>
+				<span *if="event.future && !event.incoming">Scopri</span>
 				<span *if="event.past">Rivedi</span>
 			</a>
 		</div>

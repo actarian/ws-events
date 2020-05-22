@@ -1,6 +1,7 @@
 import { of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import HttpService from '../http/http.service';
+import QuestionService from '../question/question.service';
 
 export class Event {
 
@@ -17,13 +18,15 @@ export class Event {
 
 	get future() {
 		const now = new Date();
-		const diff = this.startDate - now;
-		const hoursDiff = Math.floor(diff / 1000 / 60 / 60);
-		return !this.info.started && this.startDate > now && hoursDiff >= 24;
+		return !this.info.started && this.startDate > now;
 	}
 
 	get past() {
 		return this.info.ended;
+	}
+
+	get hasRelated() {
+		return this.related && this.related.length;
 	}
 
 	constructor(data) {
@@ -38,6 +41,12 @@ export class Event {
 			if (this.endDate) {
 				this.endDate = new Date(this.endDate);
 			}
+			if (this.related) {
+				this.related = EventService.mapEvents(this.related);
+			}
+			if (this.questions) {
+				this.questions = QuestionService.mapQuestions(this.questions);
+			}
 		}
 	}
 }
@@ -45,10 +54,10 @@ export class Event {
 export default class EventService {
 
 	static detail$(eventId) {
-		eventId = 1001; // !!!
-		return HttpService.get$(`/api/event/${eventId}/detail`).pipe(
-			map(x => EventService.fake(new Event(x)))
-			// map(x => new Event(x))
+		const id = 1001; // !!!
+		return HttpService.get$(`/api/event/${id}/detail`).pipe(
+			tap(x => x.id = parseInt(eventId)), // !!!
+			map(x => EventService.mapEvent(x))
 		);
 	}
 
@@ -63,15 +72,13 @@ export default class EventService {
 
 	static top$() {
 		return HttpService.get$(`/api/event/evidence`).pipe(
-			map(items => items.map(x => EventService.fake(new Event(x))))
-			// map(items => items.map(x => new Event(x)))
+			map(items => EventService.mapEvents(items))
 		);
 	}
 
 	static upcoming$() {
 		return HttpService.get$(`/api/event/upcoming`).pipe(
-			// map(items => items.map(x => EventService.fake(new Event(x))))
-			map(items => items.map(x => new Event(x)))
+			map(items => EventService.mapEvents(items))
 		);
 	}
 
@@ -91,54 +98,85 @@ export default class EventService {
 		return of(null);
 	}
 
+	static save$(eventId) {
+		return of(null);
+	}
+
+	static unsave$(eventId) {
+		return of(null);
+	}
+
+	static mapEvent(event) {
+		return EventService.fake(new Event(event));
+	}
+
 	static mapEvents(events) {
-		return events ? events.map(x => this.fake(new Event(x))) : [];
+		return events ? events.map(x => EventService.mapEvent(x)) : [];
 	}
 
 	static fake(item) {
 		// console.log('EventService.fake', item);
-		const now = new Date();
+		const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L'];
 		const index = item.id % 1000;
 		item.url = `${item.url}?eventId=${item.id}`;
-		item.channel.url = `${item.channel.url}?channelId=${item.channel.id}`;
-		item.info.subscribers = 50 + Math.floor(Math.random() * 200);
-		item.info.likes = 50 + Math.floor(Math.random() * 200);
-		switch (index) {
-			case 1:
-				item.startDate = new Date(new Date().setMinutes(now.getMinutes() - 10));
-				item.endDate = null;
-				item.info.started = true;
-				item.info.ended = false;
-				break;
-			case 2:
-				item.startDate = new Date(new Date().setHours(now.getHours() + 2));
-				item.endDate = null;
-				item.info.started = false;
-				item.info.ended = false;
-				break;
-			case 3:
-				item.startDate = new Date(new Date().setHours(now.getHours() - 7));
-				item.endDate = new Date(new Date().setHours(now.getHours() - 6));
-				item.info.started = true;
-				item.info.ended = true;
-				break;
-			case 4:
-				item.startDate = new Date(new Date().setDate(now.getDate() + 7));
-				item.endDate = null;
-				item.info.started = false;
-				item.info.ended = false;
-				break;
-			case 5:
-				item.startDate = new Date(new Date().setDate(now.getDate() + 14));
-				item.endDate = null;
-				item.info.started = false;
-				item.info.ended = false;
-				break;
-			default:
-				item.startDate = new Date(new Date().setDate(now.getDate() - 14 - Math.floor(Math.random() * 150)));
-				item.endDate = new Date(new Date(item.startDate.getTime()).setHours(item.startDate.getHours() + 1));
-				item.info.started = true;
-				item.info.ended = true;
+		if (item.channel) {
+			item.channel.url = `${item.channel.url}?channelId=${item.channel.id}`;
+			const channelIndex = item.channel.id % 100;
+			item.name = `Event ${letters[channelIndex - 1]}${index}`;
+		}
+		if (item.info) {
+			item.info.subscribers = 50 + Math.floor(Math.random() * 200);
+			item.info.likes = 50 + Math.floor(Math.random() * 200);
+			item.thron = {
+				src: 'https://gruppoconcorde-view.thron.com/api/xcontents/resources/delivery/getContentDetail?clientId=gruppoconcorde&xcontentId=16ef3c0a-ba0c-4e3a-a10a-32bc7f9a4297&pkey=yz1hpd'
+			};
+			const now = new Date();
+			switch (index) {
+				case 1:
+					item.startDate = new Date(new Date().setMinutes(now.getMinutes() - 10));
+					item.endDate = null;
+					item.info.started = true;
+					item.info.ended = false;
+					break;
+				case 2:
+					item.startDate = new Date(new Date().setMinutes(now.getMinutes() + 2));
+					item.endDate = null;
+					item.info.started = false;
+					item.info.ended = false;
+					break;
+				case 3:
+					item.startDate = new Date(new Date().setHours(now.getHours() + 2));
+					item.endDate = null;
+					item.info.started = false;
+					item.info.ended = false;
+					break;
+				case 4:
+					item.startDate = new Date(new Date().setHours(now.getHours() - 7));
+					item.endDate = new Date(new Date().setHours(now.getHours() - 6));
+					item.info.started = true;
+					item.info.ended = true;
+					break;
+				case 5:
+					item.startDate = new Date(new Date().setDate(now.getDate() + 7));
+					item.endDate = null;
+					item.info.started = false;
+					item.info.ended = false;
+					break;
+				case 6:
+					item.startDate = new Date(new Date().setDate(now.getDate() + 14));
+					item.endDate = null;
+					item.info.started = false;
+					item.info.ended = false;
+					break;
+				default:
+					item.startDate = new Date(new Date().setDate(now.getDate() - 14 - Math.floor(Math.random() * 150)));
+					item.endDate = new Date(new Date(item.startDate.getTime()).setHours(item.startDate.getHours() + 1));
+					item.info.started = true;
+					item.info.ended = true;
+			}
+		}
+		if (item.related) {
+			item.related = item.related.filter(x => (x.id !== item.id) && (x.live || x.incoming || x.past));
 		}
 		return item;
 	}
@@ -211,7 +249,7 @@ export default class EventService {
 					category: category_,
 				};
 				const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L'];
-				return new Array(250).fill(true).map((x, i) => {
+				return new Array(30).fill(true).map((x, i) => {
 					let type = 'event';
 					if (i > 3) {
 						if (i % 5 === 0) {
@@ -253,7 +291,7 @@ export default class EventService {
 						item.info = Object.assign({}, info_);
 					}
 					if (item.channel) {
-						item.channel = Object.assign({}, x);
+						item.channel = Object.assign({}, channel_);
 					}
 					if (item.category) {
 						const categoryId = (10001 + (i % 10));

@@ -16,15 +16,13 @@ export default class ChannelService {
 
 	static channels$() {
 		return HttpService.get$(`/api/channel/channels`).pipe(
-			map(items => items.map(x => ChannelService.fake(new Channel(x))))
-			// map(items => items.map(x => new Channel(x)))
+			map(items => ChannelService.mapChannels(items))
 		);
 	}
 
 	static detail$(channelId) {
 		return HttpService.get$(`/api/channel/${channelId}/detail`).pipe(
-			map(x => ChannelService.fake(new Channel(x)))
-			// map(x => new Channel(x))
+			map(x => ChannelService.mapChannel(x))
 		);
 	}
 
@@ -39,8 +37,7 @@ export default class ChannelService {
 
 	static top$() {
 		return HttpService.get$(`/api/channel/evidence`).pipe(
-			map(items => items.map(x => ChannelService.fake(new Channel(x))))
-			// map(items => items.map(x => new Channel(x)))
+			map(items => ChannelService.mapChannels(items))
 		);
 	}
 
@@ -58,6 +55,14 @@ export default class ChannelService {
 
 	static unlike$(channelId) {
 		return of(null);
+	}
+
+	static mapChannel(channel) {
+		return ChannelService.fake(new Channel(channel));
+	}
+
+	static mapChannels(channels) {
+		return channels ? channels.map(x => ChannelService.mapChannel(x)) : [];
 	}
 
 	static fake(item) {

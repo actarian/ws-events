@@ -512,6 +512,278 @@
     return HttpService;
   }();
 
+  var LocalStorageService = /*#__PURE__*/function () {
+    function LocalStorageService() {}
+
+    LocalStorageService.delete = function _delete(name) {
+      if (this.isLocalStorageSupported()) {
+        window.localStorage.removeItem(name);
+      }
+    };
+
+    LocalStorageService.exist = function exist(name) {
+      if (this.isLocalStorageSupported()) {
+        return window.localStorage[name] !== undefined;
+      }
+    };
+
+    LocalStorageService.get = function get(name) {
+      var value = null;
+
+      if (this.isLocalStorageSupported() && window.localStorage[name] !== undefined) {
+        try {
+          value = JSON.parse(window.localStorage[name]);
+        } catch (e) {
+          console.log('LocalStorageService.get.error parsing', name, e);
+        }
+      }
+
+      return value;
+    };
+
+    LocalStorageService.set = function set(name, value) {
+      if (this.isLocalStorageSupported()) {
+        try {
+          var cache = [];
+          var json = JSON.stringify(value, function (key, value) {
+            if (typeof value === 'object' && value !== null) {
+              if (cache.indexOf(value) !== -1) {
+                // Circular reference found, discard key
+                return;
+              }
+
+              cache.push(value);
+            }
+
+            return value;
+          });
+          window.localStorage.setItem(name, json);
+        } catch (e) {
+          console.log('LocalStorageService.set.error serializing', name, value, e);
+        }
+      }
+    };
+
+    LocalStorageService.isLocalStorageSupported = function isLocalStorageSupported() {
+      if (this.supported) {
+        return true;
+      }
+
+      var supported = false;
+
+      try {
+        supported = 'localStorage' in window && window.localStorage !== null;
+
+        if (supported) {
+          window.localStorage.setItem('test', '1');
+          window.localStorage.removeItem('test');
+        } else {
+          supported = false;
+        }
+      } catch (e) {
+        supported = false;
+      }
+
+      this.supported = supported;
+      return supported;
+    };
+
+    return LocalStorageService;
+  }();
+
+  var User = /*#__PURE__*/function () {
+    _createClass(User, [{
+      key: "avatar",
+      get: function get() {
+        return (this.firstName || '?').substr(0, 1).toUpperCase() + (this.lastName || '?').substr(0, 1).toUpperCase();
+      }
+    }, {
+      key: "fullName",
+      get: function get() {
+        return this.firstName + ' ' + this.lastName;
+      }
+    }]);
+
+    function User(data) {
+      if (data) {
+        Object.assign(this, data);
+      }
+    }
+
+    return User;
+  }();
+
+  var UserService = /*#__PURE__*/function () {
+    function UserService() {}
+
+    UserService.setUser = function setUser(user) {
+      this.user$.next(user);
+    };
+
+    UserService.me$ = function me$() {
+      var _this = this;
+
+      return HttpService.get$('/api/users/me').pipe(operators.map(function (user) {
+        return _this.mapStatic__(user, 'me');
+      }), operators.switchMap(function (user) {
+        _this.setUser(user);
+
+        return _this.user$;
+      }));
+    };
+
+    UserService.register$ = function register$(payload) {
+      var _this2 = this;
+
+      return HttpService.post$('/api/users/register', payload).pipe(operators.map(function (user) {
+        return _this2.mapStatic__(user, 'register');
+      }));
+    };
+
+    UserService.update = function update(payload) {
+      var _this3 = this;
+
+      return HttpService.post$('/api/users/updateprofile', payload).pipe(operators.map(function (user) {
+        return _this3.mapStatic__(user, 'register');
+      }));
+    };
+
+    UserService.login$ = function login$(payload) {
+      var _this4 = this;
+
+      return HttpService.post$('/api/users/login', payload).pipe(operators.map(function (user) {
+        return _this4.mapStatic__(user, 'login');
+      }));
+    };
+
+    UserService.logout$ = function logout$() {
+      var _this5 = this;
+
+      return HttpService.post$('/api/users/logout').pipe(operators.map(function (user) {
+        return _this5.mapStatic__(user, 'logout');
+      }));
+    };
+
+    UserService.retrieve$ = function retrieve$(payload) {
+      var _this6 = this;
+
+      return HttpService.post$('/api/users/retrievepassword', payload).pipe(operators.map(function (user) {
+        return _this6.mapStatic__(user, 'retrieve');
+      }));
+    };
+
+    UserService.mapStatic__ = function mapStatic__(user, action) {
+      if (action === void 0) {
+        action = 'me';
+      }
+
+      if (!STATIC) {
+        return user;
+      }
+
+      switch (action) {
+        case 'me':
+          if (!LocalStorageService.exist('user')) {
+            user = null;
+          }
+          break;
+
+        case 'register':
+          LocalStorageService.set('user', user);
+          break;
+
+        case 'login':
+          LocalStorageService.set('user', user);
+          break;
+
+        case 'logout':
+          LocalStorageService.delete('user');
+          break;
+      }
+
+      return user;
+    };
+
+    UserService.fake = function fake(user) {
+      user.firstName = user.firstName || 'Jhon';
+      user.lastName = user.lastName || 'Appleseed';
+      return user;
+    };
+
+    UserService.mapUser = function mapUser(user) {
+      return UserService.fake(new User(user));
+    };
+
+    UserService.mapUsers = function mapUsers(users) {
+      return users ? users.map(function (x) {
+        return UserService.mapUser(x);
+      }) : [];
+    };
+
+    return UserService;
+  }();
+  UserService.user$ = new rxjs.BehaviorSubject(null);
+
+  var Question = function Question(data) {
+    if (data) {
+      Object.assign(this, data);
+
+      if (this.creationDate) {
+        this.creationDate = new Date(this.creationDate);
+      }
+
+      if (this.user) {
+        this.user = UserService.mapUser(this.user);
+      }
+
+      console.log(this.user);
+    }
+  };
+
+  var QuestionService = /*#__PURE__*/function () {
+    function QuestionService() {}
+
+    QuestionService.mapQuestion = function mapQuestion(question) {
+      return QuestionService.fake(new Question(question));
+    };
+
+    QuestionService.mapQuestions = function mapQuestions(questions) {
+      return questions ? questions.map(function (x) {
+        return QuestionService.mapQuestion(x);
+      }) : [];
+    };
+
+    QuestionService.fake = function fake(item) {
+      var now = new Date();
+      var index = item.id % 1000;
+
+      switch (index) {
+        case 1:
+          item.creationDate = new Date(new Date().setSeconds(now.getSeconds() - 30));
+          break;
+
+        case 2:
+          item.creationDate = new Date(new Date().setMinutes(now.getMinutes() - 10));
+          break;
+
+        case 3:
+          item.creationDate = new Date(new Date().setMinutes(now.getMinutes() - 45));
+          break;
+
+        case 4:
+          item.creationDate = new Date(new Date().setHours(now.getHours() - 1));
+          break;
+
+        default:
+          item.creationDate = new Date(new Date().setDate(now.getDate() - 1 - Math.floor(Math.random() * 20)));
+      }
+
+      return item;
+    };
+
+    return QuestionService;
+  }();
+
   var Event = /*#__PURE__*/function () {
     _createClass(Event, [{
       key: "live",
@@ -530,14 +802,17 @@
       key: "future",
       get: function get() {
         var now = new Date();
-        var diff = this.startDate - now;
-        var hoursDiff = Math.floor(diff / 1000 / 60 / 60);
-        return !this.info.started && this.startDate > now && hoursDiff >= 24;
+        return !this.info.started && this.startDate > now;
       }
     }, {
       key: "past",
       get: function get() {
         return this.info.ended;
+      }
+    }, {
+      key: "hasRelated",
+      get: function get() {
+        return this.related && this.related.length;
       }
     }]);
 
@@ -556,6 +831,14 @@
         if (this.endDate) {
           this.endDate = new Date(this.endDate);
         }
+
+        if (this.related) {
+          this.related = EventService.mapEvents(this.related);
+        }
+
+        if (this.questions) {
+          this.questions = QuestionService.mapQuestions(this.questions);
+        }
       }
     }
 
@@ -566,12 +849,14 @@
     function EventService() {}
 
     EventService.detail$ = function detail$(eventId) {
-      eventId = 1001; // !!!
+      var id = 1001; // !!!
 
-      return HttpService.get$("/api/event/" + eventId + "/detail").pipe(operators.map(function (x) {
-        return EventService.fake(new Event(x));
-      }) // map(x => new Event(x))
-      );
+      return HttpService.get$("/api/event/" + id + "/detail").pipe(operators.tap(function (x) {
+        return x.id = parseInt(eventId);
+      }), // !!!
+      operators.map(function (x) {
+        return EventService.mapEvent(x);
+      }));
     };
 
     EventService.listing$ = function listing$(eventId) {
@@ -582,19 +867,13 @@
 
     EventService.top$ = function top$() {
       return HttpService.get$("/api/event/evidence").pipe(operators.map(function (items) {
-        return items.map(function (x) {
-          return EventService.fake(new Event(x));
-        });
-      }) // map(items => items.map(x => new Event(x)))
-      );
+        return EventService.mapEvents(items);
+      }));
     };
 
     EventService.upcoming$ = function upcoming$() {
-      return HttpService.get$("/api/event/upcoming").pipe( // map(items => items.map(x => EventService.fake(new Event(x))))
-      operators.map(function (items) {
-        return items.map(function (x) {
-          return new Event(x);
-        });
+      return HttpService.get$("/api/event/upcoming").pipe(operators.map(function (items) {
+        return EventService.mapEvents(items);
       }));
     };
 
@@ -614,64 +893,99 @@
       return rxjs.of(null);
     };
 
-    EventService.mapEvents = function mapEvents(events) {
-      var _this = this;
+    EventService.save$ = function save$(eventId) {
+      return rxjs.of(null);
+    };
 
+    EventService.unsave$ = function unsave$(eventId) {
+      return rxjs.of(null);
+    };
+
+    EventService.mapEvent = function mapEvent(event) {
+      return EventService.fake(new Event(event));
+    };
+
+    EventService.mapEvents = function mapEvents(events) {
       return events ? events.map(function (x) {
-        return _this.fake(new Event(x));
+        return EventService.mapEvent(x);
       }) : [];
     };
 
     EventService.fake = function fake(item) {
       // console.log('EventService.fake', item);
-      var now = new Date();
+      var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L'];
       var index = item.id % 1000;
       item.url = item.url + "?eventId=" + item.id;
-      item.channel.url = item.channel.url + "?channelId=" + item.channel.id;
-      item.info.subscribers = 50 + Math.floor(Math.random() * 200);
-      item.info.likes = 50 + Math.floor(Math.random() * 200);
 
-      switch (index) {
-        case 1:
-          item.startDate = new Date(new Date().setMinutes(now.getMinutes() - 10));
-          item.endDate = null;
-          item.info.started = true;
-          item.info.ended = false;
-          break;
+      if (item.channel) {
+        item.channel.url = item.channel.url + "?channelId=" + item.channel.id;
+        var channelIndex = item.channel.id % 100;
+        item.name = "Event " + letters[channelIndex - 1] + index;
+      }
 
-        case 2:
-          item.startDate = new Date(new Date().setHours(now.getHours() + 2));
-          item.endDate = null;
-          item.info.started = false;
-          item.info.ended = false;
-          break;
+      if (item.info) {
+        item.info.subscribers = 50 + Math.floor(Math.random() * 200);
+        item.info.likes = 50 + Math.floor(Math.random() * 200);
+        item.thron = {
+          src: 'https://gruppoconcorde-view.thron.com/api/xcontents/resources/delivery/getContentDetail?clientId=gruppoconcorde&xcontentId=16ef3c0a-ba0c-4e3a-a10a-32bc7f9a4297&pkey=yz1hpd'
+        };
+        var now = new Date();
 
-        case 3:
-          item.startDate = new Date(new Date().setHours(now.getHours() - 7));
-          item.endDate = new Date(new Date().setHours(now.getHours() - 6));
-          item.info.started = true;
-          item.info.ended = true;
-          break;
+        switch (index) {
+          case 1:
+            item.startDate = new Date(new Date().setMinutes(now.getMinutes() - 10));
+            item.endDate = null;
+            item.info.started = true;
+            item.info.ended = false;
+            break;
 
-        case 4:
-          item.startDate = new Date(new Date().setDate(now.getDate() + 7));
-          item.endDate = null;
-          item.info.started = false;
-          item.info.ended = false;
-          break;
+          case 2:
+            item.startDate = new Date(new Date().setMinutes(now.getMinutes() + 2));
+            item.endDate = null;
+            item.info.started = false;
+            item.info.ended = false;
+            break;
 
-        case 5:
-          item.startDate = new Date(new Date().setDate(now.getDate() + 14));
-          item.endDate = null;
-          item.info.started = false;
-          item.info.ended = false;
-          break;
+          case 3:
+            item.startDate = new Date(new Date().setHours(now.getHours() + 2));
+            item.endDate = null;
+            item.info.started = false;
+            item.info.ended = false;
+            break;
 
-        default:
-          item.startDate = new Date(new Date().setDate(now.getDate() - 14 - Math.floor(Math.random() * 150)));
-          item.endDate = new Date(new Date(item.startDate.getTime()).setHours(item.startDate.getHours() + 1));
-          item.info.started = true;
-          item.info.ended = true;
+          case 4:
+            item.startDate = new Date(new Date().setHours(now.getHours() - 7));
+            item.endDate = new Date(new Date().setHours(now.getHours() - 6));
+            item.info.started = true;
+            item.info.ended = true;
+            break;
+
+          case 5:
+            item.startDate = new Date(new Date().setDate(now.getDate() + 7));
+            item.endDate = null;
+            item.info.started = false;
+            item.info.ended = false;
+            break;
+
+          case 6:
+            item.startDate = new Date(new Date().setDate(now.getDate() + 14));
+            item.endDate = null;
+            item.info.started = false;
+            item.info.ended = false;
+            break;
+
+          default:
+            item.startDate = new Date(new Date().setDate(now.getDate() - 14 - Math.floor(Math.random() * 150)));
+            item.endDate = new Date(new Date(item.startDate.getTime()).setHours(item.startDate.getHours() + 1));
+            item.info.started = true;
+            item.info.ended = true;
+        }
+      }
+
+      if (item.related) {
+        item.related = item.related.filter(function (x) {
+          return x.id !== item.id && (x.live || x.incoming || x.past);
+        });
       }
 
       return item;
@@ -744,7 +1058,7 @@
           category: category_
         };
         var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L'];
-        return new Array(250).fill(true).map(function (x, i) {
+        return new Array(30).fill(true).map(function (x, i) {
           var type = 'event';
 
           if (i > 3) {
@@ -798,7 +1112,7 @@
           }
 
           if (item.channel) {
-            item.channel = Object.assign({}, x);
+            item.channel = Object.assign({}, channel_);
           }
 
           if (item.category) {
@@ -836,18 +1150,14 @@
 
     ChannelService.channels$ = function channels$() {
       return HttpService.get$("/api/channel/channels").pipe(operators.map(function (items) {
-        return items.map(function (x) {
-          return ChannelService.fake(new Channel(x));
-        });
-      }) // map(items => items.map(x => new Channel(x)))
-      );
+        return ChannelService.mapChannels(items);
+      }));
     };
 
     ChannelService.detail$ = function detail$(channelId) {
       return HttpService.get$("/api/channel/" + channelId + "/detail").pipe(operators.map(function (x) {
-        return ChannelService.fake(new Channel(x));
-      }) // map(x => new Channel(x))
-      );
+        return ChannelService.mapChannel(x);
+      }));
     };
 
     ChannelService.listing$ = function listing$(channelId) {
@@ -858,11 +1168,8 @@
 
     ChannelService.top$ = function top$() {
       return HttpService.get$("/api/channel/evidence").pipe(operators.map(function (items) {
-        return items.map(function (x) {
-          return ChannelService.fake(new Channel(x));
-        });
-      }) // map(items => items.map(x => new Channel(x)))
-      );
+        return ChannelService.mapChannels(items);
+      }));
     };
 
     ChannelService.subscribe$ = function subscribe$(channelId) {
@@ -879,6 +1186,16 @@
 
     ChannelService.unlike$ = function unlike$(channelId) {
       return rxjs.of(null);
+    };
+
+    ChannelService.mapChannel = function mapChannel(channel) {
+      return ChannelService.fake(new Channel(channel));
+    };
+
+    ChannelService.mapChannels = function mapChannels(channels) {
+      return channels ? channels.map(function (x) {
+        return ChannelService.mapChannel(x);
+      }) : [];
     };
 
     ChannelService.fake = function fake(item) {
@@ -1233,6 +1550,44 @@
   ChannelComponent.meta = {
     selector: '[channel]',
     inputs: ['channel']
+  };
+
+  var CountPipe = /*#__PURE__*/function (_Pipe) {
+    _inheritsLoose(CountPipe, _Pipe);
+
+    function CountPipe() {
+      return _Pipe.apply(this, arguments) || this;
+    }
+
+    CountPipe.isNumber = function isNumber(value) {
+      return typeof value === 'number' && isFinite(value);
+    };
+
+    CountPipe.transform = function transform(value) {
+      if (!CountPipe.isNumber(value)) {
+        return value;
+      }
+
+      value = parseInt(value);
+      var count = '';
+
+      if (value > 1000000) {
+        value = Math.floor(value / 100000) / 10;
+        count = value + 'M';
+      } else if (value > 1000) {
+        value = Math.floor(value / 100) / 10;
+        count = value + 'k';
+      } else {
+        return value;
+      }
+
+      return count;
+    };
+
+    return CountPipe;
+  }(rxcomp.Pipe);
+  CountPipe.meta = {
+    name: 'count'
   };
 
   var DATE_FORMATS_SPLIT = /((?:[^yMLdHhmsaZEwG']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|L+|d+|H+|h+|m+|s+|a|Z|G+|w+))([\s\S]*)/;
@@ -1792,6 +2147,14 @@
     };
 
     EventDateComponent.getMode = function getMode(item) {
+      if (!item.past && !item.info.started) {
+        var now = new Date();
+
+        if (now > item.startDate) {
+          item.info.started = true;
+        }
+      }
+
       if (item.live) {
         return EventDateMode.Live;
       } else if (item.incoming) {
@@ -1802,7 +2165,7 @@
 
       if (item.past && hoursDiff < 24) {
         return EventDateMode.WatchRelative;
-      } else if (hoursDiff < 24 * 3) {
+      } else if (hoursDiff < 24 * 14) {
         return EventDateMode.Relative;
       } else {
         return EventDateMode.Date;
@@ -1814,24 +2177,12 @@
     _proto.onInit = function onInit() {
       var _this = this;
 
-      this.mode = EventDateComponent.getMode(this.eventDate);
-      /*
-      if (this.mode === EventDateMode.Countdown || this.mode === EventDateMode.WatchRelative) {
-      	this.countdown = '';
-      	this.live$ = new Subject();
-      	this.change$().pipe(
-      		takeUntil(this.unsubscribe$)
-      	).subscribe(() => {
-      		if (this.mode === EventDateMode.Countdown || this.mode === EventDateMode.WatchRelative) {
-      			this.pushChanges();
-      		}
-      	});
-      }
-      */
-
+      this.mode_ = EventDateComponent.getMode(this.eventDate);
       this.countdown = '';
       this.live$ = new rxjs.Subject();
       this.change$().pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function () {
+        _this.mode = EventDateComponent.getMode(_this.eventDate);
+
         if (_this.mode === EventDateMode.Countdown || _this.mode === EventDateMode.WatchRelative) {
           _this.pushChanges();
         }
@@ -1847,7 +2198,7 @@
     _proto.change$ = function change$() {
       var _this2 = this;
 
-      return rxjs.interval(1000).pipe(operators.takeUntil(this.live$), operators.tap(function () {
+      return rxjs.interval(1000).pipe(operators.takeUntil(this.live$), operators.startWith(0), operators.tap(function () {
         if (_this2.mode === EventDateMode.Countdown) {
           var diff = _this2.eventDate.startDate - new Date();
           var hh = Math.floor(diff / HOUR);
@@ -1865,10 +2216,24 @@
       }));
     };
 
+    _createClass(EventDateComponent, [{
+      key: "mode",
+      get: function get() {
+        return this.mode_;
+      },
+      set: function set(mode) {
+        if (this.mode_ !== mode) {
+          this.mode_ = mode;
+          this.change.next(this.eventDate);
+        }
+      }
+    }]);
+
     return EventDateComponent;
   }(rxcomp.Component);
   EventDateComponent.meta = {
     selector: '[eventDate]',
+    outputs: ['change'],
     inputs: ['eventDate']
   };
 
@@ -1884,6 +2249,11 @@
     _proto.onInit = function onInit() {
       var _this = this;
 
+      this.user = new User({
+        firstName: 'Sergio',
+        lastName: 'Arcuri'
+      });
+      console.log(this.user);
       this.event = this.listing = null;
       this.grid = {
         mode: 1,
@@ -1966,9 +2336,61 @@
       });
     };
 
+    _proto.onChange = function onChange($event) {
+      this.pushChanges();
+    };
+
     _proto.toggleGrid = function toggleGrid() {
       this.grid.width = this.grid.width === 350 ? 700 : 350;
       this.pushChanges();
+    };
+
+    _proto.toggleSubscribe = function toggleSubscribe() {
+      var _this3 = this;
+
+      var flag = this.event.info.subscribed;
+      EventService[flag ? 'unsubscribe$' : 'subscribe$'](this.event.id).pipe(operators.first()).subscribe(function () {
+        flag = !flag;
+        _this3.event.info.subscribed = flag;
+
+        if (flag) {
+          _this3.event.info.subscribers++;
+        } else {
+          _this3.event.info.subscribers--;
+        }
+
+        _this3.pushChanges();
+      });
+    };
+
+    _proto.toggleLike = function toggleLike() {
+      var _this4 = this;
+
+      var flag = this.event.info.liked;
+      EventService[flag ? 'unlike$' : 'like$'](this.event.id).pipe(operators.first()).subscribe(function () {
+        flag = !flag;
+        _this4.event.info.liked = flag;
+
+        if (flag) {
+          _this4.event.info.likes++;
+        } else {
+          _this4.event.info.likes--;
+        }
+
+        _this4.pushChanges();
+      });
+    };
+
+    _proto.toggleSave = function toggleSave() {
+      var _this5 = this;
+
+      var flag = this.event.info.saved;
+      EventService[flag ? 'unsave$' : 'save$'](this.event.id).pipe(operators.first()).subscribe(function () {
+        flag = !flag;
+        _this5.event.info.saves = flag;
+
+        _this5.pushChanges();
+      });
     };
 
     return EventPageComponent;
@@ -1985,6 +2407,10 @@
     }
 
     var _proto = EventComponent.prototype;
+
+    _proto.onChange = function onChange($event) {
+      this.pushChanges();
+    };
 
     _proto.toggleSubscribe = function toggleSubscribe() {
       var _this = this;
@@ -2019,6 +2445,18 @@
         }
 
         _this2.pushChanges();
+      });
+    };
+
+    _proto.toggleSave = function toggleSave() {
+      var _this3 = this;
+
+      var flag = this.event.info.saved;
+      EventService[flag ? 'unsave$' : 'save$'](this.event.id).pipe(operators.first()).subscribe(function () {
+        flag = !flag;
+        _this3.event.info.saves = flag;
+
+        _this3.pushChanges();
       });
     };
 
@@ -2525,180 +2963,6 @@
     selector: '[modal]'
   };
 
-  var LocalStorageService = /*#__PURE__*/function () {
-    function LocalStorageService() {}
-
-    LocalStorageService.delete = function _delete(name) {
-      if (this.isLocalStorageSupported()) {
-        window.localStorage.removeItem(name);
-      }
-    };
-
-    LocalStorageService.exist = function exist(name) {
-      if (this.isLocalStorageSupported()) {
-        return window.localStorage[name] !== undefined;
-      }
-    };
-
-    LocalStorageService.get = function get(name) {
-      var value = null;
-
-      if (this.isLocalStorageSupported() && window.localStorage[name] !== undefined) {
-        try {
-          value = JSON.parse(window.localStorage[name]);
-        } catch (e) {
-          console.log('LocalStorageService.get.error parsing', name, e);
-        }
-      }
-
-      return value;
-    };
-
-    LocalStorageService.set = function set(name, value) {
-      if (this.isLocalStorageSupported()) {
-        try {
-          var cache = [];
-          var json = JSON.stringify(value, function (key, value) {
-            if (typeof value === 'object' && value !== null) {
-              if (cache.indexOf(value) !== -1) {
-                // Circular reference found, discard key
-                return;
-              }
-
-              cache.push(value);
-            }
-
-            return value;
-          });
-          window.localStorage.setItem(name, json);
-        } catch (e) {
-          console.log('LocalStorageService.set.error serializing', name, value, e);
-        }
-      }
-    };
-
-    LocalStorageService.isLocalStorageSupported = function isLocalStorageSupported() {
-      if (this.supported) {
-        return true;
-      }
-
-      var supported = false;
-
-      try {
-        supported = 'localStorage' in window && window.localStorage !== null;
-
-        if (supported) {
-          window.localStorage.setItem('test', '1');
-          window.localStorage.removeItem('test');
-        } else {
-          supported = false;
-        }
-      } catch (e) {
-        supported = false;
-      }
-
-      this.supported = supported;
-      return supported;
-    };
-
-    return LocalStorageService;
-  }();
-
-  var UserService = /*#__PURE__*/function () {
-    function UserService() {}
-
-    UserService.setUser = function setUser(user) {
-      this.user$.next(user);
-    };
-
-    UserService.me$ = function me$() {
-      var _this = this;
-
-      return HttpService.get$('/api/users/me').pipe(operators.map(function (user) {
-        return _this.mapStatic__(user, 'me');
-      }), operators.switchMap(function (user) {
-        _this.setUser(user);
-
-        return _this.user$;
-      }));
-    };
-
-    UserService.register$ = function register$(payload) {
-      var _this2 = this;
-
-      return HttpService.post$('/api/users/register', payload).pipe(operators.map(function (user) {
-        return _this2.mapStatic__(user, 'register');
-      }));
-    };
-
-    UserService.update = function update(payload) {
-      var _this3 = this;
-
-      return HttpService.post$('/api/users/updateprofile', payload).pipe(operators.map(function (user) {
-        return _this3.mapStatic__(user, 'register');
-      }));
-    };
-
-    UserService.login$ = function login$(payload) {
-      var _this4 = this;
-
-      return HttpService.post$('/api/users/login', payload).pipe(operators.map(function (user) {
-        return _this4.mapStatic__(user, 'login');
-      }));
-    };
-
-    UserService.logout$ = function logout$() {
-      var _this5 = this;
-
-      return HttpService.post$('/api/users/logout').pipe(operators.map(function (user) {
-        return _this5.mapStatic__(user, 'logout');
-      }));
-    };
-
-    UserService.retrieve$ = function retrieve$(payload) {
-      var _this6 = this;
-
-      return HttpService.post$('/api/users/retrievepassword', payload).pipe(operators.map(function (user) {
-        return _this6.mapStatic__(user, 'retrieve');
-      }));
-    };
-
-    UserService.mapStatic__ = function mapStatic__(user, action) {
-      if (action === void 0) {
-        action = 'me';
-      }
-
-      if (!STATIC) {
-        return user;
-      }
-
-      switch (action) {
-        case 'me':
-          if (!LocalStorageService.exist('user')) {
-            user = null;
-          }
-          break;
-
-        case 'register':
-          LocalStorageService.set('user', user);
-          break;
-
-        case 'login':
-          LocalStorageService.set('user', user);
-          break;
-
-        case 'logout':
-          LocalStorageService.delete('user');
-          break;
-      }
-
-      return user;
-    };
-
-    return UserService;
-  }();
-  UserService.user$ = new rxjs.BehaviorSubject(null);
-
   var src = STATIC ? '/tiemme-com/club-modal.html' : '/Viewdoc.cshtml?co_id=23649';
 
   var RegisterOrLoginComponent = /*#__PURE__*/function (_Component) {
@@ -3024,6 +3288,48 @@
   if (window.locale) {
     RelativeDatePipe.setLocale(window.locale);
   }
+
+  var RelativeDateDirective = /*#__PURE__*/function (_Directive) {
+    _inheritsLoose(RelativeDateDirective, _Directive);
+
+    function RelativeDateDirective() {
+      return _Directive.apply(this, arguments) || this;
+    }
+
+    var _proto = RelativeDateDirective.prototype;
+
+    _proto.onInit = function onInit() {
+      var _this = this;
+
+      this.change$().pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function () {
+        _this.text = RelativeDatePipe.transform(_this.relativeDate);
+      });
+    };
+
+    _proto.change$ = function change$() {
+      return rxjs.interval(1000).pipe(operators.startWith(0));
+    };
+
+    _createClass(RelativeDateDirective, [{
+      key: "text",
+      set: function set(text) {
+        if (this.text_ !== text) {
+          this.text_ = text;
+
+          var _getContext = rxcomp.getContext(this),
+              node = _getContext.node;
+
+          node.innerText = text;
+        }
+      }
+    }]);
+
+    return RelativeDateDirective;
+  }(rxcomp.Directive);
+  RelativeDateDirective.meta = {
+    selector: '[relativeDate]',
+    inputs: ['relativeDate']
+  };
 
   var ScrollToDirective = /*#__PURE__*/function (_Directive) {
     _inheritsLoose(ScrollToDirective, _Directive);
@@ -3646,19 +3952,13 @@
       this.canPlay.next(this);
     };
 
-    _proto.onPlaying = function (_onPlaying) {
-      function onPlaying() {
-        return _onPlaying.apply(this, arguments);
-      }
-
-      onPlaying.toString = function () {
-        return _onPlaying.toString();
-      };
-
-      return onPlaying;
-    }(function () {
+    _proto.onPlaying = function onPlaying() {
       var player = this.player;
-      player.off('playing', onPlaying);
+      player.off('playing', this.onPlaying);
+
+      var _getContext3 = rxcomp.getContext(this),
+          node = _getContext3.node;
+
       var controls = node.hasAttribute('controls') ? true : false;
 
       if (!controls) {
@@ -3670,7 +3970,7 @@
           player.currentQuality(highestQuality);
         }
       }
-    });
+    };
 
     _proto.onComplete = function onComplete() {
       this.complete.next(this);
@@ -4533,7 +4833,7 @@
   }(rxcomp.Module);
   AppModule.meta = {
     imports: [rxcomp.CoreModule, rxcompForm.FormModule],
-    declarations: [ChannelComponent, ChannelPageComponent, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, EventPageComponent, HtmlPipe, IndexPageComponent, LazyDirective, ModalComponent, ModalOutletComponent, RegisterOrLoginComponent, RelativeDatePipe, ScrollToDirective, SecureDirective, SwiperDirective, SwiperEventsDirective, SwiperSlidesDirective, SwiperTopEventsDirective, ThronComponent, VirtualStructure, VideoComponent, YoutubeComponent],
+    declarations: [ChannelComponent, ChannelPageComponent, CountPipe, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, EventPageComponent, HtmlPipe, IndexPageComponent, LazyDirective, ModalComponent, ModalOutletComponent, RegisterOrLoginComponent, RelativeDateDirective, RelativeDatePipe, ScrollToDirective, SecureDirective, SwiperDirective, SwiperEventsDirective, SwiperSlidesDirective, SwiperTopEventsDirective, ThronComponent, VirtualStructure, VideoComponent, YoutubeComponent],
     bootstrap: AppComponent
   };
 

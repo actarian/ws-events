@@ -39,6 +39,47 @@
 	background: rgb(237, 241, 254);
 	background: linear-gradient(0deg, rgba(237, 241, 254, 1) 0%, rgba(237, 241, 254, 0) 50%);
 
+	&__content {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: flex-start;
+
+		p {
+			margin: 0;
+		}
+
+		& p+p {
+			margin-top: 10px;
+		}
+	}
+
+	&__category {
+		position: relative;
+		@extend %category;
+		max-width: 500px;
+		margin-bottom: 30px;
+	}
+
+	&__title {
+		position: relative;
+		@extend %title;
+		max-width: 500px;
+		margin-bottom: 20px;
+	}
+
+	&__abstract {
+		position: relative;
+		@extend %abstract;
+		max-width: 500px;
+		margin-bottom: 10px;
+	}
+
+	&__group--cta {
+		position: relative;
+		margin-top: 40px;
+	}
+
 	@include media-up(md) {
 		.wse__col-md-6 {
 			display: flex;

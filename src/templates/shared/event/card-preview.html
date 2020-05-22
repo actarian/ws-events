@@ -1,9 +1,9 @@
-<div class="wse__card--top">
-	<div class="wse__card--top__picture">
-		<img [lazy]="event.picture.src + '700x700?sig=' + event.id" />
+<div class="wse__card--preview">
+	<div class="wse__card--preview__picture">
+		<img [lazy]="event.picture.src + '480x270?sig=' + event.id" />
 	</div>
-	<div class="wse__card--top__content">
-		<a [href]="event.url" class="wse__card--top__title" [innerHTML]="event.name"></a>
+	<div class="wse__card--preview__content">
+		<a [href]="event.url" class="wse__card--preview__title" [innerHTML]="event.name"></a>
 		<div class="wse__event__info">
 			<div [eventDate]="event" (change)="onChange($event)">
 				<div class="wse__date" [class]="{ 'wse__date--live': mode === 'live', 'wse__date--countdown': mode === 'countdown' }">
@@ -13,15 +13,6 @@
 					<div class="wse__info" *if="mode === 'date'"><svg class="wse__icon--calendar"><use xlink:href="#calendar"></use></svg> <span [innerHTML]="eventDate.startDate | date : 'EEE dd MMMM yyyy'"></span></div>
 				</div>
 			</div>
-		</div>
-		<div class="wse__card--top__abstract" [innerHTML]="event.abstract"></div>
-		<div class="wse__card--top__group--cta">
-			<a [href]="event.url" class="wse__btn--rounded">
-				<span *if="event.live">Guarda ora</span>
-				<span *if="event.incoming">Scopri</span>
-				<span *if="event.future && !event.incoming">Scopri</span>
-				<span *if="event.past">Rivedi</span>
-			</a>
 		</div>
 	</div>
 </div>

@@ -110,7 +110,7 @@
 	}
 
 	.wse__date {
-		font-family: 'DM Mono', monospace;
+		font-family: 'Roboto Mono', monospace;
 
 		&.wse__date--live {
 			background: #f70a36;
@@ -132,7 +132,9 @@
 
 	.wse__date,
 	.wse__subscribe,
-	.wse__like {
+	.wse__like,
+	.wse__save,
+	.wse__share {
 		position: relative;
 		display: flex;
 		align-items: center;
@@ -140,16 +142,17 @@
 		margin: 0 1px;
 		padding: 4px 9px;
 		border-radius: 4px;
-		font-family: 'DM Mono', monospace;
+		font-family: 'Roboto Mono', monospace;
 		font-size: 11px;
 		font-weight: $font-semibold;
-		text-transform: uppercase;
 		white-space: nowrap;
 		cursor: pointer;
 	}
 
 	.wse__subscribe,
-	.wse__like {
+	.wse__like,
+	.wse__save,
+	.wse__share {
 
 		.wse__label {
 			position: absolute;
@@ -209,11 +212,12 @@
 		}
 	}
 
-	.wse__calendar,
-	.wse__bell,
-	.wse__bell-active,
-	.wse__heart,
-	.wse__heart-active {
+	.wse__icon--calendar,
+	.wse__icon--bell,
+	.wse__icon--heart,
+	.wse__icon--bookmark,
+	.wse__icon--favourite,
+	.wse__icon--share {
 		width: 16px;
 		height: 16px;
 		margin-right: 8px;
@@ -223,7 +227,9 @@
 .wse__channel__info {
 
 	.wse__subscribe,
-	.wse__like {
+	.wse__like,
+	.wse__save,
+	.wse__share {
 		background: $background;
 	}
 

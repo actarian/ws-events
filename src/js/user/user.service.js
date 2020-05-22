@@ -4,6 +4,24 @@ import { STATIC } from '../environment/environment';
 import HttpService from '../http/http.service';
 import LocalStorageService from '../local-storage/local-storage.service';
 
+export class User {
+
+	get avatar() {
+		return (this.firstName || '?').substr(0, 1).toUpperCase() + (this.lastName || '?').substr(0, 1).toUpperCase();
+	}
+
+	get fullName() {
+		return this.firstName + ' ' + this.lastName;
+	}
+
+	constructor(data) {
+		if (data) {
+			Object.assign(this, data);
+		}
+	}
+
+}
+
 export default class UserService {
 
 	static setUser(user) {
@@ -70,6 +88,20 @@ export default class UserService {
 				break;
 		}
 		return user;
+	}
+
+	static fake(user) {
+		user.firstName = user.firstName || 'Jhon';
+		user.lastName = user.lastName || 'Appleseed';
+		return user;
+	}
+
+	static mapUser(user) {
+		return UserService.fake(new User(user));
+	}
+
+	static mapUsers(users) {
+		return users ? users.map(x => UserService.mapUser(x)) : [];
 	}
 
 }

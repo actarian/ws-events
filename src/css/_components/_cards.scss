@@ -91,7 +91,9 @@
 
 		.wse__date,
 		.wse__subscribe,
-		.wse__like {
+		.wse__like,
+		.wse__save,
+		.wse__share {
 			font-size: 14px;
 		}
 
@@ -810,15 +812,126 @@
 	}
 }
 
-.wse__player {
-	@include aspect-clip(16, 9);
+.wse__card--preview {
+	position: relative;
+	background: $background;
+	margin-bottom: 15px;
+	cursor: pointer;
 
-	&>.wse__thron {
+	&__picture {
+		display: block;
+		@include aspect-clip(16, 9);
+		background: $background-negative;
+		// background: rgba($background-tertiary, 0.5);
+		transition: background-color ease-in-out 350ms;
+
+		&>img {
+			position: absolute;
+			top: 0;
+			left: 50%;
+			width: auto;
+			height: 100%;
+			transform: translateX(-50%);
+			@extend %lazy;
+		}
+
+		&:after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(#000, 0.8);
+			background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.6) 35%, rgba(0, 0, 0, 0.1) 70%, rgba(0, 0, 0, 0.1) 100%);
+			transform: translateZ(0);
+			transition: background-color ease-in-out 650ms;
+		}
+	}
+
+	&__content {
 		position: absolute;
-		top: 0;
-		left: 50%;
 		width: 100%;
 		height: 100%;
-		transform: translateX(-50%);
+		top: 0;
+		left: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: center;
+		text-align: center;
+		padding: 20px 20px 30px 20px;
+
+		p {
+			margin: 0;
+		}
+
+		& p+p {
+			margin-top: 10px;
+		}
+	}
+
+	&__category {
+		display: block;
+		position: relative;
+		@extend %category;
+		color: $foreground-negative;
+		max-width: 500px;
+		margin-bottom: 30px;
+	}
+
+	&__title {
+		display: block;
+		position: relative;
+		@extend %subtitle;
+		color: $foreground-negative;
+		max-width: 500px;
+		margin-bottom: 10px;
+	}
+
+	.wse__event__info {
+		.wse__date {
+			color: white;
+
+			&.wse__date--live {
+				background: #f70a36;
+			}
+
+			&.wse__date--countdown {
+				background: rgba(0, 0, 0, 0.8);
+			}
+		}
+
+		.wse__calendar {
+			fill: white;
+		}
+	}
+
+	&__abstract {
+		display: block;
+		position: relative;
+		@extend %abstract;
+		color: $foreground-negative;
+		max-width: 500px;
+		font-size: 14px;
+		overflow: hidden;
+		transition: ease-in-out max-height 400ms 0ms;
+		max-height: 0;
+	}
+
+	&:hover {
+		.wse__card--listing__abstract {
+			max-height: 200px;
+		}
+	}
+
+	&__group--cta {
+		display: block;
+		position: relative;
+		margin-top: 30px;
+	}
+
+	.wse__btn--rounded {
+		@extend %btn-md;
 	}
 }

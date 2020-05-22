@@ -1,6 +1,6 @@
 import { Component } from 'rxcomp';
 import { interval, Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { startWith, takeUntil, tap } from 'rxjs/operators';
 
 export const EventDateMode = {
 	Live: 'live',
@@ -20,6 +20,17 @@ const to10 = (value) => {
 
 export default class EventDateComponent extends Component {
 
+	get mode() {
+		return this.mode_;
+	}
+
+	set mode(mode) {
+		if (this.mode_ !== mode) {
+			this.mode_ = mode;
+			this.change.next(this.eventDate);
+		}
+	}
+
 	static hoursDiff(date) {
 		const now = new Date();
 		const diff = date - now;
@@ -28,6 +39,12 @@ export default class EventDateComponent extends Component {
 	}
 
 	static getMode(item) {
+		if (!item.past && !item.info.started) {
+			const now = new Date();
+			if (now > item.startDate) {
+				item.info.started = true;
+			}
+		}
 		if (item.live) {
 			return EventDateMode.Live;
 		} else if (item.incoming) {
@@ -36,7 +53,7 @@ export default class EventDateComponent extends Component {
 		const hoursDiff = EventDateComponent.hoursDiff(item.startDate);
 		if (item.past && hoursDiff < 24) {
 			return EventDateMode.WatchRelative;
-		} else if (hoursDiff < 24 * 3) {
+		} else if (hoursDiff < 24 * 14) {
 			return EventDateMode.Relative;
 		} else {
 			return EventDateMode.Date;
@@ -44,25 +61,13 @@ export default class EventDateComponent extends Component {
 	}
 
 	onInit() {
-		this.mode = EventDateComponent.getMode(this.eventDate);
-		/*
-		if (this.mode === EventDateMode.Countdown || this.mode === EventDateMode.WatchRelative) {
-			this.countdown = '';
-			this.live$ = new Subject();
-			this.change$().pipe(
-				takeUntil(this.unsubscribe$)
-			).subscribe(() => {
-				if (this.mode === EventDateMode.Countdown || this.mode === EventDateMode.WatchRelative) {
-					this.pushChanges();
-				}
-			});
-		}
-		*/
+		this.mode_ = EventDateComponent.getMode(this.eventDate);
 		this.countdown = '';
 		this.live$ = new Subject();
 		this.change$().pipe(
 			takeUntil(this.unsubscribe$)
 		).subscribe(() => {
+			this.mode = EventDateComponent.getMode(this.eventDate);
 			if (this.mode === EventDateMode.Countdown || this.mode === EventDateMode.WatchRelative) {
 				this.pushChanges();
 			}
@@ -78,6 +83,7 @@ export default class EventDateComponent extends Component {
 	change$() {
 		return interval(1000).pipe(
 			takeUntil(this.live$),
+			startWith(0),
 			tap(() => {
 				if (this.mode === EventDateMode.Countdown) {
 					let diff = this.eventDate.startDate - new Date();
@@ -101,5 +107,6 @@ export default class EventDateComponent extends Component {
 
 EventDateComponent.meta = {
 	selector: '[eventDate]',
+	outputs: ['change'],
 	inputs: ['eventDate']
 };

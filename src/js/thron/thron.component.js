@@ -60,7 +60,8 @@ export default class ThronComponent extends Component {
 
 	onPlaying() {
 		const player = this.player;
-		player.off('playing', onPlaying);
+		player.off('playing', this.onPlaying);
+		const { node } = getContext(this);
 		const controls = node.hasAttribute('controls') ? true : false;
 		if (!controls) {
 			const qualities = player.qualityLevels();

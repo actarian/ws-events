@@ -5,6 +5,7 @@ import { STATIC } from '../environment/environment';
 export default class HttpService {
 
 	static http$(method, url, data, format = 'json') {
+		method = STATIC ? 'GET' : method;
 		const methods = ['POST', 'PUT', 'PATCH'];
 		let response_ = null;
 		return from(fetch(this.getUrl(url, format), {

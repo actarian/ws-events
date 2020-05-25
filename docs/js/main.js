@@ -443,6 +443,7 @@
         format = 'json';
       }
 
+      method = STATIC ? 'GET' : method;
       var methods = ['POST', 'PUT', 'PATCH'];
       var response_ = null;
       return rxjs.from(fetch(this.getUrl(url, format), {

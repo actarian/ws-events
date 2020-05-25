@@ -2,17 +2,17 @@
 	<div class="wse__card--preview__picture">
 		<img [lazy]="event.picture.src + '480x270?sig=' + event.id" />
 	</div>
-	<div class="wse__card--preview__content">
-		<a [href]="event.url" class="wse__card--preview__title" [innerHTML]="event.name"></a>
-		<div class="wse__event__info">
-			<div [eventDate]="event" (change)="onChange($event)">
-				<div class="wse__date" [class]="{ 'wse__date--live': mode === 'live', 'wse__date--countdown': mode === 'countdown' }">
-					<div class="wse__info" *if="mode === 'live'">Adesso</div>
-					<div class="wse__info" *if="mode === 'countdown'">A breve&nbsp;<span [innerHTML]="countdown"></span></div>
-					<div class="wse__info" *if="mode === 'relative' || mode === 'watchRelative'" [innerHTML]="eventDate.startDate | relativeDate"></div>
-					<div class="wse__info" *if="mode === 'date'"><svg class="wse__icon--calendar"><use xlink:href="#calendar"></use></svg> <span [innerHTML]="eventDate.startDate | date : 'EEE dd MMMM yyyy'"></span></div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<a [href]="event.url" class="wse__card--preview__content">
+		<span class="wse__card--preview__title" [innerHTML]="event.name"></span>
+		<span class="wse__event__info">
+			<span [eventDate]="event" (change)="onChange($event)">
+				<span class="wse__date" [class]="{ 'wse__date--live': mode === 'live', 'wse__date--countdown': mode === 'countdown' }">
+					<span class="wse__info" *if="mode === 'live'">Adesso</span>
+					<span class="wse__info" *if="mode === 'countdown'">A breve&nbsp;<span [innerHTML]="countdown"></span></span>
+					<span class="wse__info" *if="mode === 'relative' || mode === 'watchRelative'" [innerHTML]="eventDate.startDate | relativeDate"></span>
+					<span class="wse__info" *if="mode === 'date'"><svg class="wse__icon--calendar"><use xlink:href="#calendar"></use></svg> <span [innerHTML]="eventDate.startDate | date : 'EEE dd MMMM yyyy'"></span></span>
+				</span>
+			</span>
+		</span>
+	</a>
 </div>

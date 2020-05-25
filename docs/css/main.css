@@ -4187,7 +4187,8 @@ errors-component {
     justify-content: flex-end;
     align-items: center;
     text-align: center;
-    padding: 20px 20px 30px 20px; }
+    padding: 20px 20px 30px 20px;
+    text-decoration: none; }
     .wse__card--preview__content p {
       margin: 0; }
     .wse__card--preview__content p + p {

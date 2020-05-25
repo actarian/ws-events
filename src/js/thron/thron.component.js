@@ -32,14 +32,35 @@ export default class ThronComponent extends Component {
 			noSkin: !controls,
 			// lockBitrate: 'max',
 		});
+		/*
+		// Set the bottom bar of the video with share and fullscreen only. The first on the left and the second to the right.
+		const params = {
+			sessId: "asessId",
+			clientId: "aclientId",
+			xcontentId: "acontentId"
+		};
+		*/
+		this.onBeforeInit = this.onBeforeInit.bind(this);
 		this.onReady = this.onReady.bind(this);
 		this.onCanPlay = this.onCanPlay.bind(this);
 		this.onPlaying = this.onPlaying.bind(this);
 		this.onComplete = this.onComplete.bind(this);
+		player.on("beforeInit", this.onBeforeInit);
 		player.on('ready', this.onReady);
 		player.on('canPlay', this.onCanPlay);
 		player.on('playing', this.onPlaying);
 		player.on('complete', this.onComplete);
+	}
+
+	onBeforeInit(playerInstance) {
+		// Removes playButton and hdButton from schema bar
+		const schema = window.THRONSchemaHelper.getSchema();
+		const elements = window.THRONSchemaHelper.removeElementsById(schema, "VIDEO", ["captionText", "subtitleButton", "downloadableButton"]);
+		// A simple verify: existsElements must false
+		const existsElements = window.THRONSchemaHelper.getElementsById(schema, "VIDEO", ["captionText", "subtitleButton", "downloadableButton"]).coordinates.length > 0;
+		console.log('ThronComponent.onBeforeInit.existsElements', existsElements);
+		const params = { bars: schema };
+		playerInstance.params(params);
 	}
 
 	onReady() {

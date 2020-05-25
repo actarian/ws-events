@@ -4,5 +4,6 @@ export const PRODUCTION = !DEVELOPMENT;
 export const ENV = {
 	STATIC,
 	DEVELOPMENT,
-	PRODUCTION
+	PRODUCTION,
+	API: '/api'
 };

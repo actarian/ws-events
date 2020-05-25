@@ -1,5 +1,7 @@
+import { FormControl, FormGroup, Validators } from 'rxcomp-form';
 import { combineLatest } from 'rxjs';
 import { first, takeUntil } from 'rxjs/operators';
+import FavouriteService from '../favourite/favourite.service';
 import FilterService from '../filter/filter.service';
 import LocationService from '../location/location.service';
 import PageComponent from '../page/page.component';
@@ -14,7 +16,7 @@ export default class EventPageComponent extends PageComponent {
 			lastName: 'Arcuri'
 		});
 		console.log(this.user);
-		this.event = this.listing = null;
+		this.event = this.listing = this.error = null;
 		this.grid = {
 			mode: 1,
 			width: 350,
@@ -65,6 +67,18 @@ export default class EventPageComponent extends PageComponent {
 			this.event = data[0];
 			this.listing = data[1];
 			this.startFilter(this.listing);
+			this.pushChanges();
+		});
+		this.inputActive = false;
+		const form = this.form = new FormGroup({
+			question: new FormControl(null, [Validators.RequiredValidator()]),
+			checkRequest: window.antiforgery,
+			checkField: ''
+		});
+		form.changes$.pipe(
+			takeUntil(this.unsubscribe$)
+		).subscribe(changes => {
+			this.inputActive = (changes.question && changes.question.length > 0);
 			this.pushChanges();
 		});
 	}
@@ -134,15 +148,44 @@ export default class EventPageComponent extends PageComponent {
 
 	toggleSave() {
 		let flag = this.event.info.saved;
-		EventService[flag ? 'unsave$' : 'save$'](this.event.id).pipe(
+		FavouriteService[flag ? 'remove$' : 'add$'](this.event.id).pipe(
 			first()
 		).subscribe(() => {
 			flag = !flag;
-			this.event.info.saves = flag;
+			this.event.info.saved = flag;
 			this.pushChanges();
 		});
 	}
 
+	onInputFocus(event) {
+		this.inputFocus = true;
+		this.pushChanges();
+	}
+
+	onInputBlur(event) {
+		this.inputFocus = false;
+		this.pushChanges();
+	}
+
+	postQuestion(event) {
+		if (this.form.valid) {
+			// console.log('EventPageComponent.postQuestion.onSubmit', this.form.value);
+			this.form.submitted = true;
+			EventService.postQuestion$(this.event, this.form.value.question).pipe(
+				first(),
+			).subscribe(question => {
+				this.event.questions.unshift(question);
+				this.form.controls.question.value = null;
+				// this.pushChanges();
+			}, error => {
+				console.log('EventPageComponent.postQuestion.error', error);
+				this.error = error;
+				this.pushChanges();
+			});
+		} else {
+			this.form.touched = true;
+		}
+	}
 }
 
 EventPageComponent.meta = {

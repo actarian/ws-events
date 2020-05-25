@@ -1,7 +1,10 @@
 import { of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { ENV } from '../environment/environment';
+import FavouriteService from '../favourite/favourite.service';
 import HttpService from '../http/http.service';
 import QuestionService from '../question/question.service';
+import UserService from '../user/user.service';
 
 export class Event {
 
@@ -55,14 +58,14 @@ export default class EventService {
 
 	static detail$(eventId) {
 		const id = 1001; // !!!
-		return HttpService.get$(`/api/event/${id}/detail`).pipe(
+		return HttpService.get$(`${ENV.API}/event/${id}/detail`).pipe(
 			tap(x => x.id = parseInt(eventId)), // !!!
 			map(x => EventService.mapEvent(x))
 		);
 	}
 
 	static listing$(eventId) {
-		// return HttpService.get$(`/api/event/${eventId}/listing`);
+		// return HttpService.get$(`${ENV.API}/event/${eventId}/listing`);
 		return EventService.fakeListing(eventId).pipe(
 			tap((items) => {
 				// console.log(JSON.stringify(items));
@@ -71,13 +74,13 @@ export default class EventService {
 	}
 
 	static top$() {
-		return HttpService.get$(`/api/event/evidence`).pipe(
+		return HttpService.get$(`${ENV.API}/event/evidence`).pipe(
 			map(items => EventService.mapEvents(items))
 		);
 	}
 
 	static upcoming$() {
-		return HttpService.get$(`/api/event/upcoming`).pipe(
+		return HttpService.get$(`${ENV.API}/event/upcoming`).pipe(
 			map(items => EventService.mapEvents(items))
 		);
 	}
@@ -98,12 +101,18 @@ export default class EventService {
 		return of(null);
 	}
 
-	static save$(eventId) {
-		return of(null);
-	}
-
-	static unsave$(eventId) {
-		return of(null);
+	static postQuestion$(event, body) {
+		const eventId = 1001; // event.id !!!
+		return HttpService.post$(`${ENV.API}/event/${eventId}/question`, body).pipe(
+			map(x => QuestionService.mapQuestion(x)),
+			map(x => {
+				x.id = event.questions[0].id + 1;
+				x.creationDate = new Date();
+				x.user = UserService.user$.getValue();
+				x.body = body;
+				return x;
+			}),
+		);
 	}
 
 	static mapEvent(event) {
@@ -174,6 +183,9 @@ export default class EventService {
 					item.info.started = true;
 					item.info.ended = true;
 			}
+			const favourites = FavouriteService.favourites$.getValue();
+			const favourite = favourites.find(x => x.id === item.id);
+			item.info.saved = favourite !== undefined;
 		}
 		if (item.related) {
 			item.related = item.related.filter(x => (x.id !== item.id) && (x.live || x.incoming || x.past));
@@ -183,7 +195,7 @@ export default class EventService {
 
 	static fakeListing(eventId) {
 		eventId = 1001;
-		return HttpService.get$(`/api/event/${eventId}/detail`).pipe(
+		return HttpService.get$(`${ENV.API}/event/${eventId}/detail`).pipe(
 			map(x => {
 				const channel_ = new Event(x).channel;
 				const info_ = {
@@ -310,6 +322,53 @@ export default class EventService {
 				});
 			})
 		);
+	}
+
+	static fakeSaved(items) {
+		const info_ = {
+			started: false,
+			ended: false,
+			subscribers: 100,
+			subscribed: false,
+			likes: 100,
+			liked: false
+		};
+		const image_ = {
+			id: 100000,
+			width: 700,
+			height: 700,
+			src: 'https://source.unsplash.com/random/',
+		};
+		const event_ = {
+			id: 1000,
+			type: 'event',
+			name: 'Evento',
+			title: 'Evento',
+			abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
+			url: '/ws-events/event.html',
+			creationDate: '2020-05-20T08:11:17.827Z',
+			startDate: '2020-05-20T08:11:17.827Z',
+			picture: image_,
+			info: info_,
+		};
+		const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
+		return items.map((x, i) => {
+			let type = 'event';
+			let item = Object.assign({}, event_);
+			item.id = x.id;
+			item.name = item.title = `${item.name} ${letters[(item.id - 1) % 10]}`;
+			const index = x.id % 1000;
+			item.channel = { id: (x.id - index) / 1000 + 1000 };
+			item.type = type;
+			item.picture = Object.assign({}, image_, {
+				id: (100001 + i),
+				width: 700,
+				height: [700, 900, 1100][i % 3],
+			});
+			item.info = Object.assign({}, info_);
+			item = EventService.fake(new Event(item));
+			return item;
+		});
 	}
 
 }

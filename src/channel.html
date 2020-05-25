@@ -71,12 +71,12 @@
 				<ul class="wse__nav--filters">
 					<li class="wse__nav--filters__item wse__filter" *for="let option of filters.type.options">
 						<span class="wse__filter__option" [class]="{ active: filters.type.has(option), disabled: option.disabled }" (click)="filters.type.set(option)">
-							<span class="name" *if="option.value === undefined">Tutti</span>
-							<span class="name" *if="option.value === 'event'">Eventi</span>
-							<span class="name" *if="option.value === 'picture'">Immagini</span>
-							<span class="name" *if="option.value === 'product'">Prodotti</span>
-							<span class="name" *if="option.value === 'magazine'">Magazine</span>
-							<span class="count" [innerHTML]="option.count || ''"></span>
+							<span class="wse__name" *if="option.value === undefined">Tutti</span>
+							<span class="wse__name" *if="option.value === 'event'">Eventi</span>
+							<span class="wse__name" *if="option.value === 'picture'">Immagini</span>
+							<span class="wse__name" *if="option.value === 'product'">Prodotti</span>
+							<span class="wse__name" *if="option.value === 'magazine'">Magazine</span>
+							<span class="wse__count" [innerHTML]="option.count || ''"></span>
 						</span>
 					</li>
 				</ul>

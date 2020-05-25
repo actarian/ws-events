@@ -50,7 +50,7 @@ export default class ClubSigninComponent extends Component {
 		if (this.form.valid) {
 			// console.log('ClubSigninComponent.onSubmit', this.form.value);
 			this.form.submitted = true;
-			// HttpService.post$('/api/users/Login', this.form.value)
+			// HttpService.post$('/api/user/Login', this.form.value)
 			UserService.login$(this.form.value)
 				.subscribe(response => {
 					console.log('ClubSigninComponent.onSubmit', response);

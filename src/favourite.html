@@ -1,0 +1,103 @@
+<!-- @@master = ./templates/layout.html { "baseHref": "/ws-events/" } -->
+
+<!-- @@block = main-->
+
+<div class="wse__channel-page" favourite-page>
+
+	<div class="wse__section--channel__menu" *if="channels?.length">
+		<div class="wse__container">
+			<ul class="wse__nav--menu">
+				<li class="wse__nav--menu__item" *for="let item of channels">
+					<a [href]="item.url" [innerHTML]="item.name"></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="wse__section--channel__header">
+		<div class="wse__container">
+			<div class="wse__row">
+				<div class="wse__col-md-6">
+					<div class="wse__section--channel__header__content">
+						<div class="wse__section--channel__header__title">I tuoi video</div>
+					</div>
+				</div>
+				<div class="wse__col-md-6"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="wse__section--filters">
+		<div class="wse__container-fluid">
+			<div class="wse__group--filters">
+				<ul class="wse__nav--filters">
+					<li class="wse__nav--filters__item wse__filter">
+						<span class="wse__filter__option" [class]="{ active: viewMode === 'saved' }" (click)="viewMode = 'saved'">
+							<span class="wse__name">Salvati</span>
+							<span class="wse__count" [innerHTML]="savedItems.length || ''"></span>
+						</span>
+					</li>
+					<li class="wse__nav--filters__item wse__filter">
+						<span class="wse__filter__option" [class]="{ active: viewMode === 'liked' }" (click)="viewMode = 'liked'">
+							<span class="wse__name">Eventi piaciuti</span>
+							<span class="wse__count" [innerHTML]="likedItems.length || ''"></span>
+						</span>
+					</li>
+				</ul>
+				<div class="wse__group--actions">
+					<div class="wse__btn--mode" (click)="toggleGrid()">
+						<svg class="wse__grid" *if="grid.width === 350"><use xlink:href="#grid"></use></svg>
+						<svg class="wse__grid" *if="grid.width === 700"><use xlink:href="#grid-active"></use></svg>
+					</div>
+					<div class="wse__btn--filter">
+						<svg class="wse__filter"><use xlink:href="#filter"></use></svg>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="wse__section--channel__listing">
+		<div class="wse__container-fluid" *if="viewMode === 'saved'">
+			<div class="wse__group--grid" *virtual="let item of savedItems" [mode]="grid.mode" [width]="grid.width" [gutter]="grid.gutter">
+				<!-- serve un nodo figlio -->
+				<div class="wse__section--channel__listing__item">
+					<div [event]="item" *if="item.type === 'event'">
+						<!-- @@include ./templates/shared/event/card-listing.html -->
+					</div>
+					<div *if="item.type === 'picture'">
+						<!-- @@include ./templates/shared/generic/card-picture.html -->
+					</div>
+					<div *if="item.type === 'product'">
+						<!-- @@include ./templates/shared/generic/card-product.html -->
+					</div>
+					<div *if="item.type === 'magazine'">
+						<!-- @@include ./templates/shared/generic/card-magazine.html -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="wse__container-fluid" *if="viewMode === 'liked'">
+			<div class="wse__group--grid" *virtual="let item of likedItems" [mode]="grid.mode" [width]="grid.width" [gutter]="grid.gutter">
+				<!-- serve un nodo figlio -->
+				<div class="wse__section--channel__listing__item">
+					<div [event]="item" *if="item.type === 'event'">
+						<!-- @@include ./templates/shared/event/card-listing.html -->
+					</div>
+					<div *if="item.type === 'picture'">
+						<!-- @@include ./templates/shared/generic/card-picture.html -->
+					</div>
+					<div *if="item.type === 'product'">
+						<!-- @@include ./templates/shared/generic/card-product.html -->
+					</div>
+					<div *if="item.type === 'magazine'">
+						<!-- @@include ./templates/shared/generic/card-magazine.html -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<!-- @@close-->

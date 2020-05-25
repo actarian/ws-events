@@ -7,9 +7,9 @@ export default class ThronComponent extends Component {
 		if (!THRON) {
 			return;
 		}
-		const { node, rxcompId } = getContext(this);
-
-		node.setAttribute('id', `thron-${rxcompId}`);
+		ThronComponent.registerSkin();
+		const { node } = getContext(this);
+		node.setAttribute('id', `thron-${this.rxcompId}`);
 
 		let media = this.thron;
 		if (media.indexOf('pkey=') === -1) {
@@ -31,13 +31,18 @@ export default class ThronComponent extends Component {
 			displayLinked: 'close',
 			noSkin: !controls,
 			// lockBitrate: 'max',
+			//loader spinner color
+			preloadColor: '#446CB3',
+			//Audio Wave color
+			waveColor: '#ffffff',
+			waveProgressColor: '#446CB3'
 		});
 		/*
 		// Set the bottom bar of the video with share and fullscreen only. The first on the left and the second to the right.
 		const params = {
-			sessId: "asessId",
-			clientId: "aclientId",
-			xcontentId: "acontentId"
+			sessId: 'asessId',
+			clientId: 'aclientId',
+			xcontentId: 'acontentId'
 		};
 		*/
 		this.onBeforeInit = this.onBeforeInit.bind(this);
@@ -45,7 +50,7 @@ export default class ThronComponent extends Component {
 		this.onCanPlay = this.onCanPlay.bind(this);
 		this.onPlaying = this.onPlaying.bind(this);
 		this.onComplete = this.onComplete.bind(this);
-		player.on("beforeInit", this.onBeforeInit);
+		player.on('beforeInit', this.onBeforeInit);
 		player.on('ready', this.onReady);
 		player.on('canPlay', this.onCanPlay);
 		player.on('playing', this.onPlaying);
@@ -55,9 +60,9 @@ export default class ThronComponent extends Component {
 	onBeforeInit(playerInstance) {
 		// Removes playButton and hdButton from schema bar
 		const schema = window.THRONSchemaHelper.getSchema();
-		const elements = window.THRONSchemaHelper.removeElementsById(schema, "VIDEO", ["captionText", "subtitleButton", "downloadableButton"]);
+		const elements = window.THRONSchemaHelper.removeElementsById(schema, 'VIDEO', ['captionText', 'subtitleButton', 'downloadableButton']);
 		// A simple verify: existsElements must false
-		const existsElements = window.THRONSchemaHelper.getElementsById(schema, "VIDEO", ["captionText", "subtitleButton", "downloadableButton"]).coordinates.length > 0;
+		const existsElements = window.THRONSchemaHelper.getElementsById(schema, 'VIDEO', ['captionText', 'subtitleButton', 'downloadableButton']).coordinates.length > 0;
 		console.log('ThronComponent.onBeforeInit.existsElements', existsElements);
 		const params = { bars: schema };
 		playerInstance.params(params);
@@ -121,6 +126,43 @@ export default class ThronComponent extends Component {
 			player.pause();
 		}
 	}
+
+	static registerSkin() {
+		if (window.wseThronPlugin) {
+			return;
+		}
+		window.wseThronPlugin = function(playerInstance, dom, otherparams, jquery) {
+			this.player = playerInstance;
+			this.$ = jquery;
+			/*
+			this.player.on('beforeInit',
+				function(playerInstance) {
+					console.log('set action before player init', playerInstance, 'otherparams', otherparams);
+					var params = {
+						volume: 0.5,
+						autoplay: false,
+						linkedContent: 'show',
+						//loader spinner color
+						preloadColor: '#f39900',
+						//Audio Wave color
+						waveColor: '#ffffff',
+						waveProgressColor: '#f39900'
+					};
+					//add params
+					playerInstance.params(params);
+				}
+			);
+			this.player.on('resize', function(playerInstance) {
+				console.log('resize', playerInstance);
+			});
+			this.player.on('ready', function(playerInstance) {
+				console.log('ready', playerInstance);
+			});
+			*/
+		};
+		THRONContentExperience.plugin('wse', wseThronPlugin);
+	}
+
 }
 
 ThronComponent.meta = {

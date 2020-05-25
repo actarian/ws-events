@@ -56,14 +56,14 @@ export default class ClubPasswordEditComponent extends Component {
 	onSubmit() {
 		// console.log('ClubPasswordEditComponent.onSubmit', 'form.valid', valid);
 		if (this.form.valid) {
-			 // Lo ri-imposto perché essendoci il campo password Chrome fa l'autocomplete dei dati, e riempie il campo checkField con l'username
+			// Lo ri-imposto perché essendoci il campo password Chrome fa l'autocomplete dei dati, e riempie il campo checkField con l'username
 			this.form.patch({
 				checkRequest: window.antiforgery,
 				checkField: ''
 			});
 			// console.log('ClubPasswordEditComponent.onSubmit', this.form.value);
 			this.form.submitted = true;
-			HttpService.post$('/api/users/editpassword', this.form.value)
+			HttpService.post$('/api/user/editpassword', this.form.value)
 				.subscribe(response => {
 					console.log('ClubPasswordEditComponent.onSubmit', response);
 					this.success = true;

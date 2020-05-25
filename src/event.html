@@ -45,14 +45,15 @@
 									<div class="wse__save" [class]="{ 'wse__active': event.info.saved }" (click)="toggleSave()">
 										<div class="wse__info">
 											<svg class="wse__icon--favourite" *if="!event.info.saved"><use xlink:href="#favourite"></use></svg>
-											<svg class="wse__icon--favourite-active" *if="event.info.saved"><use xlink:href="#favourite-active"></use></svg>
-											<span>salva</span>
+											<svg class="wse__icon--favourite" *if="event.info.saved"><use xlink:href="#favourite-active"></use></svg>
+											<span [innerHTML]="event.info.saved ? 'salvato' : 'salva'"></span>
 										</div>
 										<div class="wse__label">
 											<svg class="wse__icon--favourite"><use xlink:href="#favourite-active"></use></svg>
-											<span [innerHTML]="event.info.subscribed ? 'salvato' : 'salva'"></span>
+											<span [innerHTML]="event.info.saved ? 'salvato' : 'salva'"></span>
 										</div>
 									</div>
+									<!--
 									<div class="wse__share" (click)="share()">
 										<div class="wse__info">
 											<svg class="wse__icon--share"><use xlink:href="#share"></use></svg>
@@ -63,6 +64,7 @@
 											<span>condividi</span>
 										</div>
 									</div>
+									-->
 								</div>
 							</div>
 						</div>
@@ -78,13 +80,16 @@
 					</div>
 					<div class="wse__group--questions">
 						<div class="wse__group--question" *if="user">
-							<div class="wse__group--question__avatar" [innerHTML]="user.avatar"></div>
+							<div class="wse__avatar" [innerHTML]="user.avatar"></div>
 							<div class="wse__group--message">
-								<input type="text" class="wse__group--message__input" placeholder="Aggiungi una domanda pubblica..." />
+								<form class="wse__group--input-group" [class]="{ 'wse__active': inputActive }" [formGroup]="form" (submit)="postQuestion()" name="form" role="form" novalidate autocomplete="off">
+									<input type="text" class="wse__group--message__input" [formControl]="form.controls.question" placeholder="Aggiungi una domanda pubblica..." />
+									<button type="submit" class="wse__btn--rounded"><span>Invia</span></button>
+								</form>
 							</div>
 						</div>
 						<div class="wse__group--question" *for="let question of event.questions">
-							<div class="wse__group--question__avatar" [innerHTML]="question.user.avatar"></div>
+							<div class="wse__avatar" [innerHTML]="question.user.avatar"></div>
 							<div class="wse__group--message">
 								<div class="wse__group--message__head">
 									<div class="wse__group--message__user" [innerHTML]="question.user.fullName"></div>
@@ -112,12 +117,12 @@
 				<ul class="wse__nav--filters">
 					<li class="wse__nav--filters__item wse__filter" *for="let option of filters.type.options">
 						<span class="wse__filter__option" [class]="{ active: filters.type.has(option), disabled: option.disabled }" (click)="filters.type.set(option)">
-							<span class="name" *if="option.value === undefined">Tutti</span>
-							<span class="name" *if="option.value === 'event'">Eventi</span>
-							<span class="name" *if="option.value === 'picture'">Immagini</span>
-							<span class="name" *if="option.value === 'product'">Prodotti</span>
-							<span class="name" *if="option.value === 'magazine'">Magazine</span>
-							<span class="count" [innerHTML]="option.count || ''"></span>
+							<span class="wse__name" *if="option.value === undefined">Tutti</span>
+							<span class="wse__name" *if="option.value === 'event'">Eventi</span>
+							<span class="wse__name" *if="option.value === 'picture'">Immagini</span>
+							<span class="wse__name" *if="option.value === 'product'">Prodotti</span>
+							<span class="wse__name" *if="option.value === 'magazine'">Magazine</span>
+							<span class="wse__count" [innerHTML]="option.count || ''"></span>
 						</span>
 					</li>
 				</ul>

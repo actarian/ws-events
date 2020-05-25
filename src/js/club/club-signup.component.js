@@ -114,7 +114,7 @@ export default class ClubSignupComponent extends Component {
 		if (this.form.valid) {
 			// console.log('ClubSignupComponent.onSubmit', this.form.value);
 			this.form.submitted = true;
-			// HttpService.post$('/api/users/Register', this.form.value)
+			// HttpService.post$('/api/user/Register', this.form.value)
 			UserService.register$(this.form.value)
 				.subscribe(response => {
 					console.log('ClubSignupComponent.onSubmit', response);

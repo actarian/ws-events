@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { STATIC } from '../environment/environment';
+import { ENV, STATIC } from '../environment/environment';
 import HttpService from '../http/http.service';
 import LocalStorageService from '../local-storage/local-storage.service';
 
@@ -29,8 +29,9 @@ export default class UserService {
 	}
 
 	static me$() {
-		return HttpService.get$('/api/users/me').pipe(
-			map((user) => this.mapStatic__(user, 'me')),
+		return HttpService.get$(`${ENV.API}/user/me`).pipe(
+			// map((user) => this.mapStatic__(user, 'me')),
+			map((user) => this.mapUser(user)),
 			switchMap(user => {
 				this.setUser(user);
 				return this.user$;
@@ -39,30 +40,31 @@ export default class UserService {
 	}
 
 	static register$(payload) {
-		return HttpService.post$('/api/users/register', payload).pipe(
+		return HttpService.post$(`${ENV.API}/user/register`, payload).pipe(
 			map((user) => this.mapStatic__(user, 'register')),
 		);
 	}
 
 	static update(payload) {
-		return HttpService.post$('/api/users/updateprofile', payload).pipe(
+		return HttpService.post$(`${ENV.API}/user/updateprofile`, payload).pipe(
 			map((user) => this.mapStatic__(user, 'register')),
 		);
 	}
 
 	static login$(payload) {
-		return HttpService.post$('/api/users/login', payload).pipe(
+		return HttpService.post$(`${ENV.API}/user/login`, payload).pipe(
 			map((user) => this.mapStatic__(user, 'login')),
 		);
 	}
 
 	static logout$() {
-		return HttpService.post$('/api/users/logout').pipe(
+		return HttpService.post$(`${ENV.API}/user/logout`).pipe(
 			map((user) => this.mapStatic__(user, 'logout')),
 		);
 	}
+
 	static retrieve$(payload) {
-		return HttpService.post$('/api/users/retrievepassword', payload).pipe(
+		return HttpService.post$(`${ENV.API}/user/retrievepassword`, payload).pipe(
 			map((user) => this.mapStatic__(user, 'retrieve')),
 		);
 	}

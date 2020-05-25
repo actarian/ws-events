@@ -10,7 +10,9 @@ import DropdownDirective from './dropdown/dropdown.directive';
 import EventDateComponent from './event/event-date.component';
 import EventPageComponent from './event/event-page.component';
 import EventComponent from './event/event.component';
+import FavouritePageComponent from './favourite/favourite-page.component';
 import ErrorsComponent from './forms/errors.component';
+import HeaderComponent from './header/header.component';
 import HtmlPipe from './html/html.pipe';
 import IndexPageComponent from './index/index-page.component';
 import LazyDirective from './lazy/lazy.directive';
@@ -48,6 +50,8 @@ AppModule.meta = {
 		EventComponent,
 		EventDateComponent,
 		EventPageComponent,
+		FavouritePageComponent,
+		HeaderComponent,
 		HtmlPipe,
 		IndexPageComponent,
 		LazyDirective,

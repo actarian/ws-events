@@ -425,6 +425,13 @@
 
   var STATIC = window.location.port === '40333' || window.location.host === 'actarian.github.io';
   var DEVELOPMENT = ['localhost', '127.0.0.1', '0.0.0.0'].indexOf(window.location.host.split(':')[0]) !== -1;
+  var PRODUCTION = !DEVELOPMENT;
+  var ENV = {
+    STATIC: STATIC,
+    DEVELOPMENT: DEVELOPMENT,
+    PRODUCTION: PRODUCTION,
+    API: '/api'
+  };
 
   var HttpService = /*#__PURE__*/function () {
     function HttpService() {}
@@ -591,6 +598,82 @@
     return LocalStorageService;
   }();
 
+  var FavouriteService = /*#__PURE__*/function () {
+    function FavouriteService() {}
+
+    FavouriteService.observe$ = function observe$() {
+      var _this = this;
+
+      return HttpService.get$(ENV.API + "/user/favourite").pipe(operators.map(function () {
+        var favourites = LocalStorageService.get('favourites') || [];
+        return favourites;
+      }), operators.switchMap(function (favourites) {
+        _this.favourites$.next(favourites);
+
+        return _this.favourites$;
+      }));
+    };
+
+    FavouriteService.saved$ = function saved$() {
+
+      return this.observe$().pipe(operators.map(function (events) {
+        return EventService.fakeSaved(events);
+      }));
+    };
+
+    FavouriteService.liked$ = function liked$() {
+      return rxjs.of([]);
+    };
+
+    FavouriteService.add$ = function add$(id) {
+      var _this3 = this;
+
+      return HttpService.post$(ENV.API + "/user/favourite/add", {
+        id: id
+      }).pipe(operators.tap(function () {
+        var favourites = LocalStorageService.get('favourites') || [];
+        var item = favourites.find(function (x) {
+          return x.id === id;
+        });
+
+        if (!item) {
+          favourites.push({
+            id: id
+          });
+        }
+
+        _this3.favourites$.next(favourites);
+
+        LocalStorageService.set('favourites', favourites);
+      }));
+    };
+
+    FavouriteService.remove$ = function remove$(id) {
+      var _this4 = this;
+
+      return HttpService.post$(ENV.API + "/user/favourite/remove", {
+        id: id
+      }).pipe(operators.tap(function () {
+        var favourites = LocalStorageService.get('favourites') || [];
+        var item = favourites.find(function (x) {
+          return x.id === id;
+        });
+        var index = item ? favourites.indexOf(item) : -1;
+
+        if (index !== -1) {
+          favourites.splice(index, 1);
+        }
+
+        _this4.favourites$.next(favourites);
+
+        LocalStorageService.set('favourites', favourites);
+      }));
+    };
+
+    return FavouriteService;
+  }();
+  FavouriteService.favourites$ = new rxjs.BehaviorSubject([]);
+
   var User = /*#__PURE__*/function () {
     _createClass(User, [{
       key: "avatar",
@@ -623,8 +706,9 @@
     UserService.me$ = function me$() {
       var _this = this;
 
-      return HttpService.get$('/api/users/me').pipe(operators.map(function (user) {
-        return _this.mapStatic__(user, 'me');
+      return HttpService.get$(ENV.API + "/user/me").pipe( // map((user) => this.mapStatic__(user, 'me')),
+      operators.map(function (user) {
+        return _this.mapUser(user);
       }), operators.switchMap(function (user) {
         _this.setUser(user);
 
@@ -635,7 +719,7 @@
     UserService.register$ = function register$(payload) {
       var _this2 = this;
 
-      return HttpService.post$('/api/users/register', payload).pipe(operators.map(function (user) {
+      return HttpService.post$(ENV.API + "/user/register", payload).pipe(operators.map(function (user) {
         return _this2.mapStatic__(user, 'register');
       }));
     };
@@ -643,7 +727,7 @@
     UserService.update = function update(payload) {
       var _this3 = this;
 
-      return HttpService.post$('/api/users/updateprofile', payload).pipe(operators.map(function (user) {
+      return HttpService.post$(ENV.API + "/user/updateprofile", payload).pipe(operators.map(function (user) {
         return _this3.mapStatic__(user, 'register');
       }));
     };
@@ -651,7 +735,7 @@
     UserService.login$ = function login$(payload) {
       var _this4 = this;
 
-      return HttpService.post$('/api/users/login', payload).pipe(operators.map(function (user) {
+      return HttpService.post$(ENV.API + "/user/login", payload).pipe(operators.map(function (user) {
         return _this4.mapStatic__(user, 'login');
       }));
     };
@@ -659,7 +743,7 @@
     UserService.logout$ = function logout$() {
       var _this5 = this;
 
-      return HttpService.post$('/api/users/logout').pipe(operators.map(function (user) {
+      return HttpService.post$(ENV.API + "/user/logout").pipe(operators.map(function (user) {
         return _this5.mapStatic__(user, 'logout');
       }));
     };
@@ -667,7 +751,7 @@
     UserService.retrieve$ = function retrieve$(payload) {
       var _this6 = this;
 
-      return HttpService.post$('/api/users/retrievepassword', payload).pipe(operators.map(function (user) {
+      return HttpService.post$(ENV.API + "/user/retrievepassword", payload).pipe(operators.map(function (user) {
         return _this6.mapStatic__(user, 'retrieve');
       }));
     };
@@ -851,7 +935,7 @@
     EventService.detail$ = function detail$(eventId) {
       var id = 1001; // !!!
 
-      return HttpService.get$("/api/event/" + id + "/detail").pipe(operators.tap(function (x) {
+      return HttpService.get$(ENV.API + "/event/" + id + "/detail").pipe(operators.tap(function (x) {
         return x.id = parseInt(eventId);
       }), // !!!
       operators.map(function (x) {
@@ -860,19 +944,19 @@
     };
 
     EventService.listing$ = function listing$(eventId) {
-      // return HttpService.get$(`/api/event/${eventId}/listing`);
+      // return HttpService.get$(`${ENV.API}/event/${eventId}/listing`);
       return EventService.fakeListing(eventId).pipe(operators.tap(function (items) {// console.log(JSON.stringify(items));
       }));
     };
 
     EventService.top$ = function top$() {
-      return HttpService.get$("/api/event/evidence").pipe(operators.map(function (items) {
+      return HttpService.get$(ENV.API + "/event/evidence").pipe(operators.map(function (items) {
         return EventService.mapEvents(items);
       }));
     };
 
     EventService.upcoming$ = function upcoming$() {
-      return HttpService.get$("/api/event/upcoming").pipe(operators.map(function (items) {
+      return HttpService.get$(ENV.API + "/event/upcoming").pipe(operators.map(function (items) {
         return EventService.mapEvents(items);
       }));
     };
@@ -893,12 +977,18 @@
       return rxjs.of(null);
     };
 
-    EventService.save$ = function save$(eventId) {
-      return rxjs.of(null);
-    };
+    EventService.postQuestion$ = function postQuestion$(event, body) {
+      var eventId = 1001; // event.id !!!
 
-    EventService.unsave$ = function unsave$(eventId) {
-      return rxjs.of(null);
+      return HttpService.post$(ENV.API + "/event/" + eventId + "/question", body).pipe(operators.map(function (x) {
+        return QuestionService.mapQuestion(x);
+      }), operators.map(function (x) {
+        x.id = event.questions[0].id + 1;
+        x.creationDate = new Date();
+        x.user = UserService.user$.getValue();
+        x.body = body;
+        return x;
+      }));
     };
 
     EventService.mapEvent = function mapEvent(event) {
@@ -980,6 +1070,12 @@
             item.info.started = true;
             item.info.ended = true;
         }
+
+        var favourites = FavouriteService.favourites$.getValue();
+        var favourite = favourites.find(function (x) {
+          return x.id === item.id;
+        });
+        item.info.saved = favourite !== undefined;
       }
 
       if (item.related) {
@@ -993,7 +1089,7 @@
 
     EventService.fakeListing = function fakeListing(eventId) {
       eventId = 1001;
-      return HttpService.get$("/api/event/" + eventId + "/detail").pipe(operators.map(function (x) {
+      return HttpService.get$(ENV.API + "/event/" + eventId + "/detail").pipe(operators.map(function (x) {
         var channel_ = new Event(x).channel;
         var info_ = {
           started: false,
@@ -1135,6 +1231,55 @@
       }));
     };
 
+    EventService.fakeSaved = function fakeSaved(items) {
+      var info_ = {
+        started: false,
+        ended: false,
+        subscribers: 100,
+        subscribed: false,
+        likes: 100,
+        liked: false
+      };
+      var image_ = {
+        id: 100000,
+        width: 700,
+        height: 700,
+        src: 'https://source.unsplash.com/random/'
+      };
+      var event_ = {
+        id: 1000,
+        type: 'event',
+        name: 'Evento',
+        title: 'Evento',
+        abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
+        url: '/ws-events/event.html',
+        creationDate: '2020-05-20T08:11:17.827Z',
+        startDate: '2020-05-20T08:11:17.827Z',
+        picture: image_,
+        info: info_
+      };
+      var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
+      return items.map(function (x, i) {
+        var type = 'event';
+        var item = Object.assign({}, event_);
+        item.id = x.id;
+        item.name = item.title = item.name + " " + letters[(item.id - 1) % 10];
+        var index = x.id % 1000;
+        item.channel = {
+          id: (x.id - index) / 1000 + 1000
+        };
+        item.type = type;
+        item.picture = Object.assign({}, image_, {
+          id: 100001 + i,
+          width: 700,
+          height: [700, 900, 1100][i % 3]
+        });
+        item.info = Object.assign({}, info_);
+        item = EventService.fake(new Event(item));
+        return item;
+      });
+    };
+
     return EventService;
   }();
 
@@ -1149,25 +1294,25 @@
     function ChannelService() {}
 
     ChannelService.channels$ = function channels$() {
-      return HttpService.get$("/api/channel/channels").pipe(operators.map(function (items) {
+      return HttpService.get$(ENV.API + "/channel/channels").pipe(operators.map(function (items) {
         return ChannelService.mapChannels(items);
       }));
     };
 
     ChannelService.detail$ = function detail$(channelId) {
-      return HttpService.get$("/api/channel/" + channelId + "/detail").pipe(operators.map(function (x) {
+      return HttpService.get$(ENV.API + "/channel/" + channelId + "/detail").pipe(operators.map(function (x) {
         return ChannelService.mapChannel(x);
       }));
     };
 
     ChannelService.listing$ = function listing$(channelId) {
-      // return HttpService.get$(`/api/channel/${channelId}/listing`);
+      // return HttpService.get$(`${ENV.API}/channel/${channelId}/listing`);
       return ChannelService.fakeListing(channelId).pipe(operators.tap(function (items) {// console.log(JSON.stringify(items));
       }));
     };
 
     ChannelService.top$ = function top$() {
-      return HttpService.get$("/api/channel/evidence").pipe(operators.map(function (items) {
+      return HttpService.get$(ENV.API + "/channel/evidence").pipe(operators.map(function (items) {
         return ChannelService.mapChannels(items);
       }));
     };
@@ -1207,7 +1352,7 @@
     };
 
     ChannelService.fakeListing = function fakeListing(channelId) {
-      return HttpService.get$("/api/channel/" + channelId + "/detail").pipe(operators.map(function (x) {
+      return HttpService.get$(ENV.API + "/channel/" + channelId + "/detail").pipe(operators.map(function (x) {
         var channel_ = ChannelService.fake(new Channel(x));
         var info_ = {
           started: false,
@@ -1351,7 +1496,7 @@
     };
 
     ChannelService.fakeListing_ = function fakeListing_(channelId) {
-      return HttpService.get$("/api/channel/" + channelId + "/detail").pipe(operators.map(function (x) {
+      return HttpService.get$(ENV.API + "/channel/" + channelId + "/detail").pipe(operators.map(function (x) {
         var channel_ = ChannelService.fake(new Channel(x));
         var event_ = {
           id: 1000,
@@ -1590,26 +1735,1062 @@
     name: 'count'
   };
 
-  var DATE_FORMATS_SPLIT = /((?:[^yMLdHhmsaZEwG']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|L+|d+|H+|h+|m+|s+|a|Z|G+|w+))([\s\S]*)/;
-  var NUMBER_STRING = /^-?\d+$/;
-  var R_ISO8601_STR = /^(\d{4})-?(\d\d)-?(\d\d)(?:T(\d\d)(?::?(\d\d)(?::?(\d\d)(?:\.(\d+))?)?)?(Z|([+-])(\d\d):?(\d\d))?)?$/;
-  var ALL_COLONS = /:/g;
-  var ZERO_CHAR = '0'; // dateFilter.$inject = ['$locale'];
-  var DATETIME_FORMATS_IT_IT = {
-    "AMPMS": ["AM", "PM"],
-    "DAY": ["domenica", "luned\xEC", "marted\xEC", "mercoled\xEC", "gioved\xEC", "venerd\xEC", "sabato"],
-    "MONTH": ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"],
-    "SHORTDAY": ["dom", "lun", "mar", "mer", "gio", "ven", "sab"],
-    "SHORTMONTH": ["gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"],
-    "fullDate": "EEEE d MMMM y",
-    "longDate": "dd MMMM y",
-    "medium": "dd/MMM/y HH:mm:ss",
-    "mediumDate": "dd/MMM/y",
-    "mediumTime": "HH:mm:ss",
-    "short": "dd/MM/yy HH:mm",
-    "shortDate": "dd/MM/yy",
-    "shortTime": "HH:mm"
+  var LocaleType = {
+    DateFormats: 'dateFormats',
+    TimeFormats: 'timeFormats',
+    DayPeriods: 'dayPeriods',
+    Days: 'days',
+    Months: 'months',
+    Eras: 'eras',
+    NumberSymbols: 'numberSymbols'
   };
+  var LocaleStyle = {
+    // For `en-US`, 'M/d/yy, h:mm a'` (Example: `6/15/15, 9:03 AM`)
+    Short: 'short',
+    // For `en-US`, `'MMM d, y, h:mm:ss a'` (Example: `Jun 15, 2015, 9:03:01 AM`)
+    Medium: 'medium',
+    // For `en-US`, `'MMMM d, y, h:mm:ss a z'` (Example: `June 15, 2015 at 9:03:01 AM GMT+1`)
+    Long: 'long',
+    // For `en-US`, `'EEEE, MMMM d, y, h:mm:ss a zzzz'` (Example: `Monday, June 15, 2015 at 9:03:01 AM GMT+01:00`)
+    Full: 'full'
+  };
+  var LocaleLength = {
+    // 1 character for `en-US`. For example: 'S'
+    Narrow: 'narrow',
+    // 2 characters for `en-US`, For example: 'Su'
+    Short: 'short',
+    // 3 characters for `en-US`. For example: 'Sun'
+    Abbreviated: 'abbreviated',
+    // Full length for `en-US`. For example: 'Sunday'
+    Wide: 'wide'
+  };
+  var LocaleDay = {
+    Sunday: 'sunday',
+    Monday: 'monday',
+    Tuesday: 'tuesday',
+    Wednesday: 'wednesday',
+    Thursday: 'thursday',
+    Friday: 'friday',
+    Saturday: 'saturday'
+  };
+  var LocaleMonth = {
+    January: 'january',
+    February: 'february',
+    March: 'march',
+    April: 'april',
+    May: 'may',
+    June: 'june',
+    July: 'july',
+    August: 'august',
+    September: 'september',
+    October: 'october',
+    November: 'november',
+    December: 'december'
+  };
+  var LocaleDayPeriod = {
+    AM: 'am',
+    PM: 'pm'
+  };
+  var LocaleEra = {
+    BC: 'bc',
+    AD: 'ad'
+  };
+  var LocaleNumberSymbol = {
+    // Decimal separator. For `en-US`, the dot character. Example : 2,345`.`67
+    Decimal: 'decimal',
+    // Grouping separator, typically for thousands. For `en-US`, the comma character. Example: 2`,`345.67
+    Group: 'group',
+    // List-item separator. Example: 'one, two, and three'
+    List: 'list',
+    // Sign for percentage (out of 100). Example: 23.4%
+    PercentSign: 'percentSign',
+    // Sign for positive numbers. Example: +23
+    PlusSign: 'plusSign',
+    // Sign for negative numbers. Example: -23
+    MinusSign: 'minusSign',
+    // Computer notation for exponential value (n times a power of 10). Example: 1.2E3
+    Exponential: 'exponential',
+    // Human-readable format of exponential. Example: 1.2x103
+    SuperscriptingExponent: 'superscriptingExponent',
+    // Sign for permille (out of 1000). Example: 23.4‰
+    PerMille: 'perMille',
+    // Infinity, can be used with plus and minus. Example: ∞, +∞, -∞
+    Infinity: 'infinity',
+    // Not a number. Example: NaN
+    NaN: 'nan',
+    // Symbol used between time units. Example: 10:52
+    TimeSeparator: 'timeSeparator',
+    // Decimal separator for currency values (fallback to `Decimal`). Example: $2,345.67
+    CurrencyDecimal: 'currencyDecimal',
+    // Group separator for currency values (fallback to `Group`). Example: $2,345.67
+    CurrencyGroup: 'currencyGroup'
+  };
+  var locale_it = {
+    id: 'it',
+    dateFormats: {
+      short: 'dd/MM/yy',
+      medium: 'd MMM y',
+      long: 'd MMMM y',
+      full: 'EEEE d MMMM y'
+    },
+    timeFormats: {
+      short: 'HH:mm',
+      medium: 'HH:mm:ss',
+      long: 'HH:mm:ss z',
+      full: 'HH:mm:ss zzzz'
+    },
+    dayPeriods: {
+      narrow: {
+        am: 'm',
+        pm: 'p'
+      },
+      abbreviated: {
+        am: 'AM',
+        pm: 'PM'
+      },
+      wide: {
+        am: 'AM',
+        pm: 'PM'
+      }
+    },
+    days: {
+      narrow: {
+        sunday: 'D',
+        monday: 'L',
+        tuesday: 'M',
+        wednesday: 'M',
+        thursday: 'G',
+        friday: 'V',
+        saturday: 'S'
+      },
+      short: {
+        sunday: 'Do',
+        monday: 'Lu',
+        tuesday: 'Ma',
+        wednesday: 'Me',
+        thursday: 'Gi',
+        friday: 'Ve',
+        saturday: 'Sa'
+      },
+      abbreviated: {
+        sunday: 'Dom',
+        monday: 'Lun',
+        tuesday: 'Mar',
+        wednesday: 'Mer',
+        thursday: 'Gio',
+        friday: 'Ven',
+        saturday: 'Sab'
+      },
+      wide: {
+        sunday: 'Domenica',
+        monday: 'Lunedì',
+        tuesday: 'Martedì',
+        wednesday: 'Mercoledì',
+        thursday: 'Giovedì',
+        friday: 'Venerdì',
+        saturday: 'Sabato'
+      }
+    },
+    months: {
+      narrow: {
+        january: 'G',
+        february: 'F',
+        march: 'M',
+        april: 'A',
+        may: 'M',
+        june: 'G',
+        july: 'L',
+        august: 'A',
+        september: 'S',
+        october: 'O',
+        november: 'N',
+        december: 'D'
+      },
+      abbreviated: {
+        january: 'Gen',
+        february: 'Feb',
+        march: 'Mar',
+        april: 'Apr',
+        may: 'Mag',
+        june: 'Giu',
+        july: 'Lug',
+        august: 'Ago',
+        september: 'Set',
+        october: 'Ott',
+        november: 'Nov',
+        december: 'Dic'
+      },
+      wide: {
+        january: 'Gennaio',
+        february: 'Febbraio',
+        march: 'Marzo',
+        april: 'Aprile',
+        may: 'Maggio',
+        june: 'Giugno',
+        july: 'Luglio',
+        august: 'Agosto',
+        september: 'Settembre',
+        october: 'Ottobre',
+        november: 'Novembre',
+        december: 'Dicembre'
+      }
+    },
+    eras: {
+      narrow: {
+        bc: 'aC',
+        ad: 'dC'
+      },
+      abbreviated: {
+        bc: 'a.C.',
+        ad: 'd.C.'
+      },
+      wide: {
+        bc: 'avanti Cristo',
+        ad: 'dopo Cristo'
+      }
+    },
+    numberSymbols: {
+      decimal: ',',
+      group: '.',
+      list: ';',
+      percentSign: '%',
+      plusSign: '+',
+      minusSign: '-',
+      exponential: 'E',
+      superscriptingExponent: '×',
+      perMille: '‰',
+      infinite: '∞',
+      nan: 'NaN',
+      timeSeparator: ':' // currencyDecimal: undefined, // fallback to decimal
+      // currencyGroup: undefined, // fallback to group
+
+    }
+  };
+
+  var LocaleService = /*#__PURE__*/function () {
+    function LocaleService() {}
+
+    LocaleService.getLocale = function getLocale() {
+      var locale = window.locale || LocaleService.defaultLocale;
+      var key = Array.prototype.slice.call(arguments).join('.'); // console.log(key, locale[key]);
+
+      return locale[key] || "{" + key + "}";
+    };
+
+    LocaleService.getObjectLocale = function getObjectLocale() {
+      // console.log([...arguments].join(','));
+      var value;
+
+      for (var i = 0; i < arguments.length; i++) {
+        var key = arguments[i];
+        value = value ? value[key] : locale[key];
+      }
+
+      return value;
+    };
+
+    LocaleService.toLocaleString = function toLocaleString(locale, out) {
+      var _this = this;
+
+      if (out === void 0) {
+        out = {};
+      }
+
+      for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+        args[_key - 2] = arguments[_key];
+      }
+
+      if (typeof locale === 'string') {
+        out[args.join('.')] = locale;
+      } else {
+        Object.keys(locale).forEach(function (key) {
+          var keys = args.slice();
+          keys.push(key);
+          out = _this.toLocaleString.apply(_this, [locale[key], out].concat(keys));
+        });
+      }
+
+      return out;
+    };
+
+    LocaleService.toLocaleObject = function toLocaleObject(locale, key, out) {
+      var _this2 = this;
+
+      if (out === void 0) {
+        out = {};
+      }
+
+      if (typeof locale === 'string') {
+        out[key] = locale;
+      } else {
+        if (key) {
+          out = out[key] = {};
+        }
+
+        Object.keys(locale).forEach(function (key) {
+          out = _this2.toLocaleObject(locale[key], key, out);
+        });
+      }
+
+      return out;
+    };
+
+    return LocaleService;
+  }();
+  LocaleService.defaultLocale = LocaleService.toLocaleString(locale_it);
+
+  var TimezoneLength = {
+    Short: 'short',
+    ShortGMT: 'shortGmt',
+    Long: 'long',
+    Extended: 'extended'
+  };
+  var DatePart = {
+    FullYear: 'fullYear',
+    Month: 'month',
+    Date: 'date',
+    Hours: 'hours',
+    Minutes: 'minutes',
+    Seconds: 'seconds',
+    Milliseconds: 'milliseconds',
+    Day: 'day'
+  };
+  /*
+  // Converts a value to date. Throws if unable to convert to a date.
+  export const ISO8601_DATE_REGEX = /^(\d{4})-?(\d\d)-?(\d\d)(?:T(\d\d)(?::?(\d\d)(?::?(\d\d)(?:\.(\d+))?)?)?(Z|([+-])(\d\d):?(\d\d))?)?$/;
+  export function parseDate(value) {
+  	if (isDate(value)) {
+  		return value;
+  	}
+  	if (typeof value === 'number' && !isNaN(value)) {
+  		return new Date(value);
+  	}
+  	if (typeof value === 'string') {
+  		value = value.trim();
+  		const parsedNb = parseFloat(value);
+  		// any string that only contains numbers, like '1234' but not like '1234hello'
+  		if (!isNaN(value - parsedNb)) {
+  			return new Date(parsedNb);
+  		}
+  		if (/^(\d{4}-\d{1,2}-\d{1,2})$/.test(value)) {
+  			// For ISO Strings without time the day, month and year must be extracted from the ISO String
+        // before Date creation to avoid time offset and errors in the new Date.
+        // If we only replace '-' with ',' in the ISO String ('2015,01,01'), and try to create a new
+        // date, some browsers (e.g. IE 9) will throw an invalid Date error.
+        // If we leave the '-' ('2015-01-01') and try to create a new Date('2015-01-01') the timeoffset
+        // is applied.
+        // Note: ISO months are 0 for January, 1 for February, ...
+  			const [y, m, d] = value.split('-').map(val => +val);
+  			return new Date(y, m - 1, d);
+  		}
+  		const match = value.match(ISO8601_DATE_REGEX);
+  		if (match) {
+  			return isoStringToDate(match);
+  		}
+  	}
+  	const date = new Date(value);
+  	if (!isDate(date)) {
+  		throw new Error(`Unable to convert "${value}" into a date`);
+  	}
+  	return date;
+  }
+
+  // Converts a date in ISO8601 to a Date. Used instead of `Date.parse` because of browser discrepancies.
+  export function isoStringToDate(match) {
+  	const date = new Date(0);
+  	let tzHour = 0;
+  	let tzMin = 0;
+  	// match[8] means that the string contains 'Z' (UTC) or a timezone like '+01:00' or '+0100'
+  	const dateSetter = match[8] ? date.setUTCFullYear : date.setFullYear;
+  	const timeSetter = match[8] ? date.setUTCHours : date.setHours;
+  	// if there is a timezone defined like '+01:00' or '+0100'
+  	if (match[9]) {
+  		tzHour = Number(match[9] + match[10]);
+  		tzMin = Number(match[9] + match[11]);
+  	}
+  	dateSetter.call(date, Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+  	const h = Number(match[4] || 0) - tzHour;
+  	const m = Number(match[5] || 0) - tzMin;
+  	const s = Number(match[6] || 0);
+  	const ms = Math.round(parseFloat('0.' + (match[7] || 0)) * 1000);
+  	timeSetter.call(date, h, m, s, ms);
+  	return date;
+  }
+
+  export function isDate(value) {
+  	return value instanceof Date && !isNaN(value.valueOf());
+  }
+  */
+
+  function padNumber(num, digits, minusSign, trim, negWrap) {
+    if (minusSign === void 0) {
+      minusSign = '-';
+    }
+
+    var neg = '';
+
+    if (negWrap && num <= 0) {
+      num = -num + 1;
+    } else if (num < 0) {
+      num = -num;
+      neg = minusSign;
+    }
+
+    var strNum = String(num);
+
+    while (strNum.length < digits) {
+      strNum = '0' + strNum;
+    }
+
+    if (trim) {
+      strNum = strNum.substr(strNum.length - digits);
+    }
+
+    return neg + strNum;
+  }
+
+  var FORMAT_SPLITTER_REGEX = /((?:[^GyMLwWdEabBhHmsSzZO']+)|(?:'(?:[^']|'')*')|(?:G{1,5}|y{1,4}|M{1,5}|L{1,5}|w{1,2}|W{1}|d{1,2}|E{1,6}|a{1,5}|b{1,5}|B{1,5}|h{1,2}|H{1,2}|m{1,2}|s{1,2}|S{1,3}|z{1,4}|Z{1,5}|O{1,4}))([\s\S]*)/;
+  var JANUARY = 0;
+  var THURSDAY = 4;
+
+  var DateTimeService = /*#__PURE__*/function () {
+    function DateTimeService() {}
+
+    DateTimeService.getDatePart = function getDatePart(part, date) {
+      switch (part) {
+        case DatePart.FullYear:
+          return date.getFullYear();
+
+        case DatePart.Month:
+          return date.getMonth();
+
+        case DatePart.Date:
+          return date.getDate();
+
+        case DatePart.Day:
+          return date.getDay();
+
+        case DatePart.Hours:
+          return date.getHours();
+
+        case DatePart.Minutes:
+          return date.getMinutes();
+
+        case DatePart.Seconds:
+          return date.getSeconds();
+
+        case DatePart.Milliseconds:
+          return date.getMilliseconds();
+
+        default:
+          throw new Error("Unknown DatePart value \"" + part + "\".");
+      }
+    };
+
+    DateTimeService.formatMilliseconds = function formatMilliseconds(milliseconds, digits) {
+      var strMs = padNumber(milliseconds, 3);
+      return strMs.substr(0, digits);
+    };
+
+    DateTimeService.getDateFormatter = function getDateFormatter(name, digits, offset, trim, negWrap) {
+      if (offset === void 0) {
+        offset = 0;
+      }
+
+      if (trim === void 0) {
+        trim = false;
+      }
+
+      if (negWrap === void 0) {
+        negWrap = false;
+      }
+
+      return function (date, locale) {
+        var part = DateTimeService.getDatePart(name, date);
+
+        if (offset > 0 || part > -offset) {
+          part += offset;
+        }
+
+        if (name === DatePart.Hours) {
+          if (part === 0 && offset === -12) {
+            part = 12;
+          }
+        } else if (name === DatePart.Milliseconds) {
+          return DateTimeService.formatMilliseconds(part, digits);
+        }
+
+        var localeMinus = LocaleService.getLocale(LocaleType.NumberSymbols, LocaleNumberSymbol.MinusSign);
+        return padNumber(part, digits, localeMinus, trim, negWrap);
+      };
+    };
+
+    DateTimeService.getDateTranslation = function getDateTranslation(date, name, width, extended) {
+
+      switch (name) {
+        case LocaleType.Days:
+          return LocaleService.getLocale(LocaleType.Days, width, Object.values(LocaleDay)[date.getDay()]);
+        // return getLocaleDayNames(width)[Object.values(LocaleDay)[date.getDay()]];
+
+        case LocaleType.Months:
+          return LocaleService.getLocale(LocaleType.Months, width, Object.values(LocaleMonth)[date.getMonth()]);
+
+        case LocaleType.DayPeriods:
+          var currentHours = date.getHours();
+          /*
+          const currentMinutes = date.getMinutes();
+          if (extended) {
+          	const rules = getLocaleExtraDayPeriodRules();
+          	const dayPeriods = getLocaleExtraDayPeriods(width);
+          	const index = rules.findIndex(rule => {
+          		if (Array.isArray(rule)) {
+          			// morning, afternoon, evening, night
+          			const [from, to] = rule;
+          			const afterFrom = currentHours >= from.hours && currentMinutes >= from.minutes;
+          			const beforeTo = currentHours < to.hours || (currentHours === to.hours && currentMinutes < to.minutes);
+          			// We must account for normal rules that span a period during the day (e.g. 6am-9am)
+          			// where `from` is less (earlier) than `to`. But also rules that span midnight (e.g.
+          			// 10pm - 5am) where `from` is greater (later!) than `to`.
+          			//
+          			// In the first case the current time must be BOTH after `from` AND before `to`
+          			// (e.g. 8am is after 6am AND before 10am).
+          			//
+          			// In the second case the current time must be EITHER after `from` OR before `to`
+          			// (e.g. 4am is before 5am but not after 10pm; and 11pm is not before 5am but it is
+          			// after 10pm).
+          			if (from.hours < to.hours) {
+          				if (afterFrom && beforeTo) {
+          					return true;
+          				}
+          			} else if (afterFrom || beforeTo) {
+          				return true;
+          			}
+          		} else {
+          			// noon or midnight
+          			if (rule.hours === currentHours && rule.minutes === currentMinutes) {
+          				return true;
+          			}
+          		}
+          		return false;
+          	});
+          	if (index !== -1) {
+          		return dayPeriods[index];
+          	}
+          }
+          */
+          // if no rules for the day periods, we use am/pm by default
+
+          return LocaleService.getLocale(LocaleType.DayPeriods, width, currentHours < 12 ? LocaleDayPeriod.AM : LocaleDayPeriod.PM);
+
+        case LocaleType.Eras:
+          return LocaleService.getLocale(LocaleType.Eras, width, date.getFullYear() <= 0 ? LocaleEra.BC : LocaleEra.AD);
+
+        default:
+          throw new Error("unknown translation type " + name);
+      }
+    };
+
+    DateTimeService.getDateLocaleFormatter = function getDateLocaleFormatter(name, width, extended) {
+      if (extended === void 0) {
+        extended = false;
+      }
+
+      return function (date) {
+        return DateTimeService.getDateTranslation(date, name, width, extended);
+      };
+    };
+
+    DateTimeService.getWeekFirstThursdayOfYear = function getWeekFirstThursdayOfYear(year) {
+      var firstDayOfYear = new Date(year, JANUARY, 1).getDay();
+      return new Date(year, 0, 1 + (firstDayOfYear <= THURSDAY ? THURSDAY : THURSDAY + 7) - firstDayOfYear);
+    };
+
+    DateTimeService.getWeekThursday = function getWeekThursday(datetime) {
+      return new Date(datetime.getFullYear(), datetime.getMonth(), datetime.getDate() + (THURSDAY - datetime.getDay()));
+    };
+
+    DateTimeService.getWeekFormatter = function getWeekFormatter(digits, monthBased) {
+      if (monthBased === void 0) {
+        monthBased = false;
+      }
+
+      return function (date, locale) {
+        var result;
+
+        if (monthBased) {
+          var nbDaysBefore1stDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1).getDay() - 1;
+          var today = date.getDate();
+          result = 1 + Math.floor((today + nbDaysBefore1stDayOfMonth) / 7);
+        } else {
+          var firstThurs = DateTimeService.getWeekFirstThursdayOfYear(date.getFullYear());
+          var thisThurs = DateTimeService.getWeekThursday(date);
+          var diff = thisThurs.getTime() - firstThurs.getTime();
+          result = 1 + Math.round(diff / 6.048e8); // 6.048e8 ms per week
+        }
+
+        return padNumber(result, digits, LocaleService.getLocale(LocaleType.NumberSymbols, LocaleNumberSymbol.MinusSign));
+      };
+    };
+
+    DateTimeService.getTimezoneFormatter = function getTimezoneFormatter(width) {
+      return function (date, offset) {
+        var zone = -1 * offset;
+        var minusSign = LocaleService.getLocale(LocaleType.NumberSymbols, LocaleNumberSymbol.MinusSign);
+        var hours = zone > 0 ? Math.floor(zone / 60) : Math.ceil(zone / 60);
+
+        switch (width) {
+          case TimezoneLength.Short:
+            return (zone >= 0 ? '+' : '') + padNumber(hours, 2, minusSign) + padNumber(Math.abs(zone % 60), 2, minusSign);
+
+          case TimezoneLength.ShortGMT:
+            return 'GMT' + (zone >= 0 ? '+' : '') + padNumber(hours, 1, minusSign);
+
+          case TimezoneLength.Long:
+            return 'GMT' + (zone >= 0 ? '+' : '') + padNumber(hours, 2, minusSign) + ':' + padNumber(Math.abs(zone % 60), 2, minusSign);
+
+          case TimezoneLength.Extended:
+            if (offset === 0) {
+              return 'Z';
+            } else {
+              return (zone >= 0 ? '+' : '') + padNumber(hours, 2, minusSign) + ':' + padNumber(Math.abs(zone % 60), 2, minusSign);
+            }
+
+          default:
+            throw new Error("Unknown zone width \"" + width + "\"");
+        }
+      };
+    } // Based on CLDR formats:
+    // See complete list: http://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+    // See also explanations: http://cldr.unicode.org/translation/date-time
+    // TODO(ocombe): support all missing cldr formats: Y, U, Q, D, F, e, c, j, J, C, A, v, V, X, x
+    // const CACHED_FORMATTERS = {};
+    ;
+
+    DateTimeService.getFormatter = function getFormatter(format) {
+      /*
+      // cache
+      if (CACHED_FORMATTERS[format]) {
+      return CACHED_FORMATTERS[format];
+      }
+      */
+      var formatter;
+
+      switch (format) {
+        // 1 digit representation of the year, e.g. (AD 1 => 1, AD 199 => 199)
+        case 'y':
+          formatter = DateTimeService.getDateFormatter(DatePart.FullYear, 1, 0, false, true);
+          break;
+        // 2 digit representation of the year, padded (00-99). (e.g. AD 2001 => 01, AD 2010 => 10)
+
+        case 'yy':
+          formatter = DateTimeService.getDateFormatter(DatePart.FullYear, 2, 0, true, true);
+          break;
+        // 3 digit representation of the year, padded (000-999). (e.g. AD 2001 => 01, AD 2010 => 10)
+
+        case 'yyy':
+          formatter = DateTimeService.getDateFormatter(DatePart.FullYear, 3, 0, false, true);
+          break;
+        // 4 digit representation of the year (e.g. AD 1 => 0001, AD 2010 => 2010)
+
+        case 'yyyy':
+          formatter = DateTimeService.getDateFormatter(DatePart.FullYear, 4, 0, false, true);
+          break;
+        // Month of the year (1-12), numeric
+
+        case 'M':
+        case 'L':
+          formatter = DateTimeService.getDateFormatter(DatePart.Month, 1, 1);
+          break;
+
+        case 'MM':
+        case 'LL':
+          formatter = DateTimeService.getDateFormatter(DatePart.Month, 2, 1);
+          break;
+        // Day of the month (1-31)
+
+        case 'd':
+          formatter = DateTimeService.getDateFormatter(DatePart.Date, 1);
+          break;
+
+        case 'dd':
+          formatter = DateTimeService.getDateFormatter(DatePart.Date, 2);
+          break;
+        // Hour in AM/PM, (1-12)
+
+        case 'h':
+          formatter = DateTimeService.getDateFormatter(DatePart.Hours, 1, -12);
+          break;
+
+        case 'hh':
+          formatter = DateTimeService.getDateFormatter(DatePart.Hours, 2, -12);
+          break;
+        // Hour of the day (0-23)
+
+        case 'H':
+          formatter = DateTimeService.getDateFormatter(DatePart.Hours, 1);
+          break;
+        // Hour in day, padded (00-23)
+
+        case 'HH':
+          formatter = DateTimeService.getDateFormatter(DatePart.Hours, 2);
+          break;
+        // Minute of the hour (0-59)
+
+        case 'm':
+          formatter = DateTimeService.getDateFormatter(DatePart.Minutes, 1);
+          break;
+
+        case 'mm':
+          formatter = DateTimeService.getDateFormatter(DatePart.Minutes, 2);
+          break;
+        // Second of the minute (0-59)
+
+        case 's':
+          formatter = DateTimeService.getDateFormatter(DatePart.Seconds, 1);
+          break;
+
+        case 'ss':
+          formatter = DateTimeService.getDateFormatter(DatePart.Seconds, 2);
+          break;
+        // Fractional second
+
+        case 'S':
+          formatter = DateTimeService.getDateFormatter(DatePart.Milliseconds, 1);
+          break;
+
+        case 'SS':
+          formatter = DateTimeService.getDateFormatter(DatePart.Milliseconds, 2);
+          break;
+
+        case 'SSS':
+          formatter = DateTimeService.getDateFormatter(DatePart.Milliseconds, 3);
+          break;
+        // Month of the year (January, ...), string, format
+
+        case 'MMM':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.Months, LocaleLength.Abbreviated);
+          break;
+
+        case 'MMMM':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.Months, LocaleLength.Wide);
+          break;
+
+        case 'MMMMM':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.Months, LocaleLength.Narrow);
+          break;
+        // Month of the year (January, ...), string, standalone
+
+        case 'LLL':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.Months, LocaleLength.Abbreviated, FormStyle.Standalone);
+          break;
+
+        case 'LLLL':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.Months, LocaleLength.Wide, FormStyle.Standalone);
+          break;
+
+        case 'LLLLL':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.Months, LocaleLength.Narrow, FormStyle.Standalone);
+          break;
+        // Day of the Week
+
+        case 'E':
+        case 'EE':
+        case 'EEE':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.Days, LocaleLength.Abbreviated);
+          break;
+
+        case 'EEEE':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.Days, LocaleLength.Wide);
+          break;
+
+        case 'EEEEE':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.Days, LocaleLength.Narrow);
+          break;
+
+        case 'EEEEEE':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.Days, LocaleLength.Short);
+          break;
+        // Generic period of the day (am-pm)
+
+        case 'a':
+        case 'aa':
+        case 'aaa':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.DayPeriods, LocaleLength.Abbreviated);
+          break;
+
+        case 'aaaa':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.DayPeriods, LocaleLength.Wide);
+          break;
+
+        case 'aaaaa':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.DayPeriods, LocaleLength.Narrow);
+          break;
+        // Extended period of the day (midnight, at night, ...), standalone
+
+        case 'b':
+        case 'bb':
+        case 'bbb':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.DayPeriods, LocaleLength.Abbreviated, FormStyle.Standalone, true);
+          break;
+
+        case 'bbbb':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.DayPeriods, LocaleLength.Wide, FormStyle.Standalone, true);
+          break;
+
+        case 'bbbbb':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.DayPeriods, LocaleLength.Narrow, FormStyle.Standalone, true);
+          break;
+        // Extended period of the day (midnight, night, ...), standalone
+
+        case 'B':
+        case 'BB':
+        case 'BBB':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.DayPeriods, LocaleLength.Abbreviated, FormStyle.Format, true);
+          break;
+
+        case 'BBBB':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.DayPeriods, LocaleLength.Wide, FormStyle.Format, true);
+          break;
+
+        case 'BBBBB':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.DayPeriods, LocaleLength.Narrow, FormStyle.Format, true);
+          break;
+        // Era name (AD/BC)
+
+        case 'GGGGG':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.Eras, LocaleLength.Narrow);
+          break;
+
+        case 'G':
+        case 'GG':
+        case 'GGG':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.Eras, LocaleLength.Abbreviated);
+          break;
+
+        case 'GGGG':
+          formatter = DateTimeService.getDateLocaleFormatter(LocaleType.Eras, LocaleLength.Wide);
+          break;
+        // Week of the year (1, ... 52)
+
+        case 'w':
+          formatter = DateTimeService.getWeekFormatter(1);
+          break;
+
+        case 'ww':
+          formatter = DateTimeService.getWeekFormatter(2);
+          break;
+        // Week of the month (1, ...)
+
+        case 'W':
+          formatter = DateTimeService.getWeekFormatter(1, true);
+          break;
+        // Timezone ISO8601 short format (-0430)
+
+        case 'Z':
+        case 'ZZ':
+        case 'ZZZ':
+          formatter = DateTimeService.getTimezoneFormatter(TimezoneLength.Short);
+          break;
+        // Timezone ISO8601 extended format (-04:30)
+
+        case 'ZZZZZ':
+          formatter = DateTimeService.getTimezoneFormatter(TimezoneLength.Extended);
+          break;
+        // Timezone GMT short format (GMT+4)
+
+        case 'O':
+        case 'OO':
+        case 'OOO':
+          formatter = DateTimeService.getTimezoneFormatter(TimezoneLength.ShortGMT);
+          break;
+        // Should be location, but fallback to format O instead because we don't have the data yet
+
+        case 'z':
+        case 'zz':
+        case 'zzz':
+          formatter = DateTimeService.getTimezoneFormatter(TimezoneLength.ShortGMT);
+          break;
+        // Timezone GMT long format (GMT+0430)
+
+        case 'OOOO':
+        case 'ZZZZ':
+          formatter = DateTimeService.getTimezoneFormatter(TimezoneLength.Long);
+          break;
+        // Should be location, but fallback to format O instead because we don't have the data yet
+
+        case 'zzzz':
+          formatter = DateTimeService.getTimezoneFormatter(TimezoneLength.Long);
+          break;
+
+        default:
+          return null;
+      }
+      /*
+      // cache
+      CACHED_FORMATTERS[format] = formatter;
+      */
+
+
+      return formatter;
+    };
+
+    DateTimeService.setTimezoneOffset = function setTimezoneOffset(timezone, fallback) {
+      // Support: IE 9-11 only, Edge 13-15+
+      // IE/Edge do not "understand" colon (`:`) in timezone
+      timezone = timezone.replace(/:/g, '');
+      var requestedTimezoneOffset = Date.parse('Jan 01, 1970 00:00:00 ' + timezone) / 60000;
+      return isNaN(requestedTimezoneOffset) ? fallback : requestedTimezoneOffset;
+    };
+
+    DateTimeService.dateTimezoneToLocal = function dateTimezoneToLocal(date, timezone, reverse) {
+      var reverseValue = reverse ? -1 : 1;
+      var dateTimezoneOffset = date.getTimezoneOffset();
+      var timezoneOffset = DateTimeService.setTimezoneOffset(timezone, dateTimezoneOffset);
+      var minutes = reverseValue * (timezoneOffset - dateTimezoneOffset);
+      date = new Date(date.getTime());
+      date.setMinutes(date.getMinutes() + minutes);
+      return date;
+    };
+
+    DateTimeService.parseDate = function parseDate(value) {
+      if (value instanceof Date) {
+        return value;
+      }
+
+      return Date.parse(value);
+    } // const CACHED_FORMATS = {};
+    ;
+
+    DateTimeService.getNamedFormat = function getNamedFormat(format) {
+      /*
+      // cache
+      const localeId = locale.id;
+      CACHED_FORMATS[localeId] = CACHED_FORMATS[localeId] || {};
+      if (CACHED_FORMATS[localeId][format]) {
+      return CACHED_FORMATS[localeId][format];
+      }
+      */
+      var formatValue = '';
+
+      switch (format) {
+        case 'shortDate':
+          formatValue = LocaleService.getLocale(LocaleType.DateFormats, LocaleStyle.Short);
+          break;
+
+        case 'mediumDate':
+          formatValue = LocaleService.getLocale(LocaleType.DateFormats, LocaleStyle.Medium);
+          break;
+
+        case 'longDate':
+          formatValue = LocaleService.getLocale(LocaleType.DateFormats, LocaleStyle.Long);
+          break;
+
+        case 'fullDate':
+          formatValue = LocaleService.getLocale(LocaleType.DateFormats, LocaleStyle.Full);
+          break;
+
+        case 'shortTime':
+          formatValue = LocaleService.getLocale(LocaleType.TimeFormats, LocaleStyle.Short);
+          break;
+
+        case 'mediumTime':
+          formatValue = LocaleService.getLocale(LocaleType.TimeFormats, LocaleStyle.Medium);
+          break;
+
+        case 'longTime':
+          formatValue = LocaleService.getLocale(LocaleType.TimeFormats, LocaleStyle.Long);
+          break;
+
+        case 'fullTime':
+          formatValue = LocaleService.getLocale(LocaleType.TimeFormats, LocaleStyle.Full);
+          break;
+
+        case 'short':
+          var shortTime = DateTimeService.getNamedFormat('shortTime');
+          var shortDate = DateTimeService.getNamedFormat('shortDate');
+          formatValue = shortTime + " " + shortDate;
+          break;
+
+        case 'medium':
+          var mediumTime = DateTimeService.getNamedFormat('mediumTime');
+          var mediumDate = DateTimeService.getNamedFormat('mediumDate');
+          formatValue = mediumTime + " " + mediumDate;
+          break;
+
+        case 'long':
+          var longTime = DateTimeService.getNamedFormat('longTime');
+          var longDate = DateTimeService.getNamedFormat('longDate');
+          formatValue = longTime + " " + longDate;
+          break;
+
+        case 'full':
+          var fullTime = DateTimeService.getNamedFormat('fullTime');
+          var fullDate = DateTimeService.getNamedFormat('fullDate');
+          formatValue = fullTime + " " + fullDate;
+          break;
+      }
+      /*
+      // cache
+      if (formatValue) {
+      CACHED_FORMATS[localeId][format] = formatValue;
+      }
+      */
+
+
+      return formatValue;
+    };
+
+    DateTimeService.formatDate = function formatDate(value, format, timezone) {
+      var date = DateTimeService.parseDate(value); // console.log(date);
+      // named formats
+
+      var namedFormat = DateTimeService.getNamedFormat(format);
+      format = namedFormat || format;
+      var formats = [];
+      var match;
+
+      while (format) {
+        match = FORMAT_SPLITTER_REGEX.exec(format);
+
+        if (match) {
+          formats = formats.concat(match.slice(1));
+          var part = formats.pop();
+
+          if (!part) {
+            break;
+          }
+
+          format = part;
+        } else {
+          formats.push(format);
+          break;
+        }
+      } // console.log(formats);
+
+
+      var dateTimezoneOffset = date.getTimezoneOffset();
+
+      if (timezone) {
+        dateTimezoneOffset = DateTimeService.setTimezoneOffset(timezone, dateTimezoneOffset);
+        date = DateTimeService.dateTimezoneToLocal(date, timezone, true);
+      } // console.log(dateTimezoneOffset);
+
+
+      var text = '';
+      formats.forEach(function (format) {
+        var formatter = DateTimeService.getFormatter(format);
+
+        if (formatter) {
+          text += formatter(date, dateTimezoneOffset);
+        } else {
+          text += format === "''" ? "'" : format.replace(/(^'|'$)/g, '').replace(/''/g, "'");
+        }
+      });
+      return text;
+    };
+
+    return DateTimeService;
+  }();
 
   var DatePipe = /*#__PURE__*/function (_Pipe) {
     _inheritsLoose(DatePipe, _Pipe);
@@ -1618,340 +2799,124 @@
       return _Pipe.apply(this, arguments) || this;
     }
 
-    DatePipe.isNumber = function isNumber(value) {
-      return typeof value === 'number' && isFinite(value);
-    };
-
-    DatePipe.padNumber = function padNumber(num, digits, trim, negWrap) {
-      var neg = '';
-
-      if (num < 0 || negWrap && num <= 0) {
-        if (negWrap) {
-          num = -num + 1;
-        } else {
-          num = -num;
-          neg = '-';
-        }
+    DatePipe.transform = function transform(value, format) {
+      if (format === void 0) {
+        format = 'short';
       }
 
-      num = '' + num;
-
-      while (num.length < digits) {
-        num = ZERO_CHAR + num;
-      }
-
-      if (trim) {
-        num = num.substr(num.length - digits);
-      }
-
-      return neg + num;
-    };
-
-    DatePipe.dateGetter = function dateGetter(name, size, offset, trim, negWrap) {
-      offset = offset || 0;
-      return function (date) {
-        var value = date['get' + name]();
-
-        if (offset > 0 || value > -offset) {
-          value += offset;
-        }
-
-        if (value === 0 && offset === -12) value = 12;
-        return DatePipe.padNumber(value, size, trim, negWrap);
-      };
-    };
-
-    DatePipe.dateStrGetter = function dateStrGetter(name, shortForm, standAlone) {
-      return function (date, formats) {
-        var value = date['get' + name]();
-        var propPrefix = (standAlone ? 'STANDALONE' : '') + (shortForm ? 'SHORT' : '');
-        var get = (propPrefix + name).toUpperCase();
-        return formats[get][value];
-      };
-    };
-
-    DatePipe.timeZoneGetter = function timeZoneGetter(date, formats, offset) {
-      var zone = -1 * offset;
-      var paddedZone = zone >= 0 ? '+' : '';
-      paddedZone += DatePipe.padNumber(Math[zone > 0 ? 'floor' : 'ceil'](zone / 60), 2) + DatePipe.padNumber(Math.abs(zone % 60), 2);
-      return paddedZone;
-    };
-
-    DatePipe.getFirstThursdayOfYear = function getFirstThursdayOfYear(year) {
-      // 0 = index of January
-      var dayOfWeekOnFirst = new Date(year, 0, 1).getDay(); // 4 = index of Thursday (+1 to account for 1st = 5)
-      // 11 = index of *next* Thursday (+1 account for 1st = 12)
-
-      return new Date(year, 0, (dayOfWeekOnFirst <= 4 ? 5 : 12) - dayOfWeekOnFirst);
-    };
-
-    DatePipe.getThursdayThisWeek = function getThursdayThisWeek(datetime) {
-      return new Date(datetime.getFullYear(), datetime.getMonth(), datetime.getDate() + (4 - datetime.getDay())); // 4 = index of Thursday
-    };
-
-    DatePipe.weekGetter = function weekGetter(size) {
-      return function (date) {
-        var firstThurs = DatePipe.getFirstThursdayOfYear(date.getFullYear()),
-            thisThurs = DatePipe.getThursdayThisWeek(date);
-        var diff = +thisThurs - +firstThurs,
-            result = 1 + Math.round(diff / 6.048e8); // 6.048e8 ms per week
-
-        return padNumber(result, size);
-      };
-    };
-
-    DatePipe.ampmGetter = function ampmGetter(date, formats) {
-      return date.getHours() < 12 ? formats.AMPMS[0] : formats.AMPMS[1];
-    };
-
-    DatePipe.eraGetter = function eraGetter(date, formats) {
-      return date.getFullYear() <= 0 ? formats.ERAS[0] : formats.ERAS[1];
-    };
-
-    DatePipe.longEraGetter = function longEraGetter(date, formats) {
-      return date.getFullYear() <= 0 ? formats.ERANAMES[0] : formats.ERANAMES[1];
-    };
-
-    DatePipe.jsonStringToDate = function jsonStringToDate(string) {
-      var match;
-
-      if (match = string.match(R_ISO8601_STR)) {
-        var tzHour = 0;
-        var tzMin = 0;
-
-        if (match[9]) {
-          tzHour = parseInt(match[9] + match[10]);
-          tzMin = parseInt(match[9] + match[11]);
-        }
-
-        var date = new Date(0);
-        var dateSetter = match[8] ? date.setUTCFullYear : date.setFullYear;
-        var timeSetter = match[8] ? date.setUTCHours : date.setHours;
-        dateSetter.call(date, parseInt(match[1]), parseInt(match[2]) - 1, parseInt(match[3]));
-        var h = parseInt(match[4] || 0) - tzHour;
-        var m = parseInt(match[5] || 0) - tzMin;
-        var s = parseInt(match[6] || 0);
-        var ms = Math.round(parseFloat('0.' + (match[7] || 0)) * 1000);
-        timeSetter.call(date, h, m, s, ms);
-        return date;
-      }
-
-      return string;
-    };
-
-    DatePipe.timezoneToOffset = function timezoneToOffset(timezone, fallback) {
-      // Support: IE 9-11 only, Edge 13-15+
-      // IE/Edge do not "understand" colon (`:`) in timezone
-      timezone = timezone.replace(ALL_COLONS, '');
-      var requestedTimezoneOffset = Date.parse('Jan 01, 1970 00:00:00 ' + timezone) / 60000;
-      return Number.isNaN(requestedTimezoneOffset) ? fallback : requestedTimezoneOffset;
-    };
-
-    DatePipe.addDateMinutes = function addDateMinutes(date, minutes) {
-      date = new Date(date.getTime());
-      date.setMinutes(date.getMinutes() + minutes);
-      return date;
-    };
-
-    DatePipe.convertTimezoneToLocal = function convertTimezoneToLocal(date, timezone, reverse) {
-      reverse = reverse ? -1 : 1;
-      var dateTimezoneOffset = date.getTimezoneOffset();
-      var timezoneOffset = DatePipe.timezoneToOffset(timezone, dateTimezoneOffset);
-      return DatePipe.addDateMinutes(date, reverse * (timezoneOffset - dateTimezoneOffset));
-    };
-
-    DatePipe.transform_ = function transform_(value, locale, options) {
-      if (locale === void 0) {
-        locale = 'it-IT-u-ca-gregory';
-      }
-
-      if (options === void 0) {
-        options = {
-          dateStyle: 'short',
-          timeStyle: 'short'
-        };
-      }
-
-      var localeDateString = new Date(value).toLocaleDateString(locale, options);
-      return localeDateString;
-    };
-
-    DatePipe.transform = function transform(date, format, timezone) {
-      var text = '',
-          match;
-      var parts = [];
-      format = format || 'mediumDate';
-      format = DatePipe.DATETIME_FORMATS[format] || format;
-
-      if (typeof date === 'string') {
-        date = NUMBER_STRING.test(date) ? parseInt(date) : DatePipe.jsonStringToDate(date);
-      }
-
-      if (DatePipe.isNumber(date)) {
-        date = new Date(date);
-      }
-
-      if (!(date instanceof Date) || !isFinite(date.getTime())) {
-        return date;
-      }
-
-      while (format) {
-        match = DATE_FORMATS_SPLIT.exec(format);
-
-        if (match) {
-          // parts = concat(parts, match, 1);
-          parts = parts.concat(match.slice(1));
-          format = parts.pop();
-        } else {
-          parts.push(format);
-          format = null;
-        }
-      }
-
-      var dateTimezoneOffset = date.getTimezoneOffset();
-
-      if (timezone) {
-        dateTimezoneOffset = DatePipe.timezoneToOffset(timezone, dateTimezoneOffset);
-        date = DatePipe.convertTimezoneToLocal(date, timezone, true);
-      }
-
-      parts.forEach(function (value) {
-        var formatter = DatePipe.DATE_FORMATS[value];
-        text += formatter ? formatter(date, DatePipe.DATETIME_FORMATS, dateTimezoneOffset) : value === '\'\'' ? '\'' : value.replace(/(^'|'$)/g, '').replace(/''/g, '\'');
-      });
-      return text;
+      return DateTimeService.formatDate(value, format);
     };
 
     return DatePipe;
   }(rxcomp.Pipe);
-  DatePipe.DATE_FORMATS = {
-    yyyy: DatePipe.dateGetter('FullYear', 4, 0, false, true),
-    yy: DatePipe.dateGetter('FullYear', 2, 0, true, true),
-    y: DatePipe.dateGetter('FullYear', 1, 0, false, true),
-    MMMM: DatePipe.dateStrGetter('Month'),
-    MMM: DatePipe.dateStrGetter('Month', true),
-    MM: DatePipe.dateGetter('Month', 2, 1),
-    M: DatePipe.dateGetter('Month', 1, 1),
-    LLLL: DatePipe.dateStrGetter('Month', false, true),
-    dd: DatePipe.dateGetter('Date', 2),
-    d: DatePipe.dateGetter('Date', 1),
-    HH: DatePipe.dateGetter('Hours', 2),
-    H: DatePipe.dateGetter('Hours', 1),
-    hh: DatePipe.dateGetter('Hours', 2, -12),
-    h: DatePipe.dateGetter('Hours', 1, -12),
-    mm: DatePipe.dateGetter('Minutes', 2),
-    m: DatePipe.dateGetter('Minutes', 1),
-    ss: DatePipe.dateGetter('Seconds', 2),
-    s: DatePipe.dateGetter('Seconds', 1),
-    // while ISO 8601 requires fractions to be prefixed with `.` or `,`
-    // we can be just safely rely on using `sss` since we currently don't support single or two digit fractions
-    sss: DatePipe.dateGetter('Milliseconds', 3),
-    EEEE: DatePipe.dateStrGetter('Day'),
-    EEE: DatePipe.dateStrGetter('Day', true),
-    a: DatePipe.ampmGetter,
-    Z: DatePipe.timeZoneGetter,
-    ww: DatePipe.weekGetter(2),
-    w: DatePipe.weekGetter(1),
-    G: DatePipe.eraGetter,
-    GG: DatePipe.eraGetter,
-    GGG: DatePipe.eraGetter,
-    GGGG: DatePipe.longEraGetter
-  };
-  DatePipe.DATETIME_FORMATS = DATETIME_FORMATS_IT_IT;
   DatePipe.meta = {
     name: 'date'
   };
   /**
-     *   Formats `date` to a string based on the requested `format`.
-     *
-     *   `format` string can be composed of the following elements:
-     *
-     *   * `'yyyy'`: 4 digit representation of year (e.g. AD 1 => 0001, AD 2010 => 2010)
-     *   * `'yy'`: 2 digit representation of year, padded (00-99). (e.g. AD 2001 => 01, AD 2010 => 10)
-     *   * `'y'`: 1 digit representation of year, e.g. (AD 1 => 1, AD 199 => 199)
-     *   * `'MMMM'`: Month in year (January-December)
-     *   * `'MMM'`: Month in year (Jan-Dec)
-     *   * `'MM'`: Month in year, padded (01-12)
-     *   * `'M'`: Month in year (1-12)
-     *   * `'LLLL'`: Stand-alone month in year (January-December)
-     *   * `'dd'`: Day in month, padded (01-31)
-     *   * `'d'`: Day in month (1-31)
-     *   * `'EEEE'`: Day in Week,(Sunday-Saturday)
-     *   * `'EEE'`: Day in Week, (Sun-Sat)
-     *   * `'HH'`: Hour in day, padded (00-23)
-     *   * `'H'`: Hour in day (0-23)
-     *   * `'hh'`: Hour in AM/PM, padded (01-12)
-     *   * `'h'`: Hour in AM/PM, (1-12)
-     *   * `'mm'`: Minute in hour, padded (00-59)
-     *   * `'m'`: Minute in hour (0-59)
-     *   * `'ss'`: Second in minute, padded (00-59)
-     *   * `'s'`: Second in minute (0-59)
-     *   * `'sss'`: Millisecond in second, padded (000-999)
-     *   * `'a'`: AM/PM marker
-     *   * `'Z'`: 4 digit (+sign) representation of the timezone offset (-1200-+1200)
-     *   * `'ww'`: Week of year, padded (00-53). Week 01 is the week with the first Thursday of the year
-     *   * `'w'`: Week of year (0-53). Week 1 is the week with the first Thursday of the year
-     *   * `'G'`, `'GG'`, `'GGG'`: The abbreviated form of the era string (e.g. 'AD')
-     *   * `'GGGG'`: The long form of the era string (e.g. 'Anno Domini')
-     *
-     *   `format` string can also be one of the following predefined
-     *   {@link guide/i18n localizable formats}:
-     *
-     *   * `'medium'`: equivalent to `'MMM d, y h:mm:ss a'` for en_US locale
-     *     (e.g. Sep 3, 2010 12:05:08 PM)
-     *   * `'short'`: equivalent to `'M/d/yy h:mm a'` for en_US  locale (e.g. 9/3/10 12:05 PM)
-     *   * `'fullDate'`: equivalent to `'EEEE, MMMM d, y'` for en_US  locale
-     *     (e.g. Friday, September 3, 2010)
-     *   * `'longDate'`: equivalent to `'MMMM d, y'` for en_US  locale (e.g. September 3, 2010)
-     *   * `'mediumDate'`: equivalent to `'MMM d, y'` for en_US  locale (e.g. Sep 3, 2010)
-     *   * `'shortDate'`: equivalent to `'M/d/yy'` for en_US locale (e.g. 9/3/10)
-     *   * `'mediumTime'`: equivalent to `'h:mm:ss a'` for en_US locale (e.g. 12:05:08 PM)
-     *   * `'shortTime'`: equivalent to `'h:mm a'` for en_US locale (e.g. 12:05 PM)
-     *
-     *   `format` string can contain literal values. These need to be escaped by surrounding with single quotes (e.g.
-     *   `"h 'in the morning'"`). In order to output a single quote, escape it - i.e., two single quotes in a sequence
-     *   (e.g. `"h 'o''clock'"`).
-     *
-     *   Any other characters in the `format` string will be output as-is.
-     *
-     * @param {(Date|number|string)} date Date to format either as Date object, milliseconds (string or
-     *    number) or various ISO 8601 datetime string formats (e.g. yyyy-MM-ddTHH:mm:ss.sssZ and its
-     *    shorter versions like yyyy-MM-ddTHH:mmZ, yyyy-MM-dd or yyyyMMddTHHmmssZ). If no timezone is
-     *    specified in the string input, the time is considered to be in the local timezone.
-     * @param {string=} format Formatting rules (see Description). If not specified,
-     *    `mediumDate` is used.
-     * @param {string=} timezone Timezone to be used for formatting. It understands UTC/GMT and the
-     *    continental US time zone abbreviations, but for general use, use a time zone offset, for
-     *    example, `'+0430'` (4 hours, 30 minutes east of the Greenwich meridian)
-     *    If not specified, the timezone of the browser will be used.
-     * @returns {string} Formatted string or the input if input is not recognized as date/millis.
-     *
-     * @example
-  	 <example name="filter-date">
-  	   <file name="index.html">
-  		 <span ng-non-bindable>{{1288323623006 | date:'medium'}}</span>:
-  			 <span>{{1288323623006 | date:'medium'}}</span><br>
-  		 <span ng-non-bindable>{{1288323623006 | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>:
-  			<span>{{1288323623006 | date:'yyyy-MM-dd HH:mm:ss Z'}}</span><br>
-  		 <span ng-non-bindable>{{1288323623006 | date:'MM/dd/yyyy @ h:mma'}}</span>:
-  			<span>{{'1288323623006' | date:'MM/dd/yyyy @ h:mma'}}</span><br>
-  		 <span ng-non-bindable>{{1288323623006 | date:"MM/dd/yyyy 'at' h:mma"}}</span>:
-  			<span>{{'1288323623006' | date:"MM/dd/yyyy 'at' h:mma"}}</span><br>
-  	   </file>
-  	   <file name="protractor.js" type="protractor">
-  		 it('should format date', function() {
-  		   expect(element(by.binding("1288323623006 | date:'medium'")).getText()).
-  			  toMatch(/Oct 2\d, 2010 \d{1,2}:\d{2}:\d{2} (AM|PM)/);
-  		   expect(element(by.binding("1288323623006 | date:'yyyy-MM-dd HH:mm:ss Z'")).getText()).
-  			  toMatch(/2010-10-2\d \d{2}:\d{2}:\d{2} (-|\+)?\d{4}/);
-  		   expect(element(by.binding("'1288323623006' | date:'MM/dd/yyyy @ h:mma'")).getText()).
-  			  toMatch(/10\/2\d\/2010 @ \d{1,2}:\d{2}(AM|PM)/);
-  		   expect(element(by.binding("'1288323623006' | date:\"MM/dd/yyyy 'at' h:mma\"")).getText()).
-  			  toMatch(/10\/2\d\/2010 at \d{1,2}:\d{2}(AM|PM)/);
-  		 });
-  	   </file>
-  	 </example>
-     */
+   *
+   * * The result of this pipe is not reevaluated when the input is mutated. To avoid the need to
+   * reformat the date on every change-detection cycle, treat the date as an immutable object
+   * and change the reference when the pipe needs to run again.
+   *
+   * ### Pre-defined format options
+   *
+   * Examples are given in `en-US` locale.
+   *
+   * - `'short'`: equivalent to `'M/d/yy, h:mm a'` (`6/15/15, 9:03 AM`).
+   * - `'medium'`: equivalent to `'MMM d, y, h:mm:ss a'` (`Jun 15, 2015, 9:03:01 AM`).
+   * - `'long'`: equivalent to `'MMMM d, y, h:mm:ss a z'` (`June 15, 2015 at 9:03:01 AM
+   * GMT+1`).
+   * - `'full'`: equivalent to `'EEEE, MMMM d, y, h:mm:ss a zzzz'` (`Monday, June 15, 2015 at
+   * 9:03:01 AM GMT+01:00`).
+   * - `'shortDate'`: equivalent to `'M/d/yy'` (`6/15/15`).
+   * - `'mediumDate'`: equivalent to `'MMM d, y'` (`Jun 15, 2015`).
+   * - `'longDate'`: equivalent to `'MMMM d, y'` (`June 15, 2015`).
+   * - `'fullDate'`: equivalent to `'EEEE, MMMM d, y'` (`Monday, June 15, 2015`).
+   * - `'shortTime'`: equivalent to `'h:mm a'` (`9:03 AM`).
+   * - `'mediumTime'`: equivalent to `'h:mm:ss a'` (`9:03:01 AM`).
+   * - `'longTime'`: equivalent to `'h:mm:ss a z'` (`9:03:01 AM GMT+1`).
+   * - `'fullTime'`: equivalent to `'h:mm:ss a zzzz'` (`9:03:01 AM GMT+01:00`).
+   *
+   * ### Custom format options
+   *
+   * You can construct a format string using symbols to specify the components
+   * of a date-time value, as described in the following table.
+   * Format details depend on the locale.
+   * Fields marked with (*) are only available in the extra data set for the given locale.
+   *
+   *  | Field type         | Format      | Description                                                   | Example Value                                              |
+   *  |--------------------|-------------|---------------------------------------------------------------|------------------------------------------------------------|
+   *  | Era                | G, GG & GGG | Abbreviated                                                   | AD                                                         |
+   *  |                    | GGGG        | Wide                                                          | Anno Domini                                                |
+   *  |                    | GGGGG       | Narrow                                                        | A                                                          |
+   *  | Year               | y           | Numeric: minimum digits                                       | 2, 20, 201, 2017, 20173                                    |
+   *  |                    | yy          | Numeric: 2 digits + zero padded                               | 02, 20, 01, 17, 73                                         |
+   *  |                    | yyy         | Numeric: 3 digits + zero padded                               | 002, 020, 201, 2017, 20173                                 |
+   *  |                    | yyyy        | Numeric: 4 digits or more + zero padded                       | 0002, 0020, 0201, 2017, 20173                              |
+   *  | Month              | M           | Numeric: 1 digit                                              | 9, 12                                                      |
+   *  |                    | MM          | Numeric: 2 digits + zero padded                               | 09, 12                                                     |
+   *  |                    | MMM         | Abbreviated                                                   | Sep                                                        |
+   *  |                    | MMMM        | Wide                                                          | September                                                  |
+   *  |                    | MMMMM       | Narrow                                                        | S                                                          |
+   *  | Month standalone   | L           | Numeric: 1 digit                                              | 9, 12                                                      |
+   *  |                    | LL          | Numeric: 2 digits + zero padded                               | 09, 12                                                     |
+   *  |                    | LLL         | Abbreviated                                                   | Sep                                                        |
+   *  |                    | LLLL        | Wide                                                          | September                                                  |
+   *  |                    | LLLLL       | Narrow                                                        | S                                                          |
+   *  | Week of year       | w           | Numeric: minimum digits                                       | 1... 53                                                    |
+   *  |                    | ww          | Numeric: 2 digits + zero padded                               | 01... 53                                                   |
+   *  | Week of month      | W           | Numeric: 1 digit                                              | 1... 5                                                     |
+   *  | Day of month       | d           | Numeric: minimum digits                                       | 1                                                          |
+   *  |                    | dd          | Numeric: 2 digits + zero padded                               | 01                                                          |
+   *  | Week day           | E, EE & EEE | Abbreviated                                                   | Tue                                                        |
+   *  |                    | EEEE        | Wide                                                          | Tuesday                                                    |
+   *  |                    | EEEEE       | Narrow                                                        | T                                                          |
+   *  |                    | EEEEEE      | Short                                                         | Tu                                                         |
+   *  | Period             | a, aa & aaa | Abbreviated                                                   | am/pm or AM/PM                                             |
+   *  |                    | aaaa        | Wide (fallback to `a` when missing)                           | ante meridiem/post meridiem                                |
+   *  |                    | aaaaa       | Narrow                                                        | a/p                                                        |
+   *  | Period*            | B, BB & BBB | Abbreviated                                                   | mid.                                                       |
+   *  |                    | BBBB        | Wide                                                          | am, pm, midnight, noon, morning, afternoon, evening, night |
+   *  |                    | BBBBB       | Narrow                                                        | md                                                         |
+   *  | Period standalone* | b, bb & bbb | Abbreviated                                                   | mid.                                                       |
+   *  |                    | bbbb        | Wide                                                          | am, pm, midnight, noon, morning, afternoon, evening, night |
+   *  |                    | bbbbb       | Narrow                                                        | md                                                         |
+   *  | Hour 1-12          | h           | Numeric: minimum digits                                       | 1, 12                                                      |
+   *  |                    | hh          | Numeric: 2 digits + zero padded                               | 01, 12                                                     |
+   *  | Hour 0-23          | H           | Numeric: minimum digits                                       | 0, 23                                                      |
+   *  |                    | HH          | Numeric: 2 digits + zero padded                               | 00, 23                                                     |
+   *  | Minute             | m           | Numeric: minimum digits                                       | 8, 59                                                      |
+   *  |                    | mm          | Numeric: 2 digits + zero padded                               | 08, 59                                                     |
+   *  | Second             | s           | Numeric: minimum digits                                       | 0... 59                                                    |
+   *  |                    | ss          | Numeric: 2 digits + zero padded                               | 00... 59                                                   |
+   *  | Fractional seconds | S           | Numeric: 1 digit                                              | 0... 9                                                     |
+   *  |                    | SS          | Numeric: 2 digits + zero padded                               | 00... 99                                                   |
+   *  |                    | SSS         | Numeric: 3 digits + zero padded (= milliseconds)              | 000... 999                                                 |
+   *  | Zone               | z, zz & zzz | Short specific non location format (fallback to O)            | GMT-8                                                      |
+   *  |                    | zzzz        | Long specific non location format (fallback to OOOO)          | GMT-08:00                                                  |
+   *  |                    | Z, ZZ & ZZZ | ISO8601 basic format                                          | -0800                                                      |
+   *  |                    | ZZZZ        | Long localized GMT format                                     | GMT-8:00                                                   |
+   *  |                    | ZZZZZ       | ISO8601 extended format + Z indicator for offset 0 (= XXXXX)  | -08:00                                                     |
+   *  |                    | O, OO & OOO | Short localized GMT format                                    | GMT-8                                                      |
+   *  |                    | OOOO        | Long localized GMT format                                     | GMT-08:00                                                  |
+   *
+   * Note that timezone correction is not applied to an ISO string that has no time component, such as "2016-09-19"
+   *
+   * ### Format examples
+   *
+   * These examples transform a date into various formats,
+   * assuming that `dateObj` is a JavaScript `Date` object for
+   * year: 2015, month: 6, day: 15, hour: 21, minute: 43, second: 11,
+   * given in the local time for the `en-US` locale.
+   *
+   * ```
+   * {{ dateObj | date }}               // output is 'Jun 15, 2015'
+   * {{ dateObj | date:'medium' }}      // output is 'Jun 15, 2015, 9:43:11 PM'
+   * {{ dateObj | date:'shortTime' }}   // output is '9:43 PM'
+   * {{ dateObj | date:'mm:ss' }}       // output is '43:11'
+   * ```
+   *
+   */
 
   var DROPDOWN_ID = 1000000;
 
@@ -2254,7 +3219,7 @@
         lastName: 'Arcuri'
       });
       console.log(this.user);
-      this.event = this.listing = null;
+      this.event = this.listing = this.error = null;
       this.grid = {
         mode: 1,
         width: 350,
@@ -2309,6 +3274,17 @@
         _this.listing = data[1];
 
         _this.startFilter(_this.listing);
+
+        _this.pushChanges();
+      });
+      this.inputActive = false;
+      var form = this.form = new rxcompForm.FormGroup({
+        question: new rxcompForm.FormControl(null, [rxcompForm.Validators.RequiredValidator()]),
+        checkRequest: window.antiforgery,
+        checkField: ''
+      });
+      form.changes$.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (changes) {
+        _this.inputActive = changes.question && changes.question.length > 0;
 
         _this.pushChanges();
       });
@@ -2385,12 +3361,43 @@
       var _this5 = this;
 
       var flag = this.event.info.saved;
-      EventService[flag ? 'unsave$' : 'save$'](this.event.id).pipe(operators.first()).subscribe(function () {
+      FavouriteService[flag ? 'remove$' : 'add$'](this.event.id).pipe(operators.first()).subscribe(function () {
         flag = !flag;
-        _this5.event.info.saves = flag;
+        _this5.event.info.saved = flag;
 
         _this5.pushChanges();
       });
+    };
+
+    _proto.onInputFocus = function onInputFocus(event) {
+      this.inputFocus = true;
+      this.pushChanges();
+    };
+
+    _proto.onInputBlur = function onInputBlur(event) {
+      this.inputFocus = false;
+      this.pushChanges();
+    };
+
+    _proto.postQuestion = function postQuestion(event) {
+      var _this6 = this;
+
+      if (this.form.valid) {
+        // console.log('EventPageComponent.postQuestion.onSubmit', this.form.value);
+        this.form.submitted = true;
+        EventService.postQuestion$(this.event, this.form.value.question).pipe(operators.first()).subscribe(function (question) {
+          _this6.event.questions.unshift(question);
+
+          _this6.form.controls.question.value = null; // this.pushChanges();
+        }, function (error) {
+          console.log('EventPageComponent.postQuestion.error', error);
+          _this6.error = error;
+
+          _this6.pushChanges();
+        });
+      } else {
+        this.form.touched = true;
+      }
     };
 
     return EventPageComponent;
@@ -2452,9 +3459,9 @@
       var _this3 = this;
 
       var flag = this.event.info.saved;
-      EventService[flag ? 'unsave$' : 'save$'](this.event.id).pipe(operators.first()).subscribe(function () {
+      FavouriteService[flag ? 'remove$' : 'add$'](this.event.id).pipe(operators.first()).subscribe(function () {
         flag = !flag;
-        _this3.event.info.saves = flag;
+        _this3.event.info.saved = flag;
 
         _this3.pushChanges();
       });
@@ -2465,6 +3472,69 @@
   EventComponent.meta = {
     selector: '[event]',
     inputs: ['event']
+  };
+
+  var ViewModes = {
+    Saved: 'saved',
+    Liked: 'liked'
+  };
+
+  var FavouritePageComponent = /*#__PURE__*/function (_PageComponent) {
+    _inheritsLoose(FavouritePageComponent, _PageComponent);
+
+    function FavouritePageComponent() {
+      return _PageComponent.apply(this, arguments) || this;
+    }
+
+    var _proto = FavouritePageComponent.prototype;
+
+    _proto.onInit = function onInit() {
+      var _this = this;
+
+      this.channels = null;
+      this.savedItems = [];
+      this.likedItems = [];
+      this.viewMode_ = ViewModes.Saved;
+      this.grid = {
+        mode: 1,
+        width: 350,
+        gutter: 2
+      };
+      this.load$().pipe(operators.first()).subscribe(function (data) {
+        _this.channels = data[0];
+        _this.savedItems = data[1];
+        _this.likedItems = data[2];
+
+        _this.pushChanges();
+      });
+    };
+
+    _proto.load$ = function load$() {
+      return rxjs.combineLatest(ChannelService.channels$(), FavouriteService.saved$(), FavouriteService.liked$());
+    };
+
+    _proto.toggleGrid = function toggleGrid() {
+      this.grid.width = this.grid.width === 350 ? 700 : 350;
+      this.pushChanges();
+    };
+
+    _createClass(FavouritePageComponent, [{
+      key: "viewMode",
+      get: function get() {
+        return this.viewMode_;
+      },
+      set: function set(viewMode) {
+        if (this.viewMode_ !== viewMode) {
+          this.viewMode_ = viewMode;
+          this.pushChanges();
+        }
+      }
+    }]);
+
+    return FavouritePageComponent;
+  }(PageComponent);
+  FavouritePageComponent.meta = {
+    selector: '[favourite-page]'
   };
 
   var ControlComponent = /*#__PURE__*/function (_Component) {
@@ -2520,6 +3590,80 @@
     template:
     /* html */
     "\n\t<div class=\"inner\" [style]=\"{ display: control.invalid && control.touched ? 'block' : 'none' }\">\n\t\t<div class=\"error\" *for=\"let [key, value] of control.errors\">\n\t\t\t<span [innerHTML]=\"getLabel(key, value)\"></span>\n\t\t\t<!-- <span class=\"key\" [innerHTML]=\"key\"></span> <span class=\"value\" [innerHTML]=\"value | json\"></span> -->\n\t\t</div>\n\t</div>\n\t"
+  };
+
+  var CssService = /*#__PURE__*/function () {
+    function CssService() {}
+
+    CssService.height$ = function height$() {
+      var style = document.documentElement.style;
+      return rxjs.fromEvent(window, 'resize').pipe(operators.map(function (event) {
+        return window.innerHeight;
+      }), operators.startWith(window.innerHeight), operators.tap(function (height) {
+        // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+        var vh = height * 0.01; // Then we set the value in the --vh custom property to the root of the document
+
+        style.setProperty('--vh', vh + "px");
+      }));
+    };
+
+    return CssService;
+  }();
+
+  var HeaderComponent = /*#__PURE__*/function (_Component) {
+    _inheritsLoose(HeaderComponent, _Component);
+
+    function HeaderComponent() {
+      return _Component.apply(this, arguments) || this;
+    }
+
+    var _proto = HeaderComponent.prototype;
+
+    _proto.onInit = function onInit() {
+      var _this = this;
+
+      this.menu = null;
+      this.submenu = null;
+      this.user = null;
+      this.favourites = [];
+      UserService.user$.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (user) {
+        _this.user = user;
+
+        _this.pushChanges();
+      });
+      FavouriteService.observe$().pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (favourites) {
+        _this.favourites = favourites; // console.log('HeaderComponent.favourites', favourites);
+
+        _this.pushChanges();
+      });
+      UserService.me$().pipe(operators.catchError(function () {
+        return rxjs.of(null);
+      }), operators.takeUntil(this.unsubscribe$)).subscribe(function (user) {
+        console.log('user', user);
+      });
+      CssService.height$().pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (height) {// console.log('HeaderComponent.height$', height);
+      }); // console.log(JSON.stringify(LocaleService.defaultLocale));
+    };
+
+    _proto.toggleMenu = function toggleMenu($event) {
+      this.menu = this.menu !== $event ? $event : null; // console.log('toggleMenu', this.menu);
+
+      var body = document.querySelector('body');
+      this.menu ? body.classList.add('fixed') : body.classList.remove('fixed');
+      this.submenu = null;
+      this.pushChanges();
+    };
+
+    _proto.onDropped = function onDropped(id) {
+      // console.log('HeaderComponent.onDropped', id);
+      this.submenu = id;
+      this.pushChanges();
+    };
+
+    return HeaderComponent;
+  }(rxcomp.Component);
+  HeaderComponent.meta = {
+    selector: 'header'
   };
 
   /*
@@ -3895,11 +5039,12 @@
         return;
       }
 
-      var _getContext = rxcomp.getContext(this),
-          node = _getContext.node,
-          rxcompId = _getContext.rxcompId;
+      ThronComponent.registerSkin();
 
-      node.setAttribute('id', "thron-" + rxcompId);
+      var _getContext = rxcomp.getContext(this),
+          node = _getContext.node;
+
+      node.setAttribute('id', "thron-" + this.rxcompId);
       var media = this.thron;
 
       if (media.indexOf('pkey=') === -1) {
@@ -3919,15 +5064,20 @@
         autoplay: autoplay,
         muted: !controls,
         displayLinked: 'close',
-        noSkin: !controls // lockBitrate: 'max',
-
+        noSkin: !controls,
+        // lockBitrate: 'max',
+        //loader spinner color
+        preloadColor: '#446CB3',
+        //Audio Wave color
+        waveColor: '#ffffff',
+        waveProgressColor: '#446CB3'
       });
       /*
       // Set the bottom bar of the video with share and fullscreen only. The first on the left and the second to the right.
       const params = {
-      	sessId: "asessId",
-      	clientId: "aclientId",
-      	xcontentId: "acontentId"
+      	sessId: 'asessId',
+      	clientId: 'aclientId',
+      	xcontentId: 'acontentId'
       };
       */
 
@@ -3936,7 +5086,7 @@
       this.onCanPlay = this.onCanPlay.bind(this);
       this.onPlaying = this.onPlaying.bind(this);
       this.onComplete = this.onComplete.bind(this);
-      player.on("beforeInit", this.onBeforeInit);
+      player.on('beforeInit', this.onBeforeInit);
       player.on('ready', this.onReady);
       player.on('canPlay', this.onCanPlay);
       player.on('playing', this.onPlaying);
@@ -3946,9 +5096,9 @@
     _proto.onBeforeInit = function onBeforeInit(playerInstance) {
       // Removes playButton and hdButton from schema bar
       var schema = window.THRONSchemaHelper.getSchema();
-      var elements = window.THRONSchemaHelper.removeElementsById(schema, "VIDEO", ["captionText", "subtitleButton", "downloadableButton"]); // A simple verify: existsElements must false
+      var elements = window.THRONSchemaHelper.removeElementsById(schema, 'VIDEO', ['captionText', 'subtitleButton', 'downloadableButton']); // A simple verify: existsElements must false
 
-      var existsElements = window.THRONSchemaHelper.getElementsById(schema, "VIDEO", ["captionText", "subtitleButton", "downloadableButton"]).coordinates.length > 0;
+      var existsElements = window.THRONSchemaHelper.getElementsById(schema, 'VIDEO', ['captionText', 'subtitleButton', 'downloadableButton']).coordinates.length > 0;
       console.log('ThronComponent.onBeforeInit.existsElements', existsElements);
       var params = {
         bars: schema
@@ -4024,6 +5174,44 @@
       if (status && status.playing) {
         player.pause();
       }
+    };
+
+    ThronComponent.registerSkin = function registerSkin() {
+      if (window.wseThronPlugin) {
+        return;
+      }
+
+      window.wseThronPlugin = function (playerInstance, dom, otherparams, jquery) {
+        this.player = playerInstance;
+        this.$ = jquery;
+        /*
+        this.player.on('beforeInit',
+        	function(playerInstance) {
+        		console.log('set action before player init', playerInstance, 'otherparams', otherparams);
+        		var params = {
+        			volume: 0.5,
+        			autoplay: false,
+        			linkedContent: 'show',
+        			//loader spinner color
+        			preloadColor: '#f39900',
+        			//Audio Wave color
+        			waveColor: '#ffffff',
+        			waveProgressColor: '#f39900'
+        		};
+        		//add params
+        		playerInstance.params(params);
+        	}
+        );
+        this.player.on('resize', function(playerInstance) {
+        	console.log('resize', playerInstance);
+        });
+        this.player.on('ready', function(playerInstance) {
+        	console.log('ready', playerInstance);
+        });
+        */
+      };
+
+      THRONContentExperience.plugin('wse', wseThronPlugin);
     };
 
     return ThronComponent;
@@ -4857,7 +6045,7 @@
   }(rxcomp.Module);
   AppModule.meta = {
     imports: [rxcomp.CoreModule, rxcompForm.FormModule],
-    declarations: [ChannelComponent, ChannelPageComponent, CountPipe, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, EventPageComponent, HtmlPipe, IndexPageComponent, LazyDirective, ModalComponent, ModalOutletComponent, RegisterOrLoginComponent, RelativeDateDirective, RelativeDatePipe, ScrollToDirective, SecureDirective, SwiperDirective, SwiperEventsDirective, SwiperSlidesDirective, SwiperTopEventsDirective, ThronComponent, VirtualStructure, VideoComponent, YoutubeComponent],
+    declarations: [ChannelComponent, ChannelPageComponent, CountPipe, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, EventPageComponent, FavouritePageComponent, HeaderComponent, HtmlPipe, IndexPageComponent, LazyDirective, ModalComponent, ModalOutletComponent, RegisterOrLoginComponent, RelativeDateDirective, RelativeDatePipe, ScrollToDirective, SecureDirective, SwiperDirective, SwiperEventsDirective, SwiperSlidesDirective, SwiperTopEventsDirective, ThronComponent, VirtualStructure, VideoComponent, YoutubeComponent],
     bootstrap: AppComponent
   };
 

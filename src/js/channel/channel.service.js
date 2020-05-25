@@ -1,5 +1,6 @@
 import { of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { ENV } from '../environment/environment';
 import EventService, { Event } from '../event/event.service';
 import HttpService from '../http/http.service';
 
@@ -15,19 +16,19 @@ export class Channel {
 export default class ChannelService {
 
 	static channels$() {
-		return HttpService.get$(`/api/channel/channels`).pipe(
+		return HttpService.get$(`${ENV.API}/channel/channels`).pipe(
 			map(items => ChannelService.mapChannels(items))
 		);
 	}
 
 	static detail$(channelId) {
-		return HttpService.get$(`/api/channel/${channelId}/detail`).pipe(
+		return HttpService.get$(`${ENV.API}/channel/${channelId}/detail`).pipe(
 			map(x => ChannelService.mapChannel(x))
 		);
 	}
 
 	static listing$(channelId) {
-		// return HttpService.get$(`/api/channel/${channelId}/listing`);
+		// return HttpService.get$(`${ENV.API}/channel/${channelId}/listing`);
 		return ChannelService.fakeListing(channelId).pipe(
 			tap((items) => {
 				// console.log(JSON.stringify(items));
@@ -36,7 +37,7 @@ export default class ChannelService {
 	}
 
 	static top$() {
-		return HttpService.get$(`/api/channel/evidence`).pipe(
+		return HttpService.get$(`${ENV.API}/channel/evidence`).pipe(
 			map(items => ChannelService.mapChannels(items))
 		);
 	}
@@ -74,7 +75,7 @@ export default class ChannelService {
 	}
 
 	static fakeListing(channelId) {
-		return HttpService.get$(`/api/channel/${channelId}/detail`).pipe(
+		return HttpService.get$(`${ENV.API}/channel/${channelId}/detail`).pipe(
 			map(x => {
 				const channel_ = ChannelService.fake(new Channel(x));
 				const info_ = {
@@ -205,7 +206,7 @@ export default class ChannelService {
 	}
 
 	static fakeListing_(channelId) {
-		return HttpService.get$(`/api/channel/${channelId}/detail`).pipe(
+		return HttpService.get$(`${ENV.API}/channel/${channelId}/detail`).pipe(
 			map(x => {
 				const channel_ = ChannelService.fake(new Channel(x));
 				const event_ = {

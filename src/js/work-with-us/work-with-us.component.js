@@ -68,7 +68,7 @@ export default class WorkWithUsComponent extends Component {
 		if (this.form.valid) {
 			// console.log('WorkWithUsComponent.onSubmit', this.form.value);
 			this.form.submitted = true;
-			HttpService.post$('/api/users/WorkWithUs', this.form.value)
+			HttpService.post$('/api/user/WorkWithUs', this.form.value)
 				.subscribe(response => {
 					console.log('WorkWithUsComponent.onSubmit', response);
 					this.success = true;

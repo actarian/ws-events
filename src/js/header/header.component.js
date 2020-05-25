@@ -2,6 +2,7 @@ import { Component } from 'rxcomp';
 import { of } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import CssService from '../css/css.service';
+import FavouriteService from '../favourite/favourite.service';
 import UserService from '../user/user.service';
 
 export default class HeaderComponent extends Component {
@@ -10,10 +11,18 @@ export default class HeaderComponent extends Component {
 		this.menu = null;
 		this.submenu = null;
 		this.user = null;
+		this.favourites = [];
 		UserService.user$.pipe(
 			takeUntil(this.unsubscribe$)
 		).subscribe(user => {
 			this.user = user;
+			this.pushChanges();
+		});
+		FavouriteService.observe$().pipe(
+			takeUntil(this.unsubscribe$)
+		).subscribe(favourites => {
+			this.favourites = favourites;
+			// console.log('HeaderComponent.favourites', favourites);
 			this.pushChanges();
 		});
 		UserService.me$().pipe(
@@ -27,6 +36,7 @@ export default class HeaderComponent extends Component {
 		).subscribe(height => {
 			// console.log('HeaderComponent.height$', height);
 		});
+		// console.log(JSON.stringify(LocaleService.defaultLocale));
 	}
 
 	toggleMenu($event) {

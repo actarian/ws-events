@@ -1,5 +1,6 @@
 import { Component } from 'rxcomp';
 import { first } from 'rxjs/operators';
+import FavouriteService from '../favourite/favourite.service';
 import EventService from './event.service';
 
 export default class EventComponent extends Component {
@@ -42,11 +43,11 @@ export default class EventComponent extends Component {
 
 	toggleSave() {
 		let flag = this.event.info.saved;
-		EventService[flag ? 'unsave$' : 'save$'](this.event.id).pipe(
+		FavouriteService[flag ? 'remove$' : 'add$'](this.event.id).pipe(
 			first()
 		).subscribe(() => {
 			flag = !flag;
-			this.event.info.saves = flag;
+			this.event.info.saved = flag;
 			this.pushChanges();
 		});
 	}

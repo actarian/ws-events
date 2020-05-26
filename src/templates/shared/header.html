@@ -1,5 +1,3 @@
-<!-- header -->
-
 <header class="wse__header" header (aside)="onAsideToggle($event)" (notification)="onNotificationToggle($event)">
 	<div class="wse__container-fluid">
 		<div class="wse__group--header">
@@ -8,10 +6,15 @@
 				<a href="/ws-events/" class="wse__brand"><svg class="wse__websolute"><use xlink:href="#websolute"></use></svg></a>
 			</div>
 			<div class="wse__group--actions" *if="user">
+				<!--
 				<a href="/ws-events/favourite.html" class="wse__btn--rounded" *if="favourites.length"><span>Rivedi</span><span class="wse__count" [innerHTML]="favourites.length"></span></a>
+				-->
+				<a href="/ws-events/favourite.html" class="wse__btn--circle" *if="favourites.length">
+					<svg class="wse__icon"><use xlink:href="#star"></use></svg><span class="wse__count" [innerHTML]="favourites.length"></span>
+				</a>
 				<div class="wse__avatar" [innerHTML]="user.avatar"></div>
 				<div class="wse__btn--circle" (click)="toggleNotification($event)" (clickOutside)="dismissNotification($event)">
-					<svg class="wse__icon--bell"><use xlink:href="#bell"></use></svg><span class="wse__count" [innerHTML]="notifications.length"></span>
+					<svg class="wse__icon"><use xlink:href="#bell"></use></svg><span class="wse__count" [innerHTML]="notifications.length"></span>
 				</div>
 			</div>
 		</div>

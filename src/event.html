@@ -28,39 +28,39 @@
 								<div class="wse__channel__info">
 									<div class="wse__subscribe" [class]="{ 'wse__active': event.info.subscribed }" (click)="toggleSubscribe()">
 										<div class="wse__info">
-											<svg class="wse__icon--bell" *if="!event.info.subscribed"><use xlink:href="#bell"></use></svg>
-											<svg class="wse__icon--bell" *if="event.info.subscribed"><use xlink:href="#bell-active"></use></svg>
+											<svg class="wse__icon" *if="!event.info.subscribed"><use xlink:href="#bell"></use></svg>
+											<svg class="wse__icon" *if="event.info.subscribed"><use xlink:href="#bell-active"></use></svg>
 											<span class="wse__count" [innerHTML]="event.info.subscribers | count"></span>
 										</div>
-										<div class="wse__label"><svg class="wse__icon--bell"><use xlink:href="#bell-active"></use></svg></div>
+										<div class="wse__label"><svg class="wse__icon"><use xlink:href="#bell-active"></use></svg></div>
 									</div>
 									<div class="wse__like" [class]="{ 'wse__active': event.info.liked }" (click)="toggleLike()">
 										<div class="wse__info">
-											<svg class="wse__icon--heart" *if="!event.info.liked"><use xlink:href="#heart"></use></svg>
-											<svg class="wse__icon--heart" *if="event.info.liked"><use xlink:href="#heart-active"></use></svg>
+											<svg class="wse__icon" *if="!event.info.liked"><use xlink:href="#heart"></use></svg>
+											<svg class="wse__icon" *if="event.info.liked"><use xlink:href="#heart-active"></use></svg>
 											<span class="wse__count" [innerHTML]="event.info.likes | count"></span>
 										</div>
-										<div class="wse__label"><svg class="wse__icon--heart"><use xlink:href="#heart-active"></use></svg></div>
+										<div class="wse__label"><svg class="wse__icon"><use xlink:href="#heart-active"></use></svg></div>
 									</div>
 									<div class="wse__save" [class]="{ 'wse__active': event.info.saved }" (click)="toggleSave()">
 										<div class="wse__info">
-											<svg class="wse__icon--favourite" *if="!event.info.saved"><use xlink:href="#favourite"></use></svg>
-											<svg class="wse__icon--favourite" *if="event.info.saved"><use xlink:href="#favourite-active"></use></svg>
+											<svg class="wse__icon" *if="!event.info.saved"><use xlink:href="#star"></use></svg>
+											<svg class="wse__icon" *if="event.info.saved"><use xlink:href="#star-active"></use></svg>
 											<span [innerHTML]="event.info.saved ? 'salvato' : 'salva'"></span>
 										</div>
 										<div class="wse__label">
-											<svg class="wse__icon--favourite"><use xlink:href="#favourite-active"></use></svg>
+											<svg class="wse__icon"><use xlink:href="#star-active"></use></svg>
 											<span [innerHTML]="event.info.saved ? 'salvato' : 'salva'"></span>
 										</div>
 									</div>
 									<!--
 									<div class="wse__share" (click)="share()">
 										<div class="wse__info">
-											<svg class="wse__icon--share"><use xlink:href="#share"></use></svg>
+											<svg class="wse__icon"><use xlink:href="#share"></use></svg>
 											<span>condividi</span>
 										</div>
 										<div class="wse__label">
-											<svg class="wse__icon--share"><use xlink:href="#share"></use></svg>
+											<svg class="wse__icon"><use xlink:href="#share"></use></svg>
 											<span>condividi</span>
 										</div>
 									</div>

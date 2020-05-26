@@ -3072,6 +3072,7 @@ errors-component {
   width: 0;
   height: 0; }
 
+.wse__icon,
 [class^="wse__icon--"] {
   fill: currentColor; }
 
@@ -4082,7 +4083,26 @@ errors-component {
     margin-bottom: 20px; }
   @media (max-width: 1023.98px) {
     .wse__card--product {
-      margin: 0 0 20px 0; } }
+      margin: 0 0 20px 0; }
+      .wse__card--product__picture {
+        position: relative;
+        width: 100%;
+        padding-top: 75%;
+        overflow: hidden; }
+        .wse__card--product__picture > img,
+        .wse__card--product__picture > svg,
+        .wse__card--product__picture > video,
+        .wse__card--product__picture > canvas,
+        .wse__card--product__picture > .video,
+        .wse__card--product__picture > iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover; }
+        .wse__card--product__picture > img {
+          left: 50%; } }
 
 .wse__card--magazine {
   position: relative;
@@ -4169,7 +4189,26 @@ errors-component {
     margin-top: 10px; }
   @media (max-width: 1023.98px) {
     .wse__card--magazine {
-      margin: 0 0 20px 0; } }
+      margin: 0 0 20px 0; }
+      .wse__card--magazine__picture {
+        position: relative;
+        width: 100%;
+        padding-top: 75%;
+        overflow: hidden; }
+        .wse__card--magazine__picture > img,
+        .wse__card--magazine__picture > svg,
+        .wse__card--magazine__picture > video,
+        .wse__card--magazine__picture > canvas,
+        .wse__card--magazine__picture > .video,
+        .wse__card--magazine__picture > iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover; }
+        .wse__card--magazine__picture > img {
+          left: 50%; } }
 
 .wse__card--preview {
   position: relative;
@@ -4919,18 +4958,8 @@ errors-component {
     transform: translateX(-50%) translateY(-50%);
     opacity: 0;
     pointer-events: none; }
-  .wse__event__info .wse__icon--calendar,
-  .wse__event__info .wse__icon--bell,
-  .wse__event__info .wse__icon--heart,
-  .wse__event__info .wse__icon--bookmark,
-  .wse__event__info .wse__icon--favourite,
-  .wse__event__info .wse__icon--share,
-  .wse__channel__info .wse__icon--calendar,
-  .wse__channel__info .wse__icon--bell,
-  .wse__channel__info .wse__icon--heart,
-  .wse__channel__info .wse__icon--bookmark,
-  .wse__channel__info .wse__icon--favourite,
-  .wse__channel__info .wse__icon--share {
+  .wse__event__info .wse__icon,
+  .wse__channel__info .wse__icon {
     width: 16px;
     height: 16px;
     margin-right: 8px; }
@@ -5092,14 +5121,17 @@ errors-component {
       .wse__section--filters .wse__nav--filters {
         display: flex;
         justify-content: space-between;
-        align-items: center; }
+        align-items: stretch; }
         .wse__section--filters .wse__nav--filters > li {
           margin-right: 12px;
           position: relative; }
           .wse__section--filters .wse__nav--filters > li > .wse__filter__option {
-            position: static; }
+            position: static;
+            display: flex;
+            align-items: center;
+            height: 100%; }
             .wse__section--filters .wse__nav--filters > li > .wse__filter__option .wse__name {
-              min-height: 24px; }
+              font-size: 11px; }
               .wse__section--filters .wse__nav--filters > li > .wse__filter__option .wse__name .wse__text {
                 display: none; }
             .wse__section--filters .wse__nav--filters > li > .wse__filter__option .wse__ico {

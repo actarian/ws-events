@@ -174,7 +174,7 @@
 		@include media-down(sm) {
 			display: flex;
 			justify-content: space-between;
-			align-items: center;
+			align-items: stretch;
 
 			&>li {
 				margin-right: 12px;
@@ -182,9 +182,12 @@
 
 				&>.wse__filter__option {
 					position: static;
+					display: flex;
+					align-items: center;
+					height: 100%;
 
 					.wse__name {
-						min-height: 24px;
+						font-size: 11px;
 
 						.wse__text {
 							display: none;

@@ -10,7 +10,7 @@
 					<span class="wse__info" *if="mode === 'live'">Adesso</span>
 					<span class="wse__info" *if="mode === 'countdown'">A breve&nbsp;<span [innerHTML]="countdown"></span></span>
 					<span class="wse__info" *if="mode === 'relative' || mode === 'watchRelative'" [innerHTML]="eventDate.startDate | relativeDate"></span>
-					<span class="wse__info" *if="mode === 'date'"><svg class="wse__icon--calendar"><use xlink:href="#calendar"></use></svg> <span [innerHTML]="eventDate.startDate | date : 'EEE dd MMMM yyyy'"></span></span>
+					<span class="wse__info" *if="mode === 'date'"><svg class="wse__icon"><use xlink:href="#calendar"></use></svg> <span [innerHTML]="eventDate.startDate | date : 'EEE dd MMMM yyyy'"></span></span>
 				</span>
 			</span>
 		</span>

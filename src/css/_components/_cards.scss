@@ -786,6 +786,14 @@
 
 	@include media-down(sm) {
 		margin: 0 0 20px 0;
+
+		&__picture {
+			@include aspect-clip(4, 3);
+
+			&>img {
+				left: 50%;
+			}
+		}
 	}
 }
 
@@ -888,6 +896,14 @@
 
 	@include media-down(sm) {
 		margin: 0 0 20px 0;
+
+		&__picture {
+			@include aspect-clip(4, 3);
+
+			&>img {
+				left: 50%;
+			}
+		}
 	}
 }
 

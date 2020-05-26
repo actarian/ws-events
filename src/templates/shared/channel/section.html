@@ -7,19 +7,19 @@
 					<div class="wse__channel__info">
 						<div class="wse__subscribe" [class]="{ 'wse__active': channel.info.subscribed }" (click)="toggleSubscribe()">
 							<div class="wse__info">
-								<svg class="wse__icon--bell" *if="!channel.info.subscribed"><use xlink:href="#bell"></use></svg>
-								<svg class="wse__icon--bell" *if="channel.info.subscribed"><use xlink:href="#bell-active"></use></svg>
+								<svg class="wse__icon" *if="!channel.info.subscribed"><use xlink:href="#bell"></use></svg>
+								<svg class="wse__icon" *if="channel.info.subscribed"><use xlink:href="#bell-active"></use></svg>
 								<span class="wse__count" [innerHTML]="channel.info.subscribers | count"></span>&nbsp;<span class="wse__text">iscritti</span>
 							</div>
-							<div class="wse__label"><svg class="wse__icon--bell"><use xlink:href="#bell-active"></use></svg> <span [innerHTML]="channel.info.subscribed ? 'iscritto' : 'iscriviti'"></span></div>
+							<div class="wse__label"><svg class="wse__icon"><use xlink:href="#bell-active"></use></svg> <span [innerHTML]="channel.info.subscribed ? 'iscritto' : 'iscriviti'"></span></div>
 						</div>
 						<div class="wse__like" [class]="{ 'wse__active': channel.info.liked }" (click)="toggleLike()">
 							<div class="wse__info">
-								<svg class="wse__icon--heart" *if="!channel.info.liked"><use xlink:href="#heart"></use></svg>
-								<svg class="wse__icon--heart" *if="channel.info.liked"><use xlink:href="#heart-active"></use></svg>
+								<svg class="wse__icon" *if="!channel.info.liked"><use xlink:href="#heart"></use></svg>
+								<svg class="wse__icon" *if="channel.info.liked"><use xlink:href="#heart-active"></use></svg>
 								<span class="wse__count" [innerHTML]="channel.info.likes | count"></span>&nbsp;<span class="wse__text">mi piace</span>
 							</div>
-							<div class="wse__label"><svg class="wse__icon--heart"><use xlink:href="#heart-active"></use></svg> <span>mi piace</span></div>
+							<div class="wse__label"><svg class="wse__icon"><use xlink:href="#heart-active"></use></svg> <span>mi piace</span></div>
 						</div>
 					</div>
 					<div class="wse__section--channel__abstract" [innerHTML]="channel.abstract"></div>

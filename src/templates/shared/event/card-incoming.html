@@ -8,7 +8,7 @@
 				<div class="wse__date" [class]="{ 'wse__date--live': mode === 'live', 'wse__date--countdown': mode === 'countdown' }">
 					<div class="wse__info" *if="mode === 'countdown'">A breve&nbsp;<span [innerHTML]="countdown"></span></div>
 					<div class="wse__info" *if="mode === 'relative' || mode === 'watchRelative'" [innerHTML]="eventDate.startDate | relativeDate"></div>
-					<div class="wse__info" *if="mode === 'date'"><svg class="wse__icon--calendar"><use xlink:href="#calendar"></use></svg> <span [innerHTML]="eventDate.startDate | date : 'EEE dd MMMM yyyy'"></span></div>
+					<div class="wse__info" *if="mode === 'date'"><svg class="wse__icon"><use xlink:href="#calendar"></use></svg> <span [innerHTML]="eventDate.startDate | date : 'EEE dd MMMM yyyy'"></span></div>
 				</div>
 			</div>
 		</div>

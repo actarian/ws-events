@@ -108,7 +108,7 @@ export default class EventService {
 			map(x => {
 				x.id = event.questions[0].id + 1;
 				x.creationDate = new Date();
-				x.user = UserService.user$.getValue();
+				x.user = UserService.getCurrentUser();
 				x.body = body;
 				return x;
 			}),

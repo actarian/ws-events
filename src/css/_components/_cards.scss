@@ -71,7 +71,7 @@
 		position: relative;
 		@extend %category;
 		max-width: 500px;
-		color: white;
+		color: $foreground-negative;
 		text-align: center;
 	}
 
@@ -80,13 +80,13 @@
 		position: relative;
 		@extend %title;
 		max-width: 500px;
-		color: white;
+		color: $foreground-negative;
 		margin-bottom: 10px;
 		text-align: center;
 	}
 
 	.wse__event__info {
-		color: white;
+		color: $foreground-negative;
 	}
 
 	&__abstract {
@@ -94,7 +94,7 @@
 		position: relative;
 		@extend %abstract;
 		max-width: 500px;
-		color: white;
+		color: $foreground-negative;
 		margin-bottom: 10px;
 		text-align: center;
 		overflow: hidden;
@@ -186,8 +186,9 @@
 
 	&__picture {
 		display: block;
-		@include aspect-clip(1, 1);
-		background: $background-tertiary;
+		@include aspect-clip(4, 3);
+		background: $background;
+		overflow: visible;
 
 		&>img {
 			position: absolute;
@@ -478,7 +479,7 @@
 
 	.wse__event__info {
 		.wse__date {
-			color: white;
+			color: $foreground-negative;
 			padding: 4px 0;
 
 			&.wse__date--live {
@@ -607,7 +608,7 @@
 
 	.wse__event__info {
 		.wse__date {
-			color: white;
+			color: $foreground-negative;
 
 			&.wse__date--live {
 				background: #f70a36;
@@ -972,7 +973,7 @@
 		margin: 0;
 
 		.wse__date {
-			color: white;
+			color: $foreground-negative;
 
 			&.wse__date--live {
 				background: #f70a36;
@@ -1015,6 +1016,83 @@
 	@include media-down(sm) {
 		&__category {
 			margin-bottom: 10px;
+		}
+	}
+}
+
+.wse__card--notification {
+	position: relative;
+	display: flex;
+	background: $background;
+	margin-bottom: 15px;
+	text-decoration: none;
+	cursor: pointer;
+
+	&__picture {
+		flex: 0 0 50px;
+		width: 50px;
+		height: 50px;
+		margin-right: 10px;
+
+		&--inner {
+			display: block;
+			@include aspect-clip(1, 1);
+			background: $background-tertiary;
+
+			&>img {
+				position: absolute;
+				top: 0;
+				left: 50%;
+				width: auto;
+				height: 100%;
+				transform: translateX(-50%);
+				@extend %lazy;
+			}
+		}
+	}
+
+	&__content {
+		flex: 0 0 calc(100% - 50px);
+		width: calc(100% - 50px);
+
+		p {
+			margin: 0;
+		}
+
+		& p+p {
+			margin-top: 10px;
+		}
+	}
+
+	&__title {
+		display: block;
+		position: relative;
+		@extend %subtitle;
+		color: $foreground;
+		max-width: 500px;
+		font-size: 14px;
+		margin-bottom: 10px;
+	}
+
+	.wse__event__info {
+		margin: 0;
+
+		.wse__date {
+			color: $foreground;
+
+			&.wse__date--live {
+				background: #f70a36;
+			}
+
+			&.wse__date--countdown {
+				background: rgba(0, 0, 0, 0.8);
+			}
+		}
+	}
+
+	&:hover {
+		.wse__card--listing__abstract {
+			max-height: 200px;
 		}
 	}
 }

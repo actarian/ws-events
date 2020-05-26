@@ -45,6 +45,7 @@
 }
 
 %btn-circle {
+	position: relative;
 	@extend %btn;
 	width: 40px;
 	height: 40px;
@@ -53,6 +54,22 @@
 	align-items: center;
 	border-radius: 20px;
 	transition: all ease-in-out 350ms;
+
+	.wse__count {
+		@extend %badge;
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 0;
+		background: rgb(236, 14, 51);
+		color: $foreground-negative;
+		padding: 2px 5px;
+		line-height: 1;
+		font-size: 9px;
+		border-radius: 7px;
+		transform: translate3d(0, 0, 0);
+		backface-visibility: hidden;
+	}
 
 	svg {
 		width: 19px;
@@ -134,6 +151,54 @@
 	&:visited {
 		background: rgb(0, 153, 255);
 		color: white;
+	}
+}
+
+%btn-aside {
+	@extend %btn;
+	height: 40px;
+	line-height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 0;
+	padding: 0 10px;
+	font-weight: 600;
+
+	svg {
+		width: 24px;
+		height: 24px;
+		margin-left: -10px;
+		margin-right: 10px;
+	}
+
+	span {
+		display: block;
+	}
+
+	&,
+	&:active,
+	&:focus,
+	&:hover,
+	&:visited {
+		background: transparent;
+		border-bottom: 2px solid $foreground-primary;
+		color: $foreground-primary;
+
+		svg {
+			fill: $foreground-primary;
+		}
+	}
+
+	&.active,
+	&:hover {
+		background: $foreground-primary;
+		border-color: $foreground-primary;
+		color: $foreground-negative;
+
+		svg {
+			fill: $foreground-negative;
+		}
 	}
 }
 

@@ -1,0 +1,52 @@
+.wse__notification {
+	position: fixed;
+	top: 0;
+	height: 100vh;
+	padding: 65px 0 0 0;
+	background: $background;
+	border-left: 2px solid $background-tertiary;
+	transition: right ease-in-out 400ms;
+
+	.wse__container {
+		max-width: 100%;
+		height: 100vh;
+	}
+
+	.wse__group--notification {
+		position: relative;
+	}
+}
+
+@include media-up(sm) {
+	.wse__notification {
+		right: -320px;
+		width: 320px;
+	}
+
+	.wse__app {
+		&.wse__notification--active {
+			left: -320px;
+
+			.wse__notification {
+				right: 0px;
+			}
+		}
+	}
+}
+
+@include media-down(xs) {
+	.wse__notification {
+		right: -240px;
+		width: 240px;
+	}
+
+	.wse__app {
+		&.wse__notification--active {
+			left: -240px;
+
+			.wse__notification {
+				right: 0px;
+			}
+		}
+	}
+}

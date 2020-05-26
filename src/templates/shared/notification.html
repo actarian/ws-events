@@ -1,0 +1,10 @@
+<aside class="wse__notification" notification>
+	<div class="wse__container">
+		<div class="wse__group--notification" *virtual="let item of notifications" [mode]="grid.mode" [width]="grid.width" [gutter]="grid.gutter">
+			<!-- serve un nodo figlio -->
+			<div [event]="item">
+				<!-- @@include ./event/card-notification.html -->
+			</div>
+		</div>
+	</div>
+</aside>

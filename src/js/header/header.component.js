@@ -3,18 +3,19 @@ import { of } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import CssService from '../css/css.service';
 import FavouriteService from '../favourite/favourite.service';
+import NotificationService from '../notification/notification.service';
 import UserService from '../user/user.service';
 
 export default class HeaderComponent extends Component {
 
 	onInit() {
-		this.menu = null;
-		this.submenu = null;
 		this.user = null;
 		this.favourites = [];
-		UserService.user$.pipe(
+		UserService.me$().pipe(
+			catchError(() => of (null)),
 			takeUntil(this.unsubscribe$)
 		).subscribe(user => {
+			console.log('HeaderComponent.me$', user);
 			this.user = user;
 			this.pushChanges();
 		});
@@ -25,11 +26,12 @@ export default class HeaderComponent extends Component {
 			// console.log('HeaderComponent.favourites', favourites);
 			this.pushChanges();
 		});
-		UserService.me$().pipe(
-			catchError(() => of (null)),
+		NotificationService.observe$.pipe(
 			takeUntil(this.unsubscribe$)
-		).subscribe(user => {
-			console.log('user', user);
+		).subscribe(notifications => {
+			this.notifications = notifications;
+			// console.log('HeaderComponent.notifications', notifications);
+			this.pushChanges();
 		});
 		CssService.height$().pipe(
 			takeUntil(this.unsubscribe$)
@@ -39,13 +41,28 @@ export default class HeaderComponent extends Component {
 		// console.log(JSON.stringify(LocaleService.defaultLocale));
 	}
 
-	toggleMenu($event) {
-		this.menu = this.menu !== $event ? $event : null;
-		// console.log('toggleMenu', this.menu);
-		const body = document.querySelector('body');
-		this.menu ? body.classList.add('fixed') : body.classList.remove('fixed');
-		this.submenu = null;
-		this.pushChanges();
+	toggleAside($event) {
+		this.aside_ = !this.aside_;
+		this.aside.next(this.aside_);
+	}
+
+	dismissAside($event) {
+		if (this.aside_) {
+			this.aside_ = false;
+			this.aside.next(this.aside_);
+		}
+	}
+
+	toggleNotification($event) {
+		this.notification_ = !this.notification_;
+		this.notification.next(this.notification_);
+	}
+
+	dismissNotification($event) {
+		if (this.notification_) {
+			this.notification_ = false;
+			this.notification.next(this.notification_);
+		}
 	}
 
 	onDropped(id) {
@@ -58,4 +75,5 @@ export default class HeaderComponent extends Component {
 
 HeaderComponent.meta = {
 	selector: 'header',
+	outputs: ['aside', 'notification']
 };

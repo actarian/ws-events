@@ -1,8 +1,10 @@
 import { CoreModule, Module } from 'rxcomp';
 import { FormModule } from 'rxcomp-form';
 import AppComponent from './app.component';
+import AsideComponent from './aside/aside.component';
 import ChannelPageComponent from './channel/channel-page.component';
 import ChannelComponent from './channel/channel.component';
+import ClickOutsideDirective from './click-outside/click-outside.directive';
 import CountPipe from './count/count.pipe';
 import DatePipe from './date/date.pipe';
 import DropdownItemDirective from './dropdown/dropdown-item.directive';
@@ -18,6 +20,7 @@ import IndexPageComponent from './index/index-page.component';
 import LazyDirective from './lazy/lazy.directive';
 import ModalOutletComponent from './modal/modal-outlet.component';
 import ModalComponent from './modal/modal.component';
+import NotificationComponent from './notification/notification.component';
 import RegisterOrLoginComponent from './register-or-login/register-or-login.component';
 import RelativeDateDirective from './relative-date/relative-date.component';
 import RelativeDatePipe from './relative-date/relative-date.pipe';
@@ -40,8 +43,10 @@ AppModule.meta = {
 		FormModule,
 	],
 	declarations: [
+		AsideComponent,
 		ChannelComponent,
 		ChannelPageComponent,
+		ClickOutsideDirective,
 		CountPipe,
 		DatePipe,
 		DropdownDirective,
@@ -57,6 +62,7 @@ AppModule.meta = {
 		LazyDirective,
 		ModalComponent,
 		ModalOutletComponent,
+		NotificationComponent,
 		RegisterOrLoginComponent,
 		RelativeDateDirective,
 		RelativeDatePipe,

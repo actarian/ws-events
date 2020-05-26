@@ -48,379 +48,45 @@
           node = _getContext.node;
 
       node.classList.remove('wse__hidden');
+      this.asideActive = false;
     } // onView() { const context = getContext(this); }
     // onChanges() {}
     // onDestroy() {}
     ;
 
+    _proto.onAsideToggle = function onAsideToggle($event) {
+      var _getContext2 = rxcomp.getContext(this),
+          node = _getContext2.node;
+
+      if ($event) {
+        node.classList.add('wse__aside--active');
+        node.classList.remove('wse__notification--active');
+      } else {
+        node.classList.remove('wse__aside--active');
+      }
+      /*
+      this.asideActive = $event;
+      this.pushChanges();
+      */
+
+    };
+
+    _proto.onNotificationToggle = function onNotificationToggle($event) {
+      var _getContext3 = rxcomp.getContext(this),
+          node = _getContext3.node;
+
+      if ($event) {
+        node.classList.add('wse__notification--active');
+        node.classList.remove('wse__aside--active');
+      } else {
+        node.classList.remove('wse__notification--active');
+      }
+    };
+
     return AppComponent;
   }(rxcomp.Component);
   AppComponent.meta = {
     selector: '[app-component]'
-  };
-
-  var LocationService = /*#__PURE__*/function () {
-    function LocationService() {}
-
-    LocationService.get = function get(key) {
-      var params = new URLSearchParams(window.location.search); // console.log('LocationService.get', params);
-
-      return params.get(key);
-    };
-
-    LocationService.set = function set(keyOrValue, value) {
-      var params = new URLSearchParams(window.location.search);
-
-      if (typeof keyOrValue === 'string') {
-        params.set(keyOrValue, value);
-      } else {
-        params.set(keyOrValue, '');
-      }
-
-      this.replace(params); // console.log('LocationService.set', params, keyOrValue, value);
-    };
-
-    LocationService.replace = function replace(params) {
-      if (window.history && window.history.pushState) {
-        var title = document.title;
-        var url = window.location.href.split('?')[0] + "?" + params.toString();
-        window.history.pushState(params.toString(), title, url);
-      }
-    };
-
-    LocationService.deserialize = function deserialize(key) {
-      var encoded = this.get('params');
-      return this.decode(key, encoded);
-    };
-
-    LocationService.serialize = function serialize(keyOrValue, value) {
-      var params = this.deserialize();
-      var encoded = this.encode(keyOrValue, value, params);
-      this.set('params', encoded);
-    };
-
-    LocationService.decode = function decode(key, encoded) {
-      var decoded = null;
-
-      if (encoded) {
-        var json = window.atob(encoded);
-        decoded = JSON.parse(json);
-      }
-
-      if (key && decoded) {
-        decoded = decoded[key];
-      }
-
-      return decoded || null;
-    };
-
-    LocationService.encode = function encode(keyOrValue, value, params) {
-      params = params || {};
-      var encoded = null;
-
-      if (typeof keyOrValue === 'string') {
-        params[keyOrValue] = value;
-      } else {
-        params = keyOrValue;
-      }
-
-      var json = JSON.stringify(params);
-      encoded = window.btoa(json);
-      return encoded;
-    };
-
-    return LocationService;
-  }();
-
-  var FilterMode = {
-    SELECT: 'select',
-    AND: 'and',
-    OR: 'or'
-  };
-
-  var FilterItem = /*#__PURE__*/function () {
-    function FilterItem(filter) {
-      this.change$ = new rxjs.BehaviorSubject();
-      this.mode = FilterMode.SELECT;
-      this.placeholder = 'Select';
-      this.values = [];
-      this.options = [];
-
-      if (filter) {
-        if (filter.mode === FilterMode.SELECT) {
-          filter.options.unshift({
-            label: filter.placeholder,
-            values: []
-          });
-        }
-
-        Object.assign(this, filter);
-      }
-    }
-
-    var _proto = FilterItem.prototype;
-
-    _proto.filter = function filter(item, value) {
-      return true; // item.options.indexOf(value) !== -1;
-    };
-
-    _proto.match = function match(item) {
-      var _this = this;
-
-      var match;
-
-      if (this.mode === FilterMode.OR) {
-        match = this.values.length ? false : true;
-        this.values.forEach(function (value) {
-          match = match || _this.filter(item, value);
-        });
-      } else {
-        match = true;
-        this.values.forEach(function (value) {
-          match = match && _this.filter(item, value);
-        });
-      }
-
-      return match;
-    };
-
-    _proto.getSelectedOption = function getSelectedOption() {
-      var _this2 = this;
-
-      return this.options.find(function (x) {
-        return _this2.has(x);
-      });
-    };
-
-    _proto.getLabel = function getLabel() {
-      if (this.mode === FilterMode.SELECT) {
-        var selectedOption = this.getSelectedOption();
-        return selectedOption ? selectedOption.label : this.placeholder;
-      } else {
-        return this.label;
-      }
-    };
-
-    _proto.has = function has(item) {
-      return this.values.indexOf(item.value) !== -1;
-    };
-
-    _proto.set = function set(item) {
-      if (this.mode === FilterMode.SELECT) {
-        this.values = [];
-      }
-
-      var index = this.values.indexOf(item.value);
-
-      if (index === -1) {
-        if (item.value !== undefined) {
-          this.values.push(item.value);
-        }
-      }
-
-      if (this.mode === FilterMode.SELECT) {
-        this.placeholder = item.label;
-      } // console.log('FilterItem.set', item);
-
-
-      this.change$.next();
-    };
-
-    _proto.remove = function remove(item) {
-      var index = this.values.indexOf(item.value);
-
-      if (index !== -1) {
-        this.values.splice(index, 1);
-      }
-
-      if (this.mode === FilterMode.SELECT) {
-        var first = this.options[0];
-        this.placeholder = first.label;
-      } // console.log('FilterItem.remove', item);
-
-
-      this.change$.next();
-    };
-
-    _proto.toggle = function toggle(item) {
-      if (this.has(item)) {
-        this.remove(item);
-      } else {
-        this.set(item);
-      }
-    };
-
-    _proto.toggleActive = function toggleActive() {
-      this.active = !this.active;
-    };
-
-    return FilterItem;
-  }();
-
-  var FilterService = /*#__PURE__*/function () {
-    function FilterService(options, initialParams, callback) {
-      var filters = {};
-      this.filters = filters;
-
-      if (options) {
-        Object.keys(options).forEach(function (key) {
-          var filter = new FilterItem(options[key]);
-
-          if (typeof callback === 'function') {
-            callback(key, filter);
-          }
-
-          filters[key] = filter;
-        });
-        this.deserialize(this.filters, initialParams);
-      }
-    }
-
-    var _proto = FilterService.prototype;
-
-    _proto.getParamsCount = function getParamsCount(params) {
-      if (params) {
-        var paramsCount = Object.keys(params).reduce(function (p, c, i) {
-          var values = params[c];
-          return p + (values ? values.length : 0);
-        }, 0);
-        return paramsCount;
-      } else {
-        return 0;
-      }
-    };
-
-    _proto.deserialize = function deserialize(filters, initialParams) {
-      var params;
-
-      if (initialParams && this.getParamsCount(initialParams)) {
-        params = initialParams;
-      }
-
-      var locationParams = LocationService.deserialize('filters');
-
-      if (locationParams && this.getParamsCount(locationParams)) {
-        params = locationParams;
-      }
-
-      if (params) {
-        Object.keys(filters).forEach(function (key) {
-          filters[key].values = params[key] || [];
-        });
-      }
-
-      return filters;
-    };
-
-    _proto.serialize = function serialize(filters) {
-      var params = {};
-      var any = false;
-      Object.keys(filters).forEach(function (x) {
-        var filter = filters[x];
-
-        if (filter.values && filter.values.length > 0) {
-          params[x] = filter.values;
-          any = true;
-        }
-      });
-
-      if (!any) {
-        params = null;
-      } // console.log('FilterService.serialize', params);
-
-
-      LocationService.serialize('filters', params);
-      return params;
-    };
-
-    _proto.items$ = function items$(items) {
-      var _this = this;
-
-      var filters = this.filters;
-      var changes = Object.keys(filters).map(function (key) {
-        return filters[key].change$;
-      });
-      return rxjs.merge.apply(void 0, changes).pipe(operators.auditTime(1), // tap(() => console.log(filters)),
-      operators.tap(function () {
-        return _this.serialize(filters);
-      }), operators.map(function () {
-        return _this.filterItems(items);
-      }), operators.tap(function () {
-        return _this.updateFilterStates(filters, items);
-      }));
-    };
-
-    _proto.filterItems = function filterItems(items, skipFilter) {
-      var _this2 = this;
-
-      var filters = Object.keys(this.filters).map(function (x) {
-        return _this2.filters[x];
-      }).filter(function (x) {
-        return x.values && x.values.length > 0;
-      });
-      items = items.filter(function (item) {
-        var has = true;
-        filters.forEach(function (filter) {
-          if (filter !== skipFilter) {
-            has = has && filter.match(item);
-          }
-        });
-        return has;
-      });
-      return items;
-    };
-
-    _proto.updateFilterStates = function updateFilterStates(filters, items) {
-      var _this3 = this;
-
-      Object.keys(filters).forEach(function (x) {
-        var filter = filters[x];
-
-        var filteredItems = _this3.filterItems(items, filter);
-
-        filter.options.forEach(function (option) {
-          var count = 0;
-
-          if (option.value) {
-            var i = 0;
-
-            while (i < filteredItems.length) {
-              var item = filteredItems[i];
-
-              if (filter.filter(item, option.value)) {
-                count++;
-              }
-
-              i++;
-            }
-          } else {
-            count = filteredItems.length;
-          }
-
-          option.count = count;
-          option.disabled = count === 0;
-        });
-      });
-    };
-
-    return FilterService;
-  }();
-
-  var PageComponent = /*#__PURE__*/function (_Component) {
-    _inheritsLoose(PageComponent, _Component);
-
-    function PageComponent() {
-      return _Component.apply(this, arguments) || this;
-    }
-
-    var _proto = PageComponent.prototype;
-
-    _proto.onInit = function onInit() {};
-
-    return PageComponent;
-  }(rxcomp.Component);
-  PageComponent.meta = {
-    selector: '[page]'
   };
 
   var STATIC = window.location.port === '40333' || window.location.host === 'actarian.github.io';
@@ -700,8 +366,12 @@
   var UserService = /*#__PURE__*/function () {
     function UserService() {}
 
+    UserService.getCurrentUser = function getCurrentUser() {
+      return this.user$_.getValue();
+    };
+
     UserService.setUser = function setUser(user) {
-      this.user$.next(user);
+      this.user$_.next(user);
     };
 
     UserService.me$ = function me$() {
@@ -710,10 +380,12 @@
       return HttpService.get$(ENV.API + "/user/me").pipe( // map((user) => this.mapStatic__(user, 'me')),
       operators.map(function (user) {
         return _this.mapUser(user);
+      }), operators.catchError(function (error) {
+        return rxjs.of(null);
       }), operators.switchMap(function (user) {
         _this.setUser(user);
 
-        return _this.user$;
+        return _this.user$_;
       }));
     };
 
@@ -725,35 +397,35 @@
       }));
     };
 
-    UserService.update = function update(payload) {
+    UserService.login$ = function login$(payload) {
       var _this3 = this;
 
-      return HttpService.post$(ENV.API + "/user/updateprofile", payload).pipe(operators.map(function (user) {
-        return _this3.mapStatic__(user, 'register');
-      }));
-    };
-
-    UserService.login$ = function login$(payload) {
-      var _this4 = this;
-
       return HttpService.post$(ENV.API + "/user/login", payload).pipe(operators.map(function (user) {
-        return _this4.mapStatic__(user, 'login');
+        return _this3.mapStatic__(user, 'login');
       }));
     };
 
     UserService.logout$ = function logout$() {
-      var _this5 = this;
+      var _this4 = this;
 
       return HttpService.post$(ENV.API + "/user/logout").pipe(operators.map(function (user) {
-        return _this5.mapStatic__(user, 'logout');
+        return _this4.mapStatic__(user, 'logout');
       }));
     };
 
     UserService.retrieve$ = function retrieve$(payload) {
-      var _this6 = this;
+      var _this5 = this;
 
       return HttpService.post$(ENV.API + "/user/retrievepassword", payload).pipe(operators.map(function (user) {
-        return _this6.mapStatic__(user, 'retrieve');
+        return _this5.mapStatic__(user, 'retrieve');
+      }));
+    };
+
+    UserService.update$ = function update$(payload) {
+      var _this6 = this;
+
+      return HttpService.post$(ENV.API + "/user/updateprofile", payload).pipe(operators.map(function (user) {
+        return _this6.mapStatic__(user, 'register');
       }));
     };
 
@@ -807,7 +479,7 @@
 
     return UserService;
   }();
-  UserService.user$ = new rxjs.BehaviorSubject(null);
+  UserService.user$_ = new rxjs.BehaviorSubject(null);
 
   var Question = function Question(data) {
     if (data) {
@@ -986,7 +658,7 @@
       }), operators.map(function (x) {
         x.id = event.questions[0].id + 1;
         x.creationDate = new Date();
-        x.user = UserService.user$.getValue();
+        x.user = UserService.getCurrentUser();
         x.body = body;
         return x;
       }));
@@ -1540,6 +1212,403 @@
     return ChannelService;
   }();
 
+  var LocationService = /*#__PURE__*/function () {
+    function LocationService() {}
+
+    LocationService.get = function get(key) {
+      var params = new URLSearchParams(window.location.search); // console.log('LocationService.get', params);
+
+      return params.get(key);
+    };
+
+    LocationService.set = function set(keyOrValue, value) {
+      var params = new URLSearchParams(window.location.search);
+
+      if (typeof keyOrValue === 'string') {
+        params.set(keyOrValue, value);
+      } else {
+        params.set(keyOrValue, '');
+      }
+
+      this.replace(params); // console.log('LocationService.set', params, keyOrValue, value);
+    };
+
+    LocationService.replace = function replace(params) {
+      if (window.history && window.history.pushState) {
+        var title = document.title;
+        var url = window.location.href.split('?')[0] + "?" + params.toString();
+        window.history.pushState(params.toString(), title, url);
+      }
+    };
+
+    LocationService.deserialize = function deserialize(key) {
+      var encoded = this.get('params');
+      return this.decode(key, encoded);
+    };
+
+    LocationService.serialize = function serialize(keyOrValue, value) {
+      var params = this.deserialize();
+      var encoded = this.encode(keyOrValue, value, params);
+      this.set('params', encoded);
+    };
+
+    LocationService.decode = function decode(key, encoded) {
+      var decoded = null;
+
+      if (encoded) {
+        var json = window.atob(encoded);
+        decoded = JSON.parse(json);
+      }
+
+      if (key && decoded) {
+        decoded = decoded[key];
+      }
+
+      return decoded || null;
+    };
+
+    LocationService.encode = function encode(keyOrValue, value, params) {
+      params = params || {};
+      var encoded = null;
+
+      if (typeof keyOrValue === 'string') {
+        params[keyOrValue] = value;
+      } else {
+        params = keyOrValue;
+      }
+
+      var json = JSON.stringify(params);
+      encoded = window.btoa(json);
+      return encoded;
+    };
+
+    return LocationService;
+  }();
+
+  var PageComponent = /*#__PURE__*/function (_Component) {
+    _inheritsLoose(PageComponent, _Component);
+
+    function PageComponent() {
+      return _Component.apply(this, arguments) || this;
+    }
+
+    var _proto = PageComponent.prototype;
+
+    _proto.onInit = function onInit() {};
+
+    return PageComponent;
+  }(rxcomp.Component);
+  PageComponent.meta = {
+    selector: '[page]'
+  };
+
+  var AsideComponent = /*#__PURE__*/function (_PageComponent) {
+    _inheritsLoose(AsideComponent, _PageComponent);
+
+    function AsideComponent() {
+      return _PageComponent.apply(this, arguments) || this;
+    }
+
+    var _proto = AsideComponent.prototype;
+
+    _proto.onInit = function onInit() {
+      var _this = this;
+
+      var channelId = LocationService.get('channelId');
+      channelId = channelId ? parseInt(channelId) : null;
+      this.channelId = channelId;
+      this.channels = [];
+      this.load$().pipe(operators.first()).subscribe(function (data) {
+        _this.channels = data[0];
+
+        _this.pushChanges();
+      });
+    };
+
+    _proto.load$ = function load$() {
+      return rxjs.combineLatest(ChannelService.channels$());
+    };
+
+    return AsideComponent;
+  }(PageComponent);
+  AsideComponent.meta = {
+    selector: '[aside]'
+  };
+
+  var FilterMode = {
+    SELECT: 'select',
+    AND: 'and',
+    OR: 'or'
+  };
+
+  var FilterItem = /*#__PURE__*/function () {
+    function FilterItem(filter) {
+      this.change$ = new rxjs.BehaviorSubject();
+      this.mode = FilterMode.SELECT;
+      this.placeholder = 'Select';
+      this.values = [];
+      this.options = [];
+
+      if (filter) {
+        if (filter.mode === FilterMode.SELECT) {
+          filter.options.unshift({
+            label: filter.placeholder,
+            values: []
+          });
+        }
+
+        Object.assign(this, filter);
+      }
+    }
+
+    var _proto = FilterItem.prototype;
+
+    _proto.filter = function filter(item, value) {
+      return true; // item.options.indexOf(value) !== -1;
+    };
+
+    _proto.match = function match(item) {
+      var _this = this;
+
+      var match;
+
+      if (this.mode === FilterMode.OR) {
+        match = this.values.length ? false : true;
+        this.values.forEach(function (value) {
+          match = match || _this.filter(item, value);
+        });
+      } else {
+        match = true;
+        this.values.forEach(function (value) {
+          match = match && _this.filter(item, value);
+        });
+      }
+
+      return match;
+    };
+
+    _proto.getSelectedOption = function getSelectedOption() {
+      var _this2 = this;
+
+      return this.options.find(function (x) {
+        return _this2.has(x);
+      });
+    };
+
+    _proto.getLabel = function getLabel() {
+      if (this.mode === FilterMode.SELECT) {
+        var selectedOption = this.getSelectedOption();
+        return selectedOption ? selectedOption.label : this.placeholder;
+      } else {
+        return this.label;
+      }
+    };
+
+    _proto.has = function has(item) {
+      return this.values.indexOf(item.value) !== -1;
+    };
+
+    _proto.set = function set(item) {
+      if (this.mode === FilterMode.SELECT) {
+        this.values = [];
+      }
+
+      var index = this.values.indexOf(item.value);
+
+      if (index === -1) {
+        if (item.value !== undefined) {
+          this.values.push(item.value);
+        }
+      }
+
+      if (this.mode === FilterMode.SELECT) {
+        this.placeholder = item.label;
+      } // console.log('FilterItem.set', item);
+
+
+      this.change$.next();
+    };
+
+    _proto.remove = function remove(item) {
+      var index = this.values.indexOf(item.value);
+
+      if (index !== -1) {
+        this.values.splice(index, 1);
+      }
+
+      if (this.mode === FilterMode.SELECT) {
+        var first = this.options[0];
+        this.placeholder = first.label;
+      } // console.log('FilterItem.remove', item);
+
+
+      this.change$.next();
+    };
+
+    _proto.toggle = function toggle(item) {
+      if (this.has(item)) {
+        this.remove(item);
+      } else {
+        this.set(item);
+      }
+    };
+
+    _proto.toggleActive = function toggleActive() {
+      this.active = !this.active;
+    };
+
+    return FilterItem;
+  }();
+
+  var FilterService = /*#__PURE__*/function () {
+    function FilterService(options, initialParams, callback) {
+      var filters = {};
+      this.filters = filters;
+
+      if (options) {
+        Object.keys(options).forEach(function (key) {
+          var filter = new FilterItem(options[key]);
+
+          if (typeof callback === 'function') {
+            callback(key, filter);
+          }
+
+          filters[key] = filter;
+        });
+        this.deserialize(this.filters, initialParams);
+      }
+    }
+
+    var _proto = FilterService.prototype;
+
+    _proto.getParamsCount = function getParamsCount(params) {
+      if (params) {
+        var paramsCount = Object.keys(params).reduce(function (p, c, i) {
+          var values = params[c];
+          return p + (values ? values.length : 0);
+        }, 0);
+        return paramsCount;
+      } else {
+        return 0;
+      }
+    };
+
+    _proto.deserialize = function deserialize(filters, initialParams) {
+      var params;
+
+      if (initialParams && this.getParamsCount(initialParams)) {
+        params = initialParams;
+      }
+
+      var locationParams = LocationService.deserialize('filters');
+
+      if (locationParams && this.getParamsCount(locationParams)) {
+        params = locationParams;
+      }
+
+      if (params) {
+        Object.keys(filters).forEach(function (key) {
+          filters[key].values = params[key] || [];
+        });
+      }
+
+      return filters;
+    };
+
+    _proto.serialize = function serialize(filters) {
+      var params = {};
+      var any = false;
+      Object.keys(filters).forEach(function (x) {
+        var filter = filters[x];
+
+        if (filter.values && filter.values.length > 0) {
+          params[x] = filter.values;
+          any = true;
+        }
+      });
+
+      if (!any) {
+        params = null;
+      } // console.log('FilterService.serialize', params);
+
+
+      LocationService.serialize('filters', params);
+      return params;
+    };
+
+    _proto.items$ = function items$(items) {
+      var _this = this;
+
+      var filters = this.filters;
+      var changes = Object.keys(filters).map(function (key) {
+        return filters[key].change$;
+      });
+      return rxjs.merge.apply(void 0, changes).pipe(operators.auditTime(1), // tap(() => console.log(filters)),
+      operators.tap(function () {
+        return _this.serialize(filters);
+      }), operators.map(function () {
+        return _this.filterItems(items);
+      }), operators.tap(function () {
+        return _this.updateFilterStates(filters, items);
+      }));
+    };
+
+    _proto.filterItems = function filterItems(items, skipFilter) {
+      var _this2 = this;
+
+      var filters = Object.keys(this.filters).map(function (x) {
+        return _this2.filters[x];
+      }).filter(function (x) {
+        return x.values && x.values.length > 0;
+      });
+      items = items.filter(function (item) {
+        var has = true;
+        filters.forEach(function (filter) {
+          if (filter !== skipFilter) {
+            has = has && filter.match(item);
+          }
+        });
+        return has;
+      });
+      return items;
+    };
+
+    _proto.updateFilterStates = function updateFilterStates(filters, items) {
+      var _this3 = this;
+
+      Object.keys(filters).forEach(function (x) {
+        var filter = filters[x];
+
+        var filteredItems = _this3.filterItems(items, filter);
+
+        filter.options.forEach(function (option) {
+          var count = 0;
+
+          if (option.value) {
+            var i = 0;
+
+            while (i < filteredItems.length) {
+              var item = filteredItems[i];
+
+              if (filter.filter(item, option.value)) {
+                count++;
+              }
+
+              i++;
+            }
+          } else {
+            count = filteredItems.length;
+          }
+
+          option.count = count;
+          option.disabled = count === 0;
+        });
+      });
+    };
+
+    return FilterService;
+  }();
+
   var ChannelPageComponent = /*#__PURE__*/function (_PageComponent) {
     _inheritsLoose(ChannelPageComponent, _PageComponent);
 
@@ -1696,6 +1765,60 @@
   ChannelComponent.meta = {
     selector: '[channel]',
     inputs: ['channel']
+  };
+
+  var ClickOutsideDirective = /*#__PURE__*/function (_Directive) {
+    _inheritsLoose(ClickOutsideDirective, _Directive);
+
+    function ClickOutsideDirective() {
+      return _Directive.apply(this, arguments) || this;
+    }
+
+    var _proto = ClickOutsideDirective.prototype;
+
+    _proto.onInit = function onInit() {
+      var _this = this;
+
+      this.initialFocus = false;
+
+      var _getContext = rxcomp.getContext(this),
+          module = _getContext.module,
+          node = _getContext.node,
+          parentInstance = _getContext.parentInstance,
+          selector = _getContext.selector;
+
+      var event$ = this.event$ = rxjs.fromEvent(document, 'click').pipe(operators.filter(function (event) {
+        var target = event.target; // console.log('ClickOutsideDirective.onClick', this.element.nativeElement, target, this.element.nativeElement.contains(target));
+        // const documentContained: boolean = Boolean(document.compareDocumentPosition(target) & Node.DOCUMENT_POSITION_CONTAINED_BY);
+        // console.log(target, documentContained);
+
+        var clickedInside = node.contains(target) || !document.contains(target);
+
+        if (!clickedInside) {
+          if (_this.initialFocus) {
+            _this.initialFocus = false;
+            return true;
+          }
+        } else {
+          _this.initialFocus = true;
+        }
+      }), operators.shareReplay(1));
+      var expression = node.getAttribute("(clickOutside)");
+
+      if (expression) {
+        var outputFunction = module.makeFunction(expression, ['$event']);
+        event$.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (event) {
+          module.resolve(outputFunction, parentInstance, event);
+        });
+      } else {
+        parentInstance.clickOutside$ = event$;
+      }
+    };
+
+    return ClickOutsideDirective;
+  }(rxcomp.Directive);
+  ClickOutsideDirective.meta = {
+    selector: "[(clickOutside)]"
   };
 
   var CountPipe = /*#__PURE__*/function (_Pipe) {
@@ -3611,6 +3734,30 @@
     return CssService;
   }();
 
+  var NotificationService = /*#__PURE__*/function () {
+    function NotificationService() {}
+
+    NotificationService.getCurrentNotification = function getCurrentNotification() {
+      return this.notification$_.getValue();
+    };
+
+    NotificationService.observe$ = function observe$() {
+      var _this = this;
+
+      return HttpService.get$(ENV.API + "/user/notification").pipe(operators.map(function (items) {
+        return EventService.mapEvents(items);
+      }), operators.switchMap(function (items) {
+        _this.notification$_.next(items);
+
+        return _this.notification$_;
+      }));
+    };
+
+    return NotificationService;
+  }();
+  NotificationService.notification$_ = new rxjs.BehaviorSubject(null);
+  NotificationService.observe$ = NotificationService.observe$().pipe(operators.shareReplay(1));
+
   var HeaderComponent = /*#__PURE__*/function (_Component) {
     _inheritsLoose(HeaderComponent, _Component);
 
@@ -3623,11 +3770,12 @@
     _proto.onInit = function onInit() {
       var _this = this;
 
-      this.menu = null;
-      this.submenu = null;
       this.user = null;
       this.favourites = [];
-      UserService.user$.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (user) {
+      UserService.me$().pipe(operators.catchError(function () {
+        return rxjs.of(null);
+      }), operators.takeUntil(this.unsubscribe$)).subscribe(function (user) {
+        console.log('HeaderComponent.me$', user);
         _this.user = user;
 
         _this.pushChanges();
@@ -3637,22 +3785,37 @@
 
         _this.pushChanges();
       });
-      UserService.me$().pipe(operators.catchError(function () {
-        return rxjs.of(null);
-      }), operators.takeUntil(this.unsubscribe$)).subscribe(function (user) {
-        console.log('user', user);
+      NotificationService.observe$.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (notifications) {
+        _this.notifications = notifications; // console.log('HeaderComponent.notifications', notifications);
+
+        _this.pushChanges();
       });
       CssService.height$().pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (height) {// console.log('HeaderComponent.height$', height);
       }); // console.log(JSON.stringify(LocaleService.defaultLocale));
     };
 
-    _proto.toggleMenu = function toggleMenu($event) {
-      this.menu = this.menu !== $event ? $event : null; // console.log('toggleMenu', this.menu);
+    _proto.toggleAside = function toggleAside($event) {
+      this.aside_ = !this.aside_;
+      this.aside.next(this.aside_);
+    };
 
-      var body = document.querySelector('body');
-      this.menu ? body.classList.add('fixed') : body.classList.remove('fixed');
-      this.submenu = null;
-      this.pushChanges();
+    _proto.dismissAside = function dismissAside($event) {
+      if (this.aside_) {
+        this.aside_ = false;
+        this.aside.next(this.aside_);
+      }
+    };
+
+    _proto.toggleNotification = function toggleNotification($event) {
+      this.notification_ = !this.notification_;
+      this.notification.next(this.notification_);
+    };
+
+    _proto.dismissNotification = function dismissNotification($event) {
+      if (this.notification_) {
+        this.notification_ = false;
+        this.notification.next(this.notification_);
+      }
     };
 
     _proto.onDropped = function onDropped(id) {
@@ -3664,7 +3827,8 @@
     return HeaderComponent;
   }(rxcomp.Component);
   HeaderComponent.meta = {
-    selector: 'header'
+    selector: 'header',
+    outputs: ['aside', 'notification']
   };
 
   /*
@@ -4106,6 +4270,38 @@
   }(rxcomp.Component);
   ModalComponent.meta = {
     selector: '[modal]'
+  };
+
+  var NotificationComponent = /*#__PURE__*/function (_PageComponent) {
+    _inheritsLoose(NotificationComponent, _PageComponent);
+
+    function NotificationComponent() {
+      return _PageComponent.apply(this, arguments) || this;
+    }
+
+    var _proto = NotificationComponent.prototype;
+
+    _proto.onInit = function onInit() {
+      var _this = this;
+
+      this.grid = {
+        mode: 4,
+        width: 320,
+        gutter: 0
+      };
+      this.notifications = [];
+      NotificationService.observe$.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (notifications) {
+        _this.notifications = notifications;
+        console.log(notifications);
+
+        _this.pushChanges();
+      });
+    };
+
+    return NotificationComponent;
+  }(PageComponent);
+  NotificationComponent.meta = {
+    selector: '[notification]'
   };
 
   var src = STATIC ? '/tiemme-com/club-modal.html' : '/Viewdoc.cshtml?co_id=23649';
@@ -4869,7 +5065,11 @@
         breakpoints: {
           1024: {
             slidesPerView: 2,
-            spaceBetween: 25
+            spaceBetween: 1
+          },
+          1440: {
+            slidesPerView: 2.5,
+            spaceBetween: 1
           }
         },
         centeredSlides: false,
@@ -6071,7 +6271,7 @@
   }(rxcomp.Module);
   AppModule.meta = {
     imports: [rxcomp.CoreModule, rxcompForm.FormModule],
-    declarations: [ChannelComponent, ChannelPageComponent, CountPipe, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, EventPageComponent, FavouritePageComponent, HeaderComponent, HtmlPipe, IndexPageComponent, LazyDirective, ModalComponent, ModalOutletComponent, RegisterOrLoginComponent, RelativeDateDirective, RelativeDatePipe, ScrollToDirective, SecureDirective, SwiperDirective, SwiperEventsDirective, SwiperSlidesDirective, SwiperTopEventsDirective, ThronComponent, VirtualStructure, VideoComponent, YoutubeComponent],
+    declarations: [AsideComponent, ChannelComponent, ChannelPageComponent, ClickOutsideDirective, CountPipe, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, EventPageComponent, FavouritePageComponent, HeaderComponent, HtmlPipe, IndexPageComponent, LazyDirective, ModalComponent, ModalOutletComponent, NotificationComponent, RegisterOrLoginComponent, RelativeDateDirective, RelativeDatePipe, ScrollToDirective, SecureDirective, SwiperDirective, SwiperEventsDirective, SwiperSlidesDirective, SwiperTopEventsDirective, ThronComponent, VirtualStructure, VideoComponent, YoutubeComponent],
     bootstrap: AppComponent
   };
 

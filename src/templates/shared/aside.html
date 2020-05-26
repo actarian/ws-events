@@ -1,0 +1,9 @@
+<aside class="wse__aside" aside>
+	<div class="wse__container">
+		<ul class="wse__nav--menu">
+			<li class="wse__nav--menu__item" *for="let item of channels">
+				<a [href]="item.url" [class]="{ active: item.id === channelId }" [innerHTML]="item.name"></a>
+			</li>
+		</ul>
+	</div>
+</aside>

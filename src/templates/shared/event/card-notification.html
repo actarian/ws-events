@@ -1,0 +1,20 @@
+<a [href]="event.url" class="wse__card--notification">
+	<span class="wse__card--notification__picture">
+		<div class="wse__card--notification__picture--inner">
+			<img [lazy]="event.picture.src + '64x64?sig=' + event.id" />
+		</div>
+	</span>
+	<span class="wse__card--notification__content">
+		<span class="wse__card--notification__title" [innerHTML]="event.name"></span>
+		<span class="wse__event__info">
+			<span class="wse__event-date" [eventDate]="event" (change)="onChange($event)">
+				<span class="wse__date" [class]="{ 'wse__date--live': mode === 'live', 'wse__date--countdown': mode === 'countdown' }">
+					<span class="wse__info" *if="mode === 'live'">Adesso</span>
+					<span class="wse__info" *if="mode === 'countdown'">A breve&nbsp;<span [innerHTML]="countdown"></span></span>
+					<span class="wse__info" *if="mode === 'relative' || mode === 'watchRelative'" [innerHTML]="eventDate.startDate | relativeDate"></span>
+					<span class="wse__info" *if="mode === 'date'"><svg class="wse__icon--calendar"><use xlink:href="#calendar"></use></svg> <span [innerHTML]="eventDate.startDate | date : 'EEE dd MMMM yyyy'"></span></span>
+				</span>
+			</span>
+		</span>
+	</span>
+</a>

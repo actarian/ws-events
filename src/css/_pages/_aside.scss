@@ -1,0 +1,68 @@
+.wse__aside {
+	position: fixed;
+	top: 0;
+	height: 100vh;
+	padding: 65px 0 0 0;
+	background: $background;
+	border-right: 2px solid $background-tertiary;
+	transition: left ease-in-out 400ms;
+
+	.wse__container {
+		max-width: 100%;
+	}
+
+	.wse__nav--menu {
+		@extend %nav;
+		flex-direction: column;
+
+		&>li {
+			@extend %nav-item;
+			margin-bottom: 2px;
+
+			&>a {
+				@extend %btn-aside;
+			}
+		}
+	}
+
+}
+
+.wse__app {
+	position: relative;
+	left: 0px;
+	transition: left ease-in-out 400ms;
+}
+
+@include media-up(sm) {
+	.wse__aside {
+		left: -320px;
+		width: 320px;
+	}
+
+	.wse__app {
+		&.wse__aside--active {
+			left: 320px;
+
+			.wse__aside {
+				left: 0px;
+			}
+		}
+	}
+}
+
+@include media-down(xs) {
+	.wse__aside {
+		left: -240px;
+		width: 240px;
+	}
+
+	.wse__app {
+		&.wse__aside--active {
+			left: 240px;
+
+			.wse__aside {
+				left: 0px;
+			}
+		}
+	}
+}

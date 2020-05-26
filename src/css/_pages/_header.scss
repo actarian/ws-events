@@ -2,6 +2,7 @@
 	// background: $background-tertiary;
 	border-bottom: 2px solid $background-tertiary;
 
+	.wse__container-fluid,
 	.wse__container {
 		height: 65px;
 		display: flex;
@@ -11,6 +12,7 @@
 
 	.wse__btn--menu {
 		line-height: 0;
+		cursor: pointer;
 
 		.wse__icon {
 			width: 19px;

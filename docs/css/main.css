@@ -1,7 +1,7 @@
 * {
   box-sizing: border-box; }
 
-.wse__card--hero__category, .wse__card--event__category, .wse__card--event__title, .wse__card--upcoming__title, .wse__card--top__category, .wse__card--listing__category, .wse__card--product__category, .wse__card--product__title, .wse__card--magazine__category, .wse__card--magazine__title, .wse__card--preview__category, .wse__section--channel__category, .wse__section--channel__header__category, .wse__section--event__header__category, .wse__event-incoming__category, .wse__card--hero__title, .wse__section--channel__title, .wse__section--upcoming__title, .wse__section--channel__header__title, .wse__section--event__header__title, .wse__event-incoming__title, .wse__card--top__title, .wse__card--listing__title, .wse__card--preview__title {
+.wse__card--hero__category, .wse__card--event__category, .wse__card--event__title, .wse__card--upcoming__title, .wse__card--top__category, .wse__card--listing__category, .wse__card--product__category, .wse__card--product__title, .wse__card--magazine__category, .wse__card--magazine__title, .wse__card--preview__category, .wse__section--channel__category, .wse__section--channel__header__category, .wse__section--event__header__category, .wse__event-incoming__category, .wse__card--hero__title, .wse__section--channel__title, .wse__section--upcoming__title, .wse__section--channel__header__title, .wse__section--event__header__title, .wse__event-incoming__title, .wse__card--top__title, .wse__card--listing__title, .wse__card--preview__title, .wse__card--notification__title {
   text-decoration: none;
   outline: none;
   color: inherit; }
@@ -144,13 +144,13 @@ body {
       font-size: 34px;
       word-break: break-word; } }
 
-.wse__card--top__title, .wse__card--listing__title, .wse__card--preview__title {
+.wse__card--top__title, .wse__card--listing__title, .wse__card--preview__title, .wse__card--notification__title {
   font-family: "Montserrat", sans-serif;
   font-size: 40px;
   line-height: 1.1;
   font-weight: 700; }
   @media (max-width: 1023.98px) {
-    .wse__card--top__title, .wse__card--listing__title, .wse__card--preview__title {
+    .wse__card--top__title, .wse__card--listing__title, .wse__card--preview__title, .wse__card--notification__title {
       font-size: 29px; } }
 
 .form .title, .wse__card--hero__abstract, .wse__card--event__abstract, .wse__card--upcoming__abstract, .wse__card--top__abstract, .wse__card--listing__abstract, .wse__card--magazine__abstract, .wse__card--preview__abstract, .wse__section--channel__abstract, .wse__section--upcoming__abstract, .wse__section--channel__header__abstract, .wse__section--event__header__abstract {
@@ -225,7 +225,7 @@ strong {
 
 */
 .wse__btn--circle, .wse__btn--mode,
-.wse__btn--filter, .wse__btn--rounded, .wse__section--channel__menu .wse__nav--menu > li > a, .wse__section--filters .wse__nav--filters > li > .wse__filter__option {
+.wse__btn--filter, .wse__btn--rounded, .wse__aside .wse__nav--menu > li > a, .wse__section--channel__menu .wse__nav--menu > li > a, .wse__section--filters .wse__nav--filters > li > .wse__filter__option {
   display: inline-block;
   padding: 0;
   border: none;
@@ -238,21 +238,21 @@ strong {
   cursor: pointer;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
   .wse__btn--circle, .wse__btn--mode,
-  .wse__btn--filter, .wse__btn--rounded, .wse__section--channel__menu .wse__nav--menu > li > a, .wse__section--filters .wse__nav--filters > li > .wse__filter__option, .wse__btn--circle:active, .wse__btn--mode:active,
-  .wse__btn--filter:active, .wse__btn--rounded:active, .wse__section--channel__menu .wse__nav--menu > li > a:active, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:active, .wse__btn--circle:focus, .wse__btn--mode:focus,
-  .wse__btn--filter:focus, .wse__btn--rounded:focus, .wse__section--channel__menu .wse__nav--menu > li > a:focus, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:focus, .wse__btn--circle:hover, .wse__btn--mode:hover,
-  .wse__btn--filter:hover, .wse__btn--rounded:hover, .wse__section--channel__menu .wse__nav--menu > li > a:hover, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:hover, .wse__btn--circle:visited, .wse__btn--mode:visited,
-  .wse__btn--filter:visited, .wse__btn--rounded:visited, .wse__section--channel__menu .wse__nav--menu > li > a:visited, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:visited {
+  .wse__btn--filter, .wse__btn--rounded, .wse__aside .wse__nav--menu > li > a, .wse__section--channel__menu .wse__nav--menu > li > a, .wse__section--filters .wse__nav--filters > li > .wse__filter__option, .wse__btn--circle:active, .wse__btn--mode:active,
+  .wse__btn--filter:active, .wse__btn--rounded:active, .wse__aside .wse__nav--menu > li > a:active, .wse__section--channel__menu .wse__nav--menu > li > a:active, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:active, .wse__btn--circle:focus, .wse__btn--mode:focus,
+  .wse__btn--filter:focus, .wse__btn--rounded:focus, .wse__aside .wse__nav--menu > li > a:focus, .wse__section--channel__menu .wse__nav--menu > li > a:focus, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:focus, .wse__btn--circle:hover, .wse__btn--mode:hover,
+  .wse__btn--filter:hover, .wse__btn--rounded:hover, .wse__aside .wse__nav--menu > li > a:hover, .wse__section--channel__menu .wse__nav--menu > li > a:hover, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:hover, .wse__btn--circle:visited, .wse__btn--mode:visited,
+  .wse__btn--filter:visited, .wse__btn--rounded:visited, .wse__aside .wse__nav--menu > li > a:visited, .wse__section--channel__menu .wse__nav--menu > li > a:visited, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:visited {
     color: inherit;
     text-decoration: none;
     outline: none; }
 
 .wse__btn--circle[disabled], .wse__btn--mode[disabled],
-.wse__btn--filter[disabled], .wse__btn--rounded[disabled], .wse__section--channel__menu .wse__nav--menu > li > a[disabled], .wse__section--filters .wse__nav--filters > li > .wse__filter__option[disabled] {
+.wse__btn--filter[disabled], .wse__btn--rounded[disabled], .wse__aside .wse__nav--menu > li > a[disabled], .wse__section--channel__menu .wse__nav--menu > li > a[disabled], .wse__section--filters .wse__nav--filters > li > .wse__filter__option[disabled] {
   opacity: 0.5;
   pointer-events: none; }
 
-.wse__btn--rounded .wse__count, .wse__section--filters .wse__nav--filters > li > .wse__filter__option .wse__count {
+.wse__btn--circle .wse__count, .wse__btn--mode .wse__count, .wse__btn--filter .wse__count, .wse__btn--rounded .wse__count, .wse__section--filters .wse__nav--filters > li > .wse__filter__option .wse__count {
   margin-left: 8px;
   font-size: 11px;
   font-weight: 900;
@@ -263,6 +263,7 @@ strong {
 
 .wse__btn--circle, .wse__btn--mode,
 .wse__btn--filter {
+  position: relative;
   width: 40px;
   height: 40px;
   display: flex;
@@ -270,6 +271,20 @@ strong {
   align-items: center;
   border-radius: 20px;
   transition: all ease-in-out 350ms; }
+  .wse__btn--circle .wse__count, .wse__btn--mode .wse__count, .wse__btn--filter .wse__count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    background: #ec0e33;
+    color: #ffffff;
+    padding: 2px 5px;
+    line-height: 1;
+    font-size: 9px;
+    border-radius: 7px;
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden; }
   .wse__btn--circle svg, .wse__btn--mode svg, .wse__btn--filter svg {
     width: 19px;
     height: 19px; }
@@ -301,6 +316,35 @@ strong {
   .wse__btn--rounded, .wse__btn--rounded:active, .wse__btn--rounded:focus, .wse__btn--rounded:hover, .wse__btn--rounded:visited {
     background: #0099ff;
     color: white; }
+
+.wse__aside .wse__nav--menu > li > a {
+  height: 40px;
+  line-height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0;
+  padding: 0 10px;
+  font-weight: 600; }
+  .wse__aside .wse__nav--menu > li > a svg {
+    width: 24px;
+    height: 24px;
+    margin-left: -10px;
+    margin-right: 10px; }
+  .wse__aside .wse__nav--menu > li > a span {
+    display: block; }
+  .wse__aside .wse__nav--menu > li > a, .wse__aside .wse__nav--menu > li > a:active, .wse__aside .wse__nav--menu > li > a:focus, .wse__aside .wse__nav--menu > li > a:hover, .wse__aside .wse__nav--menu > li > a:visited {
+    background: transparent;
+    border-bottom: 2px solid #5a80fb;
+    color: #5a80fb; }
+    .wse__aside .wse__nav--menu > li > a svg, .wse__aside .wse__nav--menu > li > a:active svg, .wse__aside .wse__nav--menu > li > a:focus svg, .wse__aside .wse__nav--menu > li > a:hover svg, .wse__aside .wse__nav--menu > li > a:visited svg {
+      fill: #5a80fb; }
+  .wse__aside .wse__nav--menu > li > a.active, .wse__aside .wse__nav--menu > li > a:hover {
+    background: #5a80fb;
+    border-color: #5a80fb;
+    color: #ffffff; }
+    .wse__aside .wse__nav--menu > li > a.active svg, .wse__aside .wse__nav--menu > li > a:hover svg {
+      fill: #ffffff; }
 
 .wse__section--channel__menu .wse__nav--menu > li > a {
   height: 50px;
@@ -3031,17 +3075,18 @@ errors-component {
 [class^="wse__icon--"] {
   fill: currentColor; }
 
-.wse__card--hero__picture > img, .wse__card--event__picture > img, .wse__card--upcoming__picture > img, .wse__card--top__picture > img, .wse__card--listing__picture > img, .wse__card--picture__picture > img, .wse__card--product__picture > img, .wse__card--magazine__picture > img, .wse__card--preview__picture > img, .wse__event-incoming > img {
+.wse__card--hero__picture > img, .wse__card--event__picture > img, .wse__card--upcoming__picture > img, .wse__card--top__picture > img, .wse__card--listing__picture > img, .wse__card--picture__picture > img, .wse__card--product__picture > img, .wse__card--magazine__picture > img, .wse__card--preview__picture > img, .wse__card--notification__picture--inner > img, .wse__event-incoming > img {
   opacity: 0;
   transition: cubic-bezier(0.32, 0, 0.29, 0.99) 700ms;
   transition-property: opacity, transform; }
-  .wse__card--hero__picture > img.lazyed, .wse__card--event__picture > img.lazyed, .wse__card--upcoming__picture > img.lazyed, .wse__card--top__picture > img.lazyed, .wse__card--listing__picture > img.lazyed, .wse__card--picture__picture > img.lazyed, .wse__card--product__picture > img.lazyed, .wse__card--magazine__picture > img.lazyed, .wse__card--preview__picture > img.lazyed, .wse__event-incoming > img.lazyed {
+  .wse__card--hero__picture > img.lazyed, .wse__card--event__picture > img.lazyed, .wse__card--upcoming__picture > img.lazyed, .wse__card--top__picture > img.lazyed, .wse__card--listing__picture > img.lazyed, .wse__card--picture__picture > img.lazyed, .wse__card--product__picture > img.lazyed, .wse__card--magazine__picture > img.lazyed, .wse__card--preview__picture > img.lazyed, .wse__card--notification__picture--inner > img.lazyed, .wse__event-incoming > img.lazyed {
     opacity: 1; }
 
-.wse__section--channel__menu .wse__nav--menu > li > a, .wse__section--filters .wse__nav--filters > li > a,
+.wse__aside .wse__nav--menu > li > a, .wse__section--channel__menu .wse__nav--menu > li > a, .wse__section--filters .wse__nav--filters > li > a,
+.wse__aside .wse__nav--menu > li > span,
 .wse__section--channel__menu .wse__nav--menu > li > span,
 .wse__section--filters .wse__nav--filters > li > span, .nav--dropdown > li > a,
-.nav--dropdown > li > span, .wse__section--channel__menu .wse__nav--menu > li, .wse__section--filters .wse__nav--filters > li {
+.nav--dropdown > li > span, .wse__aside .wse__nav--menu > li, .wse__section--channel__menu .wse__nav--menu > li, .wse__section--filters .wse__nav--filters > li {
   position: relative;
   display: flex;
   justify-content: flex-start;
@@ -3050,32 +3095,33 @@ errors-component {
   z-index: 1;
   transition: ease-in-out 350ms;
   transition-property: background-color, color, border, opacity; }
-  .wse__section--channel__menu .wse__nav--menu > li > a svg, .wse__section--filters .wse__nav--filters > li > a svg, .wse__section--channel__menu .wse__nav--menu > li > span svg, .wse__section--filters .wse__nav--filters > li > span svg, .nav--dropdown > li > a svg, .nav--dropdown > li > span svg, .wse__section--channel__menu .wse__nav--menu > li svg, .wse__section--filters .wse__nav--filters > li svg {
+  .wse__aside .wse__nav--menu > li > a svg, .wse__section--channel__menu .wse__nav--menu > li > a svg, .wse__section--filters .wse__nav--filters > li > a svg, .wse__aside .wse__nav--menu > li > span svg, .wse__section--channel__menu .wse__nav--menu > li > span svg, .wse__section--filters .wse__nav--filters > li > span svg, .nav--dropdown > li > a svg, .nav--dropdown > li > span svg, .wse__aside .wse__nav--menu > li svg, .wse__section--channel__menu .wse__nav--menu > li svg, .wse__section--filters .wse__nav--filters > li svg {
     transition: ease-in-out 350ms;
     transition-property: fill, opacity; }
-  .wse__section--channel__menu .wse__nav--menu > li > a:focus, .wse__section--filters .wse__nav--filters > li > a:focus,
+  .wse__aside .wse__nav--menu > li > a:focus, .wse__section--channel__menu .wse__nav--menu > li > a:focus, .wse__section--filters .wse__nav--filters > li > a:focus,
+  .wse__aside .wse__nav--menu > li > span:focus,
   .wse__section--channel__menu .wse__nav--menu > li > span:focus,
   .wse__section--filters .wse__nav--filters > li > span:focus, .nav--dropdown > li > a:focus,
-  .nav--dropdown > li > span:focus, .wse__section--channel__menu .wse__nav--menu > li:focus, .wse__section--filters .wse__nav--filters > li:focus {
+  .nav--dropdown > li > span:focus, .wse__aside .wse__nav--menu > li:focus, .wse__section--channel__menu .wse__nav--menu > li:focus, .wse__section--filters .wse__nav--filters > li:focus {
     outline: 0; }
 
-.wse__section--channel__menu .wse__nav--menu, .wse__section--filters .wse__nav--filters, .nav--dropdown {
+.wse__aside .wse__nav--menu, .wse__section--channel__menu .wse__nav--menu, .wse__section--filters .wse__nav--filters, .nav--dropdown {
   list-style: none;
   padding: 0;
   margin: 0; }
 
-.wse__section--channel__menu .wse__nav--menu, .wse__section--filters .wse__nav--filters {
+.wse__aside .wse__nav--menu, .wse__section--channel__menu .wse__nav--menu, .wse__section--filters .wse__nav--filters {
   width: 100%; }
-  .wse__section--channel__menu .wse__nav--menu > li, .wse__section--filters .wse__nav--filters > li {
+  .wse__aside .wse__nav--menu > li, .wse__section--channel__menu .wse__nav--menu > li, .wse__section--filters .wse__nav--filters > li {
     position: relative;
     display: block;
     flex: 1 1 auto; }
   @media (min-width: 1024px) {
-    .wse__section--channel__menu .wse__nav--menu, .wse__section--filters .wse__nav--filters {
+    .wse__aside .wse__nav--menu, .wse__section--channel__menu .wse__nav--menu, .wse__section--filters .wse__nav--filters {
       display: flex;
       justify-content: flex-start; } }
   @media (max-width: 1023.98px) {
-    .wse__section--channel__menu .wse__nav--menu, .wse__section--filters .wse__nav--filters {
+    .wse__aside .wse__nav--menu, .wse__section--channel__menu .wse__nav--menu, .wse__section--filters .wse__nav--filters {
       display: block; } }
 
 .modal-outlet__container {
@@ -3452,22 +3498,22 @@ errors-component {
     display: block;
     position: relative;
     max-width: 500px;
-    color: white;
+    color: #ffffff;
     text-align: center; }
   .wse__card--hero__title {
     display: block;
     position: relative;
     max-width: 500px;
-    color: white;
+    color: #ffffff;
     margin-bottom: 10px;
     text-align: center; }
   .wse__card--hero .wse__event__info {
-    color: white; }
+    color: #ffffff; }
   .wse__card--hero__abstract {
     display: block;
     position: relative;
     max-width: 500px;
-    color: white;
+    color: #ffffff;
     margin-bottom: 10px;
     text-align: center;
     overflow: hidden;
@@ -3536,9 +3582,10 @@ errors-component {
     display: block;
     position: relative;
     width: 100%;
-    padding-top: 100%;
+    padding-top: 75%;
     overflow: hidden;
-    background: #edf1fe; }
+    background: #ffffff;
+    overflow: visible; }
     .wse__card--event__picture > img,
     .wse__card--event__picture > svg,
     .wse__card--event__picture > video,
@@ -3784,7 +3831,7 @@ errors-component {
     max-width: 500px;
     margin-bottom: 10px; }
   .wse__card--top .wse__event__info .wse__date {
-    color: white;
+    color: #ffffff;
     padding: 4px 0; }
     .wse__card--top .wse__event__info .wse__date.wse__date--live {
       background: #f70a36;
@@ -3882,7 +3929,7 @@ errors-component {
     max-width: 500px;
     margin-bottom: 10px; }
   .wse__card--listing .wse__event__info .wse__date {
-    color: white; }
+    color: #ffffff; }
     .wse__card--listing .wse__event__info .wse__date.wse__date--live {
       background: #f70a36; }
     .wse__card--listing .wse__event__info .wse__date.wse__date--countdown {
@@ -4199,7 +4246,7 @@ errors-component {
   .wse__card--preview .wse__event__info {
     margin: 0; }
     .wse__card--preview .wse__event__info .wse__date {
-      color: white; }
+      color: #ffffff; }
       .wse__card--preview .wse__event__info .wse__date.wse__date--live {
         background: #f70a36; }
       .wse__card--preview .wse__event__info .wse__date.wse__date--countdown {
@@ -4222,6 +4269,69 @@ errors-component {
   @media (max-width: 1023.98px) {
     .wse__card--preview__category {
       margin-bottom: 10px; } }
+
+.wse__card--notification {
+  position: relative;
+  display: flex;
+  background: #ffffff;
+  margin-bottom: 15px;
+  text-decoration: none;
+  cursor: pointer; }
+  .wse__card--notification__picture {
+    flex: 0 0 50px;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px; }
+    .wse__card--notification__picture--inner {
+      display: block;
+      position: relative;
+      width: 100%;
+      padding-top: 100%;
+      overflow: hidden;
+      background: #edf1fe; }
+      .wse__card--notification__picture--inner > img,
+      .wse__card--notification__picture--inner > svg,
+      .wse__card--notification__picture--inner > video,
+      .wse__card--notification__picture--inner > canvas,
+      .wse__card--notification__picture--inner > .video,
+      .wse__card--notification__picture--inner > iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; }
+      .wse__card--notification__picture--inner > img {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: auto;
+        height: 100%;
+        transform: translateX(-50%); }
+  .wse__card--notification__content {
+    flex: 0 0 calc(100% - 50px);
+    width: calc(100% - 50px); }
+    .wse__card--notification__content p {
+      margin: 0; }
+    .wse__card--notification__content p + p {
+      margin-top: 10px; }
+  .wse__card--notification__title {
+    display: block;
+    position: relative;
+    color: #262626;
+    max-width: 500px;
+    font-size: 14px;
+    margin-bottom: 10px; }
+  .wse__card--notification .wse__event__info {
+    margin: 0; }
+    .wse__card--notification .wse__event__info .wse__date {
+      color: #262626; }
+      .wse__card--notification .wse__event__info .wse__date.wse__date--live {
+        background: #f70a36; }
+      .wse__card--notification .wse__event__info .wse__date.wse__date--countdown {
+        background: rgba(0, 0, 0, 0.8); }
+  .wse__card--notification:hover .wse__card--listing__abstract {
+    max-height: 200px; }
 
 @media screen {
   .wse__section--hero-reel .swiper-container, .wse__section--channel__swiper .swiper-container, .wse__section--channel__top-events__swiper .swiper-container {
@@ -4533,13 +4643,15 @@ errors-component {
 */
 .wse__header {
   border-bottom: 2px solid #edf1fe; }
+  .wse__header .wse__container-fluid,
   .wse__header .wse__container {
     height: 65px;
     display: flex;
     justify-content: flex-start;
     align-items: center; }
   .wse__header .wse__btn--menu {
-    line-height: 0; }
+    line-height: 0;
+    cursor: pointer; }
     .wse__header .wse__btn--menu .wse__icon {
       width: 19px;
       height: 19px;
@@ -4588,14 +4700,83 @@ errors-component {
   background: #edf1fe;
   color: #5a80fb; }
 
+.wse__aside {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  padding: 65px 0 0 0;
+  background: #ffffff;
+  border-right: 2px solid #edf1fe;
+  transition: left ease-in-out 400ms; }
+  .wse__aside .wse__container {
+    max-width: 100%; }
+  .wse__aside .wse__nav--menu {
+    flex-direction: column; }
+    .wse__aside .wse__nav--menu > li {
+      margin-bottom: 2px; }
+
+.wse__app {
+  position: relative;
+  left: 0px;
+  transition: left ease-in-out 400ms; }
+
+@media (min-width: 768px) {
+  .wse__aside {
+    left: -320px;
+    width: 320px; }
+  .wse__app.wse__aside--active {
+    left: 320px; }
+    .wse__app.wse__aside--active .wse__aside {
+      left: 0px; } }
+
+@media (max-width: 767.98px) {
+  .wse__aside {
+    left: -240px;
+    width: 240px; }
+  .wse__app.wse__aside--active {
+    left: 240px; }
+    .wse__app.wse__aside--active .wse__aside {
+      left: 0px; } }
+
+.wse__notification {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  padding: 65px 0 0 0;
+  background: #ffffff;
+  border-left: 2px solid #edf1fe;
+  transition: right ease-in-out 400ms; }
+  .wse__notification .wse__container {
+    max-width: 100%;
+    height: 100vh; }
+  .wse__notification .wse__group--notification {
+    position: relative; }
+
+@media (min-width: 768px) {
+  .wse__notification {
+    right: -320px;
+    width: 320px; }
+  .wse__app.wse__notification--active {
+    left: -320px; }
+    .wse__app.wse__notification--active .wse__notification {
+      right: 0px; } }
+
+@media (max-width: 767.98px) {
+  .wse__notification {
+    right: -240px;
+    width: 240px; }
+  .wse__app.wse__notification--active {
+    left: -240px; }
+    .wse__app.wse__notification--active .wse__notification {
+      right: 0px; } }
+
 .wse__section--hero-reel {
   overflow: hidden; }
   .wse__section--hero-reel .wse__container-fluid {
     padding: 0; }
 
 .wse__section--channel {
-  background: #edf1fe;
-  padding: 80px 0; }
+  background: #edf1fe; }
   .wse__section--channel__intro {
     display: flex;
     flex-direction: column;
@@ -4613,6 +4794,9 @@ errors-component {
   .wse__section--channel__swiper {
     overflow: hidden;
     padding: 0; }
+    .wse__section--channel__swiper .swiper-container .swiper-button-next,
+    .wse__section--channel__swiper .swiper-container .swiper-button-prev {
+      top: 25px; }
   .wse__section--channel__category {
     position: relative;
     max-width: 500px;
@@ -4628,11 +4812,33 @@ errors-component {
   .wse__section--channel__group--cta {
     position: relative;
     margin-top: 40px; }
+  @media (min-width: 1024px) {
+    .wse__section--channel {
+      padding: 80px 0; }
+      .wse__section--channel__swiper.swiper-container-horizontal > .swiper-container .swiper-pagination-bullets,
+      .wse__section--channel__swiper .swiper-container .swiper-pagination-bullets {
+        display: none; } }
   @media (max-width: 1023.98px) {
     .wse__section--channel {
-      padding: 40px 0 0 0; }
+      padding: 40px 0; }
+      .wse__section--channel__swiper.swiper-container-horizontal > .swiper-container .swiper-pagination-bullets,
+      .wse__section--channel__swiper .swiper-container .swiper-pagination-bullets {
+        display: block; }
+      .wse__section--channel__swiper.swiper-container-horizontal > .swiper-container .swiper-pagination-bullet,
+      .wse__section--channel__swiper .swiper-container .swiper-pagination-bullet {
+        background: white; }
       .wse__section--channel__group--cta {
         margin: 20px 0; } }
+
+@media (min-width: 1024px) {
+  .wse__channel + .wse__channel {
+    margin-top: 2px; }
+    .wse__channel + .wse__channel .wse__section--channel {
+      padding-top: 0; } }
+
+@media (max-width: 1023.98px) {
+  .wse__channel + .wse__channel .wse__section--channel {
+    padding-top: 0; } }
 
 .wse__section--channel + .wse__section--channel {
   margin-top: 20px; }
@@ -4914,7 +5120,7 @@ errors-component {
 
 .wse__section--channel__listing .wse__group--grid {
   position: relative;
-  min-height: 100vh;
+  height: 100%;
   margin: 15px 0 40px 0; }
 
 .wse__section--event__hero .wse__container-fluid {
@@ -5151,7 +5357,7 @@ errors-component {
 
 .wse__section--event__listing .wse__group--grid {
   position: relative;
-  min-height: 100vh;
+  min-height: 100%;
   margin: 15px 0 40px 0; }
 
 .wse__group--questions {

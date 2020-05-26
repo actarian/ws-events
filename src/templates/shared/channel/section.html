@@ -9,7 +9,7 @@
 							<div class="wse__info">
 								<svg class="wse__icon--bell" *if="!channel.info.subscribed"><use xlink:href="#bell"></use></svg>
 								<svg class="wse__icon--bell" *if="channel.info.subscribed"><use xlink:href="#bell-active"></use></svg>
-								<span [innerHTML]="channel.info.subscribers | count"></span>&nbsp;<span>iscritti</span>
+								<span class="wse__count" [innerHTML]="channel.info.subscribers | count"></span>&nbsp;<span class="wse__text">iscritti</span>
 							</div>
 							<div class="wse__label"><svg class="wse__icon--bell"><use xlink:href="#bell-active"></use></svg> <span [innerHTML]="channel.info.subscribed ? 'iscritto' : 'iscriviti'"></span></div>
 						</div>
@@ -17,7 +17,7 @@
 							<div class="wse__info">
 								<svg class="wse__icon--heart" *if="!channel.info.liked"><use xlink:href="#heart"></use></svg>
 								<svg class="wse__icon--heart" *if="channel.info.liked"><use xlink:href="#heart-active"></use></svg>
-								<span [innerHTML]="channel.info.likes | count"></span>&nbsp;<span>mi piace</span>
+								<span class="wse__count" [innerHTML]="channel.info.likes | count"></span>&nbsp;<span class="wse__text">mi piace</span>
 							</div>
 							<div class="wse__label"><svg class="wse__icon--heart"><use xlink:href="#heart-active"></use></svg> <span>mi piace</span></div>
 						</div>

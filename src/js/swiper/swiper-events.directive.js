@@ -7,8 +7,14 @@ export default class SwiperEventsDirective extends SwiperDirective {
 		const { node } = getContext(this);
 		node.setAttribute('id', `swiper-${this.rxcompId}`);
 		this.options = {
-			slidesPerView: 2,
-			spaceBetween: 25,
+			slidesPerView: 1,
+			spaceBetween: 0,
+			breakpoints: {
+				1024: {
+					slidesPerView: 2,
+					spaceBetween: 25,
+				},
+			},
 			centeredSlides: false,
 			// loop: true,
 			loopAdditionalSlides: 100,

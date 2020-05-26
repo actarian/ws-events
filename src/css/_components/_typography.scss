@@ -20,6 +20,10 @@ body {
 	font-size: 18px;
 	line-height: 1.15;
 	font-weight: $font-bold;
+
+	@include media-down(sm) {
+		font-size: 16px;
+	}
 }
 
 %title {
@@ -30,7 +34,7 @@ body {
 	font-weight: $font-bold;
 
 	@include media-down(sm) {
-		font-size: 40px;
+		font-size: 34px;
 		word-break: break-word;
 	}
 }
@@ -41,6 +45,10 @@ body {
 	font-size: 40px;
 	line-height: 1.1;
 	font-weight: $font-bold;
+
+	@include media-down(sm) {
+		font-size: 29px;
+	}
 }
 
 %abstract {
@@ -48,6 +56,10 @@ body {
 	font-size: 16px;
 	line-height: 1.5;
 	font-weight: $font-regular;
+
+	@include media-down(sm) {
+		font-size: 15px;
+	}
 }
 
 %description {
@@ -55,6 +67,10 @@ body {
 	font-size: 16px;
 	line-height: 1.5;
 	font-weight: $font-regular;
+
+	@include media-down(sm) {
+		font-size: 15px;
+	}
 }
 
 /*

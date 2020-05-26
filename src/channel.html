@@ -29,7 +29,7 @@
 							<div class="wse__info">
 								<svg class="wse__icon--bell" *if="!channel.info.subscribed"><use xlink:href="#bell"></use></svg>
 								<svg class="wse__icon--bell" *if="channel.info.subscribed"><use xlink:href="#bell-active"></use></svg>
-								<span [innerHTML]="channel.info.subscribers | count"></span>&nbsp;<span>iscritti</span>
+								<span class="wse__count" [innerHTML]="channel.info.subscribers | count"></span>&nbsp;<span class="wse__text">iscritti</span>
 							</div>
 							<div class="wse__label"><svg class="wse__icon--bell"><use xlink:href="#bell-active"></use></svg> <span [innerHTML]="channel.info.subscribed ? 'iscritto' : 'iscriviti'"></span></div>
 						</div>
@@ -37,7 +37,7 @@
 							<div class="wse__info">
 								<svg class="wse__icon--heart" *if="!channel.info.liked"><use xlink:href="#heart"></use></svg>
 								<svg class="wse__icon--heart" *if="channel.info.liked"><use xlink:href="#heart-active"></use></svg>
-								<span [innerHTML]="channel.info.likes | count"></span>&nbsp;<span>mi piace</span>
+								<span class="wse__count" [innerHTML]="channel.info.likes | count"></span>&nbsp;<span class="wse__text">mi piace</span>
 							</div>
 							<div class="wse__label"><svg class="wse__icon--heart"><use xlink:href="#heart-active"></use></svg> <span>mi piace</span></div>
 						</div>
@@ -71,11 +71,11 @@
 				<ul class="wse__nav--filters">
 					<li class="wse__nav--filters__item wse__filter" *for="let option of filters.type.options">
 						<span class="wse__filter__option" [class]="{ active: filters.type.has(option), disabled: option.disabled }" (click)="filters.type.set(option)">
-							<span class="wse__name" *if="option.value === undefined">Tutti</span>
-							<span class="wse__name" *if="option.value === 'event'">Eventi</span>
-							<span class="wse__name" *if="option.value === 'picture'">Immagini</span>
-							<span class="wse__name" *if="option.value === 'product'">Prodotti</span>
-							<span class="wse__name" *if="option.value === 'magazine'">Magazine</span>
+							<span class="wse__name" *if="option.value === undefined">Tutto</span>
+							<span class="wse__name" *if="option.value === 'event'"><span class="wse__text">Eventi</span><svg class="wse__ico"><use xlink:href="#event"></use></svg></span>
+							<span class="wse__name" *if="option.value === 'picture'"><span class="wse__text">Immagini</span><svg class="wse__ico"><use xlink:href="#picture"></use></svg></span>
+							<span class="wse__name" *if="option.value === 'product'"><span class="wse__text">Prodotti</span><svg class="wse__ico"><use xlink:href="#product"></use></svg></span>
+							<span class="wse__name" *if="option.value === 'magazine'"><span class="wse__text">Magazine</span><svg class="wse__ico"><use xlink:href="#magazine"></use></svg></span>
 							<span class="wse__count" [innerHTML]="option.count || ''"></span>
 						</span>
 					</li>

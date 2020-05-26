@@ -5,7 +5,7 @@
 	<a [href]="event.url" class="wse__card--preview__content">
 		<span class="wse__card--preview__title" [innerHTML]="event.name"></span>
 		<span class="wse__event__info">
-			<span [eventDate]="event" (change)="onChange($event)">
+			<span class="wse__event-date" [eventDate]="event" (change)="onChange($event)">
 				<span class="wse__date" [class]="{ 'wse__date--live': mode === 'live', 'wse__date--countdown': mode === 'countdown' }">
 					<span class="wse__info" *if="mode === 'live'">Adesso</span>
 					<span class="wse__info" *if="mode === 'countdown'">A breve&nbsp;<span [innerHTML]="countdown"></span></span>

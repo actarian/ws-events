@@ -83,6 +83,20 @@ $invalid: $foreground-primary;
 	}
 }
 
+@mixin autofill-size($size: 16px) {
+	font-size: $size;
+
+	&:-webkit-autofill,
+	&:-webkit-autofill:hover,
+	&:-webkit-autofill:focus {
+		font-size: $size;
+	}
+
+	&::placeholder {
+		font-size: $size;
+	}
+}
+
 %control--text {
 	@include autofill($foreground, transparent);
 	flex: 1 1 auto;

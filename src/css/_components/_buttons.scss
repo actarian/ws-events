@@ -246,9 +246,23 @@
 
 .wse__btn--rounded {
 	@extend %btn-rounded;
+
+	@include media-down(sm) {
+		font-size: 14px;
+		padding: 0 16px;
+		line-height: 1;
+		height: 34px;
+		border-radius: 17px;
+	}
 }
 
 .wse__btn--mode,
 .wse__btn--filter {
 	@extend %btn-circle;
+}
+
+.wse__icon {
+	width: 24px;
+	height: 24px;
+	line-height: 0;
 }

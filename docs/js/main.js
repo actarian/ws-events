@@ -4864,8 +4864,14 @@
 
       node.setAttribute('id', "swiper-" + this.rxcompId);
       this.options = {
-        slidesPerView: 2,
-        spaceBetween: 25,
+        slidesPerView: 1,
+        spaceBetween: 0,
+        breakpoints: {
+          1024: {
+            slidesPerView: 2,
+            spaceBetween: 25
+          }
+        },
         centeredSlides: false,
         // loop: true,
         loopAdditionalSlides: 100,
@@ -4915,8 +4921,14 @@
 
       node.setAttribute('id', "swiper-" + this.rxcompId);
       this.options = {
-        slidesPerView: 3,
+        slidesPerView: 1,
         spaceBetween: 0,
+        breakpoints: {
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 0
+          }
+        },
         centeredSlides: true,
         loop: false,
         loopAdditionalSlides: 100,
@@ -5058,7 +5070,8 @@
 
       var controls = node.hasAttribute('controls') ? true : false,
           loop = node.hasAttribute('loop') ? true : false,
-          autoplay = node.hasAttribute('autoplay') ? true : false;
+          autoplay = node.hasAttribute('autoplay') ? true : false,
+          live = node.hasAttribute('live') ? true : false;
       var player = this.player = THRON(node.id, {
         media: media,
         loop: loop,
@@ -5095,11 +5108,23 @@
     };
 
     _proto.onBeforeInit = function onBeforeInit(playerInstance) {
-      // Removes playButton and hdButton from schema bar
-      var schema = window.THRONSchemaHelper.getSchema();
-      var elements = window.THRONSchemaHelper.removeElementsById(schema, 'VIDEO', ['captionText', 'subtitleButton', 'downloadableButton']); // A simple verify: existsElements must false
+      // VIDEO: ['captionText', 'shareButton', 'downloadableButton', 'playButton', 'timeSeek', 'timeInfoText', 'volumeButton', 'hdButton', 'speedButton', 'fullscreenButton', 'subtitleButton'],
+      var removedElements = ['captionText', 'subtitleButton', 'downloadableButton', 'speedButton'];
 
-      var existsElements = window.THRONSchemaHelper.getElementsById(schema, 'VIDEO', ['captionText', 'subtitleButton', 'downloadableButton']).coordinates.length > 0;
+      var _getContext2 = rxcomp.getContext(this),
+          node = _getContext2.node;
+
+      var live = node.hasAttribute('live') ? true : false;
+
+      if (live) {
+        removedElements.push('timeSeek', 'timeInfoText');
+      } // Removes playButton and hdButton from schema bar
+
+
+      var schema = window.THRONSchemaHelper.getSchema();
+      var elements = window.THRONSchemaHelper.removeElementsById(schema, 'VIDEO', removedElements); // A simple verify: existsElements must false
+
+      var existsElements = window.THRONSchemaHelper.getElementsById(schema, 'VIDEO', removedElements).coordinates.length > 0;
       console.log('ThronComponent.onBeforeInit.existsElements', existsElements);
       var params = {
         bars: schema
@@ -5108,8 +5133,8 @@
     };
 
     _proto.onReady = function onReady() {
-      var _getContext2 = rxcomp.getContext(this),
-          node = _getContext2.node;
+      var _getContext3 = rxcomp.getContext(this),
+          node = _getContext3.node;
 
       var controls = node.hasAttribute('controls') ? true : false;
 
@@ -5131,8 +5156,8 @@
       var player = this.player;
       player.off('playing', this.onPlaying);
 
-      var _getContext3 = rxcomp.getContext(this),
-          node = _getContext3.node;
+      var _getContext4 = rxcomp.getContext(this),
+          node = _getContext4.node;
 
       var controls = node.hasAttribute('controls') ? true : false;
 

@@ -6,7 +6,7 @@
 		<a [href]="event.channel.url" class="wse__card--hero__category" [innerHTML]="event.channel.name"></a>
 		<a [href]="event.url" class="wse__card--hero__title" [innerHTML]="event.name"></a>
 		<div class="wse__event__info">
-			<div [eventDate]="event" (change)="onChange($event)">
+			<div class="wse__event-date" [eventDate]="event" (change)="onChange($event)">
 				<div class="wse__date" [class]="{ 'wse__date--live': mode === 'live', 'wse__date--countdown': mode === 'countdown' }">
 					<div class="wse__info" *if="mode === 'live'">Adesso</div>
 					<div class="wse__info" *if="mode === 'countdown'">A breve&nbsp;<span [innerHTML]="countdown"></span></div>
@@ -18,7 +18,7 @@
 				<div class="wse__info">
 					<svg class="wse__icon--bell" *if="!event.info.subscribed"><use xlink:href="#bell"></use></svg>
 					<svg class="wse__icon--bell" *if="event.info.subscribed"><use xlink:href="#bell-active"></use></svg>
-					<span [innerHTML]="event.info.subscribers | count"></span>&nbsp;<span>iscritti</span>
+					<span class="wse__count" [innerHTML]="event.info.subscribers | count"></span>&nbsp;<span class="wse__text">iscritti</span>
 				</div>
 				<div class="wse__label"><svg class="wse__icon--bell"><use xlink:href="#bell-active"></use></svg> <span [innerHTML]="event.info.subscribed ? 'iscritto' : 'iscriviti'"></span></div>
 			</div>
@@ -26,7 +26,7 @@
 				<div class="wse__info">
 					<svg class="wse__icon--heart" *if="!event.info.liked"><use xlink:href="#heart"></use></svg>
 					<svg class="wse__icon--heart" *if="event.info.liked"><use xlink:href="#heart-active"></use></svg>
-					<span [innerHTML]="event.info.likes | count"></span>&nbsp;<span>mi piace</span>
+					<span class="wse__count" [innerHTML]="event.info.likes | count"></span>&nbsp;<span class="wse__text">mi piace</span>
 				</div>
 				<div class="wse__label"><svg class="wse__icon--heart"><use xlink:href="#heart-active"></use></svg> <span>mi piace</span></div>
 			</div>

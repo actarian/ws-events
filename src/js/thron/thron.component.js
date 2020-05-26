@@ -22,7 +22,8 @@ export default class ThronComponent extends Component {
 		}
 		const controls = node.hasAttribute('controls') ? true : false,
 			loop = node.hasAttribute('loop') ? true : false,
-			autoplay = node.hasAttribute('autoplay') ? true : false;
+			autoplay = node.hasAttribute('autoplay') ? true : false,
+			live = node.hasAttribute('live') ? true : false;
 		const player = this.player = THRON(node.id, {
 			media: media,
 			loop: loop,
@@ -58,11 +59,19 @@ export default class ThronComponent extends Component {
 	}
 
 	onBeforeInit(playerInstance) {
+		// VIDEO: ['captionText', 'shareButton', 'downloadableButton', 'playButton', 'timeSeek', 'timeInfoText', 'volumeButton', 'hdButton', 'speedButton', 'fullscreenButton', 'subtitleButton'],
+		const removedElements = ['captionText', 'subtitleButton', 'downloadableButton', 'speedButton'];
+
+		const { node } = getContext(this);
+		const live = node.hasAttribute('live') ? true : false;
+		if (live) {
+			removedElements.push('timeSeek', 'timeInfoText');
+		}
 		// Removes playButton and hdButton from schema bar
 		const schema = window.THRONSchemaHelper.getSchema();
-		const elements = window.THRONSchemaHelper.removeElementsById(schema, 'VIDEO', ['captionText', 'subtitleButton', 'downloadableButton']);
+		const elements = window.THRONSchemaHelper.removeElementsById(schema, 'VIDEO', removedElements);
 		// A simple verify: existsElements must false
-		const existsElements = window.THRONSchemaHelper.getElementsById(schema, 'VIDEO', ['captionText', 'subtitleButton', 'downloadableButton']).coordinates.length > 0;
+		const existsElements = window.THRONSchemaHelper.getElementsById(schema, 'VIDEO', removedElements).coordinates.length > 0;
 		console.log('ThronComponent.onBeforeInit.existsElements', existsElements);
 		const params = { bars: schema };
 		playerInstance.params(params);

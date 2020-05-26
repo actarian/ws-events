@@ -71,6 +71,13 @@
 		margin-top: 40px;
 	}
 
+	@include media-down(sm) {
+		padding: 40px 0 0 0;
+
+		&__group--cta {
+			margin: 20px 0;
+		}
+	}
 }
 
 .wse__section--channel+.wse__section--channel {
@@ -162,46 +169,6 @@
 			opacity: 0;
 			pointer-events: none;
 		}
-
-		&:hover {
-
-			.wse__info {
-				opacity: 0;
-			}
-
-			.wse__label {
-				opacity: 1;
-			}
-		}
-	}
-
-	.wse__subscribe {
-
-		&:hover {
-			background: $foreground-primary;
-			color: white;
-		}
-
-		&:not(:hover).wse__active {
-			svg {
-				fill: $foreground-primary;
-			}
-		}
-	}
-
-	.wse__like {
-
-		&:hover {
-			background: #f70a36;
-			color: white;
-		}
-
-		&:not(:hover).wse__active {
-
-			svg {
-				fill: #f70a36;
-			}
-		}
 	}
 
 	.wse__icon--calendar,
@@ -214,6 +181,84 @@
 		height: 16px;
 		margin-right: 8px;
 	}
+
+	@include media-up(sm) {
+
+		.wse__subscribe,
+		.wse__like,
+		.wse__save,
+		.wse__share {
+			&:hover {
+
+				.wse__info {
+					opacity: 0;
+				}
+
+				.wse__label {
+					opacity: 1;
+				}
+			}
+		}
+
+		.wse__subscribe {
+
+			&:hover {
+				background: $foreground-primary;
+				color: white;
+			}
+
+			&:not(:hover).wse__active {
+				svg {
+					fill: $foreground-primary;
+				}
+			}
+		}
+
+		.wse__like {
+
+			&:hover {
+				background: #f70a36;
+				color: white;
+			}
+
+			&:not(:hover).wse__active {
+
+				svg {
+					fill: #f70a36;
+				}
+			}
+		}
+
+	}
+
+	@include media-down(sm) {
+		.wse__info {
+			.wse__text {
+				display: none;
+			}
+		}
+
+		.wse__label {
+			display: none;
+		}
+
+		.wse__subscribe {
+			&.wse__active {
+				svg {
+					fill: $foreground-primary;
+				}
+			}
+		}
+
+		.wse__like {
+			&.wse__active {
+
+				svg {
+					fill: #f70a36;
+				}
+			}
+		}
+	}
 }
 
 .wse__channel__info {
@@ -225,28 +270,50 @@
 		background: $background;
 	}
 
-	.wse__subscribe {
+	@include media-up(md) {
 
-		&:hover {
-			background: $foreground-primary;
+		.wse__subscribe {
+
+			&:hover {
+				background: $foreground-primary;
+			}
+
+			&:not(:hover).wse__active {
+				svg {
+					fill: $foreground-primary;
+				}
+			}
 		}
 
-		&:not(:hover).wse__active {
-			svg {
-				fill: $foreground-primary;
+		.wse__like {
+
+			&:hover {
+				background: #f70a36;
+			}
+
+			&:not(:hover).wse__active {
+				svg {
+					fill: #f70a36;
+				}
 			}
 		}
 	}
 
-	.wse__like {
+	@include media-down(sm) {
 
-		&:hover {
-			background: #f70a36;
+		.wse__subscribe {
+			&.wse__active {
+				svg {
+					fill: $foreground-primary;
+				}
+			}
 		}
 
-		&:not(:hover).wse__active {
-			svg {
-				fill: #f70a36;
+		.wse__like {
+			&.wse__active {
+				svg {
+					fill: #f70a36;
+				}
 			}
 		}
 	}

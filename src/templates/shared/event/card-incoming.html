@@ -4,7 +4,7 @@
 		<a [href]="event.channel.url" class="wse__event-incoming__category" [innerHTML]="event.channel.name"></a>
 		<a [href]="event.url" class="wse__event-incoming__title" [innerHTML]="event.name"></a>
 		<div class="wse__event__info">
-			<div [eventDate]="event" (change)="onChange($event)">
+			<div class="wse__event-date" [eventDate]="event" (change)="onChange($event)">
 				<div class="wse__date" [class]="{ 'wse__date--live': mode === 'live', 'wse__date--countdown': mode === 'countdown' }">
 					<div class="wse__info" *if="mode === 'countdown'">A breve&nbsp;<span [innerHTML]="countdown"></span></div>
 					<div class="wse__info" *if="mode === 'relative' || mode === 'watchRelative'" [innerHTML]="eventDate.startDate | relativeDate"></div>

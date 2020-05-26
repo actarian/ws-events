@@ -8,13 +8,13 @@
 		<div [class]="{ 'wse__container-fluid': event.hasRelated, 'wse__container': !event.hasRelated }">
 			<div class="wse__row">
 				<div [class]="{ 'wse__col-md-9': event.hasRelated, 'wse__col-md-12': !event.hasRelated }">
-					<div *if="event.future">
+					<div class="wse__event-media" *if="event.future">
 						<!-- @@include ./templates/shared/event/card-incoming.html -->
 					</div>
-					<div *if="!event.future && event.thron && event.live">
+					<div class="wse__event-media" *if="!event.future && event.thron && event.live">
 						<!-- @@include ./templates/shared/event/player-thron-live.html -->
 					</div>
-					<div *if="!event.future && event.thron && !event.live">
+					<div class="wse__event-media" *if="!event.future && event.thron && !event.live">
 						<!-- @@include ./templates/shared/event/player-thron.html -->
 					</div>
 					<div class="wse__section--event__header">
@@ -30,7 +30,7 @@
 										<div class="wse__info">
 											<svg class="wse__icon--bell" *if="!event.info.subscribed"><use xlink:href="#bell"></use></svg>
 											<svg class="wse__icon--bell" *if="event.info.subscribed"><use xlink:href="#bell-active"></use></svg>
-											<span [innerHTML]="event.info.subscribers | count"></span>
+											<span class="wse__count" [innerHTML]="event.info.subscribers | count"></span>
 										</div>
 										<div class="wse__label"><svg class="wse__icon--bell"><use xlink:href="#bell-active"></use></svg></div>
 									</div>
@@ -38,7 +38,7 @@
 										<div class="wse__info">
 											<svg class="wse__icon--heart" *if="!event.info.liked"><use xlink:href="#heart"></use></svg>
 											<svg class="wse__icon--heart" *if="event.info.liked"><use xlink:href="#heart-active"></use></svg>
-											<span [innerHTML]="event.info.likes | count"></span>
+											<span class="wse__count" [innerHTML]="event.info.likes | count"></span>
 										</div>
 										<div class="wse__label"><svg class="wse__icon--heart"><use xlink:href="#heart-active"></use></svg></div>
 									</div>
@@ -117,11 +117,11 @@
 				<ul class="wse__nav--filters">
 					<li class="wse__nav--filters__item wse__filter" *for="let option of filters.type.options">
 						<span class="wse__filter__option" [class]="{ active: filters.type.has(option), disabled: option.disabled }" (click)="filters.type.set(option)">
-							<span class="wse__name" *if="option.value === undefined">Tutti</span>
-							<span class="wse__name" *if="option.value === 'event'">Eventi</span>
-							<span class="wse__name" *if="option.value === 'picture'">Immagini</span>
-							<span class="wse__name" *if="option.value === 'product'">Prodotti</span>
-							<span class="wse__name" *if="option.value === 'magazine'">Magazine</span>
+							<span class="wse__name" *if="option.value === undefined">Tutto</span>
+							<span class="wse__name" *if="option.value === 'event'"><span class="wse__text">Eventi</span><svg class="wse__ico"><use xlink:href="#event"></use></svg></span>
+							<span class="wse__name" *if="option.value === 'picture'"><span class="wse__text">Immagini</span><svg class="wse__ico"><use xlink:href="#picture"></use></svg></span>
+							<span class="wse__name" *if="option.value === 'product'"><span class="wse__text">Prodotti</span><svg class="wse__ico"><use xlink:href="#product"></use></svg></span>
+							<span class="wse__name" *if="option.value === 'magazine'"><span class="wse__text">Magazine</span><svg class="wse__ico"><use xlink:href="#magazine"></use></svg></span>
 							<span class="wse__count" [innerHTML]="option.count || ''"></span>
 						</span>
 					</li>

@@ -27,16 +27,6 @@ export default class FavouriteService {
 		return HttpService.get$(`${ENV.API}/user/favourite/items`).pipe(
 			map(events => EventService.mapEvents(events)),
 		);
-		return HttpService.get$(`${ENV.API}/user/favourite/items`).pipe(
-			map(() => {
-				const favourites = LocalStorageService.get('favourites') || [];
-				return favourites;
-			}),
-			switchMap(favourites => {
-				this.favourites$.next(favourites);
-				return this.favourites$;
-			})
-		);
 	}
 
 	static liked$() {
@@ -49,7 +39,7 @@ export default class FavouriteService {
 				const favourites = LocalStorageService.get('favourites') || [];
 				const item = favourites.find(x => x.id === id);
 				if (!item) {
-					favourites.push({ id });
+					favourites.unshift({ id });
 				}
 				this.favourites$.next(favourites);
 				LocalStorageService.set('favourites', favourites);

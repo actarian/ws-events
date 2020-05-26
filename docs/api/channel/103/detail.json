@@ -31,13 +31,13 @@
       "url": "/ws-events/event.html",
       "creationDate": "2020-05-20T08:11:17.827Z",
       "startDate": "2020-05-20T08:11:17.827Z",
+      "endDate": null,
       "info": {
-        "started": false,
-        "ended": false,
         "subscribers": 100,
         "subscribed": false,
         "likes": 100,
-        "liked": false
+        "liked": false,
+        "saved": false
       },
       "channel": {
         "id": 103,
@@ -60,13 +60,13 @@
       "url": "/ws-events/event.html",
       "creationDate": "2020-05-20T08:11:17.827Z",
       "startDate": "2020-05-20T08:11:17.827Z",
+      "endDate": null,
       "info": {
-        "started": false,
-        "ended": false,
         "subscribers": 100,
         "subscribed": false,
         "likes": 100,
-        "liked": false
+        "liked": false,
+        "saved": false
       },
       "channel": {
         "id": 103,
@@ -89,13 +89,13 @@
       "url": "/ws-events/event.html",
       "creationDate": "2020-05-20T08:11:17.827Z",
       "startDate": "2020-05-20T08:11:17.827Z",
+      "endDate": null,
       "info": {
-        "started": false,
-        "ended": false,
         "subscribers": 100,
         "subscribed": false,
         "likes": 100,
-        "liked": false
+        "liked": false,
+        "saved": false
       },
       "channel": {
         "id": 103,
@@ -118,13 +118,13 @@
       "url": "/ws-events/event.html",
       "creationDate": "2020-05-20T08:11:17.827Z",
       "startDate": "2020-05-20T08:11:17.827Z",
+      "endDate": null,
       "info": {
-        "started": false,
-        "ended": false,
         "subscribers": 100,
         "subscribed": false,
         "likes": 100,
-        "liked": false
+        "liked": false,
+        "saved": false
       },
       "channel": {
         "id": 103,
@@ -147,13 +147,13 @@
       "url": "/ws-events/event.html",
       "creationDate": "2020-05-20T08:11:17.827Z",
       "startDate": "2020-05-20T08:11:17.827Z",
+      "endDate": null,
       "info": {
-        "started": false,
-        "ended": false,
         "subscribers": 100,
         "subscribed": false,
         "likes": 100,
-        "liked": false
+        "liked": false,
+        "saved": false
       },
       "channel": {
         "id": 103,

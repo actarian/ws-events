@@ -282,7 +282,6 @@
     };
 
     FavouriteService.saved$ = function saved$() {
-
       return this.observe$().pipe(operators.map(function (events) {
         return EventService.fakeSaved(events);
       }));
@@ -293,7 +292,7 @@
     };
 
     FavouriteService.add$ = function add$(id) {
-      var _this3 = this;
+      var _this2 = this;
 
       return HttpService.post$(ENV.API + "/user/favourite/add", {
         id: id
@@ -304,19 +303,19 @@
         });
 
         if (!item) {
-          favourites.push({
+          favourites.unshift({
             id: id
           });
         }
 
-        _this3.favourites$.next(favourites);
+        _this2.favourites$.next(favourites);
 
         LocalStorageService.set('favourites', favourites);
       }));
     };
 
     FavouriteService.remove$ = function remove$(id) {
-      var _this4 = this;
+      var _this3 = this;
 
       return HttpService.post$(ENV.API + "/user/favourite/remove", {
         id: id
@@ -331,7 +330,7 @@
           favourites.splice(index, 1);
         }
 
-        _this4.favourites$.next(favourites);
+        _this3.favourites$.next(favourites);
 
         LocalStorageService.set('favourites', favourites);
       }));
@@ -576,6 +575,7 @@
     function Event(data) {
       if (data) {
         Object.assign(this, data);
+        this.info = this.info || {};
 
         if (this.creationDate) {
           this.creationDate = new Date(this.creationDate);
@@ -583,10 +583,12 @@
 
         if (this.startDate) {
           this.startDate = new Date(this.startDate);
+          this.info.started = this.startDate < Date.now();
         }
 
         if (this.endDate) {
           this.endDate = new Date(this.endDate);
+          this.info.ended = this.endDate < Date.now();
         }
 
         if (this.related) {

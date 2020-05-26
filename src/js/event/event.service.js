@@ -35,14 +35,17 @@ export class Event {
 	constructor(data) {
 		if (data) {
 			Object.assign(this, data);
+			this.info = this.info || {};
 			if (this.creationDate) {
 				this.creationDate = new Date(this.creationDate);
 			}
 			if (this.startDate) {
 				this.startDate = new Date(this.startDate);
+				this.info.started = this.startDate < Date.now();
 			}
 			if (this.endDate) {
 				this.endDate = new Date(this.endDate);
+				this.info.ended = this.endDate < Date.now();
 			}
 			if (this.related) {
 				this.related = EventService.mapEvents(this.related);

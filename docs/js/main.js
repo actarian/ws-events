@@ -96,8 +96,37 @@
     STATIC: STATIC,
     DEVELOPMENT: DEVELOPMENT,
     PRODUCTION: PRODUCTION,
-    API: '/api'
+    RESOURCE: '/Modules/Events/Client/docs/',
+    STATIC_RESOURCE: './',
+    API: '/api',
+    STATIC_API: DEVELOPMENT && !STATIC ? '/Modules/Events/Client/docs/api' : '/api'
   };
+  function getApiUrl(url, useStatic) {
+    var base = useStatic || STATIC ? ENV.STATIC_API : ENV.API;
+    var json = useStatic || STATIC ? '.json' : '';
+    return "" + base + url + json;
+  }
+  function getResourceRoot() {
+    return STATIC ? ENV.STATIC_RESOURCE : ENV.RESOURCE;
+  }
+  function getSlug(url) {
+    if (!url) {
+      return url;
+    }
+
+    if (url.indexOf('/ws-events') !== 0) {
+      return url;
+    }
+
+    if (STATIC) {
+      console.log(url);
+      return url;
+    }
+
+    url = url.replace('/ws-events/', '');
+    url = url.replace('.html', '');
+    return "/it/it/" + url;
+  }
 
   var HttpService = /*#__PURE__*/function () {
     function HttpService() {}
@@ -109,10 +138,10 @@
         format = 'json';
       }
 
-      method = STATIC ? 'GET' : method;
+      method = url.indexOf('.json') ? 'GET' : method;
       var methods = ['POST', 'PUT', 'PATCH'];
       var response_ = null;
-      return rxjs.from(fetch(this.getUrl(url, format), {
+      return rxjs.from(fetch(url, {
         method: method,
         headers: {
           'Accept': 'application/json',
@@ -159,15 +188,6 @@
       return ''; // todo
     };
 
-    HttpService.getUrl = function getUrl(url, format) {
-      if (format === void 0) {
-        format = 'json';
-      }
-
-      // console.log(url);
-      return STATIC && format === 'json' && url.indexOf('/') === 0 ? "." + url + ".json" : url;
-    };
-
     HttpService.getError = function getError(object, response) {
       var error = typeof object === 'object' ? object : {};
 
@@ -185,6 +205,56 @@
 
     return HttpService;
   }();
+
+  var ApiService = /*#__PURE__*/function (_HttpService) {
+    _inheritsLoose(ApiService, _HttpService);
+
+    function ApiService() {
+      return _HttpService.apply(this, arguments) || this;
+    }
+
+    ApiService.get$ = function get$(url, data, format) {
+      return _HttpService.get$.call(this, getApiUrl(url), data, format);
+    };
+
+    ApiService.delete$ = function delete$(url) {
+      return _HttpService.delete$.call(this, getApiUrl(url));
+    };
+
+    ApiService.post$ = function post$(url, data) {
+      return _HttpService.post$.call(this, getApiUrl(url), data);
+    };
+
+    ApiService.put$ = function put$(url, data) {
+      return _HttpService.put$.call(this, getApiUrl(url), data);
+    };
+
+    ApiService.patch$ = function patch$(url, data) {
+      return _HttpService.patch$.call(this, getApiUrl(url), data);
+    };
+
+    ApiService.staticGet$ = function staticGet$(url, data, format) {
+      return _HttpService.get$.call(this, getApiUrl(url, true), data, format);
+    };
+
+    ApiService.staticDelete$ = function staticDelete$(url) {
+      return _HttpService.delete$.call(this, getApiUrl(url, true));
+    };
+
+    ApiService.staticPost$ = function staticPost$(url, data) {
+      return _HttpService.post$.call(this, getApiUrl(url, true), data);
+    };
+
+    ApiService.staticPut$ = function staticPut$(url, data) {
+      return _HttpService.put$.call(this, getApiUrl(url, true), data);
+    };
+
+    ApiService.staticPatch$ = function staticPatch$(url, data) {
+      return _HttpService.patch$.call(this, getApiUrl(url, true), data);
+    };
+
+    return ApiService;
+  }(HttpService);
 
   var LocalStorageService = /*#__PURE__*/function () {
     function LocalStorageService() {}
@@ -285,7 +355,7 @@
     };
 
     FavouriteService.subscriptions$ = function subscriptions$() {
-      return HttpService.get$(ENV.API + "/user/subscription").pipe(operators.map(function () {
+      return ApiService.staticGet$("/user/subscription").pipe(operators.map(function () {
         var subscriptions = LocalStorageService.get('subscriptions') || [];
         return subscriptions;
       }), operators.map(function (events) {
@@ -297,7 +367,7 @@
     };
 
     FavouriteService.likes$ = function likes$() {
-      return HttpService.get$(ENV.API + "/user/like").pipe(operators.map(function () {
+      return ApiService.staticGet$("/user/like").pipe(operators.map(function () {
         var likes = LocalStorageService.get('likes') || [];
         return likes;
       }), operators.map(function (events) {
@@ -309,7 +379,7 @@
     };
 
     FavouriteService.favourites$ = function favourites$() {
-      return HttpService.get$(ENV.API + "/user/favourite").pipe(operators.map(function () {
+      return ApiService.staticGet$("/user/favourite").pipe(operators.map(function () {
         var favourites = LocalStorageService.get('favourites') || [];
         return favourites;
       }), operators.map(function (events) {
@@ -321,10 +391,10 @@
     };
 
     FavouriteService.subscriptionAdd$ = function subscriptionAdd$(id) {
-      return HttpService.post$(ENV.API + "/user/subscription/add", {
+      return ApiService.staticPost$("/user/subscription/add", {
         id: id
       }).pipe(operators.tap(function () {
-        if (STATIC) {
+        {
           var subscriptions = LocalStorageService.get('subscriptions') || [];
           var item = subscriptions.find(function (x) {
             return x.id === id;
@@ -343,10 +413,10 @@
     };
 
     FavouriteService.subscriptionRemove$ = function subscriptionRemove$(id) {
-      return HttpService.post$(ENV.API + "/user/subscription/remove", {
+      return ApiService.staticPost$("/user/subscription/remove", {
         id: id
       }).pipe(operators.tap(function () {
-        if (STATIC) {
+        {
           var subscriptions = LocalStorageService.get('subscriptions') || [];
           var item = subscriptions.find(function (x) {
             return x.id === id;
@@ -364,10 +434,10 @@
     };
 
     FavouriteService.likeAdd$ = function likeAdd$(id) {
-      return HttpService.post$(ENV.API + "/user/like/add", {
+      return ApiService.staticPost$("/user/like/add", {
         id: id
       }).pipe(operators.tap(function () {
-        if (STATIC) {
+        {
           var likes = LocalStorageService.get('likes') || [];
           var item = likes.find(function (x) {
             return x.id === id;
@@ -386,10 +456,10 @@
     };
 
     FavouriteService.likeRemove$ = function likeRemove$(id) {
-      return HttpService.post$(ENV.API + "/user/like/remove", {
+      return ApiService.staticPost$("/user/like/remove", {
         id: id
       }).pipe(operators.tap(function () {
-        if (STATIC) {
+        {
           var likes = LocalStorageService.get('likes') || [];
           var item = likes.find(function (x) {
             return x.id === id;
@@ -407,10 +477,10 @@
     };
 
     FavouriteService.favouriteAdd$ = function favouriteAdd$(id) {
-      return HttpService.post$(ENV.API + "/user/favourite/add", {
+      return ApiService.staticPost$("/user/favourite/add", {
         id: id
       }).pipe(operators.tap(function () {
-        if (STATIC) {
+        {
           var favourites = LocalStorageService.get('favourites') || [];
           var item = favourites.find(function (x) {
             return x.id === id;
@@ -429,10 +499,10 @@
     };
 
     FavouriteService.favouriteRemove$ = function favouriteRemove$(id) {
-      return HttpService.post$(ENV.API + "/user/favourite/remove", {
+      return ApiService.staticPost$("/user/favourite/remove", {
         id: id
       }).pipe(operators.tap(function () {
-        if (STATIC) {
+        {
           var favourites = LocalStorageService.get('favourites') || [];
           var item = favourites.find(function (x) {
             return x.id === id;
@@ -491,7 +561,7 @@
     UserService.me$ = function me$() {
       var _this = this;
 
-      return HttpService.get$(ENV.API + "/user/me").pipe( // map((user) => this.mapStatic__(user, 'me')),
+      return ApiService.staticGet$("/user/me").pipe( // map((user) => this.mapStatic__(user, 'me')),
       operators.map(function (user) {
         return _this.mapUser(user);
       }), operators.catchError(function (error) {
@@ -506,7 +576,7 @@
     UserService.register$ = function register$(payload) {
       var _this2 = this;
 
-      return HttpService.post$(ENV.API + "/user/register", payload).pipe(operators.map(function (user) {
+      return ApiService.staticPost$("/user/register", payload).pipe(operators.map(function (user) {
         return _this2.mapStatic__(user, 'register');
       }));
     };
@@ -514,7 +584,7 @@
     UserService.login$ = function login$(payload) {
       var _this3 = this;
 
-      return HttpService.post$(ENV.API + "/user/login", payload).pipe(operators.map(function (user) {
+      return ApiService.staticPost$("/user/login", payload).pipe(operators.map(function (user) {
         return _this3.mapStatic__(user, 'login');
       }));
     };
@@ -522,7 +592,7 @@
     UserService.logout$ = function logout$() {
       var _this4 = this;
 
-      return HttpService.post$(ENV.API + "/user/logout").pipe(operators.map(function (user) {
+      return ApiService.staticPost$("/user/logout").pipe(operators.map(function (user) {
         return _this4.mapStatic__(user, 'logout');
       }));
     };
@@ -530,7 +600,7 @@
     UserService.retrieve$ = function retrieve$(payload) {
       var _this5 = this;
 
-      return HttpService.post$(ENV.API + "/user/retrievepassword", payload).pipe(operators.map(function (user) {
+      return ApiService.staticPost$("/user/retrievepassword", payload).pipe(operators.map(function (user) {
         return _this5.mapStatic__(user, 'retrieve');
       }));
     };
@@ -538,7 +608,7 @@
     UserService.update$ = function update$(payload) {
       var _this6 = this;
 
-      return HttpService.post$(ENV.API + "/user/updateprofile", payload).pipe(operators.map(function (user) {
+      return ApiService.staticPost$("/user/updateprofile", payload).pipe(operators.map(function (user) {
         return _this6.mapStatic__(user, 'register');
       }));
     };
@@ -725,7 +795,7 @@
     EventService.detail$ = function detail$(eventId) {
       var id = 1001; // !!!
 
-      return HttpService.get$(ENV.API + "/event/" + id + "/detail").pipe(operators.tap(function (x) {
+      return ApiService.staticGet$("/event/" + id + "/detail").pipe(operators.tap(function (x) {
         return x.id = parseInt(eventId);
       }), // !!!
       operators.map(function (x) {
@@ -734,19 +804,19 @@
     };
 
     EventService.listing$ = function listing$(eventId) {
-      // return HttpService.get$(`${ENV.API}/event/${eventId}/listing`);
+      // return ApiService.staticGet$(`/event/${eventId}/listing`);
       return EventService.fakeListing(eventId).pipe(operators.tap(function (items) {// console.log(JSON.stringify(items));
       }));
     };
 
     EventService.top$ = function top$() {
-      return HttpService.get$(ENV.API + "/event/evidence").pipe(operators.map(function (items) {
+      return ApiService.staticGet$("/event/evidence").pipe(operators.map(function (items) {
         return EventService.mapEvents(items);
       }));
     };
 
     EventService.upcoming$ = function upcoming$() {
-      return HttpService.get$(ENV.API + "/event/upcoming").pipe(operators.map(function (items) {
+      return ApiService.staticGet$("/event/upcoming").pipe(operators.map(function (items) {
         return EventService.mapEvents(items);
       }));
     };
@@ -770,7 +840,7 @@
     EventService.postQuestion$ = function postQuestion$(event, body) {
       var eventId = 1001; // event.id !!!
 
-      return HttpService.post$(ENV.API + "/event/" + eventId + "/question", body).pipe(operators.map(function (x) {
+      return ApiService.staticPost$("/event/" + eventId + "/question", body).pipe(operators.map(function (x) {
         return QuestionService.mapQuestion(x);
       }), operators.map(function (x) {
         x.id = event.questions[0].id + 1;
@@ -889,7 +959,7 @@
 
     EventService.fakeListing = function fakeListing(eventId) {
       eventId = 1001;
-      return HttpService.get$(ENV.API + "/event/" + eventId + "/detail").pipe(operators.map(function (x) {
+      return ApiService.staticGet$("/event/" + eventId + "/detail").pipe(operators.map(function (x) {
         var channel_ = new Event(x).channel;
         var info_ = {
           started: false,
@@ -908,7 +978,7 @@
         var category_ = {
           id: 10000,
           name: 'Category',
-          url: '/ws-events/category.html'
+          url: '/ws-events/events-category.html'
         };
         var event_ = {
           id: 1000,
@@ -916,7 +986,7 @@
           name: 'Evento',
           title: 'Evento',
           abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-          url: '/ws-events/event.html',
+          url: '/ws-events/events-event',
           creationDate: '2020-05-20T08:11:17.827Z',
           startDate: '2020-05-20T08:11:17.827Z',
           picture: image_,
@@ -929,7 +999,7 @@
           name: 'Picture',
           title: 'Picture',
           abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-          url: '/ws-events/document.html',
+          url: '/ws-events/events-document.html',
           picture: image_,
           category: category_
         };
@@ -939,7 +1009,7 @@
           name: 'Product',
           title: 'Product',
           abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-          url: '/ws-events/product.html',
+          url: '/ws-events/events-product.html',
           picture: image_,
           category: category_
         };
@@ -949,7 +1019,7 @@
           name: 'Magazine',
           title: 'Magazine',
           abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-          url: '/ws-events/product.html',
+          url: '/ws-events/events-product.html',
           picture: image_,
           category: category_
         };
@@ -1052,7 +1122,7 @@
         name: 'Evento',
         title: 'Evento',
         abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-        url: '/ws-events/event.html',
+        url: '/ws-events/events-event.html',
         creationDate: '2020-05-20T08:11:17.827Z',
         startDate: '2020-05-20T08:11:17.827Z',
         picture: image_,
@@ -1094,25 +1164,25 @@
     function ChannelService() {}
 
     ChannelService.channels$ = function channels$() {
-      return HttpService.get$(ENV.API + "/channel/channels").pipe(operators.map(function (items) {
+      return ApiService.staticGet$("/channel/channels").pipe(operators.map(function (items) {
         return ChannelService.mapChannels(items);
       }));
     };
 
     ChannelService.detail$ = function detail$(channelId) {
-      return HttpService.get$(ENV.API + "/channel/" + channelId + "/detail").pipe(operators.map(function (x) {
+      return ApiService.staticGet$("/channel/" + channelId + "/detail").pipe(operators.map(function (x) {
         return ChannelService.mapChannel(x);
       }));
     };
 
     ChannelService.listing$ = function listing$(channelId) {
-      // return HttpService.get$(`${ENV.API}/channel/${channelId}/listing`);
+      // return ApiService.staticGet$(`/channel/${channelId}/listing`);
       return ChannelService.fakeListing(channelId).pipe(operators.tap(function (items) {// console.log(JSON.stringify(items));
       }));
     };
 
     ChannelService.top$ = function top$() {
-      return HttpService.get$(ENV.API + "/channel/evidence").pipe(operators.map(function (items) {
+      return ApiService.staticGet$("/channel/evidence").pipe(operators.map(function (items) {
         return ChannelService.mapChannels(items);
       }));
     };
@@ -1152,7 +1222,7 @@
     };
 
     ChannelService.fakeListing = function fakeListing(channelId) {
-      return HttpService.get$(ENV.API + "/channel/" + channelId + "/detail").pipe(operators.map(function (x) {
+      return ApiService.staticGet$("/channel/" + channelId + "/detail").pipe(operators.map(function (x) {
         var channel_ = ChannelService.fake(new Channel(x));
         var info_ = {
           started: false,
@@ -1179,7 +1249,7 @@
           name: 'Evento',
           title: 'Evento',
           abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-          url: '/ws-events/event.html',
+          url: '/event',
           creationDate: '2020-05-20T08:11:17.827Z',
           startDate: '2020-05-20T08:11:17.827Z',
           picture: image_,
@@ -1296,7 +1366,7 @@
     };
 
     ChannelService.fakeListing_ = function fakeListing_(channelId) {
-      return HttpService.get$(ENV.API + "/channel/" + channelId + "/detail").pipe(operators.map(function (x) {
+      return ApiService.staticGet$("/channel/" + channelId + "/detail").pipe(operators.map(function (x) {
         var channel_ = ChannelService.fake(new Channel(x));
         var event_ = {
           id: 1000,
@@ -1309,7 +1379,7 @@
             width: 700,
             height: 700
           },
-          url: '/ws-events/event.html',
+          url: '/event',
           creationDate: '2020-05-20T08:11:17.827Z',
           startDate: '2020-05-20T08:11:17.827Z',
           info: {
@@ -3872,7 +3942,7 @@
     };
 
     NotificationService.notifications$ = function notifications$() {
-      return HttpService.get$(ENV.API + "/user/notification").pipe(operators.map(function (items) {
+      return ApiService.staticGet$("/user/notification").pipe(operators.map(function (items) {
         return EventService.mapEvents(items);
       }), operators.switchMap(function (items) {
         notifications$_.next(items);
@@ -4038,7 +4108,6 @@
     selector: '[index-page]'
   };
 
-  var PATH = STATIC ? './' : '/Client/docs/';
   var UID = 0;
 
   var ImageService = /*#__PURE__*/function () {
@@ -4046,7 +4115,7 @@
 
     ImageService.worker = function worker() {
       if (!this.worker_) {
-        this.worker_ = new Worker(PATH + "js/workers/image.service.worker.js");
+        this.worker_ = new Worker(getResourceRoot() + "js/workers/image.service.worker.js");
       }
 
       return this.worker_;
@@ -4960,7 +5029,7 @@
     _proto.tryDownloadHref = function tryDownloadHref() {
       var _this2 = this;
 
-      HttpService.get$(this.href, undefined, 'blob').pipe(operators.first()).subscribe(function (blob) {
+      ApiService.staticGet$(this.href, undefined, 'blob').pipe(operators.first()).subscribe(function (blob) {
         DownloadService.download(blob, _this2.href.split('/').pop());
       }, function (error) {
         console.log(error);
@@ -5009,6 +5078,23 @@
   }(rxcomp.Directive);
   SecureDirective.meta = {
     selector: '[secure]'
+  };
+
+  var SlugPipe = /*#__PURE__*/function (_Pipe) {
+    _inheritsLoose(SlugPipe, _Pipe);
+
+    function SlugPipe() {
+      return _Pipe.apply(this, arguments) || this;
+    }
+
+    SlugPipe.transform = function transform(value) {
+      return getSlug(value);
+    };
+
+    return SlugPipe;
+  }(rxcomp.Pipe);
+  SlugPipe.meta = {
+    name: 'slug'
   };
 
   var SwiperDirective = /*#__PURE__*/function (_Directive) {
@@ -6458,7 +6544,7 @@
   }(rxcomp.Module);
   AppModule.meta = {
     imports: [rxcomp.CoreModule, rxcompForm.FormModule],
-    declarations: [AsideComponent, ChannelComponent, ChannelPageComponent, ClickOutsideDirective, CountPipe, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, EventPageComponent, FavouritePageComponent, HeaderComponent, HtmlPipe, IndexPageComponent, LazyDirective, ModalComponent, ModalOutletComponent, NotificationComponent, RegisterOrLoginComponent, RelativeDateDirective, RelativeDatePipe, ScrollToDirective, SecureDirective, SwiperDirective, SwiperEventsDirective, SwiperRelatedDirective, SwiperSlidesDirective, SwiperTopEventsDirective, ThronComponent, VirtualStructure, VideoComponent, YoutubeComponent],
+    declarations: [AsideComponent, ChannelComponent, ChannelPageComponent, ClickOutsideDirective, CountPipe, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, EventPageComponent, FavouritePageComponent, HeaderComponent, HtmlPipe, IndexPageComponent, LazyDirective, ModalComponent, ModalOutletComponent, NotificationComponent, RegisterOrLoginComponent, RelativeDateDirective, RelativeDatePipe, ScrollToDirective, SecureDirective, SlugPipe, SwiperDirective, SwiperEventsDirective, SwiperRelatedDirective, SwiperSlidesDirective, SwiperTopEventsDirective, ThronComponent, VirtualStructure, VideoComponent, YoutubeComponent],
     bootstrap: AppComponent
   };
 

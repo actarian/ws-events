@@ -1,13 +1,14 @@
 import { from, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { STATIC } from '../environment/environment';
 
 export default class HttpService {
 
 	static http$(method, url, data, format = 'json') {
-		method = url.indexOf('.json') ? 'GET' : method;
+		method = STATIC ? 'GET' : method;
 		const methods = ['POST', 'PUT', 'PATCH'];
 		let response_ = null;
-		return from(fetch(url, {
+		return from(fetch(this.getUrl(url, format), {
 			method: method,
 			headers: {
 				'Accept': 'application/json',
@@ -54,6 +55,11 @@ export default class HttpService {
 
 	static query(data) {
 		return ''; // todo
+	}
+
+	static getUrl(url, format = 'json') {
+		// console.log(url);
+		return STATIC && format === 'json' && url.indexOf('/') === 0 ? `.${url}.json` : url;
 	}
 
 	static getError(object, response) {

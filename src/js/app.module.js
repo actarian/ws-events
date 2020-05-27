@@ -26,6 +26,7 @@ import RelativeDateDirective from './relative-date/relative-date.component';
 import RelativeDatePipe from './relative-date/relative-date.pipe';
 import ScrollToDirective from './scroll-to/scroll-to.directive';
 import SecureDirective from './secure/secure.directive';
+import SlugPipe from './slug/slug.pipe';
 import SwiperEventsDirective from './swiper/swiper-events.directive';
 import SwiperRelatedDirective from './swiper/swiper-related.directive';
 import SwiperSlidesDirective from './swiper/swiper-slides.directive';
@@ -69,6 +70,7 @@ AppModule.meta = {
 		RelativeDatePipe,
 		ScrollToDirective,
 		SecureDirective,
+		SlugPipe,
 		SwiperDirective,
 		SwiperEventsDirective,
 		SwiperRelatedDirective,

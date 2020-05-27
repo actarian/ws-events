@@ -1,8 +1,7 @@
 import { of } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
-import { ENV } from '../environment/environment';
 import EventService, { Event } from '../event/event.service';
-import HttpService from '../http/http.service';
+import ApiService from '../http/api.service';
 
 export class Channel {
 	constructor(data) {
@@ -16,19 +15,19 @@ export class Channel {
 export default class ChannelService {
 
 	static channels$() {
-		return HttpService.get$(`${ENV.API}/channel/channels`).pipe(
+		return ApiService.staticGet$(`/channel/channels`).pipe(
 			map(items => ChannelService.mapChannels(items))
 		);
 	}
 
 	static detail$(channelId) {
-		return HttpService.get$(`${ENV.API}/channel/${channelId}/detail`).pipe(
+		return ApiService.staticGet$(`/channel/${channelId}/detail`).pipe(
 			map(x => ChannelService.mapChannel(x))
 		);
 	}
 
 	static listing$(channelId) {
-		// return HttpService.get$(`${ENV.API}/channel/${channelId}/listing`);
+		// return ApiService.staticGet$(`/channel/${channelId}/listing`);
 		return ChannelService.fakeListing(channelId).pipe(
 			tap((items) => {
 				// console.log(JSON.stringify(items));
@@ -37,7 +36,7 @@ export default class ChannelService {
 	}
 
 	static top$() {
-		return HttpService.get$(`${ENV.API}/channel/evidence`).pipe(
+		return ApiService.staticGet$(`/channel/evidence`).pipe(
 			map(items => ChannelService.mapChannels(items))
 		);
 	}
@@ -75,7 +74,7 @@ export default class ChannelService {
 	}
 
 	static fakeListing(channelId) {
-		return HttpService.get$(`${ENV.API}/channel/${channelId}/detail`).pipe(
+		return ApiService.staticGet$(`/channel/${channelId}/detail`).pipe(
 			map(x => {
 				const channel_ = ChannelService.fake(new Channel(x));
 				const info_ = {
@@ -103,7 +102,7 @@ export default class ChannelService {
 					name: 'Evento',
 					title: 'Evento',
 					abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-					url: '/ws-events/event.html',
+					url: '/event',
 					creationDate: '2020-05-20T08:11:17.827Z',
 					startDate: '2020-05-20T08:11:17.827Z',
 					picture: image_,
@@ -206,7 +205,7 @@ export default class ChannelService {
 	}
 
 	static fakeListing_(channelId) {
-		return HttpService.get$(`${ENV.API}/channel/${channelId}/detail`).pipe(
+		return ApiService.staticGet$(`/channel/${channelId}/detail`).pipe(
 			map(x => {
 				const channel_ = ChannelService.fake(new Channel(x));
 				const event_ = {
@@ -220,7 +219,7 @@ export default class ChannelService {
 						width: 700,
 						height: 700,
 					},
-					url: '/ws-events/event.html',
+					url: '/event',
 					creationDate: '2020-05-20T08:11:17.827Z',
 					startDate: '2020-05-20T08:11:17.827Z',
 					info: {

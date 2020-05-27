@@ -1,9 +1,10 @@
 import { BehaviorSubject } from 'rxjs';
 import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
-import { ENV, STATIC } from '../environment/environment';
 import EventService from '../event/event.service';
-import HttpService from '../http/http.service';
+import ApiService from '../http/api.service';
 import LocalStorageService from '../local-storage/local-storage.service';
+
+const USE_LOCAL_STORAGE = true;
 
 const subscriptions$_ = new BehaviorSubject([]);
 const likes$_ = new BehaviorSubject([]);
@@ -24,7 +25,7 @@ export default class FavouriteService {
 	}
 
 	static subscriptions$() {
-		return HttpService.get$(`${ENV.API}/user/subscription`).pipe(
+		return ApiService.staticGet$(`/user/subscription`).pipe(
 			map(() => {
 				const subscriptions = LocalStorageService.get('subscriptions') || [];
 				return subscriptions;
@@ -38,7 +39,7 @@ export default class FavouriteService {
 	}
 
 	static likes$() {
-		return HttpService.get$(`${ENV.API}/user/like`).pipe(
+		return ApiService.staticGet$(`/user/like`).pipe(
 			map(() => {
 				const likes = LocalStorageService.get('likes') || [];
 				return likes;
@@ -52,7 +53,7 @@ export default class FavouriteService {
 	}
 
 	static favourites$() {
-		return HttpService.get$(`${ENV.API}/user/favourite`).pipe(
+		return ApiService.staticGet$(`/user/favourite`).pipe(
 			map(() => {
 				const favourites = LocalStorageService.get('favourites') || [];
 				return favourites;
@@ -66,9 +67,9 @@ export default class FavouriteService {
 	}
 
 	static subscriptionAdd$(id) {
-		return HttpService.post$(`${ENV.API}/user/subscription/add`, { id }).pipe(
+		return ApiService.staticPost$(`/user/subscription/add`, { id }).pipe(
 			tap(() => {
-				if (STATIC) {
+				if (USE_LOCAL_STORAGE) {
 					const subscriptions = LocalStorageService.get('subscriptions') || [];
 					const item = subscriptions.find(x => x.id === id);
 					if (!item) {
@@ -82,9 +83,9 @@ export default class FavouriteService {
 	}
 
 	static subscriptionRemove$(id) {
-		return HttpService.post$(`${ENV.API}/user/subscription/remove`, { id }).pipe(
+		return ApiService.staticPost$(`/user/subscription/remove`, { id }).pipe(
 			tap(() => {
-				if (STATIC) {
+				if (USE_LOCAL_STORAGE) {
 					const subscriptions = LocalStorageService.get('subscriptions') || [];
 					const item = subscriptions.find(x => x.id === id);
 					const index = item ? subscriptions.indexOf(item) : -1;
@@ -99,9 +100,9 @@ export default class FavouriteService {
 	}
 
 	static likeAdd$(id) {
-		return HttpService.post$(`${ENV.API}/user/like/add`, { id }).pipe(
+		return ApiService.staticPost$(`/user/like/add`, { id }).pipe(
 			tap(() => {
-				if (STATIC) {
+				if (USE_LOCAL_STORAGE) {
 					const likes = LocalStorageService.get('likes') || [];
 					const item = likes.find(x => x.id === id);
 					if (!item) {
@@ -115,9 +116,9 @@ export default class FavouriteService {
 	}
 
 	static likeRemove$(id) {
-		return HttpService.post$(`${ENV.API}/user/like/remove`, { id }).pipe(
+		return ApiService.staticPost$(`/user/like/remove`, { id }).pipe(
 			tap(() => {
-				if (STATIC) {
+				if (USE_LOCAL_STORAGE) {
 					const likes = LocalStorageService.get('likes') || [];
 					const item = likes.find(x => x.id === id);
 					const index = item ? likes.indexOf(item) : -1;
@@ -132,9 +133,9 @@ export default class FavouriteService {
 	}
 
 	static favouriteAdd$(id) {
-		return HttpService.post$(`${ENV.API}/user/favourite/add`, { id }).pipe(
+		return ApiService.staticPost$(`/user/favourite/add`, { id }).pipe(
 			tap(() => {
-				if (STATIC) {
+				if (USE_LOCAL_STORAGE) {
 					const favourites = LocalStorageService.get('favourites') || [];
 					const item = favourites.find(x => x.id === id);
 					if (!item) {
@@ -148,9 +149,9 @@ export default class FavouriteService {
 	}
 
 	static favouriteRemove$(id) {
-		return HttpService.post$(`${ENV.API}/user/favourite/remove`, { id }).pipe(
+		return ApiService.staticPost$(`/user/favourite/remove`, { id }).pipe(
 			tap(() => {
-				if (STATIC) {
+				if (USE_LOCAL_STORAGE) {
 					const favourites = LocalStorageService.get('favourites') || [];
 					const item = favourites.find(x => x.id === id);
 					const index = item ? favourites.indexOf(item) : -1;

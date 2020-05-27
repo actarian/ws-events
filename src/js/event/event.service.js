@@ -1,8 +1,7 @@
 import { of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { ENV } from '../environment/environment';
 import FavouriteService from '../favourite/favourite.service';
-import HttpService from '../http/http.service';
+import ApiService from '../http/api.service';
 import QuestionService from '../question/question.service';
 import UserService from '../user/user.service';
 
@@ -61,14 +60,14 @@ export default class EventService {
 
 	static detail$(eventId) {
 		const id = 1001; // !!!
-		return HttpService.get$(`${ENV.API}/event/${id}/detail`).pipe(
+		return ApiService.staticGet$(`/event/${id}/detail`).pipe(
 			tap(x => x.id = parseInt(eventId)), // !!!
 			map(x => EventService.mapEvent(x))
 		);
 	}
 
 	static listing$(eventId) {
-		// return HttpService.get$(`${ENV.API}/event/${eventId}/listing`);
+		// return ApiService.staticGet$(`/event/${eventId}/listing`);
 		return EventService.fakeListing(eventId).pipe(
 			tap((items) => {
 				// console.log(JSON.stringify(items));
@@ -77,13 +76,13 @@ export default class EventService {
 	}
 
 	static top$() {
-		return HttpService.get$(`${ENV.API}/event/evidence`).pipe(
+		return ApiService.staticGet$(`/event/evidence`).pipe(
 			map(items => EventService.mapEvents(items))
 		);
 	}
 
 	static upcoming$() {
-		return HttpService.get$(`${ENV.API}/event/upcoming`).pipe(
+		return ApiService.staticGet$(`/event/upcoming`).pipe(
 			map(items => EventService.mapEvents(items))
 		);
 	}
@@ -106,7 +105,7 @@ export default class EventService {
 
 	static postQuestion$(event, body) {
 		const eventId = 1001; // event.id !!!
-		return HttpService.post$(`${ENV.API}/event/${eventId}/question`, body).pipe(
+		return ApiService.staticPost$(`/event/${eventId}/question`, body).pipe(
 			map(x => QuestionService.mapQuestion(x)),
 			map(x => {
 				x.id = event.questions[0].id + 1;
@@ -206,7 +205,7 @@ export default class EventService {
 
 	static fakeListing(eventId) {
 		eventId = 1001;
-		return HttpService.get$(`${ENV.API}/event/${eventId}/detail`).pipe(
+		return ApiService.staticGet$(`/event/${eventId}/detail`).pipe(
 			map(x => {
 				const channel_ = new Event(x).channel;
 				const info_ = {
@@ -226,7 +225,7 @@ export default class EventService {
 				const category_ = {
 					id: 10000,
 					name: 'Category',
-					url: '/ws-events/category.html',
+					url: '/ws-events/events-category.html',
 				};
 				const event_ = {
 					id: 1000,
@@ -234,7 +233,7 @@ export default class EventService {
 					name: 'Evento',
 					title: 'Evento',
 					abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-					url: '/ws-events/event.html',
+					url: '/ws-events/events-event',
 					creationDate: '2020-05-20T08:11:17.827Z',
 					startDate: '2020-05-20T08:11:17.827Z',
 					picture: image_,
@@ -247,7 +246,7 @@ export default class EventService {
 					name: 'Picture',
 					title: 'Picture',
 					abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-					url: '/ws-events/document.html',
+					url: '/ws-events/events-document.html',
 					picture: image_,
 					category: category_,
 				};
@@ -257,7 +256,7 @@ export default class EventService {
 					name: 'Product',
 					title: 'Product',
 					abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-					url: '/ws-events/product.html',
+					url: '/ws-events/events-product.html',
 					picture: image_,
 					category: category_,
 				};
@@ -267,7 +266,7 @@ export default class EventService {
 					name: 'Magazine',
 					title: 'Magazine',
 					abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-					url: '/ws-events/product.html',
+					url: '/ws-events/events-product.html',
 					picture: image_,
 					category: category_,
 				};
@@ -356,7 +355,7 @@ export default class EventService {
 			name: 'Evento',
 			title: 'Evento',
 			abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-			url: '/ws-events/event.html',
+			url: '/ws-events/events-event.html',
 			creationDate: '2020-05-20T08:11:17.827Z',
 			startDate: '2020-05-20T08:11:17.827Z',
 			picture: image_,

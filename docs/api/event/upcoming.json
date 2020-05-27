@@ -8,7 +8,7 @@
       "width": 1920,
       "height": 1080
     },
-    "url": "/ws-events/event.html"
+    "url": "/ws-events/events-event.html"
   },
   {
     "id": 1002,
@@ -19,7 +19,7 @@
       "width": 1920,
       "height": 1080
     },
-    "url": "/ws-events/event.html"
+    "url": "/ws-events/events-event.html"
   },
   {
     "id": 1003,
@@ -30,6 +30,6 @@
       "width": 1920,
       "height": 1080
     },
-    "url": "/ws-events/event.html"
+    "url": "/ws-events/events-event.html"
   }
 ]

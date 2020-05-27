@@ -1,8 +1,6 @@
 import { fromEvent, of } from 'rxjs';
 import { filter, finalize, first, map } from 'rxjs/operators';
-import { STATIC } from '../environment/environment';
-
-const PATH = STATIC ? './' : '/Client/docs/';
+import { getResourceRoot } from '../environment/environment';
 
 let UID = 0;
 
@@ -10,7 +8,7 @@ export default class ImageService {
 
 	static worker() {
 		if (!this.worker_) {
-			this.worker_ = new Worker(`${PATH}js/workers/image.service.worker.js`);
+			this.worker_ = new Worker(`${getResourceRoot()}js/workers/image.service.worker.js`);
 		}
 		return this.worker_;
 	}

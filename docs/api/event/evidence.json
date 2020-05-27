@@ -10,7 +10,7 @@
       "width": 1920,
       "height": 1080
     },
-    "url": "/ws-events/event.html",
+    "url": "/ws-events/events-event.html",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-20T08:11:17.827Z",
     "endDate": null,
@@ -24,7 +24,7 @@
       "id": 101,
       "type": "channel",
       "name": "Channel A",
-      "url": "/ws-events/channel.html"
+      "url": "/ws-events/events-channel.html"
     }
   },
   {
@@ -38,7 +38,7 @@
       "width": 1920,
       "height": 1080
     },
-    "url": "/ws-events/event.html",
+    "url": "/ws-events/events-event.html",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-20T08:11:17.827Z",
     "endDate": null,
@@ -53,7 +53,7 @@
       "id": 102,
       "type": "channel",
       "name": "Channel B",
-      "url": "/ws-events/channel.html"
+      "url": "/ws-events/events-channel.html"
     }
   },
   {
@@ -67,7 +67,7 @@
       "width": 1920,
       "height": 1080
     },
-    "url": "/ws-events/event.html",
+    "url": "/ws-events/events-event.html",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-20T08:11:17.827Z",
     "endDate": null,
@@ -82,7 +82,7 @@
       "id": 101,
       "type": "channel",
       "name": "Channel A",
-      "url": "/ws-events/channel.html"
+      "url": "/ws-events/events-channel.html"
     }
   },
   {
@@ -96,7 +96,7 @@
       "width": 1920,
       "height": 1080
     },
-    "url": "/ws-events/event.html",
+    "url": "/ws-events/events-event.html",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-20T08:11:17.827Z",
     "endDate": null,
@@ -111,7 +111,7 @@
       "id": 102,
       "type": "channel",
       "name": "Channel B",
-      "url": "/ws-events/channel.html"
+      "url": "/ws-events/events-channel.html"
     }
   },
   {
@@ -125,7 +125,7 @@
       "width": 1920,
       "height": 1080
     },
-    "url": "/ws-events/event.html",
+    "url": "/ws-events/events-event.html",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-20T08:11:17.827Z",
     "endDate": null,
@@ -140,7 +140,7 @@
       "id": 101,
       "type": "channel",
       "name": "Channel A",
-      "url": "/ws-events/channel.html"
+      "url": "/ws-events/events-channel.html"
     }
   }
 ]

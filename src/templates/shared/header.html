@@ -7,9 +7,9 @@
 			</div>
 			<div class="wse__group--actions" *if="user">
 				<!--
-				<a href="/ws-events/favourite.html" class="wse__btn--rounded" *if="favourites.length"><span>Rivedi</span><span class="wse__count" [innerHTML]="favourites.length"></span></a>
+				<a href="/ws-events/events-favourite.html" class="wse__btn--rounded" *if="favourites.length"><span>Rivedi</span><span class="wse__count" [innerHTML]="favourites.length"></span></a>
 				-->
-				<a href="/ws-events/favourite.html" class="wse__btn--circle" *if="favourites.length">
+				<a href="/ws-events/events-favourite.html" class="wse__btn--circle" *if="favourites.length">
 					<svg class="wse__icon"><use xlink:href="#star"></use></svg><span class="wse__count" [innerHTML]="favourites.length"></span>
 				</a>
 				<div class="wse__avatar" [innerHTML]="user.avatar"></div>

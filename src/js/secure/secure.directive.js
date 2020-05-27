@@ -3,7 +3,7 @@ import { fromEvent } from 'rxjs';
 import { first, takeUntil } from 'rxjs/operators';
 import DownloadService from '../download/download.service';
 import { STATIC } from '../environment/environment';
-import HttpService from '../http/http.service';
+import ApiService from '../http/api.service';
 import ModalService, { ModalResolveEvent } from '../modal/modal.service';
 import UserService from '../user/user.service';
 
@@ -28,7 +28,7 @@ export default class SecureDirective extends Directive {
 	}
 
 	tryDownloadHref() {
-		HttpService.get$(this.href, undefined, 'blob').pipe(
+		ApiService.staticGet$(this.href, undefined, 'blob').pipe(
 			first(),
 		).subscribe(blob => {
 			DownloadService.download(blob, this.href.split('/').pop());

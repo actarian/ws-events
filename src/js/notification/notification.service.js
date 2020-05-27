@@ -1,8 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import { map, shareReplay, switchMap } from 'rxjs/operators';
-import { ENV } from '../environment/environment';
 import EventService from '../event/event.service';
-import HttpService from '../http/http.service';
+import ApiService from '../http/api.service';
 
 const notifications$_ = new BehaviorSubject(null);
 export default class NotificationService {
@@ -12,7 +11,7 @@ export default class NotificationService {
 	}
 
 	static notifications$() {
-		return HttpService.get$(`${ENV.API}/user/notification`).pipe(
+		return ApiService.staticGet$(`/user/notification`).pipe(
 			map((items) => EventService.mapEvents(items)),
 			switchMap(items => {
 				notifications$_.next(items);

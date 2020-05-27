@@ -5,7 +5,7 @@
     "name": "Evento A",
     "title": "Evento A",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1001",
+    "url": "/ws-events/events-event.html?eventId=1001",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-21T12:33:01.053Z",
     "picture": {
@@ -23,7 +23,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": null
   },
@@ -33,7 +33,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1002",
+    "url": "/ws-events/events-event.html?eventId=1002",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-21T14:43:01.053Z",
     "picture": {
@@ -50,7 +50,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": null
   },
@@ -60,7 +60,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1003",
+    "url": "/ws-events/events-event.html?eventId=1003",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-21T05:43:01.053Z",
     "picture": {
@@ -79,7 +79,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-05-21T06:43:01.053Z"
   },
@@ -89,7 +89,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1004",
+    "url": "/ws-events/events-event.html?eventId=1004",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-28T12:43:01.053Z",
     "picture": {
@@ -106,7 +106,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": null
   },
@@ -116,7 +116,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1005",
+    "url": "/ws-events/events-event.html?eventId=1005",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-06-04T12:43:01.053Z",
     "picture": {
@@ -133,7 +133,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": null
   },
@@ -162,7 +162,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1007",
+    "url": "/ws-events/events-event.html?eventId=1007",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-14T13:43:01.053Z",
     "picture": {
@@ -181,7 +181,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-14T14:43:01.053Z"
   },
@@ -210,7 +210,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1009",
+    "url": "/ws-events/events-event.html?eventId=1009",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-18T13:43:01.053Z",
     "picture": {
@@ -229,7 +229,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-18T14:43:01.053Z"
   },
@@ -239,7 +239,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1010",
+    "url": "/ws-events/events-event.html?eventId=1010",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-09T12:43:01.053Z",
     "picture": {
@@ -258,7 +258,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-09T13:43:01.053Z"
   },
@@ -306,7 +306,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1013",
+    "url": "/ws-events/events-event.html?eventId=1013",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-31T13:43:01.053Z",
     "picture": {
@@ -325,7 +325,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-31T14:43:01.053Z"
   },
@@ -335,7 +335,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1014",
+    "url": "/ws-events/events-event.html?eventId=1014",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-12T13:43:01.053Z",
     "picture": {
@@ -354,7 +354,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-12T14:43:01.053Z"
   },
@@ -402,7 +402,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1017",
+    "url": "/ws-events/events-event.html?eventId=1017",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-01T13:43:01.053Z",
     "picture": {
@@ -421,7 +421,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-01T14:43:01.053Z"
   },
@@ -431,7 +431,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1018",
+    "url": "/ws-events/events-event.html?eventId=1018",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-23T13:43:01.053Z",
     "picture": {
@@ -450,7 +450,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-23T14:43:01.053Z"
   },
@@ -460,7 +460,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1019",
+    "url": "/ws-events/events-event.html?eventId=1019",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2019-12-28T13:43:01.053Z",
     "picture": {
@@ -479,7 +479,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2019-12-28T14:43:01.053Z"
   },
@@ -489,7 +489,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1020",
+    "url": "/ws-events/events-event.html?eventId=1020",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-25T13:43:01.053Z",
     "picture": {
@@ -508,7 +508,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-25T14:43:01.053Z"
   },
@@ -575,7 +575,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1024",
+    "url": "/ws-events/events-event.html?eventId=1024",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-23T13:43:01.053Z",
     "picture": {
@@ -594,7 +594,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-23T14:43:01.053Z"
   },
@@ -604,7 +604,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1025",
+    "url": "/ws-events/events-event.html?eventId=1025",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-04T13:43:01.053Z",
     "picture": {
@@ -623,7 +623,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-04T14:43:01.053Z"
   },
@@ -652,7 +652,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1027",
+    "url": "/ws-events/events-event.html?eventId=1027",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-25T13:43:01.053Z",
     "picture": {
@@ -671,7 +671,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-25T14:43:01.053Z"
   },
@@ -681,7 +681,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1028",
+    "url": "/ws-events/events-event.html?eventId=1028",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-17T13:43:01.053Z",
     "picture": {
@@ -700,7 +700,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-17T14:43:01.053Z"
   },
@@ -729,7 +729,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1030",
+    "url": "/ws-events/events-event.html?eventId=1030",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-07T13:43:01.053Z",
     "picture": {
@@ -748,7 +748,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-07T14:43:01.053Z"
   },
@@ -777,7 +777,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1032",
+    "url": "/ws-events/events-event.html?eventId=1032",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-25T13:43:01.053Z",
     "picture": {
@@ -796,7 +796,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-25T14:43:01.053Z"
   },
@@ -806,7 +806,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1033",
+    "url": "/ws-events/events-event.html?eventId=1033",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2019-12-17T13:43:01.053Z",
     "picture": {
@@ -825,7 +825,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2019-12-17T14:43:01.053Z"
   },
@@ -854,7 +854,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1035",
+    "url": "/ws-events/events-event.html?eventId=1035",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-20T13:43:01.053Z",
     "picture": {
@@ -873,7 +873,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-20T14:43:01.053Z"
   },
@@ -902,7 +902,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1037",
+    "url": "/ws-events/events-event.html?eventId=1037",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-09T12:43:01.053Z",
     "picture": {
@@ -921,7 +921,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-09T13:43:01.053Z"
   },
@@ -931,7 +931,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1038",
+    "url": "/ws-events/events-event.html?eventId=1038",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-19T12:43:01.053Z",
     "picture": {
@@ -950,7 +950,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-19T13:43:01.053Z"
   },
@@ -960,7 +960,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1039",
+    "url": "/ws-events/events-event.html?eventId=1039",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-09T13:43:01.053Z",
     "picture": {
@@ -979,7 +979,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-09T14:43:01.053Z"
   },
@@ -989,7 +989,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1040",
+    "url": "/ws-events/events-event.html?eventId=1040",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-04T12:43:01.053Z",
     "picture": {
@@ -1008,7 +1008,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-05-04T13:43:01.053Z"
   },
@@ -1037,7 +1037,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1042",
+    "url": "/ws-events/events-event.html?eventId=1042",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-03T12:43:01.053Z",
     "picture": {
@@ -1056,7 +1056,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-05-03T13:43:01.053Z"
   },
@@ -1085,7 +1085,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1044",
+    "url": "/ws-events/events-event.html?eventId=1044",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-10T13:43:01.053Z",
     "picture": {
@@ -1104,7 +1104,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-10T14:43:01.053Z"
   },
@@ -1152,7 +1152,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1047",
+    "url": "/ws-events/events-event.html?eventId=1047",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-04T12:43:01.053Z",
     "picture": {
@@ -1171,7 +1171,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-05-04T13:43:01.053Z"
   },
@@ -1181,7 +1181,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1048",
+    "url": "/ws-events/events-event.html?eventId=1048",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-22T13:43:01.053Z",
     "picture": {
@@ -1200,7 +1200,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-22T14:43:01.053Z"
   },
@@ -1210,7 +1210,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1049",
+    "url": "/ws-events/events-event.html?eventId=1049",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-28T13:43:01.053Z",
     "picture": {
@@ -1229,7 +1229,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-28T14:43:01.053Z"
   },
@@ -1277,7 +1277,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1052",
+    "url": "/ws-events/events-event.html?eventId=1052",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-02T12:43:01.053Z",
     "picture": {
@@ -1296,7 +1296,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-02T13:43:01.053Z"
   },
@@ -1306,7 +1306,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1053",
+    "url": "/ws-events/events-event.html?eventId=1053",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-05T13:43:01.053Z",
     "picture": {
@@ -1325,7 +1325,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-05T14:43:01.053Z"
   },
@@ -1335,7 +1335,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1054",
+    "url": "/ws-events/events-event.html?eventId=1054",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-12T13:43:01.053Z",
     "picture": {
@@ -1354,7 +1354,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-12T14:43:01.053Z"
   },
@@ -1364,7 +1364,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1055",
+    "url": "/ws-events/events-event.html?eventId=1055",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2019-12-17T13:43:01.053Z",
     "picture": {
@@ -1383,7 +1383,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2019-12-17T14:43:01.053Z"
   },
@@ -1431,7 +1431,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1058",
+    "url": "/ws-events/events-event.html?eventId=1058",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-03T12:43:01.053Z",
     "picture": {
@@ -1450,7 +1450,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-05-03T13:43:01.053Z"
   },
@@ -1460,7 +1460,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1059",
+    "url": "/ws-events/events-event.html?eventId=1059",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2019-12-13T13:43:01.053Z",
     "picture": {
@@ -1479,7 +1479,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2019-12-13T14:43:01.053Z"
   },
@@ -1489,7 +1489,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1060",
+    "url": "/ws-events/events-event.html?eventId=1060",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-02T12:43:01.053Z",
     "picture": {
@@ -1508,7 +1508,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-05-02T13:43:01.053Z"
   },
@@ -1537,7 +1537,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1062",
+    "url": "/ws-events/events-event.html?eventId=1062",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-05T12:43:01.053Z",
     "picture": {
@@ -1556,7 +1556,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-05-05T13:43:01.053Z"
   },
@@ -1566,7 +1566,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1063",
+    "url": "/ws-events/events-event.html?eventId=1063",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-09T13:43:01.053Z",
     "picture": {
@@ -1585,7 +1585,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-09T14:43:01.053Z"
   },
@@ -1614,7 +1614,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1065",
+    "url": "/ws-events/events-event.html?eventId=1065",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-04T13:43:01.053Z",
     "picture": {
@@ -1633,7 +1633,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-04T14:43:01.053Z"
   },
@@ -1681,7 +1681,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1068",
+    "url": "/ws-events/events-event.html?eventId=1068",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-17T12:43:01.053Z",
     "picture": {
@@ -1700,7 +1700,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-17T13:43:01.053Z"
   },
@@ -1710,7 +1710,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1069",
+    "url": "/ws-events/events-event.html?eventId=1069",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-23T13:43:01.053Z",
     "picture": {
@@ -1729,7 +1729,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-23T14:43:01.053Z"
   },
@@ -1739,7 +1739,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1070",
+    "url": "/ws-events/events-event.html?eventId=1070",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-20T13:43:01.053Z",
     "picture": {
@@ -1758,7 +1758,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-20T14:43:01.053Z"
   },
@@ -1787,7 +1787,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1072",
+    "url": "/ws-events/events-event.html?eventId=1072",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-19T13:43:01.053Z",
     "picture": {
@@ -1806,7 +1806,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-19T14:43:01.053Z"
   },
@@ -1816,7 +1816,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1073",
+    "url": "/ws-events/events-event.html?eventId=1073",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-06T12:43:01.053Z",
     "picture": {
@@ -1835,7 +1835,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-05-06T13:43:01.053Z"
   },
@@ -1845,7 +1845,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1074",
+    "url": "/ws-events/events-event.html?eventId=1074",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-16T13:43:01.053Z",
     "picture": {
@@ -1864,7 +1864,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-16T14:43:01.053Z"
   },
@@ -1874,7 +1874,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1075",
+    "url": "/ws-events/events-event.html?eventId=1075",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-04T13:43:01.053Z",
     "picture": {
@@ -1893,7 +1893,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-04T14:43:01.053Z"
   },
@@ -1922,7 +1922,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1077",
+    "url": "/ws-events/events-event.html?eventId=1077",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-18T13:43:01.053Z",
     "picture": {
@@ -1941,7 +1941,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-18T14:43:01.053Z"
   },
@@ -1970,7 +1970,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1079",
+    "url": "/ws-events/events-event.html?eventId=1079",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-03T12:43:01.053Z",
     "picture": {
@@ -1989,7 +1989,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-03T13:43:01.053Z"
   },
@@ -1999,7 +1999,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1080",
+    "url": "/ws-events/events-event.html?eventId=1080",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-24T12:43:01.053Z",
     "picture": {
@@ -2018,7 +2018,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-24T13:43:01.053Z"
   },
@@ -2047,7 +2047,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1082",
+    "url": "/ws-events/events-event.html?eventId=1082",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2019-12-23T13:43:01.053Z",
     "picture": {
@@ -2066,7 +2066,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2019-12-23T14:43:01.053Z"
   },
@@ -2076,7 +2076,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1083",
+    "url": "/ws-events/events-event.html?eventId=1083",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-06T13:43:01.053Z",
     "picture": {
@@ -2095,7 +2095,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-06T14:43:01.053Z"
   },
@@ -2105,7 +2105,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1084",
+    "url": "/ws-events/events-event.html?eventId=1084",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-08T12:43:01.053Z",
     "picture": {
@@ -2124,7 +2124,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-08T13:43:01.053Z"
   },
@@ -2172,7 +2172,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1087",
+    "url": "/ws-events/events-event.html?eventId=1087",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-11T13:43:01.053Z",
     "picture": {
@@ -2191,7 +2191,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-11T14:43:01.053Z"
   },
@@ -2201,7 +2201,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1088",
+    "url": "/ws-events/events-event.html?eventId=1088",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-29T13:43:01.053Z",
     "picture": {
@@ -2220,7 +2220,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-29T14:43:01.053Z"
   },
@@ -2249,7 +2249,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1090",
+    "url": "/ws-events/events-event.html?eventId=1090",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-04T13:43:01.053Z",
     "picture": {
@@ -2268,7 +2268,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-04T14:43:01.053Z"
   },
@@ -2316,7 +2316,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1093",
+    "url": "/ws-events/events-event.html?eventId=1093",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2019-12-18T13:43:01.053Z",
     "picture": {
@@ -2335,7 +2335,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2019-12-18T14:43:01.053Z"
   },
@@ -2345,7 +2345,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1094",
+    "url": "/ws-events/events-event.html?eventId=1094",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-05T12:43:01.053Z",
     "picture": {
@@ -2364,7 +2364,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-05T13:43:01.053Z"
   },
@@ -2374,7 +2374,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1095",
+    "url": "/ws-events/events-event.html?eventId=1095",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-02T13:43:01.053Z",
     "picture": {
@@ -2393,7 +2393,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-02T14:43:01.053Z"
   },
@@ -2422,7 +2422,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1097",
+    "url": "/ws-events/events-event.html?eventId=1097",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-11T13:43:01.053Z",
     "picture": {
@@ -2441,7 +2441,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-11T14:43:01.053Z"
   },
@@ -2451,7 +2451,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1098",
+    "url": "/ws-events/events-event.html?eventId=1098",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-17T12:43:01.053Z",
     "picture": {
@@ -2470,7 +2470,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-17T13:43:01.053Z"
   },
@@ -2537,7 +2537,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1102",
+    "url": "/ws-events/events-event.html?eventId=1102",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-02T13:43:01.053Z",
     "picture": {
@@ -2556,7 +2556,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-02T14:43:01.053Z"
   },
@@ -2566,7 +2566,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1103",
+    "url": "/ws-events/events-event.html?eventId=1103",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2019-12-14T13:43:01.053Z",
     "picture": {
@@ -2585,7 +2585,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2019-12-14T14:43:01.053Z"
   },
@@ -2595,7 +2595,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1104",
+    "url": "/ws-events/events-event.html?eventId=1104",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-01T12:43:01.053Z",
     "picture": {
@@ -2614,7 +2614,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-05-01T13:43:01.053Z"
   },
@@ -2624,7 +2624,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1105",
+    "url": "/ws-events/events-event.html?eventId=1105",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-24T13:43:01.053Z",
     "picture": {
@@ -2643,7 +2643,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-24T14:43:01.053Z"
   },
@@ -2672,7 +2672,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1107",
+    "url": "/ws-events/events-event.html?eventId=1107",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-20T13:43:01.053Z",
     "picture": {
@@ -2691,7 +2691,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-20T14:43:01.053Z"
   },
@@ -2701,7 +2701,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1108",
+    "url": "/ws-events/events-event.html?eventId=1108",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-20T13:43:01.053Z",
     "picture": {
@@ -2720,7 +2720,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-20T14:43:01.053Z"
   },
@@ -2730,7 +2730,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1109",
+    "url": "/ws-events/events-event.html?eventId=1109",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-07T12:43:01.053Z",
     "picture": {
@@ -2749,7 +2749,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-07T13:43:01.053Z"
   },
@@ -2759,7 +2759,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1110",
+    "url": "/ws-events/events-event.html?eventId=1110",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-17T13:43:01.053Z",
     "picture": {
@@ -2778,7 +2778,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-17T14:43:01.053Z"
   },
@@ -2807,7 +2807,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1112",
+    "url": "/ws-events/events-event.html?eventId=1112",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-28T13:43:01.053Z",
     "picture": {
@@ -2826,7 +2826,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-28T14:43:01.053Z"
   },
@@ -2855,7 +2855,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1114",
+    "url": "/ws-events/events-event.html?eventId=1114",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-05T12:43:01.053Z",
     "picture": {
@@ -2874,7 +2874,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-05T13:43:01.053Z"
   },
@@ -2884,7 +2884,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1115",
+    "url": "/ws-events/events-event.html?eventId=1115",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-05T12:43:01.053Z",
     "picture": {
@@ -2903,7 +2903,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-05T13:43:01.053Z"
   },
@@ -2932,7 +2932,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1117",
+    "url": "/ws-events/events-event.html?eventId=1117",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2019-12-29T13:43:01.053Z",
     "picture": {
@@ -2951,7 +2951,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2019-12-29T14:43:01.053Z"
   },
@@ -2961,7 +2961,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1118",
+    "url": "/ws-events/events-event.html?eventId=1118",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-19T13:43:01.054Z",
     "picture": {
@@ -2980,7 +2980,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-19T14:43:01.054Z"
   },
@@ -2990,7 +2990,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1119",
+    "url": "/ws-events/events-event.html?eventId=1119",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-14T13:43:01.054Z",
     "picture": {
@@ -3009,7 +3009,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-14T14:43:01.054Z"
   },
@@ -3076,7 +3076,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1123",
+    "url": "/ws-events/events-event.html?eventId=1123",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-23T13:43:01.054Z",
     "picture": {
@@ -3095,7 +3095,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-23T14:43:01.054Z"
   },
@@ -3105,7 +3105,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1124",
+    "url": "/ws-events/events-event.html?eventId=1124",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-30T13:43:01.054Z",
     "picture": {
@@ -3124,7 +3124,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-30T14:43:01.054Z"
   },
@@ -3134,7 +3134,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1125",
+    "url": "/ws-events/events-event.html?eventId=1125",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-26T13:43:01.054Z",
     "picture": {
@@ -3153,7 +3153,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-26T14:43:01.054Z"
   },
@@ -3201,7 +3201,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1128",
+    "url": "/ws-events/events-event.html?eventId=1128",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-28T12:43:01.054Z",
     "picture": {
@@ -3220,7 +3220,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-28T13:43:01.054Z"
   },
@@ -3230,7 +3230,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1129",
+    "url": "/ws-events/events-event.html?eventId=1129",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2019-12-26T13:43:01.054Z",
     "picture": {
@@ -3249,7 +3249,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2019-12-26T14:43:01.054Z"
   },
@@ -3259,7 +3259,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1130",
+    "url": "/ws-events/events-event.html?eventId=1130",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-30T13:43:01.054Z",
     "picture": {
@@ -3278,7 +3278,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-30T14:43:01.054Z"
   },
@@ -3307,7 +3307,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1132",
+    "url": "/ws-events/events-event.html?eventId=1132",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-27T13:43:01.054Z",
     "picture": {
@@ -3326,7 +3326,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-27T14:43:01.054Z"
   },
@@ -3374,7 +3374,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1135",
+    "url": "/ws-events/events-event.html?eventId=1135",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-19T12:43:01.054Z",
     "picture": {
@@ -3393,7 +3393,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-19T13:43:01.054Z"
   },
@@ -3422,7 +3422,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1137",
+    "url": "/ws-events/events-event.html?eventId=1137",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-02T13:43:01.054Z",
     "picture": {
@@ -3441,7 +3441,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-02T14:43:01.054Z"
   },
@@ -3451,7 +3451,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1138",
+    "url": "/ws-events/events-event.html?eventId=1138",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-24T13:43:01.054Z",
     "picture": {
@@ -3470,7 +3470,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-24T14:43:01.054Z"
   },
@@ -3480,7 +3480,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1139",
+    "url": "/ws-events/events-event.html?eventId=1139",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-09T12:43:01.054Z",
     "picture": {
@@ -3499,7 +3499,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-09T13:43:01.054Z"
   },
@@ -3509,7 +3509,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1140",
+    "url": "/ws-events/events-event.html?eventId=1140",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-17T12:43:01.054Z",
     "picture": {
@@ -3528,7 +3528,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-17T13:43:01.054Z"
   },
@@ -3557,7 +3557,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1142",
+    "url": "/ws-events/events-event.html?eventId=1142",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-06T13:43:01.054Z",
     "picture": {
@@ -3576,7 +3576,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-06T14:43:01.054Z"
   },
@@ -3586,7 +3586,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1143",
+    "url": "/ws-events/events-event.html?eventId=1143",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-14T13:43:01.054Z",
     "picture": {
@@ -3605,7 +3605,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-14T14:43:01.054Z"
   },
@@ -3634,7 +3634,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1145",
+    "url": "/ws-events/events-event.html?eventId=1145",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-20T12:43:01.054Z",
     "picture": {
@@ -3653,7 +3653,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-20T13:43:01.054Z"
   },
@@ -3682,7 +3682,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1147",
+    "url": "/ws-events/events-event.html?eventId=1147",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-07T13:43:01.054Z",
     "picture": {
@@ -3701,7 +3701,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-07T14:43:01.054Z"
   },
@@ -3730,7 +3730,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1149",
+    "url": "/ws-events/events-event.html?eventId=1149",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2019-12-15T13:43:01.054Z",
     "picture": {
@@ -3749,7 +3749,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2019-12-15T14:43:01.054Z"
   },
@@ -3759,7 +3759,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1150",
+    "url": "/ws-events/events-event.html?eventId=1150",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-16T12:43:01.054Z",
     "picture": {
@@ -3778,7 +3778,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-16T13:43:01.054Z"
   },
@@ -3807,7 +3807,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1152",
+    "url": "/ws-events/events-event.html?eventId=1152",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-19T12:43:01.054Z",
     "picture": {
@@ -3826,7 +3826,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-19T13:43:01.054Z"
   },
@@ -3836,7 +3836,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1153",
+    "url": "/ws-events/events-event.html?eventId=1153",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-30T12:43:01.054Z",
     "picture": {
@@ -3855,7 +3855,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-30T13:43:01.054Z"
   },
@@ -3865,7 +3865,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1154",
+    "url": "/ws-events/events-event.html?eventId=1154",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-04T12:43:01.054Z",
     "picture": {
@@ -3884,7 +3884,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-04T13:43:01.054Z"
   },
@@ -3932,7 +3932,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1157",
+    "url": "/ws-events/events-event.html?eventId=1157",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-17T12:43:01.054Z",
     "picture": {
@@ -3951,7 +3951,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-17T13:43:01.054Z"
   },
@@ -3961,7 +3961,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1158",
+    "url": "/ws-events/events-event.html?eventId=1158",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-21T13:43:01.054Z",
     "picture": {
@@ -3980,7 +3980,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-21T14:43:01.054Z"
   },
@@ -3990,7 +3990,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1159",
+    "url": "/ws-events/events-event.html?eventId=1159",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-20T13:43:01.054Z",
     "picture": {
@@ -4009,7 +4009,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-20T14:43:01.054Z"
   },
@@ -4019,7 +4019,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1160",
+    "url": "/ws-events/events-event.html?eventId=1160",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2019-12-11T13:43:01.054Z",
     "picture": {
@@ -4038,7 +4038,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2019-12-11T14:43:01.054Z"
   },
@@ -4086,7 +4086,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1163",
+    "url": "/ws-events/events-event.html?eventId=1163",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-27T13:43:01.054Z",
     "picture": {
@@ -4105,7 +4105,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-27T14:43:01.054Z"
   },
@@ -4115,7 +4115,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1164",
+    "url": "/ws-events/events-event.html?eventId=1164",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-02T13:43:01.054Z",
     "picture": {
@@ -4134,7 +4134,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-02T14:43:01.054Z"
   },
@@ -4144,7 +4144,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1165",
+    "url": "/ws-events/events-event.html?eventId=1165",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-21T13:43:01.054Z",
     "picture": {
@@ -4163,7 +4163,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-21T14:43:01.054Z"
   },
@@ -4192,7 +4192,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1167",
+    "url": "/ws-events/events-event.html?eventId=1167",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-07T13:43:01.054Z",
     "picture": {
@@ -4211,7 +4211,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-07T14:43:01.054Z"
   },
@@ -4221,7 +4221,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1168",
+    "url": "/ws-events/events-event.html?eventId=1168",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-26T12:43:01.054Z",
     "picture": {
@@ -4240,7 +4240,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-26T13:43:01.054Z"
   },
@@ -4269,7 +4269,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1170",
+    "url": "/ws-events/events-event.html?eventId=1170",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-29T13:43:01.054Z",
     "picture": {
@@ -4288,7 +4288,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-29T14:43:01.054Z"
   },
@@ -4317,7 +4317,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1172",
+    "url": "/ws-events/events-event.html?eventId=1172",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-07T13:43:01.054Z",
     "picture": {
@@ -4336,7 +4336,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-07T14:43:01.054Z"
   },
@@ -4346,7 +4346,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1173",
+    "url": "/ws-events/events-event.html?eventId=1173",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-23T13:43:01.054Z",
     "picture": {
@@ -4365,7 +4365,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-23T14:43:01.054Z"
   },
@@ -4375,7 +4375,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1174",
+    "url": "/ws-events/events-event.html?eventId=1174",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-07T13:43:01.054Z",
     "picture": {
@@ -4394,7 +4394,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-07T14:43:01.054Z"
   },
@@ -4404,7 +4404,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1175",
+    "url": "/ws-events/events-event.html?eventId=1175",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-04T13:43:01.054Z",
     "picture": {
@@ -4423,7 +4423,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-04T14:43:01.054Z"
   },
@@ -4471,7 +4471,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1178",
+    "url": "/ws-events/events-event.html?eventId=1178",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-09T13:43:01.054Z",
     "picture": {
@@ -4490,7 +4490,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-09T14:43:01.054Z"
   },
@@ -4500,7 +4500,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1179",
+    "url": "/ws-events/events-event.html?eventId=1179",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-02T13:43:01.054Z",
     "picture": {
@@ -4519,7 +4519,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-02T14:43:01.054Z"
   },
@@ -4529,7 +4529,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1180",
+    "url": "/ws-events/events-event.html?eventId=1180",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-17T13:43:01.054Z",
     "picture": {
@@ -4548,7 +4548,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-17T14:43:01.054Z"
   },
@@ -4577,7 +4577,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1182",
+    "url": "/ws-events/events-event.html?eventId=1182",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-15T13:43:01.054Z",
     "picture": {
@@ -4596,7 +4596,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-15T14:43:01.054Z"
   },
@@ -4625,7 +4625,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1184",
+    "url": "/ws-events/events-event.html?eventId=1184",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-02T13:43:01.054Z",
     "picture": {
@@ -4644,7 +4644,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-02T14:43:01.054Z"
   },
@@ -4654,7 +4654,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1185",
+    "url": "/ws-events/events-event.html?eventId=1185",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-11T13:43:01.054Z",
     "picture": {
@@ -4673,7 +4673,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-11T14:43:01.054Z"
   },
@@ -4702,7 +4702,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1187",
+    "url": "/ws-events/events-event.html?eventId=1187",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-10T13:43:01.054Z",
     "picture": {
@@ -4721,7 +4721,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-10T14:43:01.054Z"
   },
@@ -4750,7 +4750,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1189",
+    "url": "/ws-events/events-event.html?eventId=1189",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-05T13:43:01.054Z",
     "picture": {
@@ -4769,7 +4769,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-05T14:43:01.054Z"
   },
@@ -4817,7 +4817,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1192",
+    "url": "/ws-events/events-event.html?eventId=1192",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-19T12:43:01.054Z",
     "picture": {
@@ -4836,7 +4836,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-19T13:43:01.054Z"
   },
@@ -4846,7 +4846,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1193",
+    "url": "/ws-events/events-event.html?eventId=1193",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-10T12:43:01.054Z",
     "picture": {
@@ -4865,7 +4865,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-10T13:43:01.054Z"
   },
@@ -4875,7 +4875,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1194",
+    "url": "/ws-events/events-event.html?eventId=1194",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-25T13:43:01.054Z",
     "picture": {
@@ -4894,7 +4894,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-25T14:43:01.054Z"
   },
@@ -4904,7 +4904,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1195",
+    "url": "/ws-events/events-event.html?eventId=1195",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-15T13:43:01.054Z",
     "picture": {
@@ -4923,7 +4923,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-15T14:43:01.054Z"
   },
@@ -4971,7 +4971,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1198",
+    "url": "/ws-events/events-event.html?eventId=1198",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-30T12:43:01.054Z",
     "picture": {
@@ -4990,7 +4990,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-30T13:43:01.054Z"
   },
@@ -5019,7 +5019,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1200",
+    "url": "/ws-events/events-event.html?eventId=1200",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-06T12:43:01.054Z",
     "picture": {
@@ -5038,7 +5038,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-05-06T13:43:01.054Z"
   },
@@ -5067,7 +5067,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1202",
+    "url": "/ws-events/events-event.html?eventId=1202",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-05T12:43:01.054Z",
     "picture": {
@@ -5086,7 +5086,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-05T13:43:01.054Z"
   },
@@ -5096,7 +5096,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1203",
+    "url": "/ws-events/events-event.html?eventId=1203",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-07T13:43:01.054Z",
     "picture": {
@@ -5115,7 +5115,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-07T14:43:01.054Z"
   },
@@ -5144,7 +5144,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1205",
+    "url": "/ws-events/events-event.html?eventId=1205",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-13T13:43:01.054Z",
     "picture": {
@@ -5163,7 +5163,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-13T14:43:01.054Z"
   },
@@ -5192,7 +5192,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1207",
+    "url": "/ws-events/events-event.html?eventId=1207",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-07T13:43:01.054Z",
     "picture": {
@@ -5211,7 +5211,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-07T14:43:01.054Z"
   },
@@ -5221,7 +5221,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1208",
+    "url": "/ws-events/events-event.html?eventId=1208",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-14T13:43:01.054Z",
     "picture": {
@@ -5240,7 +5240,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-14T14:43:01.054Z"
   },
@@ -5250,7 +5250,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1209",
+    "url": "/ws-events/events-event.html?eventId=1209",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2019-12-11T13:43:01.054Z",
     "picture": {
@@ -5269,7 +5269,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2019-12-11T14:43:01.054Z"
   },
@@ -5317,7 +5317,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1212",
+    "url": "/ws-events/events-event.html?eventId=1212",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-04T13:43:01.054Z",
     "picture": {
@@ -5336,7 +5336,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-04T14:43:01.054Z"
   },
@@ -5346,7 +5346,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1213",
+    "url": "/ws-events/events-event.html?eventId=1213",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-19T12:43:01.054Z",
     "picture": {
@@ -5365,7 +5365,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-19T13:43:01.054Z"
   },
@@ -5375,7 +5375,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1214",
+    "url": "/ws-events/events-event.html?eventId=1214",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-05-02T12:43:01.054Z",
     "picture": {
@@ -5394,7 +5394,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-05-02T13:43:01.054Z"
   },
@@ -5404,7 +5404,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1215",
+    "url": "/ws-events/events-event.html?eventId=1215",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-09T13:43:01.054Z",
     "picture": {
@@ -5423,7 +5423,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-09T14:43:01.054Z"
   },
@@ -5452,7 +5452,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1217",
+    "url": "/ws-events/events-event.html?eventId=1217",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-24T13:43:01.054Z",
     "picture": {
@@ -5471,7 +5471,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-24T14:43:01.054Z"
   },
@@ -5500,7 +5500,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1219",
+    "url": "/ws-events/events-event.html?eventId=1219",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-28T12:43:01.054Z",
     "picture": {
@@ -5519,7 +5519,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-28T13:43:01.054Z"
   },
@@ -5529,7 +5529,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1220",
+    "url": "/ws-events/events-event.html?eventId=1220",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-05T13:43:01.054Z",
     "picture": {
@@ -5548,7 +5548,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-05T14:43:01.054Z"
   },
@@ -5577,7 +5577,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1222",
+    "url": "/ws-events/events-event.html?eventId=1222",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-10T13:43:01.054Z",
     "picture": {
@@ -5596,7 +5596,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-10T14:43:01.054Z"
   },
@@ -5606,7 +5606,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1223",
+    "url": "/ws-events/events-event.html?eventId=1223",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-29T13:43:01.054Z",
     "picture": {
@@ -5625,7 +5625,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-29T14:43:01.054Z"
   },
@@ -5635,7 +5635,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1224",
+    "url": "/ws-events/events-event.html?eventId=1224",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-11T12:43:01.054Z",
     "picture": {
@@ -5654,7 +5654,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-11T13:43:01.054Z"
   },
@@ -5702,7 +5702,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1227",
+    "url": "/ws-events/events-event.html?eventId=1227",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-21T12:43:01.054Z",
     "picture": {
@@ -5721,7 +5721,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-21T13:43:01.054Z"
   },
@@ -5731,7 +5731,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1228",
+    "url": "/ws-events/events-event.html?eventId=1228",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-18T12:43:01.054Z",
     "picture": {
@@ -5750,7 +5750,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-18T13:43:01.054Z"
   },
@@ -5760,7 +5760,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1229",
+    "url": "/ws-events/events-event.html?eventId=1229",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-25T13:43:01.054Z",
     "picture": {
@@ -5779,7 +5779,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-25T14:43:01.054Z"
   },
@@ -5789,7 +5789,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1230",
+    "url": "/ws-events/events-event.html?eventId=1230",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-04T12:43:01.054Z",
     "picture": {
@@ -5808,7 +5808,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-04T13:43:01.054Z"
   },
@@ -5856,7 +5856,7 @@
     "name": "Evento C",
     "title": "Evento C",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1233",
+    "url": "/ws-events/events-event.html?eventId=1233",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-21T13:43:01.054Z",
     "picture": {
@@ -5875,7 +5875,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-21T14:43:01.054Z"
   },
@@ -5885,7 +5885,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1234",
+    "url": "/ws-events/events-event.html?eventId=1234",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2019-12-18T13:43:01.054Z",
     "picture": {
@@ -5904,7 +5904,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2019-12-18T14:43:01.054Z"
   },
@@ -5914,7 +5914,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1235",
+    "url": "/ws-events/events-event.html?eventId=1235",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-25T13:43:01.054Z",
     "picture": {
@@ -5933,7 +5933,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-25T14:43:01.054Z"
   },
@@ -5962,7 +5962,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1237",
+    "url": "/ws-events/events-event.html?eventId=1237",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-03-19T13:43:01.054Z",
     "picture": {
@@ -5981,7 +5981,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-03-19T14:43:01.054Z"
   },
@@ -5991,7 +5991,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1238",
+    "url": "/ws-events/events-event.html?eventId=1238",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-28T13:43:01.054Z",
     "picture": {
@@ -6010,7 +6010,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-28T14:43:01.054Z"
   },
@@ -6039,7 +6039,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1240",
+    "url": "/ws-events/events-event.html?eventId=1240",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-13T12:43:01.054Z",
     "picture": {
@@ -6058,7 +6058,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-13T13:43:01.054Z"
   },
@@ -6087,7 +6087,7 @@
     "name": "Evento B",
     "title": "Evento B",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1242",
+    "url": "/ws-events/events-event.html?eventId=1242",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-27T12:43:01.054Z",
     "picture": {
@@ -6106,7 +6106,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-27T13:43:01.054Z"
   },
@@ -6135,7 +6135,7 @@
     "name": "Evento D",
     "title": "Evento D",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1244",
+    "url": "/ws-events/events-event.html?eventId=1244",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-09T12:43:01.054Z",
     "picture": {
@@ -6154,7 +6154,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-09T13:43:01.054Z"
   },
@@ -6164,7 +6164,7 @@
     "name": "Evento E",
     "title": "Evento E",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1245",
+    "url": "/ws-events/events-event.html?eventId=1245",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-06T13:43:01.054Z",
     "picture": {
@@ -6183,7 +6183,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-06T14:43:01.054Z"
   },
@@ -6212,7 +6212,7 @@
     "name": "Evento G",
     "title": "Evento G",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1247",
+    "url": "/ws-events/events-event.html?eventId=1247",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-01-09T13:43:01.054Z",
     "picture": {
@@ -6231,7 +6231,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-01-09T14:43:01.054Z"
   },
@@ -6241,7 +6241,7 @@
     "name": "Evento H",
     "title": "Evento H",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1248",
+    "url": "/ws-events/events-event.html?eventId=1248",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-08T13:43:01.054Z",
     "picture": {
@@ -6260,7 +6260,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-08T14:43:01.054Z"
   },
@@ -6270,7 +6270,7 @@
     "name": "Evento I",
     "title": "Evento I",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1249",
+    "url": "/ws-events/events-event.html?eventId=1249",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-04-21T12:43:01.054Z",
     "picture": {
@@ -6289,7 +6289,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-04-21T13:43:01.054Z"
   },
@@ -6299,7 +6299,7 @@
     "name": "Evento L",
     "title": "Evento L",
     "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
-    "url": "/ws-events/event.html?eventId=1250",
+    "url": "/ws-events/events-event.html?eventId=1250",
     "creationDate": "2020-05-20T08:11:17.827Z",
     "startDate": "2020-02-16T13:43:01.054Z",
     "picture": {
@@ -6318,7 +6318,7 @@
       "saved": false
     },
     "channel": {
-      "url": "undefined?channelId=undefined"
+      "url": "/ws-events/events-channel.html?channelId=1001"
     },
     "endDate": "2020-02-16T14:43:01.054Z"
   }

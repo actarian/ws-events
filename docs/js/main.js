@@ -99,7 +99,7 @@
     RESOURCE: '/Modules/Events/Client/docs/',
     STATIC_RESOURCE: './',
     API: '/api',
-    STATIC_API: DEVELOPMENT && !STATIC ? '/Modules/Events/Client/docs/api' : '/api'
+    STATIC_API: DEVELOPMENT && !STATIC ? '/Modules/Events/Client/docs/api' : './api'
   };
   function getApiUrl(url, useStatic) {
     var base = useStatic || STATIC ? ENV.STATIC_API : ENV.API;

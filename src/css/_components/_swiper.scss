@@ -225,3 +225,20 @@
 		}
 	}
 }
+
+%swiper-related {
+	@extend %swiper;
+	overflow: visible;
+
+	.swiper-slide {
+		width: 295px;
+		max-width: 100%;
+	}
+
+	.swiper-button-next,
+	.swiper-button-prev {
+		bottom: 10px;
+		top: auto;
+		z-index: 1000;
+	}
+}

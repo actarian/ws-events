@@ -44,14 +44,14 @@ export default class FavouritePageComponent extends PageComponent {
 
 	load$() {
 		return combineLatest(
-			ChannelService.channels$(),
-			FavouriteService.saved$(),
-			FavouriteService.liked$(),
+			ChannelService.channels$,
+			FavouriteService.favourites$,
+			FavouriteService.likes$,
 		);
 	}
 
 	toggleGrid() {
-		this.grid.width = this.grid.width === 350 ? 700 : 350;
+		this.grid.width = this.grid.width === 350 ? 525 : 350;
 		this.pushChanges();
 	}
 

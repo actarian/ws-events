@@ -265,80 +265,195 @@
     return LocalStorageService;
   }();
 
+  var subscriptions$_ = new rxjs.BehaviorSubject([]);
+  var likes$_ = new rxjs.BehaviorSubject([]);
+  var favourites$_ = new rxjs.BehaviorSubject([]);
+
   var FavouriteService = /*#__PURE__*/function () {
     function FavouriteService() {}
 
-    FavouriteService.observe$ = function observe$() {
-      var _this = this;
+    FavouriteService.getCurrentSubscriptions = function getCurrentSubscriptions() {
+      return subscriptions$_.getValue();
+    };
 
+    FavouriteService.getCurrentLikes = function getCurrentLikes() {
+      return likes$_.getValue();
+    };
+
+    FavouriteService.getCurrentFavourites = function getCurrentFavourites() {
+      return favourites$_.getValue();
+    };
+
+    FavouriteService.subscriptions$ = function subscriptions$() {
+      return HttpService.get$(ENV.API + "/user/subscription").pipe(operators.map(function () {
+        var subscriptions = LocalStorageService.get('subscriptions') || [];
+        return subscriptions;
+      }), operators.map(function (events) {
+        return EventService.fakeSaved(events);
+      }), operators.switchMap(function (subscriptions) {
+        subscriptions$_.next(subscriptions);
+        return subscriptions$_;
+      }));
+    };
+
+    FavouriteService.likes$ = function likes$() {
+      return HttpService.get$(ENV.API + "/user/like").pipe(operators.map(function () {
+        var likes = LocalStorageService.get('likes') || [];
+        return likes;
+      }), operators.map(function (events) {
+        return EventService.fakeSaved(events);
+      }), operators.switchMap(function (likes) {
+        likes$_.next(likes);
+        return likes$_;
+      }));
+    };
+
+    FavouriteService.favourites$ = function favourites$() {
       return HttpService.get$(ENV.API + "/user/favourite").pipe(operators.map(function () {
         var favourites = LocalStorageService.get('favourites') || [];
         return favourites;
-      }), operators.switchMap(function (favourites) {
-        _this.favourites$.next(favourites);
-
-        return _this.favourites$;
-      }));
-    };
-
-    FavouriteService.saved$ = function saved$() {
-      return this.observe$().pipe(operators.map(function (events) {
+      }), operators.map(function (events) {
         return EventService.fakeSaved(events);
+      }), operators.switchMap(function (favourites) {
+        favourites$_.next(favourites);
+        return favourites$_;
       }));
     };
 
-    FavouriteService.liked$ = function liked$() {
-      return rxjs.of([]);
+    FavouriteService.subscriptionAdd$ = function subscriptionAdd$(id) {
+      return HttpService.post$(ENV.API + "/user/subscription/add", {
+        id: id
+      }).pipe(operators.tap(function () {
+        if (STATIC) {
+          var subscriptions = LocalStorageService.get('subscriptions') || [];
+          var item = subscriptions.find(function (x) {
+            return x.id === id;
+          });
+
+          if (!item) {
+            subscriptions.unshift({
+              id: id
+            });
+          }
+
+          subscriptions$_.next(subscriptions);
+          LocalStorageService.set('subscriptions', subscriptions);
+        }
+      }));
     };
 
-    FavouriteService.add$ = function add$(id) {
-      var _this2 = this;
+    FavouriteService.subscriptionRemove$ = function subscriptionRemove$(id) {
+      return HttpService.post$(ENV.API + "/user/subscription/remove", {
+        id: id
+      }).pipe(operators.tap(function () {
+        if (STATIC) {
+          var subscriptions = LocalStorageService.get('subscriptions') || [];
+          var item = subscriptions.find(function (x) {
+            return x.id === id;
+          });
+          var index = item ? subscriptions.indexOf(item) : -1;
 
+          if (index !== -1) {
+            subscriptions.splice(index, 1);
+          }
+
+          subscriptions$_.next(subscriptions);
+          LocalStorageService.set('subscriptions', subscriptions);
+        }
+      }));
+    };
+
+    FavouriteService.likeAdd$ = function likeAdd$(id) {
+      return HttpService.post$(ENV.API + "/user/like/add", {
+        id: id
+      }).pipe(operators.tap(function () {
+        if (STATIC) {
+          var likes = LocalStorageService.get('likes') || [];
+          var item = likes.find(function (x) {
+            return x.id === id;
+          });
+
+          if (!item) {
+            likes.unshift({
+              id: id
+            });
+          }
+
+          likes$_.next(likes);
+          LocalStorageService.set('likes', likes);
+        }
+      }));
+    };
+
+    FavouriteService.likeRemove$ = function likeRemove$(id) {
+      return HttpService.post$(ENV.API + "/user/like/remove", {
+        id: id
+      }).pipe(operators.tap(function () {
+        if (STATIC) {
+          var likes = LocalStorageService.get('likes') || [];
+          var item = likes.find(function (x) {
+            return x.id === id;
+          });
+          var index = item ? likes.indexOf(item) : -1;
+
+          if (index !== -1) {
+            likes.splice(index, 1);
+          }
+
+          likes$_.next(likes);
+          LocalStorageService.set('likes', likes);
+        }
+      }));
+    };
+
+    FavouriteService.favouriteAdd$ = function favouriteAdd$(id) {
       return HttpService.post$(ENV.API + "/user/favourite/add", {
         id: id
       }).pipe(operators.tap(function () {
-        var favourites = LocalStorageService.get('favourites') || [];
-        var item = favourites.find(function (x) {
-          return x.id === id;
-        });
-
-        if (!item) {
-          favourites.unshift({
-            id: id
+        if (STATIC) {
+          var favourites = LocalStorageService.get('favourites') || [];
+          var item = favourites.find(function (x) {
+            return x.id === id;
           });
+
+          if (!item) {
+            favourites.unshift({
+              id: id
+            });
+          }
+
+          favourites$_.next(favourites);
+          LocalStorageService.set('favourites', favourites);
         }
-
-        _this2.favourites$.next(favourites);
-
-        LocalStorageService.set('favourites', favourites);
       }));
     };
 
-    FavouriteService.remove$ = function remove$(id) {
-      var _this3 = this;
-
+    FavouriteService.favouriteRemove$ = function favouriteRemove$(id) {
       return HttpService.post$(ENV.API + "/user/favourite/remove", {
         id: id
       }).pipe(operators.tap(function () {
-        var favourites = LocalStorageService.get('favourites') || [];
-        var item = favourites.find(function (x) {
-          return x.id === id;
-        });
-        var index = item ? favourites.indexOf(item) : -1;
+        if (STATIC) {
+          var favourites = LocalStorageService.get('favourites') || [];
+          var item = favourites.find(function (x) {
+            return x.id === id;
+          });
+          var index = item ? favourites.indexOf(item) : -1;
 
-        if (index !== -1) {
-          favourites.splice(index, 1);
+          if (index !== -1) {
+            favourites.splice(index, 1);
+          }
+
+          favourites$_.next(favourites);
+          LocalStorageService.set('favourites', favourites);
         }
-
-        _this3.favourites$.next(favourites);
-
-        LocalStorageService.set('favourites', favourites);
       }));
     };
 
     return FavouriteService;
   }();
-  FavouriteService.favourites$ = new rxjs.BehaviorSubject([]);
+  FavouriteService.subscriptions$ = FavouriteService.subscriptions$().pipe(operators.shareReplay(1));
+  FavouriteService.likes$ = FavouriteService.likes$().pipe(operators.shareReplay(1));
+  FavouriteService.favourites$ = FavouriteService.favourites$().pipe(operators.shareReplay(1));
 
   var User = /*#__PURE__*/function () {
     _createClass(User, [{
@@ -511,22 +626,22 @@
 
     QuestionService.fake = function fake(item) {
       var now = new Date();
-      var index = item.id % 1000;
+      var index = item.id % 1000000;
 
       switch (index) {
-        case 1:
+        case 4:
           item.creationDate = new Date(new Date().setSeconds(now.getSeconds() - 30));
           break;
 
-        case 2:
+        case 3:
           item.creationDate = new Date(new Date().setMinutes(now.getMinutes() - 10));
           break;
 
-        case 3:
+        case 2:
           item.creationDate = new Date(new Date().setMinutes(now.getMinutes() - 45));
           break;
 
-        case 4:
+        case 1:
           item.creationDate = new Date(new Date().setHours(now.getHours() - 1));
           break;
 
@@ -746,7 +861,17 @@
             item.info.ended = true;
         }
 
-        var favourites = FavouriteService.favourites$.getValue();
+        var subscriptions = FavouriteService.getCurrentSubscriptions();
+        var subscription = subscriptions.find(function (x) {
+          return x.id === item.id;
+        });
+        item.info.subscribed = subscription !== undefined;
+        var likes = FavouriteService.getCurrentLikes();
+        var like = likes.find(function (x) {
+          return x.id === item.id;
+        });
+        item.info.liked = like !== undefined;
+        var favourites = FavouriteService.getCurrentFavourites();
         var favourite = favourites.find(function (x) {
           return x.id === item.id;
         });
@@ -1213,6 +1338,7 @@
 
     return ChannelService;
   }();
+  ChannelService.channels$ = ChannelService.channels$().pipe(operators.shareReplay(1));
 
   var LocationService = /*#__PURE__*/function () {
     function LocationService() {}
@@ -1328,7 +1454,7 @@
     };
 
     _proto.load$ = function load$() {
-      return rxjs.combineLatest(ChannelService.channels$());
+      return rxjs.combineLatest(ChannelService.channels$);
     };
 
     return AsideComponent;
@@ -1686,7 +1812,7 @@
 
     _proto.load$ = function load$() {
       var channelId = LocationService.get('channelId');
-      return rxjs.combineLatest(ChannelService.channels$(), ChannelService.detail$(channelId), ChannelService.listing$(channelId));
+      return rxjs.combineLatest(ChannelService.channels$, ChannelService.detail$(channelId), ChannelService.listing$(channelId));
     };
 
     _proto.startFilter = function startFilter(items) {
@@ -1707,7 +1833,7 @@
     };
 
     _proto.toggleGrid = function toggleGrid() {
-      this.grid.width = this.grid.width === 350 ? 700 : 350;
+      this.grid.width = this.grid.width === 350 ? 525 : 350;
       this.pushChanges();
     };
 
@@ -3443,7 +3569,7 @@
     };
 
     _proto.toggleGrid = function toggleGrid() {
-      this.grid.width = this.grid.width === 350 ? 700 : 350;
+      this.grid.width = this.grid.width === 350 ? 525 : 350;
       this.pushChanges();
     };
 
@@ -3451,7 +3577,7 @@
       var _this3 = this;
 
       var flag = this.event.info.subscribed;
-      EventService[flag ? 'unsubscribe$' : 'subscribe$'](this.event.id).pipe(operators.first()).subscribe(function () {
+      FavouriteService[flag ? 'subscriptionRemove$' : 'subscriptionAdd$'](this.event.id).pipe(operators.first()).subscribe(function () {
         flag = !flag;
         _this3.event.info.subscribed = flag;
 
@@ -3469,7 +3595,7 @@
       var _this4 = this;
 
       var flag = this.event.info.liked;
-      EventService[flag ? 'unlike$' : 'like$'](this.event.id).pipe(operators.first()).subscribe(function () {
+      FavouriteService[flag ? 'likeRemove$' : 'likeAdd$'](this.event.id).pipe(operators.first()).subscribe(function () {
         flag = !flag;
         _this4.event.info.liked = flag;
 
@@ -3487,7 +3613,7 @@
       var _this5 = this;
 
       var flag = this.event.info.saved;
-      FavouriteService[flag ? 'remove$' : 'add$'](this.event.id).pipe(operators.first()).subscribe(function () {
+      FavouriteService[flag ? 'favouriteRemove$' : 'favouriteAdd$'](this.event.id).pipe(operators.first()).subscribe(function () {
         flag = !flag;
         _this5.event.info.saved = flag;
 
@@ -3549,7 +3675,7 @@
       var _this = this;
 
       var flag = this.event.info.subscribed;
-      EventService[flag ? 'unsubscribe$' : 'subscribe$'](this.event.id).pipe(operators.first()).subscribe(function () {
+      FavouriteService[flag ? 'subscriptionRemove$' : 'subscriptionAdd$'](this.event.id).pipe(operators.first()).subscribe(function () {
         flag = !flag;
         _this.event.info.subscribed = flag;
 
@@ -3567,7 +3693,7 @@
       var _this2 = this;
 
       var flag = this.event.info.liked;
-      EventService[flag ? 'unlike$' : 'like$'](this.event.id).pipe(operators.first()).subscribe(function () {
+      FavouriteService[flag ? 'likeRemove$' : 'likeAdd$'](this.event.id).pipe(operators.first()).subscribe(function () {
         flag = !flag;
         _this2.event.info.liked = flag;
 
@@ -3585,7 +3711,7 @@
       var _this3 = this;
 
       var flag = this.event.info.saved;
-      FavouriteService[flag ? 'remove$' : 'add$'](this.event.id).pipe(operators.first()).subscribe(function () {
+      FavouriteService[flag ? 'favouriteRemove$' : 'favouriteAdd$'](this.event.id).pipe(operators.first()).subscribe(function () {
         flag = !flag;
         _this3.event.info.saved = flag;
 
@@ -3636,11 +3762,11 @@
     };
 
     _proto.load$ = function load$() {
-      return rxjs.combineLatest(ChannelService.channels$(), FavouriteService.saved$(), FavouriteService.liked$());
+      return rxjs.combineLatest(ChannelService.channels$, FavouriteService.favourites$, FavouriteService.likes$);
     };
 
     _proto.toggleGrid = function toggleGrid() {
-      this.grid.width = this.grid.width === 350 ? 700 : 350;
+      this.grid.width = this.grid.width === 350 ? 525 : 350;
       this.pushChanges();
     };
 
@@ -3736,29 +3862,27 @@
     return CssService;
   }();
 
+  var notifications$_ = new rxjs.BehaviorSubject(null);
+
   var NotificationService = /*#__PURE__*/function () {
     function NotificationService() {}
 
-    NotificationService.getCurrentNotification = function getCurrentNotification() {
-      return this.notification$_.getValue();
+    NotificationService.getCurrentNotifications = function getCurrentNotifications() {
+      return notifications$_.getValue();
     };
 
-    NotificationService.observe$ = function observe$() {
-      var _this = this;
-
+    NotificationService.notifications$ = function notifications$() {
       return HttpService.get$(ENV.API + "/user/notification").pipe(operators.map(function (items) {
         return EventService.mapEvents(items);
       }), operators.switchMap(function (items) {
-        _this.notification$_.next(items);
-
-        return _this.notification$_;
+        notifications$_.next(items);
+        return notifications$_;
       }));
     };
 
     return NotificationService;
   }();
-  NotificationService.notification$_ = new rxjs.BehaviorSubject(null);
-  NotificationService.observe$ = NotificationService.observe$().pipe(operators.shareReplay(1));
+  NotificationService.notifications$ = NotificationService.notifications$().pipe(operators.shareReplay(1));
 
   var HeaderComponent = /*#__PURE__*/function (_Component) {
     _inheritsLoose(HeaderComponent, _Component);
@@ -3782,12 +3906,22 @@
 
         _this.pushChanges();
       });
-      FavouriteService.observe$().pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (favourites) {
+      FavouriteService.subscriptions$.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (subscriptions) {
+        _this.subscriptions = subscriptions; // console.log('HeaderComponent.subscriptions', subscriptions);
+
+        _this.pushChanges();
+      });
+      FavouriteService.likes$.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (likes) {
+        _this.likes = likes; // console.log('HeaderComponent.likes', likes);
+
+        _this.pushChanges();
+      });
+      FavouriteService.favourites$.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (favourites) {
         _this.favourites = favourites; // console.log('HeaderComponent.favourites', favourites);
 
         _this.pushChanges();
       });
-      NotificationService.observe$.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (notifications) {
+      NotificationService.notifications$.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (notifications) {
         _this.notifications = notifications; // console.log('HeaderComponent.notifications', notifications);
 
         _this.pushChanges();
@@ -4292,7 +4426,7 @@
         gutter: 0
       };
       this.notifications = [];
-      NotificationService.observe$.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (notifications) {
+      NotificationService.notifications$.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (notifications) {
         _this.notifications = notifications;
         console.log(notifications);
 
@@ -5106,6 +5240,57 @@
   }(SwiperDirective);
   SwiperEventsDirective.meta = {
     selector: '[swiper-events]'
+  };
+
+  var SwiperRelatedDirective = /*#__PURE__*/function (_SwiperDirective) {
+    _inheritsLoose(SwiperRelatedDirective, _SwiperDirective);
+
+    function SwiperRelatedDirective() {
+      return _SwiperDirective.apply(this, arguments) || this;
+    }
+
+    var _proto = SwiperRelatedDirective.prototype;
+
+    _proto.onInit = function onInit() {
+      var _getContext = rxcomp.getContext(this),
+          node = _getContext.node;
+
+      node.setAttribute('id', "swiper-" + this.rxcompId);
+      this.options = {
+        slidesPerView: 'auto',
+        spaceBetween: 1,
+        centeredSlides: false,
+        loop: false,
+        loopAdditionalSlides: 100,
+        speed: 600,
+
+        /*
+        autoplay: {
+        	delay: 5000,
+        },
+        */
+        keyboardControl: true,
+        mousewheelControl: false,
+        pagination: {
+          el: "#swiper-" + this.rxcompId + " .swiper-pagination",
+          clickable: true
+        },
+        navigation: {
+          nextEl: "#swiper-" + this.rxcompId + " .swiper-button-next",
+          prevEl: "#swiper-" + this.rxcompId + " .swiper-button-prev"
+        },
+        keyboard: {
+          enabled: true,
+          onlyInViewport: true
+        }
+      };
+      this.init_();
+    };
+
+    return SwiperRelatedDirective;
+  }(SwiperDirective);
+  SwiperRelatedDirective.meta = {
+    selector: '[swiper-related]'
   };
 
   var SwiperSlidesDirective = /*#__PURE__*/function (_SwiperDirective) {
@@ -5955,7 +6140,7 @@
     _proto.resize$ = function resize$() {
       var _this2 = this;
 
-      return rxjs.fromEvent(window, 'resize').pipe(operators.debounceTime(500), operators.startWith(null), operators.tap(function () {
+      return rxjs.fromEvent(window, 'resize').pipe(operators.auditTime(100), operators.startWith(null), operators.tap(function () {
         return _this2.updateView(true);
       }));
     };
@@ -6273,7 +6458,7 @@
   }(rxcomp.Module);
   AppModule.meta = {
     imports: [rxcomp.CoreModule, rxcompForm.FormModule],
-    declarations: [AsideComponent, ChannelComponent, ChannelPageComponent, ClickOutsideDirective, CountPipe, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, EventPageComponent, FavouritePageComponent, HeaderComponent, HtmlPipe, IndexPageComponent, LazyDirective, ModalComponent, ModalOutletComponent, NotificationComponent, RegisterOrLoginComponent, RelativeDateDirective, RelativeDatePipe, ScrollToDirective, SecureDirective, SwiperDirective, SwiperEventsDirective, SwiperSlidesDirective, SwiperTopEventsDirective, ThronComponent, VirtualStructure, VideoComponent, YoutubeComponent],
+    declarations: [AsideComponent, ChannelComponent, ChannelPageComponent, ClickOutsideDirective, CountPipe, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, EventPageComponent, FavouritePageComponent, HeaderComponent, HtmlPipe, IndexPageComponent, LazyDirective, ModalComponent, ModalOutletComponent, NotificationComponent, RegisterOrLoginComponent, RelativeDateDirective, RelativeDatePipe, ScrollToDirective, SecureDirective, SwiperDirective, SwiperEventsDirective, SwiperRelatedDirective, SwiperSlidesDirective, SwiperTopEventsDirective, ThronComponent, VirtualStructure, VideoComponent, YoutubeComponent],
     bootstrap: AppComponent
   };
 

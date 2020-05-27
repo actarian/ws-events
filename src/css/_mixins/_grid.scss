@@ -187,10 +187,45 @@
 	}
 }
 
-@mixin grid-expand($size: "xs") {
-	$gutter: map-get($grid-gutter-widths, $size);
-	margin-left: - $gutter / 2;
-	margin-right: - $gutter / 2;
-	padding-left: $gutter / 2;
-	padding-right: $gutter / 2;
+@mixin grid-margin($size: '', $gutter-widths: $grid-gutter-widths, $breakpoints: $grid-breakpoints) {
+	@if $size !='' {
+		$gutter: map-get($grid-gutter-widths, $size);
+		margin-left: - $gutter / 2;
+		margin-right: - $gutter / 2;
+	}
+
+	@else {
+
+		@each $breakpoint,
+		$gutter in $gutter-widths {
+			@include media-up($breakpoint, $breakpoints) {
+				margin-left: - $gutter / 2;
+				margin-right: - $gutter / 2;
+			}
+		}
+	}
+}
+
+@mixin grid-padding($size: '', $gutter-widths: $grid-gutter-widths, $breakpoints: $grid-breakpoints) {
+	@if $size !='' {
+		$gutter: map-get($grid-gutter-widths, $size);
+		padding-left: $gutter / 2;
+		padding-right: $gutter / 2;
+	}
+
+	@else {
+
+		@each $breakpoint,
+		$gutter in $gutter-widths {
+			@include media-up($breakpoint, $breakpoints) {
+				padding-left: $gutter / 2;
+				padding-right: $gutter / 2;
+			}
+		}
+	}
+}
+
+@mixin grid-expand($size: '', $gutter-widths: $grid-gutter-widths, $breakpoints: $grid-breakpoints) {
+	@include grid-margin($size);
+	@include grid-padding($size);
 }

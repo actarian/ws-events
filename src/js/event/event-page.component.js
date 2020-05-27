@@ -110,13 +110,13 @@ export default class EventPageComponent extends PageComponent {
 	}
 
 	toggleGrid() {
-		this.grid.width = this.grid.width === 350 ? 700 : 350;
+		this.grid.width = this.grid.width === 350 ? 525 : 350;
 		this.pushChanges();
 	}
 
 	toggleSubscribe() {
 		let flag = this.event.info.subscribed;
-		EventService[flag ? 'unsubscribe$' : 'subscribe$'](this.event.id).pipe(
+		FavouriteService[flag ? 'subscriptionRemove$' : 'subscriptionAdd$'](this.event.id).pipe(
 			first()
 		).subscribe(() => {
 			flag = !flag;
@@ -132,7 +132,7 @@ export default class EventPageComponent extends PageComponent {
 
 	toggleLike() {
 		let flag = this.event.info.liked;
-		EventService[flag ? 'unlike$' : 'like$'](this.event.id).pipe(
+		FavouriteService[flag ? 'likeRemove$' : 'likeAdd$'](this.event.id).pipe(
 			first()
 		).subscribe(() => {
 			flag = !flag;
@@ -148,7 +148,7 @@ export default class EventPageComponent extends PageComponent {
 
 	toggleSave() {
 		let flag = this.event.info.saved;
-		FavouriteService[flag ? 'remove$' : 'add$'](this.event.id).pipe(
+		FavouriteService[flag ? 'favouriteRemove$' : 'favouriteAdd$'](this.event.id).pipe(
 			first()
 		).subscribe(() => {
 			flag = !flag;

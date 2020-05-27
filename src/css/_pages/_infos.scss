@@ -1,0 +1,249 @@
+.wse__event__info,
+.wse__channel__info {
+	display: flex;
+	align-items: center;
+	line-height: 1;
+	margin-bottom: 20px;
+
+	&__left,
+	&__right {
+		display: flex;
+		align-items: center;
+		line-height: 1;
+		flex: 1 1 auto;
+	}
+
+	&__right {
+		justify-content: flex-end;
+	}
+
+	.wse__label,
+	.wse__info {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+	.wse__date {
+		font-family: 'Roboto Mono', monospace;
+
+		&.wse__date--live {
+			background: #f70a36;
+			text-transform: uppercase;
+			color: $foreground-negative;
+		}
+
+		&.wse__date--countdown {
+			background: rgba(0, 0, 0, 0.8);
+			text-transform: uppercase;
+			color: $foreground-negative;
+
+			.mono {
+				letter-spacing: 0.02em;
+				font-family: monospace;
+			}
+		}
+	}
+
+	.wse__date,
+	.wse__subscribe,
+	.wse__like,
+	.wse__save,
+	.wse__share {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		margin: 0 1px;
+		padding: 4px 9px;
+		border-radius: 4px;
+		font-family: 'Roboto Mono', monospace;
+		font-size: 11px;
+		font-weight: $font-semibold;
+		white-space: nowrap;
+		cursor: pointer;
+	}
+
+	.wse__date {
+		padding: 4px 0;
+		cursor: auto;
+
+		&.wse__date--live,
+		&.wse__date--countdown {
+			padding: 4px 9px;
+		}
+	}
+
+	.wse__subscribe,
+	.wse__like,
+	.wse__save,
+	.wse__share {
+
+		.wse__label {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translateX(-50%) translateY(-50%);
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+
+	.wse__icon {
+		width: 16px;
+		height: 16px;
+		margin-right: 8px;
+	}
+
+	@include media-up(sm) {
+
+		.wse__subscribe,
+		.wse__like,
+		.wse__save,
+		.wse__share {
+			&:hover {
+
+				.wse__info {
+					opacity: 0;
+				}
+
+				.wse__label {
+					opacity: 1;
+				}
+			}
+		}
+
+		.wse__subscribe {
+
+			&:hover {
+				background: $foreground-primary;
+				color: $foreground-negative;
+			}
+
+			&:not(:hover).wse__active {
+				svg {
+					fill: $foreground-primary;
+				}
+			}
+		}
+
+		.wse__like {
+
+			&:hover {
+				background: #f70a36;
+				color: $foreground-negative;
+			}
+
+			&:not(:hover).wse__active {
+
+				svg {
+					fill: #f70a36;
+				}
+			}
+		}
+
+		.wse__save {
+
+			&:hover {
+				background: #FFC107;
+				color: $foreground-negative;
+			}
+
+			&:not(:hover).wse__active {
+
+				svg {
+					fill: #FFC107;
+				}
+			}
+		}
+
+	}
+
+	@include media-down(sm) {
+		.wse__info {
+			.wse__text {
+				display: none;
+			}
+		}
+
+		.wse__label {
+			display: none;
+		}
+
+		.wse__subscribe {
+			&.wse__active {
+				svg {
+					fill: $foreground-primary;
+				}
+			}
+		}
+
+		.wse__like {
+			&.wse__active {
+
+				svg {
+					fill: #f70a36;
+				}
+			}
+		}
+	}
+}
+
+.wse__channel__info {
+
+	.wse__subscribe,
+	.wse__like,
+	.wse__save,
+	.wse__share {
+		background: $background;
+	}
+
+	@include media-up(md) {
+
+		.wse__subscribe {
+
+			&:hover {
+				background: $foreground-primary;
+			}
+
+			&:not(:hover).wse__active {
+				svg {
+					fill: $foreground-primary;
+				}
+			}
+		}
+
+		.wse__like {
+
+			&:hover {
+				background: #f70a36;
+			}
+
+			&:not(:hover).wse__active {
+				svg {
+					fill: #f70a36;
+				}
+			}
+		}
+	}
+
+	@include media-down(sm) {
+
+		.wse__subscribe {
+			&.wse__active {
+				svg {
+					fill: $foreground-primary;
+				}
+			}
+		}
+
+		.wse__like {
+			&.wse__active {
+				svg {
+					fill: #f70a36;
+				}
+			}
+		}
+	}
+
+}

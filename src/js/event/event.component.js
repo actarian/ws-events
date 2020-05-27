@@ -1,7 +1,6 @@
 import { Component } from 'rxcomp';
 import { first } from 'rxjs/operators';
 import FavouriteService from '../favourite/favourite.service';
-import EventService from './event.service';
 
 export default class EventComponent extends Component {
 
@@ -11,7 +10,7 @@ export default class EventComponent extends Component {
 
 	toggleSubscribe() {
 		let flag = this.event.info.subscribed;
-		EventService[flag ? 'unsubscribe$' : 'subscribe$'](this.event.id).pipe(
+		FavouriteService[flag ? 'subscriptionRemove$' : 'subscriptionAdd$'](this.event.id).pipe(
 			first()
 		).subscribe(() => {
 			flag = !flag;
@@ -27,7 +26,7 @@ export default class EventComponent extends Component {
 
 	toggleLike() {
 		let flag = this.event.info.liked;
-		EventService[flag ? 'unlike$' : 'like$'](this.event.id).pipe(
+		FavouriteService[flag ? 'likeRemove$' : 'likeAdd$'](this.event.id).pipe(
 			first()
 		).subscribe(() => {
 			flag = !flag;
@@ -43,7 +42,7 @@ export default class EventComponent extends Component {
 
 	toggleSave() {
 		let flag = this.event.info.saved;
-		FavouriteService[flag ? 'remove$' : 'add$'](this.event.id).pipe(
+		FavouriteService[flag ? 'favouriteRemove$' : 'favouriteAdd$'](this.event.id).pipe(
 			first()
 		).subscribe(() => {
 			flag = !flag;

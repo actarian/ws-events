@@ -19,14 +19,28 @@ export default class HeaderComponent extends Component {
 			this.user = user;
 			this.pushChanges();
 		});
-		FavouriteService.observe$().pipe(
+		FavouriteService.subscriptions$.pipe(
+			takeUntil(this.unsubscribe$)
+		).subscribe(subscriptions => {
+			this.subscriptions = subscriptions;
+			// console.log('HeaderComponent.subscriptions', subscriptions);
+			this.pushChanges();
+		});
+		FavouriteService.likes$.pipe(
+			takeUntil(this.unsubscribe$)
+		).subscribe(likes => {
+			this.likes = likes;
+			// console.log('HeaderComponent.likes', likes);
+			this.pushChanges();
+		});
+		FavouriteService.favourites$.pipe(
 			takeUntil(this.unsubscribe$)
 		).subscribe(favourites => {
 			this.favourites = favourites;
 			// console.log('HeaderComponent.favourites', favourites);
 			this.pushChanges();
 		});
-		NotificationService.observe$.pipe(
+		NotificationService.notifications$.pipe(
 			takeUntil(this.unsubscribe$)
 		).subscribe(notifications => {
 			this.notifications = notifications;

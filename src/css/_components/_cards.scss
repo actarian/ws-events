@@ -247,6 +247,10 @@
 		margin-bottom: 10px;
 	}
 
+	.wse__btn--rounded {
+		@extend %btn-md;
+	}
+
 	.wse__event__info {
 		.wse__date {
 			background: $background-tertiary;
@@ -273,7 +277,7 @@
 	&__group--cta {
 		display: block;
 		position: relative;
-		margin-top: 40px;
+		margin-top: 20px;
 	}
 
 	@include media-down(sm) {
@@ -952,10 +956,10 @@
 		left: 0;
 		display: flex;
 		flex-direction: column;
-		justify-content: flex-end;
+		justify-content: center;
 		align-items: center;
 		text-align: center;
-		padding: 20px 20px 30px 20px;
+		padding: 10px;
 		text-decoration: none;
 
 		p {
@@ -980,13 +984,14 @@
 		display: block;
 		position: relative;
 		@extend %subtitle;
+		font-size: 29px;
 		color: $foreground-negative;
 		max-width: 500px;
-		margin-bottom: 10px;
+		margin-bottom: 5px;
 	}
 
 	.wse__event__info {
-		margin: 0;
+		margin: 0 0 -25px 0;
 
 		.wse__date {
 			color: $foreground-negative;

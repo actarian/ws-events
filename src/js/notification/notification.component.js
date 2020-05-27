@@ -11,7 +11,7 @@ export default class NotificationComponent extends PageComponent {
 			gutter: 0,
 		};
 		this.notifications = [];
-		NotificationService.observe$.pipe(
+		NotificationService.notifications$.pipe(
 			takeUntil(this.unsubscribe$)
 		).subscribe((notifications) => {
 			this.notifications = notifications;

@@ -1,6 +1,6 @@
 import { getContext, Structure } from 'rxcomp';
 import { BehaviorSubject, fromEvent, merge } from 'rxjs';
-import { debounceTime, map, startWith, takeUntil, tap } from 'rxjs/operators';
+import { auditTime, map, startWith, takeUntil, tap } from 'rxjs/operators';
 import VirtualItem from './virtual.item';
 
 export const VirtualMode = {
@@ -273,7 +273,7 @@ export default class VirtualStructure extends Structure {
 
 	resize$() {
 		return fromEvent(window, 'resize').pipe(
-			debounceTime(500),
+			auditTime(100),
 			startWith(null),
 			tap(() => this.updateView(true))
 		);

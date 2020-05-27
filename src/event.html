@@ -4,10 +4,10 @@
 
 <div class="wse__event-page" event-page>
 
-	<div class="wse__section--event__hero" *if="event">
+	<div class="wse__event-hero" *if="event">
 		<div [class]="{ 'wse__container-fluid': event.hasRelated, 'wse__container': !event.hasRelated }">
-			<div class="wse__row">
-				<div [class]="{ 'wse__col-md-9': event.hasRelated, 'wse__col-md-12': !event.hasRelated }">
+			<div class="wse__event-group">
+				<div class="wse__event-group__left">
 					<div class="wse__event-media" *if="event.future">
 						<!-- @@include ./templates/shared/event/card-incoming.html -->
 					</div>
@@ -17,15 +17,22 @@
 					<div class="wse__event-media" *if="!event.future && event.thron && !event.live">
 						<!-- @@include ./templates/shared/event/player-thron.html -->
 					</div>
-					<div class="wse__section--event__header">
-						<div class="wse__row">
-							<div class="wse__col-md-6">
-								<div class="wse__section--event__header__content">
-									<div class="wse__section--event__header__title" [class]="{ 'wse__section--event__header__title--future': event.future }" [innerHTML]="event.name"></div>
+					<div class="wse__event-header">
+						<div class="wse__event-header__content">
+							<!-- TITLE -->
+							<div class="wse__event-header__title" [class]="{ 'wse__event-header__title--future': event.future }" [innerHTML]="event.name"></div>
+							<!-- INFO -->
+							<div class="wse__event__info">
+								<div class="wse__event__info__left">
+									<span class="wse__event-date" [eventDate]="event" (change)="onChange($event)">
+										<span class="wse__date" [class]="{ 'wse__date--live': mode === 'live', 'wse__date--countdown': mode === 'countdown' }" *if="mode !== 'live'">
+											<span class="wse__info" *if="mode === 'countdown'">A breve&nbsp;<span [innerHTML]="countdown"></span></span>
+											<span class="wse__info" *if="mode === 'relative' || mode === 'watchRelative'" [innerHTML]="eventDate.startDate | relativeDate"></span>
+											<span class="wse__info" *if="mode === 'date'"><svg class="wse__icon"><use xlink:href="#calendar"></use></svg> <span [innerHTML]="eventDate.startDate | date : 'EEE dd MMMM yyyy'"></span></span>
+										</span>
+									</span>
 								</div>
-							</div>
-							<div class="wse__col-md-6">
-								<div class="wse__channel__info">
+								<div class="wse__event__info__right">
 									<div class="wse__subscribe" [class]="{ 'wse__active': event.info.subscribed }" (click)="toggleSubscribe()">
 										<div class="wse__info">
 											<svg class="wse__icon" *if="!event.info.subscribed"><use xlink:href="#bell"></use></svg>
@@ -54,28 +61,23 @@
 										</div>
 									</div>
 									<!--
-									<div class="wse__share" (click)="share()">
-										<div class="wse__info">
-											<svg class="wse__icon"><use xlink:href="#share"></use></svg>
-											<span>condividi</span>
-										</div>
-										<div class="wse__label">
-											<svg class="wse__icon"><use xlink:href="#share"></use></svg>
-											<span>condividi</span>
-										</div>
+								<div class="wse__share" (click)="share()">
+									<div class="wse__info">
+										<svg class="wse__icon"><use xlink:href="#share"></use></svg>
+										<span>condividi</span>
 									</div>
-									-->
+									<div class="wse__label">
+										<svg class="wse__icon"><use xlink:href="#share"></use></svg>
+										<span>condividi</span>
+									</div>
+								</div>
+								-->
 								</div>
 							</div>
-						</div>
-						<div class="wse__row">
-							<div class="wse__col-md-6">
-								<div class="wse__section--event__header__content">
-									<a [href]="event.channel.url" class="wse__section--event__header__category" [innerHTML]="event.channel.name"></a>
-									<div class="wse__section--event__header__abstract" [innerHTML]="event.abstract"></div>
-								</div>
-							</div>
-							<div class="wse__col-md-6"></div>
+							<!-- CHANNEL -->
+							<a [href]="event.channel.url" class="wse__event-header__category" [innerHTML]="event.channel.name"></a>
+							<!-- ABSTRACT -->
+							<div class="wse__event-header__abstract" [innerHTML]="event.abstract"></div>
 						</div>
 					</div>
 					<div class="wse__group--questions">
@@ -100,12 +102,28 @@
 						</div>
 					</div>
 				</div>
-				<div class="wse__col-md-3" *if="event.hasRelated">
+				<div class="wse__event-group__right" *if="event.hasRelated">
 					<div class="wse__group--previews">
 						<div class="wse__card--preview" [event]="related" *for="let related of event.related">
 							<!-- @@include ./templates/shared/event/card-preview.html -->
 						</div>
 					</div>
+				</div>
+			</div>
+			<div class="wse__event-related">
+				<div class="swiper-container" swiper-related>
+					<div class="swiper-wrapper">
+						<div class="swiper-slide" [event]="related" *for="let related of event.related">
+							<!-- @@include ./templates/shared/event/card-preview.html -->
+						</div>
+					</div>
+					<div class="swiper-button-prev">
+						<svg class="wse_arrow-left"><use xlink:href="#arrow-left"></use></svg>
+					</div>
+					<div class="swiper-button-next">
+						<svg class="wse_arrow-right"><use xlink:href="#arrow-right"></use></svg>
+					</div>
+					<div class="swiper-pagination swiper-pagination-white"></div>
 				</div>
 			</div>
 		</div>
@@ -129,7 +147,7 @@
 				<div class="wse__group--actions">
 					<div class="wse__btn--mode" (click)="toggleGrid()">
 						<svg class="wse__grid" *if="grid.width === 350"><use xlink:href="#grid"></use></svg>
-						<svg class="wse__grid" *if="grid.width === 700"><use xlink:href="#grid-active"></use></svg>
+						<svg class="wse__grid" *if="grid.width === 525"><use xlink:href="#grid-active"></use></svg>
 					</div>
 					<div class="wse__btn--filter">
 						<svg class="wse__filter"><use xlink:href="#filter"></use></svg>

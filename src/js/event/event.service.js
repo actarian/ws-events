@@ -186,7 +186,15 @@ export default class EventService {
 					item.info.started = true;
 					item.info.ended = true;
 			}
-			const favourites = FavouriteService.favourites$.getValue();
+			const subscriptions = FavouriteService.getCurrentSubscriptions();
+			const subscription = subscriptions.find(x => x.id === item.id);
+			item.info.subscribed = subscription !== undefined;
+
+			const likes = FavouriteService.getCurrentLikes();
+			const like = likes.find(x => x.id === item.id);
+			item.info.liked = like !== undefined;
+
+			const favourites = FavouriteService.getCurrentFavourites();
 			const favourite = favourites.find(x => x.id === item.id);
 			item.info.saved = favourite !== undefined;
 		}

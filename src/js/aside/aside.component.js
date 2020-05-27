@@ -21,7 +21,7 @@ export default class AsideComponent extends PageComponent {
 
 	load$() {
 		return combineLatest(
-			ChannelService.channels$(),
+			ChannelService.channels$,
 		);
 	}
 

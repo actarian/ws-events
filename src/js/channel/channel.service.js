@@ -1,5 +1,5 @@
 import { of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, shareReplay, tap } from 'rxjs/operators';
 import { ENV } from '../environment/environment';
 import EventService, { Event } from '../event/event.service';
 import HttpService from '../http/http.service';
@@ -249,3 +249,5 @@ export default class ChannelService {
 	}
 
 }
+
+ChannelService.channels$ = ChannelService.channels$().pipe(shareReplay(1));

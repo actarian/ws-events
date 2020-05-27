@@ -67,7 +67,7 @@ export default class ChannelPageComponent extends PageComponent {
 	load$() {
 		const channelId = LocationService.get('channelId');
 		return combineLatest(
-			ChannelService.channels$(),
+			ChannelService.channels$,
 			ChannelService.detail$(channelId),
 			ChannelService.listing$(channelId),
 		);
@@ -88,7 +88,7 @@ export default class ChannelPageComponent extends PageComponent {
 	}
 
 	toggleGrid() {
-		this.grid.width = this.grid.width === 350 ? 700 : 350;
+		this.grid.width = this.grid.width === 350 ? 525 : 350;
 		this.pushChanges();
 	}
 

@@ -29,18 +29,18 @@ export default class QuestionService {
 
 	static fake(item) {
 		const now = new Date();
-		const index = item.id % 1000;
+		const index = item.id % 1000000;
 		switch (index) {
-			case 1:
+			case 4:
 				item.creationDate = new Date(new Date().setSeconds(now.getSeconds() - 30));
 				break;
-			case 2:
+			case 3:
 				item.creationDate = new Date(new Date().setMinutes(now.getMinutes() - 10));
 				break;
-			case 3:
+			case 2:
 				item.creationDate = new Date(new Date().setMinutes(now.getMinutes() - 45));
 				break;
-			case 4:
+			case 1:
 				item.creationDate = new Date(new Date().setHours(now.getHours() - 1));
 				break;
 			default:

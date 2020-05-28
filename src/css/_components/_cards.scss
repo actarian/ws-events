@@ -422,6 +422,10 @@
 				left: 50%;
 			}
 		}
+
+		&__group--cta {
+			margin-bottom: -20px;
+		}
 	}
 }
 
@@ -1068,6 +1072,15 @@
 	}
 
 	@include media-down(sm) {
+
+		&__picture {
+			@include aspect-clip(4, 3);
+
+			&>img {
+				left: 50%;
+			}
+		}
+
 		&__category {
 			margin-bottom: 10px;
 		}

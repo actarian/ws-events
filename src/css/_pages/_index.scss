@@ -20,6 +20,17 @@
 		align-items: center;
 	}
 
+	&__swiper {
+		.swiper-container {
+			@extend %swiper;
+
+			.swiper-button-next,
+			.swiper-button-prev {
+				top: 25px;
+			}
+		}
+	}
+
 	&__content {
 		display: flex;
 		flex-direction: column;
@@ -32,20 +43,6 @@
 
 		& p+p {
 			margin-top: 10px;
-		}
-	}
-
-	&__swiper {
-		overflow: hidden;
-		padding: 0;
-
-		.swiper-container {
-			@extend %swiper;
-
-			.swiper-button-next,
-			.swiper-button-prev {
-				top: 25px;
-			}
 		}
 	}
 
@@ -79,6 +76,8 @@
 		padding: 80px 0;
 
 		&__swiper {
+			overflow: hidden;
+			padding: 0;
 
 			&.swiper-container-horizontal>.swiper-container,
 			.swiper-container {
@@ -94,6 +93,9 @@
 		padding: 40px 0;
 
 		&__swiper {
+			.swiper-slide {
+				box-shadow: 0 10px 10px -5px rgba($foreground-primary, 0.2);
+			}
 
 			&.swiper-container-horizontal>.swiper-container,
 			.swiper-container {

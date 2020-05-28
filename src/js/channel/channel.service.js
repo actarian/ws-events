@@ -1,7 +1,7 @@
 import { of } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
+import ApiService from '../api/api.service';
 import EventService, { Event } from '../event/event.service';
-import ApiService from '../http/api.service';
 
 export class Channel {
 	constructor(data) {

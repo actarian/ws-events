@@ -1,7 +1,7 @@
 import { of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import ApiService from '../api/api.service';
 import FavouriteService from '../favourite/favourite.service';
-import ApiService from '../http/api.service';
 import QuestionService from '../question/question.service';
 import UserService from '../user/user.service';
 
@@ -233,7 +233,7 @@ export default class EventService {
 					name: 'Evento',
 					title: 'Evento',
 					abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-					url: '/ws-events/events-event',
+					url: '/ws-events/events-event.html',
 					creationDate: '2020-05-20T08:11:17.827Z',
 					startDate: '2020-05-20T08:11:17.827Z',
 					picture: image_,

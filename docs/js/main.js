@@ -93,6 +93,7 @@
   var DEVELOPMENT = ['localhost', '127.0.0.1', '0.0.0.0'].indexOf(window.location.host.split(':')[0]) !== -1;
   var PRODUCTION = !DEVELOPMENT;
   var ENV = {
+    NAME: 'ws-events',
     STATIC: STATIC,
     DEVELOPMENT: DEVELOPMENT,
     PRODUCTION: PRODUCTION,
@@ -114,7 +115,7 @@
       return url;
     }
 
-    if (url.indexOf('/ws-events') !== 0) {
+    if (url.indexOf("/" + ENV.NAME) !== 0) {
       return url;
     }
 
@@ -123,9 +124,9 @@
       return url;
     }
 
-    url = url.replace('/ws-events/', '');
+    url = url.replace("/" + ENV.NAME, '');
     url = url.replace('.html', '');
-    return "/it/it/" + url;
+    return "/it/it" + url;
   }
 
   var HttpService = /*#__PURE__*/function () {
@@ -986,7 +987,7 @@
           name: 'Evento',
           title: 'Evento',
           abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-          url: '/ws-events/events-event',
+          url: '/ws-events/events-event.html',
           creationDate: '2020-05-20T08:11:17.827Z',
           startDate: '2020-05-20T08:11:17.827Z',
           picture: image_,
@@ -4296,7 +4297,9 @@
       var _getContext2 = rxcomp.getContext(this),
           node = _getContext2.node;
 
-      return IntersectionService.intersection$(node).pipe(operators.first(), operators.switchMap(function () {
+      return IntersectionService.intersection$(node).pipe(operators.first(), operators.tap(function (entry) {
+        return console.log(entry);
+      }), operators.switchMap(function () {
         return ImageService.load$(input);
       }), operators.takeUntil(this.unsubscribe$));
     };
@@ -5283,7 +5286,7 @@
       node.setAttribute('id', "swiper-" + this.rxcompId);
       this.options = {
         slidesPerView: 1,
-        spaceBetween: 0,
+        spaceBetween: 15,
         breakpoints: {
           1024: {
             slidesPerView: 2,

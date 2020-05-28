@@ -92,7 +92,7 @@
 	.wse__icon {
 		width: 16px;
 		height: 16px;
-		margin-right: 8px;
+		margin-right: 4px;
 	}
 
 	@include media-up(sm) {
@@ -183,6 +183,15 @@
 
 				svg {
 					fill: #f70a36;
+				}
+			}
+		}
+
+		.wse__save {
+			&.wse__active {
+
+				svg {
+					fill: #FFC107;
 				}
 			}
 		}

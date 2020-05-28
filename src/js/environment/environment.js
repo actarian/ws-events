@@ -2,6 +2,7 @@ export const STATIC = window.location.port === '40333' || window.location.host =
 export const DEVELOPMENT = ['localhost', '127.0.0.1', '0.0.0.0'].indexOf(window.location.host.split(':')[0]) !== -1;
 export const PRODUCTION = !DEVELOPMENT;
 export const ENV = {
+	NAME: 'ws-events',
 	STATIC,
 	DEVELOPMENT,
 	PRODUCTION,
@@ -22,14 +23,14 @@ export function getSlug(url) {
 	if (!url) {
 		return url;
 	}
-	if (url.indexOf('/ws-events') !== 0) {
+	if (url.indexOf(`/${ENV.NAME}`) !== 0) {
 		return url;
 	}
 	if (STATIC) {
 		console.log(url);
 		return url;
 	}
-	url = url.replace('/ws-events/', '');
+	url = url.replace(`/${ENV.NAME}`, '');
 	url = url.replace('.html', '');
-	return `/it/it/${url}`;
+	return `/it/it${url}`;
 }

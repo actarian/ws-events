@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import ApiService from '../api/api.service';
 import EventService from '../event/event.service';
-import ApiService from '../http/api.service';
 import LocalStorageService from '../local-storage/local-storage.service';
 
 const USE_LOCAL_STORAGE = true;

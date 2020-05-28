@@ -240,7 +240,7 @@
 		position: relative;
 		@extend %category;
 		max-width: 500px;
-		color: white;
+		color: $foreground-negative;
 		margin-bottom: 30px;
 		text-align: center;
 	}
@@ -250,13 +250,13 @@
 		position: relative;
 		@extend %title;
 		max-width: 500px;
-		color: white;
+		color: $foreground-negative;
 		margin-bottom: 10px;
 		text-align: center;
 	}
 
 	.wse__event__info {
-		color: white;
+		color: $foreground-negative;
 	}
 
 	@include media-up(md) {
@@ -281,6 +281,14 @@
 
 		.wse__event__info {
 			margin: 0;
+
+			.wse__date,
+			.wse__subscribe,
+			.wse__like,
+			.wse__save,
+			.wse__share {
+				font-size: 19px;
+			}
 		}
 
 		&__category,
@@ -311,7 +319,7 @@
 		top: 10px;
 		right: 10px;
 		margin: 0;
-		color: white;
+		color: $foreground-negative;
 
 		.wse__date,
 		.wse__subscribe,
@@ -325,6 +333,7 @@
 }
 
 .wse__section--event__listing {
+	min-height: 500px;
 
 	.wse__container-fluid {
 		max-width: 1440px;

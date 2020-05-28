@@ -1,7 +1,7 @@
 import { BehaviorSubject, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
+import ApiService from '../api/api.service';
 import { STATIC } from '../environment/environment';
-import ApiService from '../http/api.service';
 import LocalStorageService from '../local-storage/local-storage.service';
 
 export class User {

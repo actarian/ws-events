@@ -1,5 +1,5 @@
 import { getApiUrl } from '../environment/environment';
-import HttpService from './http.service';
+import HttpService from '../http/http.service';
 
 export default class ApiService extends HttpService {
 

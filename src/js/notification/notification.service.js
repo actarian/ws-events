@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import { map, shareReplay, switchMap } from 'rxjs/operators';
+import ApiService from '../api/api.service';
 import EventService from '../event/event.service';
-import ApiService from '../http/api.service';
 
 const notifications$_ = new BehaviorSubject(null);
 export default class NotificationService {

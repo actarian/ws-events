@@ -8,33 +8,65 @@ import ChannelService from './channel.service';
 export default class ChannelPageComponent extends PageComponent {
 
 	onInit() {
-		this.channels = this.channel = this.listing = null;
 		this.grid = {
 			mode: 1,
 			width: 350,
 			gutter: 2,
 		};
+		this.channels = null;
+		this.channel = null;
+		this.listing = null;
+		this.filters = null;
+		this.secondaryFiltersVisible = false;
+		this.secondaryFilters = null;
 		this.filteredItems = [];
-		const filters = {
+		this.load$().pipe(
+			first(),
+		).subscribe(data => {
+			this.channels = data[0];
+			this.channel = data[1];
+			this.listing = data[2];
+			this.setFilters(data[3]);
+			this.startFilter(this.listing);
+			this.pushChanges();
+		});
+	}
+
+	load$() {
+		const channelId = LocationService.get('channelId');
+		return combineLatest(
+			ChannelService.channels$,
+			ChannelService.detail$(channelId),
+			ChannelService.listing$(channelId),
+			ChannelService.filter$(channelId),
+		);
+	}
+
+	setFilters(filters) {
+		const filterObject = {
 			type: {
 				label: 'Type',
 				mode: 'select',
 				options: [{
-					label: 'Event',
 					value: 'event',
+					label: 'Event',
 				}, {
-					label: 'Picture',
 					value: 'picture',
+					label: 'Picture',
 				}, {
-					label: 'Product',
 					value: 'product',
+					label: 'Product',
 				}, {
-					label: 'Magazine',
 					value: 'magazine',
+					label: 'Magazine',
 				}]
 			},
 		};
-		const filterService = this.filterService = new FilterService(filters, {}, (key, filter) => {
+		filters.forEach(filter => {
+			filter.mode = 'or';
+			filterObject[filter.key] = filter;
+		});
+		const filterService = this.filterService = new FilterService(filterObject, {}, (key, filter) => {
 			switch (key) {
 				case 'type':
 					filter.filter = (item, value) => {
@@ -53,24 +85,9 @@ export default class ChannelPageComponent extends PageComponent {
 			}
 		});
 		this.filters = filterService.filters;
-		this.load$().pipe(
-			first(),
-		).subscribe(data => {
-			this.channels = data[0];
-			this.channel = data[1];
-			this.listing = data[2];
-			this.startFilter(this.listing);
-			this.pushChanges();
+		this.secondaryFilters = Object.keys(this.filters).filter(key => key !== 'type').map(key => {
+			return this.filters[key];
 		});
-	}
-
-	load$() {
-		const channelId = LocationService.get('channelId');
-		return combineLatest(
-			ChannelService.channels$,
-			ChannelService.detail$(channelId),
-			ChannelService.listing$(channelId),
-		);
 	}
 
 	startFilter(items) {
@@ -89,6 +106,11 @@ export default class ChannelPageComponent extends PageComponent {
 
 	toggleGrid() {
 		this.grid.width = this.grid.width === 350 ? 525 : 350;
+		this.pushChanges();
+	}
+
+	toggleFilters() {
+		this.secondaryFiltersVisible = !this.secondaryFiltersVisible;
 		this.pushChanges();
 	}
 

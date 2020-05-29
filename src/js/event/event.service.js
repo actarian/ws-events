@@ -4,6 +4,7 @@ import ApiService from '../api/api.service';
 import FavouriteService from '../favourite/favourite.service';
 import QuestionService from '../question/question.service';
 import UserService from '../user/user.service';
+import { FAKE_FILTERS } from './fake-filters';
 
 export class Event {
 
@@ -75,6 +76,11 @@ export default class EventService {
 		);
 	}
 
+	static filter$(eventId) {
+		const id = 1001; // !!!
+		return ApiService.staticGet$(`/event/${id}/filter`);
+	}
+
 	static top$() {
 		return ApiService.staticGet$(`/event/evidence`).pipe(
 			map(items => EventService.mapEvents(items))
@@ -126,6 +132,7 @@ export default class EventService {
 	}
 
 	static fake(item) {
+		// !!! todo, wrap static api response { static: true, data: ... }
 		// console.log('EventService.fake', item);
 		const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
 		const index = item.id % 1000;
@@ -197,6 +204,12 @@ export default class EventService {
 			const favourite = favourites.find(x => x.id === item.id);
 			item.info.saved = favourite !== undefined;
 		}
+		item.features = [];
+		const filters = FAKE_FILTERS;
+		filters.forEach(filter => {
+			const index = Math.floor(Math.random() * filter.options.length);
+			item.features.push(filter.options[index].value);
+		});
 		if (item.related) {
 			item.related = item.related.filter(x => (x.id !== item.id) && (x.live || x.incoming || x.past));
 		}
@@ -327,6 +340,13 @@ export default class EventService {
 						case 'event':
 							item = EventService.fake(new Event(item));
 							break;
+						default:
+							item.features = [];
+							const filters = FAKE_FILTERS;
+							filters.forEach(filter => {
+								const index = Math.floor(Math.random() * filter.options.length);
+								item.features.push(filter.options[index].value);
+							});
 					}
 					return item;
 				});

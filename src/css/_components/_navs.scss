@@ -41,12 +41,12 @@
 		}
 	}
 
-	@include media-up(md) {
+	@include media-up(sm) {
 		display: flex;
 		justify-content: flex-start;
 	}
 
-	@include media-down(sm) {
+	@include media-down(xs) {
 		display: block;
 		// margin-bottom: 100px;
 	}

@@ -5,70 +5,35 @@ import FavouriteService from '../favourite/favourite.service';
 import FilterService from '../filter/filter.service';
 import LocationService from '../location/location.service';
 import PageComponent from '../page/page.component';
-import { User } from '../user/user.service';
+import UserService from '../user/user.service';
 import EventService from './event.service';
 
 export default class EventPageComponent extends PageComponent {
 
 	onInit() {
-		this.user = new User({
-			firstName: 'Sergio',
-			lastName: 'Arcuri'
-		});
-		console.log(this.user);
-		this.event = this.listing = this.error = null;
 		this.grid = {
 			mode: 1,
 			width: 350,
 			gutter: 2,
 		};
+		this.user = null;
+		this.event = null;
+		this.listing = null;
+		this.filters = null;
+		this.secondaryFiltersVisible = false;
+		this.secondaryFilters = null;
 		this.filteredItems = [];
-		const filters = {
-			type: {
-				label: 'Type',
-				mode: 'select',
-				options: [{
-					label: 'Event',
-					value: 'event',
-				}, {
-					label: 'Picture',
-					value: 'picture',
-				}, {
-					label: 'Product',
-					value: 'product',
-				}, {
-					label: 'Magazine',
-					value: 'magazine',
-				}]
-			},
-		};
-		const filterService = this.filterService = new FilterService(filters, {}, (key, filter) => {
-			switch (key) {
-				case 'type':
-					filter.filter = (item, value) => {
-						return item.type === value;
-					};
-					break;
-				case 'tag':
-					filter.filter = (item, value) => {
-						return item.tags.indexOf(value) !== -1;
-					};
-					break;
-				default:
-					filter.filter = (item, value) => {
-						return item.features.indexOf(value) !== -1;
-					};
-			}
-		});
-		this.filters = filterService.filters;
 		this.load$().pipe(
 			first(),
 		).subscribe(data => {
 			this.event = data[0];
 			this.listing = data[1];
+			this.setFilters(data[2]);
 			this.startFilter(this.listing);
+			this.user = data[3];
 			this.pushChanges();
 		});
+		this.error = null;
 		this.inputActive = false;
 		const form = this.form = new FormGroup({
 			question: new FormControl(null, [Validators.RequiredValidator()]),
@@ -88,7 +53,58 @@ export default class EventPageComponent extends PageComponent {
 		return combineLatest(
 			EventService.detail$(eventId),
 			EventService.listing$(eventId),
+			EventService.filter$(eventId),
+			UserService.me$(),
 		);
+	}
+
+	setFilters(filters) {
+		const filterObject = {
+			type: {
+				label: 'Type',
+				mode: 'select',
+				options: [{
+					label: 'Event',
+					value: 'event',
+				}, {
+					label: 'Picture',
+					value: 'picture',
+				}, {
+					label: 'Product',
+					value: 'product',
+				}, {
+					label: 'Magazine',
+					value: 'magazine',
+				}]
+			},
+		};
+		filters.forEach(filter => {
+			filter.mode = 'or';
+			filterObject[filter.key] = filter;
+		});
+		const filterService = this.filterService = new FilterService(filterObject, {}, (key, filter) => {
+			switch (key) {
+				case 'type':
+					filter.filter = (item, value) => {
+						return item.type === value;
+					};
+					break;
+				case 'tag':
+					filter.filter = (item, value) => {
+						return item.tags.indexOf(value) !== -1;
+					};
+					break;
+				default:
+					filter.filter = (item, value) => {
+						return item.features.indexOf(value) !== -1;
+					};
+			}
+		});
+		this.filters = filterService.filters;
+		this.secondaryFilters = Object.keys(this.filters).filter(key => key !== 'type').map(key => {
+			return this.filters[key];
+		});
+		console.log(this.filters);
 	}
 
 	startFilter(items) {
@@ -111,6 +127,11 @@ export default class EventPageComponent extends PageComponent {
 
 	toggleGrid() {
 		this.grid.width = this.grid.width === 350 ? 525 : 350;
+		this.pushChanges();
+	}
+
+	toggleFilters() {
+		this.secondaryFiltersVisible = !this.secondaryFiltersVisible;
 		this.pushChanges();
 	}
 

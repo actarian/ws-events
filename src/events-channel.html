@@ -65,7 +65,7 @@
 		</div>
 	</div>
 
-	<div class="wse__section--filters" *if="listing?.length">
+	<div class="wse__section--filters" *if="filters && listing?.length">
 		<div class="wse__container-fluid">
 			<div class="wse__group--filters">
 				<ul class="wse__nav--filters">
@@ -85,9 +85,24 @@
 						<svg class="wse__grid" *if="grid.width === 350"><use xlink:href="#grid"></use></svg>
 						<svg class="wse__grid" *if="grid.width === 525"><use xlink:href="#grid-active"></use></svg>
 					</div>
-					<div class="wse__btn--filter">
+					<div class="wse__btn--filter" (click)="toggleFilters()">
 						<svg class="wse__filter"><use xlink:href="#filter"></use></svg>
 					</div>
+				</div>
+			</div>
+		</div>
+		<div class="wse__container-fluid" *if="secondaryFiltersVisible">
+			<div class="wse__secondary-filters">
+				<div class="wse__secondary-filter" *for="let filter of secondaryFilters">
+					<div class="wse__secondary-filter__name" [innerHTML]="filter.label"></div>
+					<ul class="wse__nav--secondary-filters">
+						<li class="wse__nav--secondary-filters__item wse__filter" *for="let option of filter.options">
+							<span class="wse__filter__option" [class]="{ active: filter.has(option), disabled: option.disabled }" (click)="filter.toggle(option)" *if="option.initialCount">
+								<span class="wse__name" [innerHTML]="option.label"></span>
+								<span class="wse__count" [innerHTML]="option.count || ''"></span>
+							</span>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>

@@ -726,6 +726,277 @@
     return QuestionService;
   }();
 
+  var FAKE_FILTERS = [{
+    "key": "collection",
+    "label": "Collection",
+    "options": [{
+      "value": 10000001,
+      "label": "Lims"
+    }, {
+      "value": 10000002,
+      "label": "Boost Pro"
+    }, {
+      "value": 10000003,
+      "label": "Canone Inverso"
+    }, {
+      "value": 10000004,
+      "label": "3D wall design"
+    }, {
+      "value": 10000005,
+      "label": "Brick Atelier"
+    }, {
+      "value": 10000006,
+      "label": "Blaze"
+    }, {
+      "value": 10000007,
+      "label": "Echo"
+    }, {
+      "value": 10000008,
+      "label": "GreenColors"
+    }, {
+      "value": 10000009,
+      "label": "Granigliati"
+    }, {
+      "value": 10000010,
+      "label": "Ground Track"
+    }, {
+      "value": 10000011,
+      "label": "Boost"
+    }, {
+      "value": 10000012,
+      "label": "Raw"
+    }, {
+      "value": 10000013,
+      "label": "Dolmen Pro"
+    }, {
+      "value": 10000014,
+      "label": "Dwell"
+    }, {
+      "value": 10000015,
+      "label": "Kone"
+    }, {
+      "value": 10000016,
+      "label": "Arkshade"
+    }, {
+      "value": 10000017,
+      "label": "Mek"
+    }, {
+      "value": 10000018,
+      "label": "Mark"
+    }, {
+      "value": 10000019,
+      "label": "Evolve"
+    }, {
+      "value": 10000020,
+      "label": "EWall"
+    }, {
+      "value": 10000021,
+      "label": "Arty"
+    }, {
+      "value": 10000022,
+      "label": "Aix"
+    }, {
+      "value": 10000023,
+      "label": "Brave"
+    }, {
+      "value": 10000024,
+      "label": "Exence"
+    }, {
+      "value": 10000025,
+      "label": "Heartwood"
+    }, {
+      "value": 10000026,
+      "label": "Nid"
+    }, {
+      "value": 10000027,
+      "label": "Arbor"
+    }, {
+      "value": 10000028,
+      "label": "Klif"
+    }, {
+      "value": 10000029,
+      "label": "Axi"
+    }, {
+      "value": 10000030,
+      "label": "Nash"
+    }, {
+      "value": 10000031,
+      "label": "Etic"
+    }, {
+      "value": 10000032,
+      "label": "Etic Pro"
+    }, {
+      "value": 10000033,
+      "label": "Trust"
+    }, {
+      "value": 10000034,
+      "label": "Marvel"
+    }, {
+      "value": 10000035,
+      "label": "Marvel Pro"
+    }, {
+      "value": 10000036,
+      "label": "Marvel Stone"
+    }, {
+      "value": 10000037,
+      "label": "Marvel Dream"
+    }, {
+      "value": 10000038,
+      "label": "Marvel Edge"
+    }, {
+      "value": 10000039,
+      "label": "Marvel Gems"
+    }, {
+      "value": 10000040,
+      "label": "Room"
+    }, {
+      "value": 10000041,
+      "label": "Seastone"
+    }, {
+      "value": 10000042,
+      "label": "Sunrock"
+    }]
+  }, {
+    "key": "placement",
+    "label": "Placement",
+    "options": [{
+      "value": 10000043,
+      "label": "Indoor"
+    }, {
+      "value": 10000044,
+      "label": "Outdoor"
+    }]
+  }, {
+    "key": "material",
+    "label": "Material",
+    "options": [{
+      "value": 10000045,
+      "label": "Marble"
+    }, {
+      "value": 10000046,
+      "label": "Stone"
+    }, {
+      "value": 10000047,
+      "label": "Cement"
+    }, {
+      "value": 10000048,
+      "label": "Wood"
+    }, {
+      "value": 10000049,
+      "label": "Metal"
+    }, {
+      "value": 10000050,
+      "label": "Fabric"
+    }]
+  }, {
+    "key": "finish",
+    "label": "Finish",
+    "options": [{
+      "value": 10000051,
+      "label": "Lucid"
+    }, {
+      "value": 10000052,
+      "label": "Matt"
+    }]
+  }, {
+    "key": "color",
+    "label": "Color",
+    "options": [{
+      "value": 10000053,
+      "label": "White"
+    }, {
+      "value": 10000054,
+      "label": "Black"
+    }, {
+      "value": 10000055,
+      "label": "Gray"
+    }, {
+      "value": 10000056,
+      "label": "Ivory"
+    }, {
+      "value": 10000057,
+      "label": "Cream"
+    }, {
+      "value": 10000058,
+      "label": "Beige"
+    }, {
+      "value": 10000059,
+      "label": "Brown"
+    }, {
+      "value": 10000060,
+      "label": "Gold"
+    }, {
+      "value": 10000061,
+      "label": "Cream"
+    }, {
+      "value": 10000062,
+      "label": "Yellow"
+    }, {
+      "value": 10000063,
+      "label": "Pink"
+    }, {
+      "value": 10000064,
+      "label": "Orange"
+    }, {
+      "value": 10000065,
+      "label": "Red"
+    }, {
+      "value": 10000066,
+      "label": "Blue"
+    }, {
+      "value": 10000067,
+      "label": "Green"
+    }, {
+      "value": 10000068,
+      "label": "Purple"
+    }]
+  }, {
+    "key": "size",
+    "label": "Size",
+    "options": [{
+      "value": 10000069,
+      "label": "Small"
+    }, {
+      "value": 10000070,
+      "label": "Medium"
+    }, {
+      "value": 10000071,
+      "label": "Large"
+    }, {
+      "value": 10000072,
+      "label": "Extra Large"
+    }]
+  }, {
+    "key": "class",
+    "label": "Class",
+    "options": [{
+      "value": 10000073,
+      "label": "Class A"
+    }, {
+      "value": 10000074,
+      "label": "Class B"
+    }, {
+      "value": 10000075,
+      "label": "Class C"
+    }, {
+      "value": 10000076,
+      "label": "Class D"
+    }]
+  }, {
+    "key": "category",
+    "label": "Category",
+    "options": [{
+      "value": 10000077,
+      "label": "Professional"
+    }, {
+      "value": 10000078,
+      "label": "Heritage"
+    }, {
+      "value": 10000079,
+      "label": "Premium"
+    }]
+  }];
+
   var Event = /*#__PURE__*/function () {
     _createClass(Event, [{
       key: "live",
@@ -810,6 +1081,12 @@
       }));
     };
 
+    EventService.filter$ = function filter$(eventId) {
+      var id = 1001; // !!!
+
+      return ApiService.staticGet$("/event/" + id + "/filter");
+    };
+
     EventService.top$ = function top$() {
       return ApiService.staticGet$("/event/evidence").pipe(operators.map(function (items) {
         return EventService.mapEvents(items);
@@ -863,6 +1140,7 @@
     };
 
     EventService.fake = function fake(item) {
+      // !!! todo, wrap static api response { static: true, data: ... }
       // console.log('EventService.fake', item);
       var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
       var index = item.id % 1000;
@@ -948,6 +1226,13 @@
         });
         item.info.saved = favourite !== undefined;
       }
+
+      item.features = [];
+      var filters = FAKE_FILTERS;
+      filters.forEach(function (filter) {
+        var index = Math.floor(Math.random() * filter.options.length);
+        item.features.push(filter.options[index].value);
+      });
 
       if (item.related) {
         item.related = item.related.filter(function (x) {
@@ -1095,6 +1380,14 @@
             case 'event':
               item = EventService.fake(new Event(item));
               break;
+
+            default:
+              item.features = [];
+              var filters = FAKE_FILTERS;
+              filters.forEach(function (filter) {
+                var index = Math.floor(Math.random() * filter.options.length);
+                item.features.push(filter.options[index].value);
+              });
           }
 
           return item;
@@ -1180,6 +1473,10 @@
       // return ApiService.staticGet$(`/channel/${channelId}/listing`);
       return ChannelService.fakeListing(channelId).pipe(operators.tap(function (items) {// console.log(JSON.stringify(items));
       }));
+    };
+
+    ChannelService.filter$ = function filter$(channelId) {
+      return ApiService.staticGet$("/channel/" + channelId + "/filter");
     };
 
     ChannelService.top$ = function top$() {
@@ -1742,6 +2039,7 @@
       var changes = Object.keys(filters).map(function (key) {
         return filters[key].change$;
       });
+      this.updateFilterStates(filters, items, true);
       return rxjs.merge.apply(void 0, changes).pipe(operators.auditTime(1), // tap(() => console.log(filters)),
       operators.tap(function () {
         return _this.serialize(filters);
@@ -1772,14 +2070,12 @@
       return items;
     };
 
-    _proto.updateFilterStates = function updateFilterStates(filters, items) {
+    _proto.updateFilterStates = function updateFilterStates(filters, items, initialCount) {
       var _this3 = this;
 
       Object.keys(filters).forEach(function (x) {
         var filter = filters[x];
-
-        var filteredItems = _this3.filterItems(items, filter);
-
+        var filteredItems = initialCount ? items : _this3.filterItems(items, filter);
         filter.options.forEach(function (option) {
           var count = 0;
 
@@ -1799,9 +2095,15 @@
             count = filteredItems.length;
           }
 
-          option.count = count;
+          initialCount ? option.initialCount = count : option.count = count;
           option.disabled = count === 0;
         });
+
+        if (initialCount) {
+          filter.options.sort(function (a, b) {
+            return b.initialCount - a.initialCount;
+          });
+        }
       });
     };
 
@@ -1820,33 +2122,63 @@
     _proto.onInit = function onInit() {
       var _this = this;
 
-      this.channels = this.channel = this.listing = null;
       this.grid = {
         mode: 1,
         width: 350,
         gutter: 2
       };
+      this.channels = null;
+      this.channel = null;
+      this.listing = null;
+      this.filters = null;
+      this.secondaryFiltersVisible = false;
+      this.secondaryFilters = null;
       this.filteredItems = [];
-      var filters = {
+      this.load$().pipe(operators.first()).subscribe(function (data) {
+        _this.channels = data[0];
+        _this.channel = data[1];
+        _this.listing = data[2];
+
+        _this.setFilters(data[3]);
+
+        _this.startFilter(_this.listing);
+
+        _this.pushChanges();
+      });
+    };
+
+    _proto.load$ = function load$() {
+      var channelId = LocationService.get('channelId');
+      return rxjs.combineLatest(ChannelService.channels$, ChannelService.detail$(channelId), ChannelService.listing$(channelId), ChannelService.filter$(channelId));
+    };
+
+    _proto.setFilters = function setFilters(filters) {
+      var _this2 = this;
+
+      var filterObject = {
         type: {
           label: 'Type',
           mode: 'select',
           options: [{
-            label: 'Event',
-            value: 'event'
+            value: 'event',
+            label: 'Event'
           }, {
-            label: 'Picture',
-            value: 'picture'
+            value: 'picture',
+            label: 'Picture'
           }, {
-            label: 'Product',
-            value: 'product'
+            value: 'product',
+            label: 'Product'
           }, {
-            label: 'Magazine',
-            value: 'magazine'
+            value: 'magazine',
+            label: 'Magazine'
           }]
         }
       };
-      var filterService = this.filterService = new FilterService(filters, {}, function (key, filter) {
+      filters.forEach(function (filter) {
+        filter.mode = 'or';
+        filterObject[filter.key] = filter;
+      });
+      var filterService = this.filterService = new FilterService(filterObject, {}, function (key, filter) {
         switch (key) {
           case 'type':
             filter.filter = function (item, value) {
@@ -1870,34 +2202,25 @@
         }
       });
       this.filters = filterService.filters;
-      this.load$().pipe(operators.first()).subscribe(function (data) {
-        _this.channels = data[0];
-        _this.channel = data[1];
-        _this.listing = data[2];
-
-        _this.startFilter(_this.listing);
-
-        _this.pushChanges();
+      this.secondaryFilters = Object.keys(this.filters).filter(function (key) {
+        return key !== 'type';
+      }).map(function (key) {
+        return _this2.filters[key];
       });
     };
 
-    _proto.load$ = function load$() {
-      var channelId = LocationService.get('channelId');
-      return rxjs.combineLatest(ChannelService.channels$, ChannelService.detail$(channelId), ChannelService.listing$(channelId));
-    };
-
     _proto.startFilter = function startFilter(items) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.filterService.items$(items).pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (filteredItems) {
-        _this2.filteredItems = [];
+        _this3.filteredItems = [];
 
-        _this2.pushChanges();
+        _this3.pushChanges();
 
         setTimeout(function () {
-          _this2.filteredItems = filteredItems;
+          _this3.filteredItems = filteredItems;
 
-          _this2.pushChanges();
+          _this3.pushChanges();
         }, 1);
         console.log('ChannelPageComponent.filteredItems', filteredItems.length);
       });
@@ -1905,6 +2228,11 @@
 
     _proto.toggleGrid = function toggleGrid() {
       this.grid.width = this.grid.width === 350 ? 525 : 350;
+      this.pushChanges();
+    };
+
+    _proto.toggleFilters = function toggleFilters() {
+      this.secondaryFiltersVisible = !this.secondaryFiltersVisible;
       this.pushChanges();
     };
 
@@ -3537,19 +3865,53 @@
     _proto.onInit = function onInit() {
       var _this = this;
 
-      this.user = new User({
-        firstName: 'Sergio',
-        lastName: 'Arcuri'
-      });
-      console.log(this.user);
-      this.event = this.listing = this.error = null;
       this.grid = {
         mode: 1,
         width: 350,
         gutter: 2
       };
+      this.user = null;
+      this.event = null;
+      this.listing = null;
+      this.filters = null;
+      this.secondaryFiltersVisible = false;
+      this.secondaryFilters = null;
       this.filteredItems = [];
-      var filters = {
+      this.load$().pipe(operators.first()).subscribe(function (data) {
+        _this.event = data[0];
+        _this.listing = data[1];
+
+        _this.setFilters(data[2]);
+
+        _this.startFilter(_this.listing);
+
+        _this.user = data[3];
+
+        _this.pushChanges();
+      });
+      this.error = null;
+      this.inputActive = false;
+      var form = this.form = new rxcompForm.FormGroup({
+        question: new rxcompForm.FormControl(null, [rxcompForm.Validators.RequiredValidator()]),
+        checkRequest: window.antiforgery,
+        checkField: ''
+      });
+      form.changes$.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (changes) {
+        _this.inputActive = changes.question && changes.question.length > 0;
+
+        _this.pushChanges();
+      });
+    };
+
+    _proto.load$ = function load$() {
+      var eventId = LocationService.get('eventId');
+      return rxjs.combineLatest(EventService.detail$(eventId), EventService.listing$(eventId), EventService.filter$(eventId), UserService.me$());
+    };
+
+    _proto.setFilters = function setFilters(filters) {
+      var _this2 = this;
+
+      var filterObject = {
         type: {
           label: 'Type',
           mode: 'select',
@@ -3568,7 +3930,11 @@
           }]
         }
       };
-      var filterService = this.filterService = new FilterService(filters, {}, function (key, filter) {
+      filters.forEach(function (filter) {
+        filter.mode = 'or';
+        filterObject[filter.key] = filter;
+      });
+      var filterService = this.filterService = new FilterService(filterObject, {}, function (key, filter) {
         switch (key) {
           case 'type':
             filter.filter = function (item, value) {
@@ -3592,44 +3958,26 @@
         }
       });
       this.filters = filterService.filters;
-      this.load$().pipe(operators.first()).subscribe(function (data) {
-        _this.event = data[0];
-        _this.listing = data[1];
-
-        _this.startFilter(_this.listing);
-
-        _this.pushChanges();
+      this.secondaryFilters = Object.keys(this.filters).filter(function (key) {
+        return key !== 'type';
+      }).map(function (key) {
+        return _this2.filters[key];
       });
-      this.inputActive = false;
-      var form = this.form = new rxcompForm.FormGroup({
-        question: new rxcompForm.FormControl(null, [rxcompForm.Validators.RequiredValidator()]),
-        checkRequest: window.antiforgery,
-        checkField: ''
-      });
-      form.changes$.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (changes) {
-        _this.inputActive = changes.question && changes.question.length > 0;
-
-        _this.pushChanges();
-      });
-    };
-
-    _proto.load$ = function load$() {
-      var eventId = LocationService.get('eventId');
-      return rxjs.combineLatest(EventService.detail$(eventId), EventService.listing$(eventId));
+      console.log(this.filters);
     };
 
     _proto.startFilter = function startFilter(items) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.filterService.items$(items).pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (filteredItems) {
-        _this2.filteredItems = [];
+        _this3.filteredItems = [];
 
-        _this2.pushChanges();
+        _this3.pushChanges();
 
         setTimeout(function () {
-          _this2.filteredItems = filteredItems;
+          _this3.filteredItems = filteredItems;
 
-          _this2.pushChanges();
+          _this3.pushChanges();
         }, 1);
         console.log('EventPageComponent.filteredItems', filteredItems.length);
       });
@@ -3644,51 +3992,56 @@
       this.pushChanges();
     };
 
+    _proto.toggleFilters = function toggleFilters() {
+      this.secondaryFiltersVisible = !this.secondaryFiltersVisible;
+      this.pushChanges();
+    };
+
     _proto.toggleSubscribe = function toggleSubscribe() {
-      var _this3 = this;
+      var _this4 = this;
 
       var flag = this.event.info.subscribed;
       FavouriteService[flag ? 'subscriptionRemove$' : 'subscriptionAdd$'](this.event.id).pipe(operators.first()).subscribe(function () {
         flag = !flag;
-        _this3.event.info.subscribed = flag;
+        _this4.event.info.subscribed = flag;
 
         if (flag) {
-          _this3.event.info.subscribers++;
+          _this4.event.info.subscribers++;
         } else {
-          _this3.event.info.subscribers--;
-        }
-
-        _this3.pushChanges();
-      });
-    };
-
-    _proto.toggleLike = function toggleLike() {
-      var _this4 = this;
-
-      var flag = this.event.info.liked;
-      FavouriteService[flag ? 'likeRemove$' : 'likeAdd$'](this.event.id).pipe(operators.first()).subscribe(function () {
-        flag = !flag;
-        _this4.event.info.liked = flag;
-
-        if (flag) {
-          _this4.event.info.likes++;
-        } else {
-          _this4.event.info.likes--;
+          _this4.event.info.subscribers--;
         }
 
         _this4.pushChanges();
       });
     };
 
-    _proto.toggleSave = function toggleSave() {
+    _proto.toggleLike = function toggleLike() {
       var _this5 = this;
+
+      var flag = this.event.info.liked;
+      FavouriteService[flag ? 'likeRemove$' : 'likeAdd$'](this.event.id).pipe(operators.first()).subscribe(function () {
+        flag = !flag;
+        _this5.event.info.liked = flag;
+
+        if (flag) {
+          _this5.event.info.likes++;
+        } else {
+          _this5.event.info.likes--;
+        }
+
+        _this5.pushChanges();
+      });
+    };
+
+    _proto.toggleSave = function toggleSave() {
+      var _this6 = this;
 
       var flag = this.event.info.saved;
       FavouriteService[flag ? 'favouriteRemove$' : 'favouriteAdd$'](this.event.id).pipe(operators.first()).subscribe(function () {
         flag = !flag;
-        _this5.event.info.saved = flag;
+        _this6.event.info.saved = flag;
 
-        _this5.pushChanges();
+        _this6.pushChanges();
       });
     };
 
@@ -3703,20 +4056,20 @@
     };
 
     _proto.postQuestion = function postQuestion(event) {
-      var _this6 = this;
+      var _this7 = this;
 
       if (this.form.valid) {
         // console.log('EventPageComponent.postQuestion.onSubmit', this.form.value);
         this.form.submitted = true;
         EventService.postQuestion$(this.event, this.form.value.question).pipe(operators.first()).subscribe(function (question) {
-          _this6.event.questions.unshift(question);
+          _this7.event.questions.unshift(question);
 
-          _this6.form.controls.question.value = null; // this.pushChanges();
+          _this7.form.controls.question.value = null; // this.pushChanges();
         }, function (error) {
           console.log('EventPageComponent.postQuestion.error', error);
-          _this6.error = error;
+          _this7.error = error;
 
-          _this6.pushChanges();
+          _this7.pushChanges();
         });
       } else {
         this.form.touched = true;
@@ -4297,9 +4650,8 @@
       var _getContext2 = rxcomp.getContext(this),
           node = _getContext2.node;
 
-      return IntersectionService.intersection$(node).pipe(operators.first(), operators.tap(function (entry) {
-        return console.log(entry);
-      }), operators.switchMap(function () {
+      return IntersectionService.intersection$(node).pipe(operators.first(), // tap(entry => console.log(entry)),
+      operators.switchMap(function () {
         return ImageService.load$(input);
       }), operators.takeUntil(this.unsubscribe$));
     };
@@ -4500,7 +4852,6 @@
       this.notifications = [];
       NotificationService.notifications$.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (notifications) {
         _this.notifications = notifications;
-        console.log(notifications);
 
         _this.pushChanges();
       });

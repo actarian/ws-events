@@ -225,7 +225,7 @@ strong {
 
 */
 .wse__btn--circle, .wse__btn--mode,
-.wse__btn--filter, .wse__btn--rounded, .wse__aside .wse__nav--menu > li > a, .wse__section--channel__menu .wse__nav--menu > li > a, .wse__section--filters .wse__nav--filters > li > .wse__filter__option {
+.wse__btn--filter, .wse__btn--rounded, .wse__aside .wse__nav--menu > li > a, .wse__section--channel__menu .wse__nav--menu > li > a, .wse__section--filters .wse__nav--filters > li > .wse__filter__option, .wse__section--filters .wse__nav--secondary-filters > li > .wse__filter__option {
   display: inline-block;
   padding: 0;
   border: none;
@@ -238,17 +238,17 @@ strong {
   cursor: pointer;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
   .wse__btn--circle, .wse__btn--mode,
-  .wse__btn--filter, .wse__btn--rounded, .wse__aside .wse__nav--menu > li > a, .wse__section--channel__menu .wse__nav--menu > li > a, .wse__section--filters .wse__nav--filters > li > .wse__filter__option, .wse__btn--circle:active, .wse__btn--mode:active,
-  .wse__btn--filter:active, .wse__btn--rounded:active, .wse__aside .wse__nav--menu > li > a:active, .wse__section--channel__menu .wse__nav--menu > li > a:active, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:active, .wse__btn--circle:focus, .wse__btn--mode:focus,
-  .wse__btn--filter:focus, .wse__btn--rounded:focus, .wse__aside .wse__nav--menu > li > a:focus, .wse__section--channel__menu .wse__nav--menu > li > a:focus, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:focus, .wse__btn--circle:hover, .wse__btn--mode:hover,
-  .wse__btn--filter:hover, .wse__btn--rounded:hover, .wse__aside .wse__nav--menu > li > a:hover, .wse__section--channel__menu .wse__nav--menu > li > a:hover, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:hover, .wse__btn--circle:visited, .wse__btn--mode:visited,
-  .wse__btn--filter:visited, .wse__btn--rounded:visited, .wse__aside .wse__nav--menu > li > a:visited, .wse__section--channel__menu .wse__nav--menu > li > a:visited, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:visited {
+  .wse__btn--filter, .wse__btn--rounded, .wse__aside .wse__nav--menu > li > a, .wse__section--channel__menu .wse__nav--menu > li > a, .wse__section--filters .wse__nav--filters > li > .wse__filter__option, .wse__section--filters .wse__nav--secondary-filters > li > .wse__filter__option, .wse__btn--circle:active, .wse__btn--mode:active,
+  .wse__btn--filter:active, .wse__btn--rounded:active, .wse__aside .wse__nav--menu > li > a:active, .wse__section--channel__menu .wse__nav--menu > li > a:active, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:active, .wse__section--filters .wse__nav--secondary-filters > li > .wse__filter__option:active, .wse__btn--circle:focus, .wse__btn--mode:focus,
+  .wse__btn--filter:focus, .wse__btn--rounded:focus, .wse__aside .wse__nav--menu > li > a:focus, .wse__section--channel__menu .wse__nav--menu > li > a:focus, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:focus, .wse__section--filters .wse__nav--secondary-filters > li > .wse__filter__option:focus, .wse__btn--circle:hover, .wse__btn--mode:hover,
+  .wse__btn--filter:hover, .wse__btn--rounded:hover, .wse__aside .wse__nav--menu > li > a:hover, .wse__section--channel__menu .wse__nav--menu > li > a:hover, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:hover, .wse__section--filters .wse__nav--secondary-filters > li > .wse__filter__option:hover, .wse__btn--circle:visited, .wse__btn--mode:visited,
+  .wse__btn--filter:visited, .wse__btn--rounded:visited, .wse__aside .wse__nav--menu > li > a:visited, .wse__section--channel__menu .wse__nav--menu > li > a:visited, .wse__section--filters .wse__nav--filters > li > .wse__filter__option:visited, .wse__section--filters .wse__nav--secondary-filters > li > .wse__filter__option:visited {
     color: inherit;
     text-decoration: none;
     outline: none; }
 
 .wse__btn--circle[disabled], .wse__btn--mode[disabled],
-.wse__btn--filter[disabled], .wse__btn--rounded[disabled], .wse__aside .wse__nav--menu > li > a[disabled], .wse__section--channel__menu .wse__nav--menu > li > a[disabled], .wse__section--filters .wse__nav--filters > li > .wse__filter__option[disabled] {
+.wse__btn--filter[disabled], .wse__btn--rounded[disabled], .wse__aside .wse__nav--menu > li > a[disabled], .wse__section--channel__menu .wse__nav--menu > li > a[disabled], .wse__section--filters .wse__nav--filters > li > .wse__filter__option[disabled], .wse__section--filters .wse__nav--secondary-filters > li > .wse__filter__option[disabled] {
   opacity: 0.5;
   pointer-events: none; }
 
@@ -3083,11 +3083,12 @@ errors-component {
   .wse__card--hero__picture > img.lazyed, .wse__card--event__picture > img.lazyed, .wse__card--upcoming__picture > img.lazyed, .wse__card--top__picture > img.lazyed, .wse__card--listing__picture > img.lazyed, .wse__card--picture__picture > img.lazyed, .wse__card--product__picture > img.lazyed, .wse__card--magazine__picture > img.lazyed, .wse__card--preview__picture > img.lazyed, .wse__card--notification__picture--inner > img.lazyed, .wse__event-incoming > img.lazyed {
     opacity: 1; }
 
-.wse__aside .wse__nav--menu > li > a, .wse__section--channel__menu .wse__nav--menu > li > a, .wse__section--filters .wse__nav--filters > li > a,
+.wse__aside .wse__nav--menu > li > a, .wse__section--channel__menu .wse__nav--menu > li > a, .wse__section--filters .wse__nav--filters > li > a, .wse__section--filters .wse__nav--secondary-filters > li > a,
 .wse__aside .wse__nav--menu > li > span,
 .wse__section--channel__menu .wse__nav--menu > li > span,
-.wse__section--filters .wse__nav--filters > li > span, .nav--dropdown > li > a,
-.nav--dropdown > li > span, .wse__aside .wse__nav--menu > li, .wse__section--channel__menu .wse__nav--menu > li, .wse__section--filters .wse__nav--filters > li {
+.wse__section--filters .wse__nav--filters > li > span,
+.wse__section--filters .wse__nav--secondary-filters > li > span, .nav--dropdown > li > a,
+.nav--dropdown > li > span, .wse__aside .wse__nav--menu > li, .wse__section--channel__menu .wse__nav--menu > li, .wse__section--filters .wse__nav--filters > li, .wse__section--filters .wse__nav--secondary-filters > li {
   position: relative;
   display: flex;
   justify-content: flex-start;
@@ -3096,33 +3097,34 @@ errors-component {
   z-index: 1;
   transition: ease-in-out 350ms;
   transition-property: background-color, color, border, opacity; }
-  .wse__aside .wse__nav--menu > li > a svg, .wse__section--channel__menu .wse__nav--menu > li > a svg, .wse__section--filters .wse__nav--filters > li > a svg, .wse__aside .wse__nav--menu > li > span svg, .wse__section--channel__menu .wse__nav--menu > li > span svg, .wse__section--filters .wse__nav--filters > li > span svg, .nav--dropdown > li > a svg, .nav--dropdown > li > span svg, .wse__aside .wse__nav--menu > li svg, .wse__section--channel__menu .wse__nav--menu > li svg, .wse__section--filters .wse__nav--filters > li svg {
+  .wse__aside .wse__nav--menu > li > a svg, .wse__section--channel__menu .wse__nav--menu > li > a svg, .wse__section--filters .wse__nav--filters > li > a svg, .wse__section--filters .wse__nav--secondary-filters > li > a svg, .wse__aside .wse__nav--menu > li > span svg, .wse__section--channel__menu .wse__nav--menu > li > span svg, .wse__section--filters .wse__nav--filters > li > span svg, .wse__section--filters .wse__nav--secondary-filters > li > span svg, .nav--dropdown > li > a svg, .nav--dropdown > li > span svg, .wse__aside .wse__nav--menu > li svg, .wse__section--channel__menu .wse__nav--menu > li svg, .wse__section--filters .wse__nav--filters > li svg, .wse__section--filters .wse__nav--secondary-filters > li svg {
     transition: ease-in-out 350ms;
     transition-property: fill, opacity; }
-  .wse__aside .wse__nav--menu > li > a:focus, .wse__section--channel__menu .wse__nav--menu > li > a:focus, .wse__section--filters .wse__nav--filters > li > a:focus,
+  .wse__aside .wse__nav--menu > li > a:focus, .wse__section--channel__menu .wse__nav--menu > li > a:focus, .wse__section--filters .wse__nav--filters > li > a:focus, .wse__section--filters .wse__nav--secondary-filters > li > a:focus,
   .wse__aside .wse__nav--menu > li > span:focus,
   .wse__section--channel__menu .wse__nav--menu > li > span:focus,
-  .wse__section--filters .wse__nav--filters > li > span:focus, .nav--dropdown > li > a:focus,
-  .nav--dropdown > li > span:focus, .wse__aside .wse__nav--menu > li:focus, .wse__section--channel__menu .wse__nav--menu > li:focus, .wse__section--filters .wse__nav--filters > li:focus {
+  .wse__section--filters .wse__nav--filters > li > span:focus,
+  .wse__section--filters .wse__nav--secondary-filters > li > span:focus, .nav--dropdown > li > a:focus,
+  .nav--dropdown > li > span:focus, .wse__aside .wse__nav--menu > li:focus, .wse__section--channel__menu .wse__nav--menu > li:focus, .wse__section--filters .wse__nav--filters > li:focus, .wse__section--filters .wse__nav--secondary-filters > li:focus {
     outline: 0; }
 
-.wse__aside .wse__nav--menu, .wse__section--channel__menu .wse__nav--menu, .wse__section--filters .wse__nav--filters, .nav--dropdown {
+.wse__aside .wse__nav--menu, .wse__section--channel__menu .wse__nav--menu, .wse__section--filters .wse__nav--filters, .wse__section--filters .wse__nav--secondary-filters, .nav--dropdown {
   list-style: none;
   padding: 0;
   margin: 0; }
 
-.wse__aside .wse__nav--menu, .wse__section--channel__menu .wse__nav--menu, .wse__section--filters .wse__nav--filters {
+.wse__aside .wse__nav--menu, .wse__section--channel__menu .wse__nav--menu, .wse__section--filters .wse__nav--filters, .wse__section--filters .wse__nav--secondary-filters {
   width: 100%; }
-  .wse__aside .wse__nav--menu > li, .wse__section--channel__menu .wse__nav--menu > li, .wse__section--filters .wse__nav--filters > li {
+  .wse__aside .wse__nav--menu > li, .wse__section--channel__menu .wse__nav--menu > li, .wse__section--filters .wse__nav--filters > li, .wse__section--filters .wse__nav--secondary-filters > li {
     position: relative;
     display: block;
     flex: 1 1 auto; }
-  @media (min-width: 1024px) {
-    .wse__aside .wse__nav--menu, .wse__section--channel__menu .wse__nav--menu, .wse__section--filters .wse__nav--filters {
+  @media (min-width: 768px) {
+    .wse__aside .wse__nav--menu, .wse__section--channel__menu .wse__nav--menu, .wse__section--filters .wse__nav--filters, .wse__section--filters .wse__nav--secondary-filters {
       display: flex;
       justify-content: flex-start; } }
-  @media (max-width: 1023.98px) {
-    .wse__aside .wse__nav--menu, .wse__section--channel__menu .wse__nav--menu, .wse__section--filters .wse__nav--filters {
+  @media (max-width: 767.98px) {
+    .wse__aside .wse__nav--menu, .wse__section--channel__menu .wse__nav--menu, .wse__section--filters .wse__nav--filters, .wse__section--filters .wse__nav--secondary-filters {
       display: block; } }
 
 .modal-outlet__container {
@@ -5274,6 +5276,88 @@ errors-component {
               right: -12px;
               bottom: -8px;
               font-size: 10px; } }
+  .wse__section--filters .wse__secondary-filters {
+    margin-left: -12.5px;
+    margin-right: -12.5px;
+    padding: 25px 0 0 0;
+    display: flex;
+    flex-wrap: wrap; }
+    @media (min-width: 768px) {
+      .wse__section--filters .wse__secondary-filters {
+        margin-left: -12.5px;
+        margin-right: -12.5px; } }
+    @media (min-width: 1024px) {
+      .wse__section--filters .wse__secondary-filters {
+        margin-left: -12.5px;
+        margin-right: -12.5px; } }
+    @media (min-width: 1440px) {
+      .wse__section--filters .wse__secondary-filters {
+        margin-left: -12.5px;
+        margin-right: -12.5px; } }
+    @media (min-width: 1920px) {
+      .wse__section--filters .wse__secondary-filters {
+        margin-left: -12.5px;
+        margin-right: -12.5px; } }
+  .wse__section--filters .wse__secondary-filter {
+    display: flex;
+    align-items: flex-start;
+    margin: 0 12.5px 25px 12.5px;
+    padding: 10px;
+    border: 1px solid #edf1fe; }
+    .wse__section--filters .wse__secondary-filter__name {
+      display: flex;
+      justify-content: flex-start;
+      flex: 0 0 30%;
+      max-width: 80px;
+      margin-right: 15px;
+      line-height: 1;
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: lowercase; }
+    @media (min-width: 1440px) {
+      .wse__section--filters .wse__secondary-filter {
+        flex: 0 1 calc(25% - 25px); } }
+    @media (min-width: 768px) and (max-width: 1439.98px) {
+      .wse__section--filters .wse__secondary-filter {
+        flex: 0 1 calc(33.3333% - 25px); } }
+    @media (max-width: 1023.98px) {
+      .wse__section--filters .wse__secondary-filter {
+        flex: 0 1 calc(50% - 25px); } }
+    @media (max-width: 767.98px) {
+      .wse__section--filters .wse__secondary-filter {
+        flex: 0 1 100%; } }
+  .wse__section--filters .wse__nav--secondary-filters {
+    align-items: flex-start;
+    flex-wrap: wrap; }
+    .wse__section--filters .wse__nav--secondary-filters > li {
+      flex: 0 1 auto; }
+      .wse__section--filters .wse__nav--secondary-filters > li > .wse__filter__option {
+        font-size: 11px;
+        line-height: 1.8;
+        font-weight: 500;
+        display: flex;
+        margin: 0 5px 2px 0;
+        padding: 0 5px;
+        color: #5a80fb;
+        cursor: pointer; }
+        .wse__section--filters .wse__nav--secondary-filters > li > .wse__filter__option .wse__count {
+          background: #edf1fe;
+          padding: 1px 4px;
+          border-radius: 3px;
+          line-height: 1;
+          font-size: 0.8em;
+          margin-left: 4px; }
+        .wse__section--filters .wse__nav--secondary-filters > li > .wse__filter__option.active {
+          background: #5a80fb;
+          color: #ffffff; }
+          .wse__section--filters .wse__nav--secondary-filters > li > .wse__filter__option.active .wse__count {
+            background: #5a80fb; }
+        .wse__section--filters .wse__nav--secondary-filters > li > .wse__filter__option.disabled {
+          color: #5a80fb;
+          opacity: 0.5;
+          pointer-events: none; }
+          .wse__section--filters .wse__nav--secondary-filters > li > .wse__filter__option.disabled .wse__count {
+            display: none; }
   @media (max-width: 1023.98px) {
     .wse__section--filters .wse__btn--mode,
     .wse__section--filters .wse__btn--filter {

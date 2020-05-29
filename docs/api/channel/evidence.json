@@ -40,6 +40,10 @@
           "liked": false,
           "saved": false
         },
+        "features": [
+          10000001,
+          10000002
+        ],
         "channel": {
           "id": 101,
           "type": "channel",
@@ -69,6 +73,10 @@
           "liked": false,
           "saved": false
         },
+        "features": [
+          10000001,
+          10000002
+        ],
         "channel": {
           "id": 101,
           "type": "channel",
@@ -98,6 +106,10 @@
           "liked": false,
           "saved": false
         },
+        "features": [
+          10000001,
+          10000002
+        ],
         "channel": {
           "id": 101,
           "type": "channel",
@@ -127,6 +139,10 @@
           "liked": false,
           "saved": false
         },
+        "features": [
+          10000001,
+          10000002
+        ],
         "channel": {
           "id": 101,
           "type": "channel",
@@ -156,6 +172,10 @@
           "liked": false,
           "saved": false
         },
+        "features": [
+          10000001,
+          10000002
+        ],
         "channel": {
           "id": 101,
           "type": "channel",
@@ -206,6 +226,10 @@
           "liked": false,
           "saved": false
         },
+        "features": [
+          10000001,
+          10000002
+        ],
         "channel": {
           "id": 102,
           "type": "channel",
@@ -235,6 +259,10 @@
           "liked": false,
           "saved": false
         },
+        "features": [
+          10000001,
+          10000002
+        ],
         "channel": {
           "id": 102,
           "type": "channel",
@@ -264,6 +292,10 @@
           "liked": false,
           "saved": false
         },
+        "features": [
+          10000001,
+          10000002
+        ],
         "channel": {
           "id": 102,
           "type": "channel",
@@ -293,6 +325,10 @@
           "liked": false,
           "saved": false
         },
+        "features": [
+          10000001,
+          10000002
+        ],
         "channel": {
           "id": 102,
           "type": "channel",
@@ -322,6 +358,10 @@
           "liked": false,
           "saved": false
         },
+        "features": [
+          10000001,
+          10000002
+        ],
         "channel": {
           "id": 102,
           "type": "channel",

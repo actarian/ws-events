@@ -70,6 +70,7 @@ export default class FilterService {
 	items$(items) {
 		const filters = this.filters;
 		const changes = Object.keys(filters).map(key => filters[key].change$);
+		this.updateFilterStates(filters, items, true);
 		return merge(...changes).pipe(
 			auditTime(1),
 			// tap(() => console.log(filters)),
@@ -93,10 +94,10 @@ export default class FilterService {
 		return items;
 	}
 
-	updateFilterStates(filters, items) {
+	updateFilterStates(filters, items, initialCount) {
 		Object.keys(filters).forEach(x => {
 			const filter = filters[x];
-			const filteredItems = this.filterItems(items, filter);
+			const filteredItems = initialCount ? items : this.filterItems(items, filter);
 			filter.options.forEach(option => {
 				let count = 0;
 				if (option.value) {
@@ -111,9 +112,12 @@ export default class FilterService {
 				} else {
 					count = filteredItems.length;
 				}
-				option.count = count;
+				initialCount ? option.initialCount = count : option.count = count;
 				option.disabled = count === 0;
 			});
+			if (initialCount) {
+				filter.options.sort((a, b) => b.initialCount - a.initialCount);
+			}
 		});
 	}
 

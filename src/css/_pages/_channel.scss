@@ -210,6 +210,107 @@
 		}
 	}
 
+	.wse__secondary-filters {
+		@include grid-margin();
+		padding: 25px 0 0 0;
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.wse__secondary-filter {
+		display: flex;
+		align-items: flex-start;
+		margin: 0 12.5px 25px 12.5px;
+		padding: 10px;
+		border: 1px solid $background-tertiary;
+
+		&__name {
+			display: flex;
+			justify-content: flex-start;
+			// align-items: center;
+			flex: 0 0 30%;
+			max-width: 80px;
+			margin-right: 15px;
+			// border-right: 1px solid black;
+			// padding-right: 15px;
+			line-height: 1;
+			font-size: 13px;
+			font-weight: 900;
+			text-transform: lowercase;
+		}
+
+		@include media-up(lg) {
+			flex: 0 1 calc(25% - 25px);
+		}
+
+		@include media-between(sm, md) {
+			flex: 0 1 calc(33.3333% - 25px);
+		}
+
+		@include media-between(xs, sm) {
+			flex: 0 1 calc(50% - 25px);
+		}
+
+		@include media-down(xs) {
+			flex: 0 1 100%;
+		}
+	}
+
+	.wse__nav--secondary-filters {
+		@extend %nav;
+		align-items: flex-start;
+		flex-wrap: wrap;
+
+		&>li {
+			@extend %nav-item;
+			flex: 0 1 auto;
+
+			&>.wse__filter__option {
+				@extend %btn;
+				font-size: 11px;
+				line-height: 1.8;
+				font-weight: 500;
+				display: flex;
+				margin: 0 5px 2px 0;
+				padding: 0 5px;
+				// background: $background-tertiary;
+				// border-bottom: 1px solid $background-tertiary;
+				color: $foreground-primary;
+				cursor: pointer;
+
+				.wse__count {
+					background: $background-tertiary;
+					padding: 1px 4px;
+					border-radius: 3px;
+					line-height: 1;
+					font-size: 0.8em;
+					margin-left: 4px;
+				}
+
+				&.active {
+					background: $background-primary;
+					color: $foreground-negative;
+
+					.wse__count {
+						background: $background-primary;
+					}
+				}
+
+				&.disabled {
+					// border-bottom: 1px solid $background-tertiary;
+					color: $foreground-primary;
+					opacity: 0.5;
+					pointer-events: none;
+
+					.wse__count {
+						display: none;
+					}
+				}
+			}
+		}
+
+	}
+
 	@include media-down(sm) {
 
 		.wse__btn--mode,

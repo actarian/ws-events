@@ -15,7 +15,6 @@ export default class NotificationComponent extends PageComponent {
 			takeUntil(this.unsubscribe$)
 		).subscribe((notifications) => {
 			this.notifications = notifications;
-			console.log(notifications);
 			this.pushChanges();
 		});
 	}

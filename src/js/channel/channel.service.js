@@ -35,6 +35,10 @@ export default class ChannelService {
 		);
 	}
 
+	static filter$(channelId) {
+		return ApiService.staticGet$(`/channel/${channelId}/filter`);
+	}
+
 	static top$() {
 		return ApiService.staticGet$(`/channel/evidence`).pipe(
 			map(items => ChannelService.mapChannels(items))

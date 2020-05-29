@@ -2,6 +2,7 @@ import { of } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
 import ApiService from '../api/api.service';
 import EventService, { Event } from '../event/event.service';
+import { FAKE_FILTERS } from '../event/fake-filters';
 
 export class Channel {
 	constructor(data) {
@@ -200,6 +201,13 @@ export default class ChannelService {
 						case 'event':
 							item = EventService.fake(new Event(item));
 							break;
+						default:
+							item.features = [];
+							const filters = FAKE_FILTERS;
+							filters.forEach(filter => {
+								const index = Math.floor(Math.random() * filter.options.length);
+								item.features.push(filter.options[index].value);
+							});
 					}
 					return item;
 				});

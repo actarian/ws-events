@@ -1655,6 +1655,14 @@
             case 'event':
               item = EventService.fake(new Event(item));
               break;
+
+            default:
+              item.features = [];
+              var filters = FAKE_FILTERS;
+              filters.forEach(function (filter) {
+                var index = Math.floor(Math.random() * filter.options.length);
+                item.features.push(filter.options[index].value);
+              });
           }
 
           return item;

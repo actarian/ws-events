@@ -9,6 +9,10 @@
     "width": 1920,
     "height": 1080
   },
+  "media": {
+    "src": "https://gruppoconcorde-view.thron.com/api/xcontents/resources/delivery/getContentDetail?clientId=gruppoconcorde&xcontentId=16ef3c0a-ba0c-4e3a-a10a-32bc7f9a4297&pkey=yz1hpd",
+    "type": "thron"
+  },
   "url": "/ws-events/events-event.html",
   "creationDate": "2020-05-20T08:11:17.827Z",
   "startDate": "2020-05-20T08:11:17.827Z",

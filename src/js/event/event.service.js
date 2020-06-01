@@ -152,8 +152,9 @@ export default class EventService {
 		if (item.info) {
 			item.info.subscribers = 50 + Math.floor(Math.random() * 200);
 			item.info.likes = 50 + Math.floor(Math.random() * 200);
-			item.thron = {
-				src: 'https://gruppoconcorde-view.thron.com/api/xcontents/resources/delivery/getContentDetail?clientId=gruppoconcorde&xcontentId=16ef3c0a-ba0c-4e3a-a10a-32bc7f9a4297&pkey=yz1hpd'
+			item.media = {
+				src: 'https://gruppoconcorde-view.thron.com/api/xcontents/resources/delivery/getContentDetail?clientId=gruppoconcorde&xcontentId=16ef3c0a-ba0c-4e3a-a10a-32bc7f9a4297&pkey=yz1hpd',
+				type: 'thron'
 			};
 			const now = new Date();
 			switch (index) {

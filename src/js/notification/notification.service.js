@@ -12,7 +12,7 @@ export default class NotificationService {
 
 	static notifications$() {
 		return ApiService.staticGet$(`/user/notification`).pipe(
-			map((items) => EventService.mapEvents(items)),
+			map((response) => EventService.mapEvents(response.data, response.static)),
 			switchMap(items => {
 				notifications$_.next(items);
 				return notifications$_;

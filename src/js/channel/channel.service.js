@@ -1,14 +1,14 @@
 import { of } from 'rxjs';
-import { map, shareReplay, tap } from 'rxjs/operators';
+import { map, shareReplay, switchMap } from 'rxjs/operators';
 import ApiService from '../api/api.service';
 import EventService, { Event } from '../event/event.service';
 import { FAKE_FILTERS } from '../event/fake-filters';
 
 export class Channel {
-	constructor(data) {
+	constructor(data, isStatic) {
 		if (data) {
 			Object.assign(this, data);
-			this.events = EventService.mapEvents(this.events);
+			this.events = EventService.mapEvents(this.events, isStatic);
 		}
 	}
 }
@@ -17,32 +17,31 @@ export default class ChannelService {
 
 	static channels$() {
 		return ApiService.staticGet$(`/channel/channels`).pipe(
-			map(items => ChannelService.mapChannels(items))
+			map(response => ChannelService.mapChannels(response.data, response.static))
 		);
 	}
 
 	static detail$(channelId) {
 		return ApiService.staticGet$(`/channel/${channelId}/detail`).pipe(
-			map(x => ChannelService.mapChannel(x))
+			map(response => ChannelService.mapChannel(response.data, response.static))
 		);
 	}
 
 	static listing$(channelId) {
-		// return ApiService.staticGet$(`/channel/${channelId}/listing`);
-		return ChannelService.fakeListing(channelId).pipe(
-			tap((items) => {
-				// console.log(JSON.stringify(items));
-			})
+		return ApiService.staticGet$(`/channel/${channelId}/listing`).pipe(
+			switchMap(response => ChannelService.mapListing(response.data, response.static, channelId))
 		);
 	}
 
 	static filter$(channelId) {
-		return ApiService.staticGet$(`/channel/${channelId}/filter`);
+		return ApiService.staticGet$(`/channel/${channelId}/filter`).pipe(
+			map(response => response.data)
+		);
 	}
 
 	static top$() {
 		return ApiService.staticGet$(`/channel/evidence`).pipe(
-			map(items => ChannelService.mapChannels(items))
+			map(response => ChannelService.mapChannels(response.data, response.static))
 		);
 	}
 
@@ -62,12 +61,16 @@ export default class ChannelService {
 		return of(null);
 	}
 
-	static mapChannel(channel) {
-		return ChannelService.fake(new Channel(channel));
+	static mapChannel(channel, isStatic) {
+		return isStatic ? ChannelService.fake(new Channel(channel, true)) : new Channel(channel);
 	}
 
-	static mapChannels(channels) {
-		return channels ? channels.map(x => ChannelService.mapChannel(x)) : [];
+	static mapChannels(channels, isStatic) {
+		return channels ? channels.map(x => ChannelService.mapChannel(x, isStatic)) : [];
+	}
+
+	static mapListing(items, isStatic, channelId) {
+		return isStatic ? ChannelService.fakeListing(channelId) : of (items);
 	}
 
 	static fake(item) {
@@ -80,8 +83,8 @@ export default class ChannelService {
 
 	static fakeListing(channelId) {
 		return ApiService.staticGet$(`/channel/${channelId}/detail`).pipe(
-			map(x => {
-				const channel_ = ChannelService.fake(new Channel(x));
+			map(response => {
+				const channel_ = ChannelService.fake(new Channel(response.data, true));
 				const info_ = {
 					started: false,
 					ended: false,
@@ -199,7 +202,7 @@ export default class ChannelService {
 					}
 					switch (type) {
 						case 'event':
-							item = EventService.fake(new Event(item));
+							item = EventService.fake(new Event(item, true));
 							break;
 						default:
 							item.features = [];
@@ -210,49 +213,6 @@ export default class ChannelService {
 							});
 					}
 					return item;
-				});
-			})
-			// map(x => new Channel(x))
-		);
-	}
-
-	static fakeListing_(channelId) {
-		return ApiService.staticGet$(`/channel/${channelId}/detail`).pipe(
-			map(x => {
-				const channel_ = ChannelService.fake(new Channel(x));
-				const event_ = {
-					id: 1000,
-					type: 'event',
-					name: 'Evento XYZ',
-					title: 'Evento XYZ',
-					abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-					picture: {
-						src: 'https://source.unsplash.com/random/',
-						width: 700,
-						height: 700,
-					},
-					url: '/event',
-					creationDate: '2020-05-20T08:11:17.827Z',
-					startDate: '2020-05-20T08:11:17.827Z',
-					info: {
-						started: false,
-						ended: false,
-						subscribers: 100,
-						subscribed: false,
-						likes: 100,
-						liked: false
-					},
-					channel: channel_
-				};
-				return new Array(250).fill(true).map((x, i) => {
-					const item = Object.assign({}, event_);
-					item.id = (channelId - 100) * 1000 + 1 + i;
-					item.picture = Object.assign({}, event_.picture);
-					item.picture.width = 700;
-					item.picture.height = [700, 900, 1100][i % 3];
-					item.info = Object.assign({}, event_.info);
-					item.channel = Object.assign({}, x);
-					return EventService.fake(new Event(item));
 				});
 			})
 			// map(x => new Channel(x))

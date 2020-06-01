@@ -1,6 +1,6 @@
 import { Directive, getContext } from 'rxcomp';
 import { fromEvent } from 'rxjs';
-import { first, takeUntil } from 'rxjs/operators';
+import { first, map, takeUntil } from 'rxjs/operators';
 import ApiService from '../api/api.service';
 import DownloadService from '../download/download.service';
 import { STATIC } from '../environment/environment';
@@ -30,6 +30,7 @@ export default class SecureDirective extends Directive {
 	tryDownloadHref() {
 		ApiService.staticGet$(this.href, undefined, 'blob').pipe(
 			first(),
+			map(response => response.data),
 		).subscribe(blob => {
 			DownloadService.download(blob, this.href.split('/').pop());
 		}, error => {

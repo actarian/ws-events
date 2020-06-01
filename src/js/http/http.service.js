@@ -1,6 +1,24 @@
 import { from, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+export class HttpResponse {
+
+	get static() {
+		return this.url.indexOf('.json') === this.url.length - 5;
+	}
+
+	constructor(response) {
+		this.data = null;
+		if (response) {
+			this.url = response.url;
+			this.status = response.status;
+			this.statusText = response.statusText;
+			this.ok = response.ok;
+			this.redirected = response.redirected;
+		}
+	}
+}
+
 export default class HttpService {
 
 	static http$(method, url, data, format = 'json') {
@@ -15,8 +33,16 @@ export default class HttpService {
 			},
 			body: methods.indexOf(method) !== -1 ? JSON.stringify(data) : undefined
 		}).then((response) => {
-			response_ = response;
-			// console.log(response);
+			response_ = new HttpResponse(response);
+			return response[format]().then(json => {
+				response_.data = json;
+				if (response.ok) {
+					return Promise.resolve(response_);
+				} else {
+					return Promise.reject(response_);
+				}
+			});
+			/*
 			if (response.ok) {
 				return response[format]();
 			} else {
@@ -24,6 +50,7 @@ export default class HttpService {
 					return Promise.reject(json);
 				});
 			}
+			*/
 		})).pipe(
 			catchError(error => {
 				return throwError(this.getError(error, response_));

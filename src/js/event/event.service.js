@@ -1,5 +1,5 @@
 import { of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import ApiService from '../api/api.service';
 import FavouriteService from '../favourite/favourite.service';
 import QuestionService from '../question/question.service';
@@ -32,7 +32,7 @@ export class Event {
 		return this.related && this.related.length;
 	}
 
-	constructor(data) {
+	constructor(data, isStatic) {
 		if (data) {
 			Object.assign(this, data);
 			this.info = this.info || {};
@@ -48,10 +48,10 @@ export class Event {
 				this.info.ended = this.endDate < Date.now();
 			}
 			if (this.related) {
-				this.related = EventService.mapEvents(this.related);
+				this.related = EventService.mapEvents(this.related, isStatic);
 			}
 			if (this.questions) {
-				this.questions = QuestionService.mapQuestions(this.questions);
+				this.questions = QuestionService.mapQuestions(this.questions, isStatic);
 			}
 		}
 	}
@@ -60,36 +60,34 @@ export class Event {
 export default class EventService {
 
 	static detail$(eventId) {
-		const id = 1001; // !!!
-		return ApiService.staticGet$(`/event/${id}/detail`).pipe(
-			tap(x => x.id = parseInt(eventId)), // !!!
-			map(x => EventService.mapEvent(x))
+		// return ApiService.get$(`/event/${eventId}/detail`)
+		return ApiService.staticGet$(`/event/${1001}/detail`).pipe(
+			tap(response => response.data.id = parseInt(eventId)), // !!!
+			map(response => EventService.mapEvent(response.data, response.static))
 		);
 	}
 
 	static listing$(eventId) {
-		// return ApiService.staticGet$(`/event/${eventId}/listing`);
-		return EventService.fakeListing(eventId).pipe(
-			tap((items) => {
-				// console.log(JSON.stringify(items));
-			})
+		// return ApiService.get$(`/event/${eventId}/listing`)
+		return ApiService.staticGet$(`/event/${1001}/listing`).pipe(
+			switchMap(response => EventService.mapListing(response.data, response.static, eventId))
 		);
 	}
 
 	static filter$(eventId) {
-		const id = 1001; // !!!
-		return ApiService.staticGet$(`/event/${id}/filter`);
+		// return ApiService.get$(`/event/${eventId}/filter`)
+		return ApiService.staticGet$(`/event/${1001}/filter`).pipe(map(response => response.data));
 	}
 
 	static top$() {
 		return ApiService.staticGet$(`/event/evidence`).pipe(
-			map(items => EventService.mapEvents(items))
+			map(response => EventService.mapEvents(response.data, response.static))
 		);
 	}
 
 	static upcoming$() {
 		return ApiService.staticGet$(`/event/upcoming`).pipe(
-			map(items => EventService.mapEvents(items))
+			map(response => EventService.mapEvents(response.data, response.static))
 		);
 	}
 
@@ -112,23 +110,29 @@ export default class EventService {
 	static postQuestion$(event, body) {
 		const eventId = 1001; // event.id !!!
 		return ApiService.staticPost$(`/event/${eventId}/question`, body).pipe(
-			map(x => QuestionService.mapQuestion(x)),
-			map(x => {
-				x.id = event.questions[0].id + 1;
-				x.creationDate = new Date();
-				x.user = UserService.getCurrentUser();
-				x.body = body;
-				return x;
+			map(response => {
+				const question = QuestionService.mapQuestion(response.data, response.static);
+				if (response.static) {
+					question.id = event.questions[0].id + 1;
+					question.creationDate = new Date();
+					question.user = UserService.getCurrentUser();
+					question.body = body;
+				}
+				return question;
 			}),
 		);
 	}
 
-	static mapEvent(event) {
-		return EventService.fake(new Event(event));
+	static mapEvent(event, isStatic) {
+		return isStatic ? EventService.fake(new Event(event, true)) : new Event(event);
 	}
 
-	static mapEvents(events) {
-		return events ? events.map(x => EventService.mapEvent(x)) : [];
+	static mapEvents(events, isStatic) {
+		return events ? events.map(x => EventService.mapEvent(x, isStatic)) : [];
+	}
+
+	static mapListing(items, isStatic, eventId) {
+		return isStatic ? EventService.fakeListing(eventId) : of (items);
 	}
 
 	static fake(item) {
@@ -136,10 +140,13 @@ export default class EventService {
 		// console.log('EventService.fake', item);
 		const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
 		const index = item.id % 1000;
+		const channelId = 100 + (item.id - index) / 1000;
 		item.url = `${item.url}?eventId=${item.id}`;
 		if (item.channel) {
+			item.channel.id = channelId;
 			item.channel.url = `${item.channel.url}?channelId=${item.channel.id}`;
 			const channelIndex = item.channel.id % 100;
+			item.channel.name = `Channel ${letters[channelIndex - 1]}`;
 			item.name = `Event ${letters[channelIndex - 1]}${index}`;
 		}
 		if (item.info) {
@@ -217,10 +224,13 @@ export default class EventService {
 	}
 
 	static fakeListing(eventId) {
+		const index = eventId % 1000;
+		const channelId = 100 + (eventId - index) / 1000;
 		eventId = 1001;
 		return ApiService.staticGet$(`/event/${eventId}/detail`).pipe(
-			map(x => {
-				const channel_ = new Event(x).channel;
+			map(response => {
+				const channel_ = new Event(response.data, true).channel;
+				channel_.id = channelId;
 				const info_ = {
 					started: false,
 					ended: false,
@@ -338,7 +348,7 @@ export default class EventService {
 					}
 					switch (type) {
 						case 'event':
-							item = EventService.fake(new Event(item));
+							item = EventService.fake(new Event(item, true));
 							break;
 						default:
 							item.features = [];
@@ -396,7 +406,7 @@ export default class EventService {
 				height: [700, 900, 1100][i % 3],
 			});
 			item.info = Object.assign({}, info_);
-			item = EventService.fake(new Event(item));
+			item = EventService.fake(new Event(item, true));
 			return item;
 		});
 	}

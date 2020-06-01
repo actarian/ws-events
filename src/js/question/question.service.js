@@ -11,7 +11,6 @@ export class Question {
 			if (this.user) {
 				this.user = UserService.mapUser(this.user);
 			}
-			console.log(this.user);
 		}
 	}
 
@@ -19,12 +18,12 @@ export class Question {
 
 export default class QuestionService {
 
-	static mapQuestion(question) {
-		return QuestionService.fake(new Question(question));
+	static mapQuestion(question, isStatic) {
+		return isStatic ? QuestionService.fake(new Question(question)) : new Question(question);
 	}
 
-	static mapQuestions(questions) {
-		return questions ? questions.map(x => QuestionService.mapQuestion(x)) : [];
+	static mapQuestions(questions, isStatic) {
+		return questions ? questions.map(x => QuestionService.mapQuestion(x, isStatic)) : [];
 	}
 
 	static fake(item) {

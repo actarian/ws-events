@@ -1,7 +1,6 @@
 import { BehaviorSubject, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import ApiService from '../api/api.service';
-import { STATIC } from '../environment/environment';
 import LocalStorageService from '../local-storage/local-storage.service';
 
 export class User {
@@ -35,7 +34,7 @@ export default class UserService {
 	static me$() {
 		return ApiService.staticGet$(`/user/me`).pipe(
 			// map((user) => this.mapStatic__(user, 'me')),
-			map((user) => this.mapUser(user)),
+			map((response) => this.mapUser(response.data, response.static)),
 			catchError(error => of (null)),
 			switchMap(user => {
 				this.setUser(user);
@@ -46,36 +45,36 @@ export default class UserService {
 
 	static register$(payload) {
 		return ApiService.staticPost$(`/user/register`, payload).pipe(
-			map((user) => this.mapStatic__(user, 'register')),
+			map((response) => this.mapStatic__(response.data, response.static, 'register')),
 		);
 	}
 
 	static login$(payload) {
 		return ApiService.staticPost$(`/user/login`, payload).pipe(
-			map((user) => this.mapStatic__(user, 'login')),
+			map((response) => this.mapStatic__(response.data, response.static, 'login')),
 		);
 	}
 
 	static logout$() {
 		return ApiService.staticPost$(`/user/logout`).pipe(
-			map((user) => this.mapStatic__(user, 'logout')),
+			map((response) => this.mapStatic__(response.data, response.static, 'logout')),
 		);
 	}
 
 	static retrieve$(payload) {
 		return ApiService.staticPost$(`/user/retrievepassword`, payload).pipe(
-			map((user) => this.mapStatic__(user, 'retrieve')),
+			map((response) => this.mapStatic__(response.data, response.static, 'retrieve')),
 		);
 	}
 
 	static update$(payload) {
 		return ApiService.staticPost$(`/user/updateprofile`, payload).pipe(
-			map((user) => this.mapStatic__(user, 'register')),
+			map((response) => this.mapStatic__(response.data, response.static, 'register')),
 		);
 	}
 
-	static mapStatic__(user, action = 'me') {
-		if (!STATIC) {
+	static mapStatic__(user, isStatic, action = 'me') {
+		if (!isStatic) {
 			return user;
 		};
 		switch (action) {
@@ -103,12 +102,12 @@ export default class UserService {
 		return user;
 	}
 
-	static mapUser(user) {
-		return UserService.fake(new User(user));
+	static mapUser(user, isStatic) {
+		return isStatic ? UserService.fake(new User(user)) : new User(user);
 	}
 
-	static mapUsers(users) {
-		return users ? users.map(x => UserService.mapUser(x)) : [];
+	static mapUsers(users, isStatic) {
+		return users ? users.map(x => UserService.mapUser(x, isStatic)) : [];
 	}
 
 }

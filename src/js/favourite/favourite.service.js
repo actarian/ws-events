@@ -1,10 +1,8 @@
 import { BehaviorSubject } from 'rxjs';
-import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { map, shareReplay, switchMap } from 'rxjs/operators';
 import ApiService from '../api/api.service';
 import EventService from '../event/event.service';
 import LocalStorageService from '../local-storage/local-storage.service';
-
-const USE_LOCAL_STORAGE = true;
 
 const subscriptions$_ = new BehaviorSubject([]);
 const likes$_ = new BehaviorSubject([]);
@@ -26,11 +24,14 @@ export default class FavouriteService {
 
 	static subscriptions$() {
 		return ApiService.staticGet$(`/user/subscription`).pipe(
-			map(() => {
-				const subscriptions = LocalStorageService.get('subscriptions') || [];
-				return subscriptions;
+			map(response => {
+				if (response.static) {
+					const subscriptions = LocalStorageService.get('subscriptions') || [];
+					return EventService.fakeSaved(subscriptions);
+				} else {
+					return response.data;
+				}
 			}),
-			map(events => EventService.fakeSaved(events)),
 			switchMap(subscriptions => {
 				subscriptions$_.next(subscriptions);
 				return subscriptions$_;
@@ -40,11 +41,14 @@ export default class FavouriteService {
 
 	static likes$() {
 		return ApiService.staticGet$(`/user/like`).pipe(
-			map(() => {
-				const likes = LocalStorageService.get('likes') || [];
-				return likes;
+			map(response => {
+				if (response.static) {
+					const likes = LocalStorageService.get('likes') || [];
+					return EventService.fakeSaved(likes);
+				} else {
+					return response.data;
+				}
 			}),
-			map(events => EventService.fakeSaved(events)),
 			switchMap(likes => {
 				likes$_.next(likes);
 				return likes$_;
@@ -54,11 +58,14 @@ export default class FavouriteService {
 
 	static favourites$() {
 		return ApiService.staticGet$(`/user/favourite`).pipe(
-			map(() => {
-				const favourites = LocalStorageService.get('favourites') || [];
-				return favourites;
+			map(response => {
+				if (response.static) {
+					const favourites = LocalStorageService.get('favourites') || [];
+					return EventService.fakeSaved(favourites);
+				} else {
+					return response.data;
+				}
 			}),
-			map(events => EventService.fakeSaved(events)),
 			switchMap(favourites => {
 				favourites$_.next(favourites);
 				return favourites$_;
@@ -68,8 +75,8 @@ export default class FavouriteService {
 
 	static subscriptionAdd$(id) {
 		return ApiService.staticPost$(`/user/subscription/add`, { id }).pipe(
-			tap(() => {
-				if (USE_LOCAL_STORAGE) {
+			map(response => {
+				if (response.static) {
 					const subscriptions = LocalStorageService.get('subscriptions') || [];
 					const item = subscriptions.find(x => x.id === id);
 					if (!item) {
@@ -78,14 +85,15 @@ export default class FavouriteService {
 					subscriptions$_.next(subscriptions);
 					LocalStorageService.set('subscriptions', subscriptions);
 				}
+				return response.data;
 			}),
 		);
 	}
 
 	static subscriptionRemove$(id) {
 		return ApiService.staticPost$(`/user/subscription/remove`, { id }).pipe(
-			tap(() => {
-				if (USE_LOCAL_STORAGE) {
+			map(response => {
+				if (response.static) {
 					const subscriptions = LocalStorageService.get('subscriptions') || [];
 					const item = subscriptions.find(x => x.id === id);
 					const index = item ? subscriptions.indexOf(item) : -1;
@@ -95,14 +103,15 @@ export default class FavouriteService {
 					subscriptions$_.next(subscriptions);
 					LocalStorageService.set('subscriptions', subscriptions);
 				}
+				return response.data;
 			}),
 		);
 	}
 
 	static likeAdd$(id) {
 		return ApiService.staticPost$(`/user/like/add`, { id }).pipe(
-			tap(() => {
-				if (USE_LOCAL_STORAGE) {
+			map(response => {
+				if (response.static) {
 					const likes = LocalStorageService.get('likes') || [];
 					const item = likes.find(x => x.id === id);
 					if (!item) {
@@ -111,14 +120,15 @@ export default class FavouriteService {
 					likes$_.next(likes);
 					LocalStorageService.set('likes', likes);
 				}
+				return response.data;
 			}),
 		);
 	}
 
 	static likeRemove$(id) {
 		return ApiService.staticPost$(`/user/like/remove`, { id }).pipe(
-			tap(() => {
-				if (USE_LOCAL_STORAGE) {
+			map(response => {
+				if (response.static) {
 					const likes = LocalStorageService.get('likes') || [];
 					const item = likes.find(x => x.id === id);
 					const index = item ? likes.indexOf(item) : -1;
@@ -128,14 +138,15 @@ export default class FavouriteService {
 					likes$_.next(likes);
 					LocalStorageService.set('likes', likes);
 				}
+				return response.data;
 			}),
 		);
 	}
 
 	static favouriteAdd$(id) {
 		return ApiService.staticPost$(`/user/favourite/add`, { id }).pipe(
-			tap(() => {
-				if (USE_LOCAL_STORAGE) {
+			map(response => {
+				if (response.static) {
 					const favourites = LocalStorageService.get('favourites') || [];
 					const item = favourites.find(x => x.id === id);
 					if (!item) {
@@ -144,14 +155,15 @@ export default class FavouriteService {
 					favourites$_.next(favourites);
 					LocalStorageService.set('favourites', favourites);
 				}
+				return response.data;
 			}),
 		);
 	}
 
 	static favouriteRemove$(id) {
 		return ApiService.staticPost$(`/user/favourite/remove`, { id }).pipe(
-			tap(() => {
-				if (USE_LOCAL_STORAGE) {
+			map(response => {
+				if (response.static) {
 					const favourites = LocalStorageService.get('favourites') || [];
 					const item = favourites.find(x => x.id === id);
 					const index = item ? favourites.indexOf(item) : -1;
@@ -161,6 +173,7 @@ export default class FavouriteService {
 					favourites$_.next(favourites);
 					LocalStorageService.set('favourites', favourites);
 				}
+				return response.data;
 			}),
 		);
 	}

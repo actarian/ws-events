@@ -129,6 +129,29 @@
     return "/it/it" + url;
   }
 
+  var HttpResponse = /*#__PURE__*/function () {
+    _createClass(HttpResponse, [{
+      key: "static",
+      get: function get() {
+        return this.url.indexOf('.json') === this.url.length - 5;
+      }
+    }]);
+
+    function HttpResponse(response) {
+      this.data = null;
+
+      if (response) {
+        this.url = response.url;
+        this.status = response.status;
+        this.statusText = response.statusText;
+        this.ok = response.ok;
+        this.redirected = response.redirected;
+      }
+    }
+
+    return HttpResponse;
+  }();
+
   var HttpService = /*#__PURE__*/function () {
     function HttpService() {}
 
@@ -150,15 +173,25 @@
         },
         body: methods.indexOf(method) !== -1 ? JSON.stringify(data) : undefined
       }).then(function (response) {
-        response_ = response; // console.log(response);
+        response_ = new HttpResponse(response);
+        return response[format]().then(function (json) {
+          response_.data = json;
 
+          if (response.ok) {
+            return Promise.resolve(response_);
+          } else {
+            return Promise.reject(response_);
+          }
+        });
+        /*
         if (response.ok) {
-          return response[format]();
+        	return response[format]();
         } else {
-          return response.json().then(function (json) {
-            return Promise.reject(json);
-          });
+        	return response.json().then(json => {
+        		return Promise.reject(json);
+        	});
         }
+        */
       })).pipe(operators.catchError(function (error) {
         return rxjs.throwError(_this.getError(error, response_));
       }));
@@ -356,11 +389,13 @@
     };
 
     FavouriteService.subscriptions$ = function subscriptions$() {
-      return ApiService.staticGet$("/user/subscription").pipe(operators.map(function () {
-        var subscriptions = LocalStorageService.get('subscriptions') || [];
-        return subscriptions;
-      }), operators.map(function (events) {
-        return EventService.fakeSaved(events);
+      return ApiService.staticGet$("/user/subscription").pipe(operators.map(function (response) {
+        if (response.static) {
+          var subscriptions = LocalStorageService.get('subscriptions') || [];
+          return EventService.fakeSaved(subscriptions);
+        } else {
+          return response.data;
+        }
       }), operators.switchMap(function (subscriptions) {
         subscriptions$_.next(subscriptions);
         return subscriptions$_;
@@ -368,11 +403,13 @@
     };
 
     FavouriteService.likes$ = function likes$() {
-      return ApiService.staticGet$("/user/like").pipe(operators.map(function () {
-        var likes = LocalStorageService.get('likes') || [];
-        return likes;
-      }), operators.map(function (events) {
-        return EventService.fakeSaved(events);
+      return ApiService.staticGet$("/user/like").pipe(operators.map(function (response) {
+        if (response.static) {
+          var likes = LocalStorageService.get('likes') || [];
+          return EventService.fakeSaved(likes);
+        } else {
+          return response.data;
+        }
       }), operators.switchMap(function (likes) {
         likes$_.next(likes);
         return likes$_;
@@ -380,11 +417,13 @@
     };
 
     FavouriteService.favourites$ = function favourites$() {
-      return ApiService.staticGet$("/user/favourite").pipe(operators.map(function () {
-        var favourites = LocalStorageService.get('favourites') || [];
-        return favourites;
-      }), operators.map(function (events) {
-        return EventService.fakeSaved(events);
+      return ApiService.staticGet$("/user/favourite").pipe(operators.map(function (response) {
+        if (response.static) {
+          var favourites = LocalStorageService.get('favourites') || [];
+          return EventService.fakeSaved(favourites);
+        } else {
+          return response.data;
+        }
       }), operators.switchMap(function (favourites) {
         favourites$_.next(favourites);
         return favourites$_;
@@ -394,8 +433,8 @@
     FavouriteService.subscriptionAdd$ = function subscriptionAdd$(id) {
       return ApiService.staticPost$("/user/subscription/add", {
         id: id
-      }).pipe(operators.tap(function () {
-        {
+      }).pipe(operators.map(function (response) {
+        if (response.static) {
           var subscriptions = LocalStorageService.get('subscriptions') || [];
           var item = subscriptions.find(function (x) {
             return x.id === id;
@@ -410,14 +449,16 @@
           subscriptions$_.next(subscriptions);
           LocalStorageService.set('subscriptions', subscriptions);
         }
+
+        return response.data;
       }));
     };
 
     FavouriteService.subscriptionRemove$ = function subscriptionRemove$(id) {
       return ApiService.staticPost$("/user/subscription/remove", {
         id: id
-      }).pipe(operators.tap(function () {
-        {
+      }).pipe(operators.map(function (response) {
+        if (response.static) {
           var subscriptions = LocalStorageService.get('subscriptions') || [];
           var item = subscriptions.find(function (x) {
             return x.id === id;
@@ -431,14 +472,16 @@
           subscriptions$_.next(subscriptions);
           LocalStorageService.set('subscriptions', subscriptions);
         }
+
+        return response.data;
       }));
     };
 
     FavouriteService.likeAdd$ = function likeAdd$(id) {
       return ApiService.staticPost$("/user/like/add", {
         id: id
-      }).pipe(operators.tap(function () {
-        {
+      }).pipe(operators.map(function (response) {
+        if (response.static) {
           var likes = LocalStorageService.get('likes') || [];
           var item = likes.find(function (x) {
             return x.id === id;
@@ -453,14 +496,16 @@
           likes$_.next(likes);
           LocalStorageService.set('likes', likes);
         }
+
+        return response.data;
       }));
     };
 
     FavouriteService.likeRemove$ = function likeRemove$(id) {
       return ApiService.staticPost$("/user/like/remove", {
         id: id
-      }).pipe(operators.tap(function () {
-        {
+      }).pipe(operators.map(function (response) {
+        if (response.static) {
           var likes = LocalStorageService.get('likes') || [];
           var item = likes.find(function (x) {
             return x.id === id;
@@ -474,14 +519,16 @@
           likes$_.next(likes);
           LocalStorageService.set('likes', likes);
         }
+
+        return response.data;
       }));
     };
 
     FavouriteService.favouriteAdd$ = function favouriteAdd$(id) {
       return ApiService.staticPost$("/user/favourite/add", {
         id: id
-      }).pipe(operators.tap(function () {
-        {
+      }).pipe(operators.map(function (response) {
+        if (response.static) {
           var favourites = LocalStorageService.get('favourites') || [];
           var item = favourites.find(function (x) {
             return x.id === id;
@@ -496,14 +543,16 @@
           favourites$_.next(favourites);
           LocalStorageService.set('favourites', favourites);
         }
+
+        return response.data;
       }));
     };
 
     FavouriteService.favouriteRemove$ = function favouriteRemove$(id) {
       return ApiService.staticPost$("/user/favourite/remove", {
         id: id
-      }).pipe(operators.tap(function () {
-        {
+      }).pipe(operators.map(function (response) {
+        if (response.static) {
           var favourites = LocalStorageService.get('favourites') || [];
           var item = favourites.find(function (x) {
             return x.id === id;
@@ -517,6 +566,8 @@
           favourites$_.next(favourites);
           LocalStorageService.set('favourites', favourites);
         }
+
+        return response.data;
       }));
     };
 
@@ -563,8 +614,8 @@
       var _this = this;
 
       return ApiService.staticGet$("/user/me").pipe( // map((user) => this.mapStatic__(user, 'me')),
-      operators.map(function (user) {
-        return _this.mapUser(user);
+      operators.map(function (response) {
+        return _this.mapUser(response.data, response.static);
       }), operators.catchError(function (error) {
         return rxjs.of(null);
       }), operators.switchMap(function (user) {
@@ -577,49 +628,49 @@
     UserService.register$ = function register$(payload) {
       var _this2 = this;
 
-      return ApiService.staticPost$("/user/register", payload).pipe(operators.map(function (user) {
-        return _this2.mapStatic__(user, 'register');
+      return ApiService.staticPost$("/user/register", payload).pipe(operators.map(function (response) {
+        return _this2.mapStatic__(response.data, response.static, 'register');
       }));
     };
 
     UserService.login$ = function login$(payload) {
       var _this3 = this;
 
-      return ApiService.staticPost$("/user/login", payload).pipe(operators.map(function (user) {
-        return _this3.mapStatic__(user, 'login');
+      return ApiService.staticPost$("/user/login", payload).pipe(operators.map(function (response) {
+        return _this3.mapStatic__(response.data, response.static, 'login');
       }));
     };
 
     UserService.logout$ = function logout$() {
       var _this4 = this;
 
-      return ApiService.staticPost$("/user/logout").pipe(operators.map(function (user) {
-        return _this4.mapStatic__(user, 'logout');
+      return ApiService.staticPost$("/user/logout").pipe(operators.map(function (response) {
+        return _this4.mapStatic__(response.data, response.static, 'logout');
       }));
     };
 
     UserService.retrieve$ = function retrieve$(payload) {
       var _this5 = this;
 
-      return ApiService.staticPost$("/user/retrievepassword", payload).pipe(operators.map(function (user) {
-        return _this5.mapStatic__(user, 'retrieve');
+      return ApiService.staticPost$("/user/retrievepassword", payload).pipe(operators.map(function (response) {
+        return _this5.mapStatic__(response.data, response.static, 'retrieve');
       }));
     };
 
     UserService.update$ = function update$(payload) {
       var _this6 = this;
 
-      return ApiService.staticPost$("/user/updateprofile", payload).pipe(operators.map(function (user) {
-        return _this6.mapStatic__(user, 'register');
+      return ApiService.staticPost$("/user/updateprofile", payload).pipe(operators.map(function (response) {
+        return _this6.mapStatic__(response.data, response.static, 'register');
       }));
     };
 
-    UserService.mapStatic__ = function mapStatic__(user, action) {
+    UserService.mapStatic__ = function mapStatic__(user, isStatic, action) {
       if (action === void 0) {
         action = 'me';
       }
 
-      if (!STATIC) {
+      if (!isStatic) {
         return user;
       }
 
@@ -652,13 +703,13 @@
       return user;
     };
 
-    UserService.mapUser = function mapUser(user) {
-      return UserService.fake(new User(user));
+    UserService.mapUser = function mapUser(user, isStatic) {
+      return isStatic ? UserService.fake(new User(user)) : new User(user);
     };
 
-    UserService.mapUsers = function mapUsers(users) {
+    UserService.mapUsers = function mapUsers(users, isStatic) {
       return users ? users.map(function (x) {
-        return UserService.mapUser(x);
+        return UserService.mapUser(x, isStatic);
       }) : [];
     };
 
@@ -677,21 +728,19 @@
       if (this.user) {
         this.user = UserService.mapUser(this.user);
       }
-
-      console.log(this.user);
     }
   };
 
   var QuestionService = /*#__PURE__*/function () {
     function QuestionService() {}
 
-    QuestionService.mapQuestion = function mapQuestion(question) {
-      return QuestionService.fake(new Question(question));
+    QuestionService.mapQuestion = function mapQuestion(question, isStatic) {
+      return isStatic ? QuestionService.fake(new Question(question)) : new Question(question);
     };
 
-    QuestionService.mapQuestions = function mapQuestions(questions) {
+    QuestionService.mapQuestions = function mapQuestions(questions, isStatic) {
       return questions ? questions.map(function (x) {
-        return QuestionService.mapQuestion(x);
+        return QuestionService.mapQuestion(x, isStatic);
       }) : [];
     };
 
@@ -1029,7 +1078,7 @@
       }
     }]);
 
-    function Event(data) {
+    function Event(data, isStatic) {
       if (data) {
         Object.assign(this, data);
         this.info = this.info || {};
@@ -1049,11 +1098,11 @@
         }
 
         if (this.related) {
-          this.related = EventService.mapEvents(this.related);
+          this.related = EventService.mapEvents(this.related, isStatic);
         }
 
         if (this.questions) {
-          this.questions = QuestionService.mapQuestions(this.questions);
+          this.questions = QuestionService.mapQuestions(this.questions, isStatic);
         }
       }
     }
@@ -1065,37 +1114,38 @@
     function EventService() {}
 
     EventService.detail$ = function detail$(eventId) {
-      var id = 1001; // !!!
-
-      return ApiService.staticGet$("/event/" + id + "/detail").pipe(operators.tap(function (x) {
-        return x.id = parseInt(eventId);
+      // return ApiService.get$(`/event/${eventId}/detail`)
+      return ApiService.staticGet$("/event/" + 1001 + "/detail").pipe(operators.tap(function (response) {
+        return response.data.id = parseInt(eventId);
       }), // !!!
-      operators.map(function (x) {
-        return EventService.mapEvent(x);
+      operators.map(function (response) {
+        return EventService.mapEvent(response.data, response.static);
       }));
     };
 
     EventService.listing$ = function listing$(eventId) {
-      // return ApiService.staticGet$(`/event/${eventId}/listing`);
-      return EventService.fakeListing(eventId).pipe(operators.tap(function (items) {// console.log(JSON.stringify(items));
+      // return ApiService.get$(`/event/${eventId}/listing`)
+      return ApiService.staticGet$("/event/" + 1001 + "/listing").pipe(operators.switchMap(function (response) {
+        return EventService.mapListing(response.data, response.static, eventId);
       }));
     };
 
     EventService.filter$ = function filter$(eventId) {
-      var id = 1001; // !!!
-
-      return ApiService.staticGet$("/event/" + id + "/filter");
+      // return ApiService.get$(`/event/${eventId}/filter`)
+      return ApiService.staticGet$("/event/" + 1001 + "/filter").pipe(operators.map(function (response) {
+        return response.data;
+      }));
     };
 
     EventService.top$ = function top$() {
-      return ApiService.staticGet$("/event/evidence").pipe(operators.map(function (items) {
-        return EventService.mapEvents(items);
+      return ApiService.staticGet$("/event/evidence").pipe(operators.map(function (response) {
+        return EventService.mapEvents(response.data, response.static);
       }));
     };
 
     EventService.upcoming$ = function upcoming$() {
-      return ApiService.staticGet$("/event/upcoming").pipe(operators.map(function (items) {
-        return EventService.mapEvents(items);
+      return ApiService.staticGet$("/event/upcoming").pipe(operators.map(function (response) {
+        return EventService.mapEvents(response.data, response.static);
       }));
     };
 
@@ -1118,25 +1168,32 @@
     EventService.postQuestion$ = function postQuestion$(event, body) {
       var eventId = 1001; // event.id !!!
 
-      return ApiService.staticPost$("/event/" + eventId + "/question", body).pipe(operators.map(function (x) {
-        return QuestionService.mapQuestion(x);
-      }), operators.map(function (x) {
-        x.id = event.questions[0].id + 1;
-        x.creationDate = new Date();
-        x.user = UserService.getCurrentUser();
-        x.body = body;
-        return x;
+      return ApiService.staticPost$("/event/" + eventId + "/question", body).pipe(operators.map(function (response) {
+        var question = QuestionService.mapQuestion(response.data, response.static);
+
+        if (response.static) {
+          question.id = event.questions[0].id + 1;
+          question.creationDate = new Date();
+          question.user = UserService.getCurrentUser();
+          question.body = body;
+        }
+
+        return question;
       }));
     };
 
-    EventService.mapEvent = function mapEvent(event) {
-      return EventService.fake(new Event(event));
+    EventService.mapEvent = function mapEvent(event, isStatic) {
+      return isStatic ? EventService.fake(new Event(event, true)) : new Event(event);
     };
 
-    EventService.mapEvents = function mapEvents(events) {
+    EventService.mapEvents = function mapEvents(events, isStatic) {
       return events ? events.map(function (x) {
-        return EventService.mapEvent(x);
+        return EventService.mapEvent(x, isStatic);
       }) : [];
+    };
+
+    EventService.mapListing = function mapListing(items, isStatic, eventId) {
+      return isStatic ? EventService.fakeListing(eventId) : rxjs.of(items);
     };
 
     EventService.fake = function fake(item) {
@@ -1144,11 +1201,14 @@
       // console.log('EventService.fake', item);
       var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
       var index = item.id % 1000;
+      var channelId = 100 + (item.id - index) / 1000;
       item.url = item.url + "?eventId=" + item.id;
 
       if (item.channel) {
+        item.channel.id = channelId;
         item.channel.url = item.channel.url + "?channelId=" + item.channel.id;
         var channelIndex = item.channel.id % 100;
+        item.channel.name = "Channel " + letters[channelIndex - 1];
         item.name = "Event " + letters[channelIndex - 1] + index;
       }
 
@@ -1244,9 +1304,12 @@
     };
 
     EventService.fakeListing = function fakeListing(eventId) {
+      var index = eventId % 1000;
+      var channelId = 100 + (eventId - index) / 1000;
       eventId = 1001;
-      return ApiService.staticGet$("/event/" + eventId + "/detail").pipe(operators.map(function (x) {
-        var channel_ = new Event(x).channel;
+      return ApiService.staticGet$("/event/" + eventId + "/detail").pipe(operators.map(function (response) {
+        var channel_ = new Event(response.data, true).channel;
+        channel_.id = channelId;
         var info_ = {
           started: false,
           ended: false,
@@ -1378,7 +1441,7 @@
 
           switch (type) {
             case 'event':
-              item = EventService.fake(new Event(item));
+              item = EventService.fake(new Event(item, true));
               break;
 
             default:
@@ -1439,7 +1502,7 @@
           height: [700, 900, 1100][i % 3]
         });
         item.info = Object.assign({}, info_);
-        item = EventService.fake(new Event(item));
+        item = EventService.fake(new Event(item, true));
         return item;
       });
     };
@@ -1447,10 +1510,10 @@
     return EventService;
   }();
 
-  var Channel = function Channel(data) {
+  var Channel = function Channel(data, isStatic) {
     if (data) {
       Object.assign(this, data);
-      this.events = EventService.mapEvents(this.events);
+      this.events = EventService.mapEvents(this.events, isStatic);
     }
   };
 
@@ -1458,30 +1521,32 @@
     function ChannelService() {}
 
     ChannelService.channels$ = function channels$() {
-      return ApiService.staticGet$("/channel/channels").pipe(operators.map(function (items) {
-        return ChannelService.mapChannels(items);
+      return ApiService.staticGet$("/channel/channels").pipe(operators.map(function (response) {
+        return ChannelService.mapChannels(response.data, response.static);
       }));
     };
 
     ChannelService.detail$ = function detail$(channelId) {
-      return ApiService.staticGet$("/channel/" + channelId + "/detail").pipe(operators.map(function (x) {
-        return ChannelService.mapChannel(x);
+      return ApiService.staticGet$("/channel/" + channelId + "/detail").pipe(operators.map(function (response) {
+        return ChannelService.mapChannel(response.data, response.static);
       }));
     };
 
     ChannelService.listing$ = function listing$(channelId) {
-      // return ApiService.staticGet$(`/channel/${channelId}/listing`);
-      return ChannelService.fakeListing(channelId).pipe(operators.tap(function (items) {// console.log(JSON.stringify(items));
+      return ApiService.staticGet$("/channel/" + channelId + "/listing").pipe(operators.switchMap(function (response) {
+        return ChannelService.mapListing(response.data, response.static, channelId);
       }));
     };
 
     ChannelService.filter$ = function filter$(channelId) {
-      return ApiService.staticGet$("/channel/" + channelId + "/filter");
+      return ApiService.staticGet$("/channel/" + channelId + "/filter").pipe(operators.map(function (response) {
+        return response.data;
+      }));
     };
 
     ChannelService.top$ = function top$() {
-      return ApiService.staticGet$("/channel/evidence").pipe(operators.map(function (items) {
-        return ChannelService.mapChannels(items);
+      return ApiService.staticGet$("/channel/evidence").pipe(operators.map(function (response) {
+        return ChannelService.mapChannels(response.data, response.static);
       }));
     };
 
@@ -1501,14 +1566,18 @@
       return rxjs.of(null);
     };
 
-    ChannelService.mapChannel = function mapChannel(channel) {
-      return ChannelService.fake(new Channel(channel));
+    ChannelService.mapChannel = function mapChannel(channel, isStatic) {
+      return isStatic ? ChannelService.fake(new Channel(channel, true)) : new Channel(channel);
     };
 
-    ChannelService.mapChannels = function mapChannels(channels) {
+    ChannelService.mapChannels = function mapChannels(channels, isStatic) {
       return channels ? channels.map(function (x) {
-        return ChannelService.mapChannel(x);
+        return ChannelService.mapChannel(x, isStatic);
       }) : [];
+    };
+
+    ChannelService.mapListing = function mapListing(items, isStatic, channelId) {
+      return isStatic ? ChannelService.fakeListing(channelId) : rxjs.of(items);
     };
 
     ChannelService.fake = function fake(item) {
@@ -1520,8 +1589,8 @@
     };
 
     ChannelService.fakeListing = function fakeListing(channelId) {
-      return ApiService.staticGet$("/channel/" + channelId + "/detail").pipe(operators.map(function (x) {
-        var channel_ = ChannelService.fake(new Channel(x));
+      return ApiService.staticGet$("/channel/" + channelId + "/detail").pipe(operators.map(function (response) {
+        var channel_ = ChannelService.fake(new Channel(response.data, true));
         var info_ = {
           started: false,
           ended: false,
@@ -1653,7 +1722,7 @@
 
           switch (type) {
             case 'event':
-              item = EventService.fake(new Event(item));
+              item = EventService.fake(new Event(item, true));
               break;
 
             default:
@@ -1666,47 +1735,6 @@
           }
 
           return item;
-        });
-      }) // map(x => new Channel(x))
-      );
-    };
-
-    ChannelService.fakeListing_ = function fakeListing_(channelId) {
-      return ApiService.staticGet$("/channel/" + channelId + "/detail").pipe(operators.map(function (x) {
-        var channel_ = ChannelService.fake(new Channel(x));
-        var event_ = {
-          id: 1000,
-          type: 'event',
-          name: 'Evento XYZ',
-          title: 'Evento XYZ',
-          abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-          picture: {
-            src: 'https://source.unsplash.com/random/',
-            width: 700,
-            height: 700
-          },
-          url: '/event',
-          creationDate: '2020-05-20T08:11:17.827Z',
-          startDate: '2020-05-20T08:11:17.827Z',
-          info: {
-            started: false,
-            ended: false,
-            subscribers: 100,
-            subscribed: false,
-            likes: 100,
-            liked: false
-          },
-          channel: channel_
-        };
-        return new Array(250).fill(true).map(function (x, i) {
-          var item = Object.assign({}, event_);
-          item.id = (channelId - 100) * 1000 + 1 + i;
-          item.picture = Object.assign({}, event_.picture);
-          item.picture.width = 700;
-          item.picture.height = [700, 900, 1100][i % 3];
-          item.info = Object.assign({}, event_.info);
-          item.channel = Object.assign({}, x);
-          return EventService.fake(new Event(item));
         });
       }) // map(x => new Channel(x))
       );
@@ -4323,8 +4351,8 @@
     };
 
     NotificationService.notifications$ = function notifications$() {
-      return ApiService.staticGet$("/user/notification").pipe(operators.map(function (items) {
-        return EventService.mapEvents(items);
+      return ApiService.staticGet$("/user/notification").pipe(operators.map(function (response) {
+        return EventService.mapEvents(response.data, response.static);
       }), operators.switchMap(function (items) {
         notifications$_.next(items);
         return notifications$_;
@@ -5399,7 +5427,9 @@
     _proto.tryDownloadHref = function tryDownloadHref() {
       var _this2 = this;
 
-      ApiService.staticGet$(this.href, undefined, 'blob').pipe(operators.first()).subscribe(function (blob) {
+      ApiService.staticGet$(this.href, undefined, 'blob').pipe(operators.first(), operators.map(function (response) {
+        return response.data;
+      })).subscribe(function (blob) {
         DownloadService.download(blob, _this2.href.split('/').pop());
       }, function (error) {
         console.log(error);

@@ -34,13 +34,13 @@
 					<li class="wse__nav--filters__item wse__filter">
 						<span class="wse__filter__option" [class]="{ active: viewMode === 'saved' }" (click)="viewMode = 'saved'">
 							<span class="wse__name">Salvati</span>
-							<span class="wse__count" [innerHTML]="savedItems.length || ''"></span>
+							<span class="wse__count" [innerHTML]="savedItems.length"></span>
 						</span>
 					</li>
 					<li class="wse__nav--filters__item wse__filter">
 						<span class="wse__filter__option" [class]="{ active: viewMode === 'liked' }" (click)="viewMode = 'liked'">
 							<span class="wse__name">Eventi piaciuti</span>
-							<span class="wse__count" [innerHTML]="likedItems.length || ''"></span>
+							<span class="wse__count" [innerHTML]="likedItems.length"></span>
 						</span>
 					</li>
 				</ul>

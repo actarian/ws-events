@@ -76,7 +76,7 @@
 							<span class="wse__name" *if="option.value === 'picture'"><span class="wse__text">Immagini</span><svg class="wse__ico"><use xlink:href="#picture"></use></svg></span>
 							<span class="wse__name" *if="option.value === 'product'"><span class="wse__text">Prodotti</span><svg class="wse__ico"><use xlink:href="#product"></use></svg></span>
 							<span class="wse__name" *if="option.value === 'magazine'"><span class="wse__text">Magazine</span><svg class="wse__ico"><use xlink:href="#magazine"></use></svg></span>
-							<span class="wse__count" [innerHTML]="option.count || ''"></span>
+							<span class="wse__count" [innerHTML]="option.count"></span>
 						</span>
 					</li>
 				</ul>
@@ -91,6 +91,16 @@
 				</div>
 			</div>
 		</div>
+		<div class="wse__active-filters" *if="activeFilters?.length">
+			<div class="wse__container-fluid">
+				<div class="wse__active-filters__filter" *for="let filter of activeFilters">
+					<div class="wse__active-filters__option" (click)="filter.remove(option)" *for="let option of filter.options">
+						<span class="wse__name" [innerHTML]="filter.label + ' ' + option.label"></span>
+						<svg class="wse__icon"><use xlink:href="#close"></use></svg>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="wse__container-fluid" *if="secondaryFiltersVisible">
 			<div class="wse__secondary-filters">
 				<div class="wse__secondary-filter" *for="let filter of secondaryFilters">
@@ -99,7 +109,7 @@
 						<li class="wse__nav--secondary-filters__item wse__filter" *for="let option of filter.options">
 							<span class="wse__filter__option" [class]="{ active: filter.has(option), disabled: option.disabled }" (click)="filter.toggle(option)" *if="option.initialCount">
 								<span class="wse__name" [innerHTML]="option.label"></span>
-								<span class="wse__count" [innerHTML]="option.count || ''"></span>
+								<span class="wse__count" [innerHTML]="option.count"></span>
 							</span>
 						</li>
 					</ul>

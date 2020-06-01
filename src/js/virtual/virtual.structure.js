@@ -49,7 +49,7 @@ export default class VirtualStructure extends Structure {
 		const context = getContext(this);
 		const module = context.module;
 		// resolve
-		const items = module.resolve(this.virtualFunction, changes, this) || [];
+		const items = module.resolve(this.virtualFunction, context.parentInstance, this) || [];
 		this.mode = this.mode || 1;
 		this.width = this.width || 250;
 		this.gutter = (this.gutter !== undefined) ? this.gutter : 20;

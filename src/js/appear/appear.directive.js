@@ -1,5 +1,5 @@
 import { Directive, getContext } from 'rxcomp';
-import { first, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import IntersectionService from '../intersection/intersection.service';
 
 export default class AppearDirective extends Directive {
@@ -13,8 +13,7 @@ export default class AppearDirective extends Directive {
 		if (!this.appeared) {
 			this.appeared = true;
 			const { node } = getContext(this);
-			IntersectionService.intersection$(node).pipe(
-				first(),
+			IntersectionService.firstIntersection$(node).pipe(
 				takeUntil(this.unsubscribe$),
 			).subscribe(src => {
 				node.classList.add('appeared');

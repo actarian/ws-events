@@ -21,33 +21,20 @@ export default class IntersectionService {
 			return this.observerSubject_.pipe(
 				// tap(entries => console.log(entries.length)),
 				map(entries => entries.find(entry => entry.target === node)),
+				filter(entry => entry !== undefined),
 				// tap(entry => console.log('IntersectionService.intersection$', entry)),
-				filter(entry => entry !== undefined && entry.isIntersecting), // entry.intersectionRatio > 0
-				first(),
 				finalize(() => observer.unobserve(node)),
 			);
 		} else {
-			return of({ target: node });
+			return of({ target: node, isIntersecting: true });
 		}
+	}
 
-		/*
-		function observer() {
-			if ('IntersectionObserver' in window) {
-				return new IntersectionObserver(entries => {
-					entries.forEach(function(entry) {
-						if (entry.isIntersecting) {
-							entry.target.classList.add('appear');
-						}
-					})
-				});
-			} else {
-				return { observe: function(node) { node.classList.add('appear')}, unobserve: function() {} };
-			}
-		}
-		observer.observe(node);
-		observer.unobserve(node);
-		*/
-
+	static firstIntersection$(node) {
+		return this.intersection$(node).pipe(
+			filter(entry => entry.isIntersecting), // entry.intersectionRatio > 0
+			first(),
+		);
 	}
 
 }

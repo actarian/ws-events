@@ -1,6 +1,6 @@
 import { Directive, getContext } from 'rxcomp';
 import { of , Subject } from 'rxjs';
-import { distinctUntilChanged, first, switchMap, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
 import ImageService from '../image/image.service';
 import IntersectionService from '../intersection/intersection.service';
 import LazyCache from './lazy.cache';
@@ -35,8 +35,7 @@ export default class LazyDirective extends Directive {
 
 	lazy$(input) {
 		const { node } = getContext(this);
-		return IntersectionService.intersection$(node).pipe(
-			first(),
+		return IntersectionService.firstIntersection$(node).pipe(
 			// tap(entry => console.log(entry)),
 			switchMap(() => ImageService.load$(input)),
 			takeUntil(this.unsubscribe$),

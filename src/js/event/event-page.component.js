@@ -2,6 +2,7 @@ import { FormControl, FormGroup, Validators } from 'rxcomp-form';
 import { combineLatest } from 'rxjs';
 import { first, takeUntil } from 'rxjs/operators';
 import FavouriteService from '../favourite/favourite.service';
+import FilterItem from '../filter/filter-item';
 import FilterService from '../filter/filter.service';
 import LocationService from '../location/location.service';
 import PageComponent from '../page/page.component';
@@ -22,6 +23,7 @@ export default class EventPageComponent extends PageComponent {
 		this.filters = null;
 		this.secondaryFiltersVisible = false;
 		this.secondaryFilters = null;
+		this.activeFilters = null;
 		this.filteredItems = [];
 		this.load$().pipe(
 			first(),
@@ -104,7 +106,6 @@ export default class EventPageComponent extends PageComponent {
 		this.secondaryFilters = Object.keys(this.filters).filter(key => key !== 'type').map(key => {
 			return this.filters[key];
 		});
-		console.log(this.filters);
 	}
 
 	startFilter(items) {
@@ -112,12 +113,18 @@ export default class EventPageComponent extends PageComponent {
 			takeUntil(this.unsubscribe$),
 		).subscribe(filteredItems => {
 			this.filteredItems = [];
+			this.activeFilters = [];
 			this.pushChanges();
 			setTimeout(() => {
 				this.filteredItems = filteredItems;
+				this.activeFilters = this.secondaryFilters.map(f => {
+					f = new FilterItem(f);
+					f.options = f.options.filter(o => f.has(o));
+					return f;
+				}).filter(f => f.options.length);
 				this.pushChanges();
 			}, 1);
-			console.log('EventPageComponent.filteredItems', filteredItems.length);
+			// console.log('EventPageComponent.filteredItems', filteredItems.length);
 		});
 	}
 

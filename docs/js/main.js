@@ -2141,6 +2141,7 @@
       this.filters = null;
       this.secondaryFiltersVisible = false;
       this.secondaryFilters = null;
+      this.activeFilters = null;
       this.filteredItems = [];
       this.load$().pipe(operators.first()).subscribe(function (data) {
         _this.channels = data[0];
@@ -2222,15 +2223,24 @@
 
       this.filterService.items$(items).pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (filteredItems) {
         _this3.filteredItems = [];
+        _this3.activeFilters = [];
 
         _this3.pushChanges();
 
         setTimeout(function () {
           _this3.filteredItems = filteredItems;
+          _this3.activeFilters = _this3.secondaryFilters.map(function (f) {
+            f = new FilterItem(f);
+            f.options = f.options.filter(function (o) {
+              return f.has(o);
+            });
+            return f;
+          }).filter(function (f) {
+            return f.options.length;
+          });
 
           _this3.pushChanges();
-        }, 1);
-        console.log('ChannelPageComponent.filteredItems', filteredItems.length);
+        }, 1); // console.log('ChannelPageComponent.filteredItems', filteredItems.length);
       });
     };
 
@@ -3884,6 +3894,7 @@
       this.filters = null;
       this.secondaryFiltersVisible = false;
       this.secondaryFilters = null;
+      this.activeFilters = null;
       this.filteredItems = [];
       this.load$().pipe(operators.first()).subscribe(function (data) {
         _this.event = data[0];
@@ -3971,7 +3982,6 @@
       }).map(function (key) {
         return _this2.filters[key];
       });
-      console.log(this.filters);
     };
 
     _proto.startFilter = function startFilter(items) {
@@ -3979,15 +3989,24 @@
 
       this.filterService.items$(items).pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (filteredItems) {
         _this3.filteredItems = [];
+        _this3.activeFilters = [];
 
         _this3.pushChanges();
 
         setTimeout(function () {
           _this3.filteredItems = filteredItems;
+          _this3.activeFilters = _this3.secondaryFilters.map(function (f) {
+            f = new FilterItem(f);
+            f.options = f.options.filter(function (o) {
+              return f.has(o);
+            });
+            return f;
+          }).filter(function (f) {
+            return f.options.length;
+          });
 
           _this3.pushChanges();
-        }, 1);
-        console.log('EventPageComponent.filteredItems', filteredItems.length);
+        }, 1); // console.log('EventPageComponent.filteredItems', filteredItems.length);
       });
     };
 
@@ -4548,36 +4567,25 @@
           return entries.find(function (entry) {
             return entry.target === node;
           });
+        }), operators.filter(function (entry) {
+          return entry !== undefined;
         }), // tap(entry => console.log('IntersectionService.intersection$', entry)),
-        operators.filter(function (entry) {
-          return entry !== undefined && entry.isIntersecting;
-        }), // entry.intersectionRatio > 0
-        operators.first(), operators.finalize(function () {
+        operators.finalize(function () {
           return observer.unobserve(node);
         }));
       } else {
         return rxjs.of({
-          target: node
+          target: node,
+          isIntersecting: true
         });
       }
-      /*
-      function observer() {
-      	if ('IntersectionObserver' in window) {
-      		return new IntersectionObserver(entries => {
-      			entries.forEach(function(entry) {
-      				if (entry.isIntersecting) {
-      					entry.target.classList.add('appear');
-      				}
-      			})
-      		});
-      	} else {
-      		return { observe: function(node) { node.classList.add('appear')}, unobserve: function() {} };
-      	}
-      }
-      observer.observe(node);
-      observer.unobserve(node);
-      */
+    };
 
+    IntersectionService.firstIntersection$ = function firstIntersection$(node) {
+      return this.intersection$(node).pipe(operators.filter(function (entry) {
+        return entry.isIntersecting;
+      }), // entry.intersectionRatio > 0
+      operators.first());
     };
 
     return IntersectionService;
@@ -4658,7 +4666,7 @@
       var _getContext2 = rxcomp.getContext(this),
           node = _getContext2.node;
 
-      return IntersectionService.intersection$(node).pipe(operators.first(), // tap(entry => console.log(entry)),
+      return IntersectionService.firstIntersection$(node).pipe( // tap(entry => console.log(entry)),
       operators.switchMap(function () {
         return ImageService.load$(input);
       }), operators.takeUntil(this.unsubscribe$));
@@ -6317,7 +6325,7 @@
       var context = rxcomp.getContext(this);
       var module = context.module; // resolve
 
-      var items = module.resolve(this.virtualFunction, changes, this) || [];
+      var items = module.resolve(this.virtualFunction, context.parentInstance, this) || [];
       this.mode = this.mode || 1;
       this.width = this.width || 250;
       this.gutter = this.gutter !== undefined ? this.gutter : 20;

@@ -127,9 +127,14 @@
 	}
 
 	.wse__group--filters {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
+		&>.wse__container-fluid {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		padding: 15px 0;
+		border-bottom: 1px solid #edf1fe;
 	}
 
 	.wse__group--actions {
@@ -211,16 +216,13 @@
 	}
 
 	.wse__active-filters {
-		display: flex;
-		flex-wrap: wrap;
+		width: 100%;
 		margin-top: 10px;
 
-		.wse__container-fluid {
+		&>.wse__container-fluid {
+			display: flex;
+			flex-wrap: wrap;
 			max-width: 1440px;
-		}
-
-		@include media-down(sm) {
-			display: inline-flex;
 		}
 	}
 
@@ -249,29 +251,19 @@
 		@include grid-margin();
 		display: flex;
 		flex-wrap: wrap;
-		padding: 5px 0 0 0;
+		padding: 0;
 	}
 
 	.wse__secondary-filter {
-		display: flex;
-		align-items: flex-start;
-		margin: 0 12.5px 25px 12.5px;
+		margin: 12.5px;
 		padding: 10px;
 		border: 1px solid $background-tertiary;
 
 		&__name {
-			display: flex;
-			justify-content: flex-start;
-			// align-items: center;
-			flex: 0 0 30%;
-			max-width: 80px;
-			margin: 0 15px 5px 0;
-			// border-right: 1px solid black;
-			// padding-right: 15px;
+			margin: 0 0 13px 0;
 			line-height: 1;
 			font-size: 13px;
 			font-weight: 900;
-			// text-transform: lowercase;
 		}
 
 		@include media-up(lg) {
@@ -360,29 +352,51 @@
 	}
 
 	@include media-down(sm) {
+		padding: 0;
+
 		.wse__group--filters {
 			padding-bottom: 15px;
 		}
 
 		.wse__active-filters {
-			border-top: 1px solid $background-tertiary;
-			padding-top: 10px;
+			padding-top: 0;
 		}
 
 		.wse__secondary-filter {
 			margin: 0;
 			@include grid-padding();
-			display: block;
 			border: none;
-			border-top: 1px solid $background-tertiary;
+			border-bottom: 1px solid $background-tertiary;
 		}
 
 		.wse__nav--secondary-filters {
 			display: inline-flex;
 		}
 
+		.wse__active-filters {
+			display: inline-flex;
+		}
+
 		.wse__btn--mode {
 			display: none;
+		}
+	}
+
+	@include media-down(xs) {
+		.wse__secondary-filter {
+			&__name {
+				text-align: center;
+			}
+		}
+
+		.wse__nav--secondary-filters {
+			justify-content: center;
+		}
+
+		.wse__active-filters {
+			&>.wse__container-fluid {
+				justify-content: center;
+			}
 		}
 	}
 }

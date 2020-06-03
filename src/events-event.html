@@ -131,8 +131,8 @@
 	</div>
 
 	<div class="wse__section--filters" *if="filters && listing?.length">
-		<div class="wse__container-fluid">
-			<div class="wse__group--filters">
+		<div class="wse__group--filters">
+			<div class="wse__container-fluid">
 				<ul class="wse__nav--filters">
 					<li class="wse__nav--filters__item wse__filter" *for="let option of filters.type.options">
 						<span class="wse__filter__option" [class]="{ active: filters.type.has(option), disabled: option.disabled }" (click)="filters.type.set(option)">
@@ -156,16 +156,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="wse__active-filters" *if="activeFilters?.length">
-			<div class="wse__container-fluid">
-				<div class="wse__active-filters__filter" *for="let filter of activeFilters">
-					<div class="wse__active-filters__option" (click)="filter.remove(option)" *for="let option of filter.options">
-						<span class="wse__name" [innerHTML]="filter.label + ' ' + option.label"></span>
-						<svg class="wse__icon"><use xlink:href="#close"></use></svg>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="wse__container-fluid" *if="secondaryFiltersVisible">
 			<div class="wse__secondary-filters">
 				<div class="wse__secondary-filter" *for="let filter of secondaryFilters">
@@ -178,6 +168,16 @@
 							</span>
 						</li>
 					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="wse__active-filters" *if="activeFilters?.length">
+			<div class="wse__container-fluid">
+				<div class="wse__active-filters__filter" *for="let filter of activeFilters">
+					<div class="wse__active-filters__option" (click)="filter.remove(option)" *for="let option of filter.options">
+						<span class="wse__name" [innerHTML]="filter.label + ' ' + option.label"></span>
+						<svg class="wse__icon"><use xlink:href="#close"></use></svg>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -110,7 +110,7 @@ export default class ChannelService {
 					name: 'Evento',
 					title: 'Evento',
 					abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
-					url: '/event',
+					url: '/ws-events/events-event.html',
 					creationDate: '2020-05-20T08:11:17.827Z',
 					startDate: '2020-05-20T08:11:17.827Z',
 					picture: image_,
@@ -202,6 +202,7 @@ export default class ChannelService {
 					}
 					switch (type) {
 						case 'event':
+							console.log(item.url);
 							item = EventService.fake(new Event(item, true));
 							break;
 						default:

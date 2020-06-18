@@ -320,6 +320,8 @@
 	font-weight: 600;
 	letter-spacing: 0.1em;
 	outline: none;
+	display: inline-block;
+	line-height: 1.6;
 
 	&:hover {
 		background-color: #8e847b;

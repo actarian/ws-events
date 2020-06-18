@@ -17,9 +17,11 @@ body {
 %category {
 	@extend %reset-link;
 	font-family: $font-secondary;
-	font-size: 18px;
+	font-size: 30px;
 	line-height: 1.15;
 	font-weight: $font-bold;
+	text-transform: uppercase;
+	color: #232221;
 
 	@include media-down(sm) {
 		font-size: 16px;

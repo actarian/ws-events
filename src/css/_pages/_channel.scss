@@ -40,8 +40,8 @@
 .wse__section--channel__header {
 	padding: 40px 0;
 	margin: 0 0 2px 0;
-	background: rgb(237, 241, 254);
-	background: linear-gradient(0deg, rgba(237, 241, 254, 1) 0%, rgba(237, 241, 254, 0) 50%);
+	/*background: rgb(237, 241, 254);
+	background: linear-gradient(0deg, rgba(237, 241, 254, 1) 0%, rgba(237, 241, 254, 0) 50%);*/
 
 	&__content {
 		display: flex;
@@ -127,14 +127,14 @@
 	}
 
 	.wse__group--filters {
-		&>.wse__container-fluid {
+		& > .wse__container-fluid {
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
 		}
 
 		padding: 15px 0;
-		border-bottom: 1px solid #edf1fe;
+		border-bottom: 2px solid #625a52;
 	}
 
 	.wse__group--actions {
@@ -148,11 +148,11 @@
 		@extend %nav;
 		flex: 1 1 auto;
 
-		&>li {
+		& > li {
 			@extend %nav-item;
 			flex: 0 1 auto;
 
-			&>.wse__filter__option {
+			& > .wse__filter__option {
 				@extend %btn-filter;
 				border-radius: 0;
 			}
@@ -160,8 +160,8 @@
 
 		@include media-up(md) {
 
-			&>li {
-				&>.wse__filter__option {
+			& > li {
+				& > .wse__filter__option {
 					.wse__name {
 						.wse__ico {
 							display: none;
@@ -170,10 +170,9 @@
 				}
 			}
 
-			&>li+li {
+			& > li + li {
 				margin-left: 40px;
 			}
-
 		}
 
 		@include media-down(sm) {
@@ -181,11 +180,11 @@
 			justify-content: space-around;
 			align-items: stretch;
 
-			&>li {
+			& > li {
 				margin-right: 12px;
 				position: relative;
 
-				&>.wse__filter__option {
+				& > .wse__filter__option {
 					position: static;
 					display: flex;
 					align-items: center;
@@ -219,7 +218,7 @@
 		width: 100%;
 		margin-top: 10px;
 
-		&>.wse__container-fluid {
+		& > .wse__container-fluid {
 			display: flex;
 			flex-wrap: wrap;
 			max-width: 1440px;
@@ -288,11 +287,11 @@
 		align-items: flex-start;
 		flex-wrap: wrap;
 
-		&>li {
+		& > li {
 			@extend %nav-item;
 			flex: 0 1 auto;
 
-			&>.wse__filter__option {
+			& > .wse__filter__option {
 				@extend %btn;
 				font-size: 11px;
 				line-height: 1.8;
@@ -306,7 +305,6 @@
 				color: $foreground-primary;
 				cursor: pointer;
 				*/
-
 				background: $background-tertiary;
 				color: $foreground;
 				margin: 0 10px 10px 0;
@@ -394,7 +392,7 @@
 		}
 
 		.wse__active-filters {
-			&>.wse__container-fluid {
+			& > .wse__container-fluid {
 				justify-content: center;
 			}
 		}

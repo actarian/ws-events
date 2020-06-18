@@ -30,8 +30,10 @@ body {
 	@extend %reset-link;
 	font-family: $font-secondary;
 	font-size: 64px;
-	line-height: 0.88;
-	font-weight: $font-bold;
+	line-height: 1;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: #232221;
 
 	@include media-down(sm) {
 		font-size: 34px;

@@ -48,12 +48,13 @@
 
 .wse__event-header {
 	position: relative;
-	background: rgb(237, 241, 254);
-	background: linear-gradient(0deg, rgba(237, 241, 254, 1) 0%, rgba(237, 241, 254, 0) 50%);
+	/*background: rgb(237, 241, 254);
+	background: linear-gradient(0deg, rgba(237, 241, 254, 1) 0%, rgba(237, 241, 254, 0) 50%);*/
+	border-bottom: 2px solid #625a52;
 	padding: 40px 0;
 	margin: 0 0 2px 0;
 
-	&:before {
+	/*&:before {
 		content: '';
 		position: absolute;
 		top: 0;
@@ -62,7 +63,7 @@
 		left: -100%;
 		background: rgb(237, 241, 254);
 		background: linear-gradient(0deg, rgba(237, 241, 254, 1) 0%, rgba(237, 241, 254, 0) 50%);
-	}
+	}*/
 
 	&__content {
 		display: flex;
@@ -74,7 +75,7 @@
 			margin: 0;
 		}
 
-		& p+p {
+		& p + p {
 			margin-top: 10px;
 		}
 	}
@@ -177,7 +178,7 @@
 	@include aspect-clip(16, 9);
 	background: $foreground;
 
-	&>img {
+	& > img {
 		position: absolute;
 		top: 0;
 		left: 50%;
@@ -218,7 +219,7 @@
 			margin: 0;
 		}
 
-		& p+p {
+		& p + p {
 			margin-top: 10px;
 		}
 	}
@@ -271,7 +272,6 @@
 				font-size: 28px;
 			}
 		}
-
 	}
 
 	@include media-down(sm) {
@@ -329,7 +329,6 @@
 			font-size: 14px;
 		}
 	}
-
 }
 
 .wse__section--event__listing {
@@ -346,7 +345,6 @@
 		min-height: 100%;
 		margin: 15px 0 40px 0;
 	}
-
 }
 
 .wse__group--questions {

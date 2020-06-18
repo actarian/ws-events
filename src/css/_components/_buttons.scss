@@ -10,7 +10,6 @@
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	// transition: ease-in-out 350ms;
 	// transition-property: background-color, color, border, opacity;
-
 	&,
 	&:active,
 	&:focus,
@@ -26,7 +25,6 @@
 	@extend %btn-reset;
 	// transition: ease-in-out 350ms;
 	// transition-property: background-color, color, border, opacity;
-
 	&[disabled] {
 		opacity: 0.5;
 		pointer-events: none;
@@ -310,15 +308,30 @@
 }
 
 .wse__btn--rounded {
-	@extend %btn-rounded;
+	padding: 8px 30px;
+	position: relative;
+	text-decoration: none;
+	overflow: hidden;
+	border: 2px solid #8e847b;
+	color: #8e847b;
+	background: transparent;
+	font-size: 12px;
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	outline: none;
 
-	@include media-down(sm) {
+	&:hover {
+		background-color: #8e847b;
+		color: #fff;
+	}
+	/*@include media-down(sm) {
 		font-size: 14px;
 		padding: 0 16px;
 		line-height: 1;
 		height: 34px;
 		border-radius: 17px;
-	}
+	}*/
 }
 
 .wse__btn--mode,

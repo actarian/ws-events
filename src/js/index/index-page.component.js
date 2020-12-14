@@ -21,11 +21,11 @@ export default class IndexPageComponent extends PageComponent {
 
 	load$() {
 		return UserService.sharedChanged$.pipe(
-			switchMap(() => combineLatest(
+			switchMap(() => combineLatest([
 				EventService.top$(),
 				ChannelService.top$(),
 				EventService.upcoming$(),
-			))
+			]))
 		);
 	}
 

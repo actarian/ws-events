@@ -189,7 +189,7 @@
 	&__picture {
 		display: block;
 		@include aspect-clip(4, 3);
-		background: $background;
+		background: $background-negative;
 		overflow: visible;
 
 		&>img {
@@ -263,7 +263,7 @@
 			}
 
 			&.wse__date--countdown {
-				background: rgba(0, 0, 0, 0.8);
+				background: $background-countdown;
 			}
 		}
 	}
@@ -518,7 +518,7 @@
 			}
 
 			&.wse__date--countdown {
-				background: rgba(0, 0, 0, 0.8);
+				background: $background-countdown;
 				padding: 4px 9px;
 			}
 		}
@@ -647,7 +647,7 @@
 			}
 
 			&.wse__date--countdown {
-				background: rgba(0, 0, 0, 0.8);
+				background: $background-countdown;
 			}
 		}
 	}
@@ -1039,7 +1039,7 @@
 			}
 
 			&.wse__date--countdown {
-				background: rgba(0, 0, 0, 0.8);
+				background: $background-countdown;
 			}
 		}
 	}
@@ -1153,7 +1153,7 @@
 			}
 
 			&.wse__date--countdown {
-				background: rgba(0, 0, 0, 0.8);
+				background: $background-countdown;
 			}
 		}
 	}

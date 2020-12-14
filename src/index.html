@@ -27,7 +27,7 @@
 		</div>
 	</div>
 
-	<div class="wse__channel" [channel]="channel" *for="let channel of topChannels">
+	<div class="wse__channel" [class]="'wse__channel-' + index" [channel]="channel" *for="let channel of topChannels; let index = $index;">
 		<!-- @@include ./templates/shared/channel/section.html -->
 	</div>
 

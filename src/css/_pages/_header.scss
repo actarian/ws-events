@@ -1,6 +1,6 @@
 .wse__header {
-	// background: $background-tertiary;
-	border-bottom: 2px solid $background-tertiary;
+	background: $orange;
+	border-bottom: 2px solid $border;
 
 	.wse__container-fluid,
 	.wse__container {
@@ -13,30 +13,56 @@
 	.wse__btn--menu {
 		line-height: 0;
 		cursor: pointer;
+		color: $foreground;
 
 		.wse__icon {
 			width: 19px;
 			height: 19px;
-			color: #b5c0e4;
 		}
 	}
 
 	.wse__brand {
 		line-height: 0;
-	}
 
-	.wse__websolute {
-		fill: $foreground-primary;
-		width: 24px;
-		height: 24px;
+		.wse__icon {
+			fill: $foreground-primary;
+			width: 120px;
+			height: 30px;
+		}
+
+		.wse__icon--badge {
+			fill: $foreground-primary;
+			width: 30px;
+			height: 30px;
+		}
 	}
 
 	.wse__btn--rounded {
 		@extend %btn-md;
 	}
 
-	@include media-up(md) {
-		margin-bottom: 50px;
+	@include media-up(sm) {
+		.wse__brand {
+			.wse__icon {
+				display: block;
+			}
+
+			.wse__icon--badge {
+				display: none;
+			}
+		}
+	}
+
+	@include media-down(xs) {
+		.wse__brand {
+			.wse__icon {
+				display: none;
+			}
+
+			.wse__icon--badge {
+				display: block;
+			}
+		}
 	}
 }
 

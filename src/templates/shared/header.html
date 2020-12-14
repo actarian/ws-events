@@ -3,7 +3,10 @@
 		<div class="wse__group--header">
 			<div class="wse__group--brand">
 				<div class="wse__btn--menu" (click)="toggleAside($event)" (clickOutside)="dismissAside($event)"><svg class="wse__icon"><use xlink:href="#menu"></use></svg></div>
-				<a href="/ws-events/" class="wse__brand"><svg class="wse__websolute"><use xlink:href="#websolute"></use></svg></a>
+				<a href="/ws-events/" class="wse__brand">
+					<svg class="wse__icon"><use xlink:href="#brand"></use></svg>
+					<svg class="wse__icon--badge"><use xlink:href="#brand-badge"></use></svg>
+				</a>
 			</div>
 			<div class="wse__group--actions" *if="user">
 				<!--

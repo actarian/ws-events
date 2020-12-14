@@ -15,13 +15,13 @@
 	}
 
 	&::-webkit-scrollbar-thumb {
-		background-color: $background-primary;
+		background-color: $foreground;
 		box-shadow: none;
 		border-radius: 8px;
 		border: 2px solid $background-tertiary;
 
 		&:hover {
-			background-color: $background-primary;
+			background-color: $foreground;
 		}
 	}
 

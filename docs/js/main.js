@@ -2328,9 +2328,14 @@ var FilterItem = /*#__PURE__*/function () {
   };
 
   _proto.load$ = function load$() {
-    var channelId = LocationService.get('channelId');
+    var channelId = LocationService.get('channelId') || 0;
+
+    var _getContext = rxcomp.getContext(this),
+        node = _getContext.node;
+
+    node.classList.add("wse__channel-page-" + channelId % 4);
     return UserService.sharedChanged$.pipe(operators.switchMap(function () {
-      return rxjs.combineLatest(ChannelService.channels$(), ChannelService.detail$(channelId), ChannelService.listing$(channelId), ChannelService.filter$(channelId));
+      return rxjs.combineLatest([ChannelService.channels$(), ChannelService.detail$(channelId), ChannelService.listing$(channelId), ChannelService.filter$(channelId)]);
     }));
   };
 
@@ -4085,10 +4090,20 @@ EventDateComponent.meta = {
     var _this2 = this;
 
     var eventId = LocationService.get('eventId') || this.eventId;
+
+    var _getContext = rxcomp.getContext(this),
+        node = _getContext.node;
+
+    node.classList.add("wse__channel-page-" + eventId % 4);
+
+    if (STATIC) {
+      eventId = 1001;
+    }
+
     return UserService.sharedChanged$.pipe(operators.tap(function (user) {
       return _this2.user = user;
     }), operators.switchMap(function () {
-      return rxjs.combineLatest(EventService.detail$(eventId), EventService.listing$(eventId), EventService.filter$(eventId));
+      return rxjs.combineLatest([EventService.detail$(eventId), EventService.listing$(eventId), EventService.filter$(eventId)]);
     }));
   };
 
@@ -4405,7 +4420,7 @@ var FavouritePageComponent = /*#__PURE__*/function (_PageComponent) {
 
   _proto.load$ = function load$() {
     return UserService.sharedChanged$.pipe(operators.switchMap(function () {
-      return rxjs.combineLatest(ChannelService.channels$(), FavouriteService.favourites$(), FavouriteService.likes$());
+      return rxjs.combineLatest([ChannelService.channels$(), FavouriteService.favourites$(), FavouriteService.likes$()]);
     }));
   };
 
@@ -4924,7 +4939,7 @@ NotificationService.sharedNotifications$ = NotificationService.notifications$().
     UserService.sharedChanged$.pipe(operators.tap(function (user) {
       return _this.user = user;
     }), operators.switchMap(function () {
-      return rxjs.combineLatest(NotificationService.notifications$(), FavouriteService.subscriptions$(), FavouriteService.likes$(), FavouriteService.favourites$());
+      return rxjs.combineLatest([NotificationService.notifications$(), FavouriteService.subscriptions$(), FavouriteService.likes$(), FavouriteService.favourites$()]);
     }), operators.catchError(function () {
       return rxjs.of(null);
     }), operators.takeUntil(this.unsubscribe$)).subscribe(function (data) {
@@ -5041,7 +5056,7 @@ HtmlPipe.meta = {
 
   _proto.load$ = function load$() {
     return UserService.sharedChanged$.pipe(operators.switchMap(function () {
-      return rxjs.combineLatest(EventService.top$(), ChannelService.top$(), EventService.upcoming$());
+      return rxjs.combineLatest([EventService.top$(), ChannelService.top$(), EventService.upcoming$()]);
     }));
   };
 
@@ -6292,23 +6307,23 @@ SwiperSlidesDirective.meta = {
       breakpoints: {
         768: {
           slidesPerView: 2,
-          spaceBetween: 2
+          spaceBetween: 0
         },
         1024: {
           slidesPerView: 3,
-          spaceBetween: 2
+          spaceBetween: 0
         },
         1440: {
           slidesPerView: 4,
-          spaceBetween: 2
+          spaceBetween: 0
         },
         1920: {
           slidesPerView: 4,
-          spaceBetween: 2
+          spaceBetween: 0
         },
         2440: {
           slidesPerView: 5,
-          spaceBetween: 2
+          spaceBetween: 0
         }
       },
       centeredSlides: false,

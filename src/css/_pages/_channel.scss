@@ -1,5 +1,37 @@
+.wse__channel-page-0 {
+
+	&,
+	& .wse__card--top {
+		background: $pink;
+	}
+}
+
+.wse__channel-page-1 {
+
+	&,
+	& .wse__card--top {
+		background: $blue;
+	}
+}
+
+.wse__channel-page-2 {
+
+	&,
+	& .wse__card--top {
+		background: $yellow;
+	}
+}
+
+.wse__channel-page-3 {
+
+	&,
+	& .wse__card--top {
+		background: $green;
+	}
+}
+
 .wse__section--channel__menu {
-	padding: 0 0 40px 0;
+	padding: 40px 0 40px 0;
 
 	.wse__nav--menu {
 		@extend %nav;
@@ -39,9 +71,9 @@
 
 .wse__section--channel__header {
 	padding: 40px 0;
-	margin: 0 0 2px 0;
-	background: rgb(237, 241, 254);
-	background: linear-gradient(0deg, rgba(237, 241, 254, 1) 0%, rgba(237, 241, 254, 0) 50%);
+	margin: 0;
+	background: $background-tertiary;
+	background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 50%);
 
 	&__content {
 		display: flex;
@@ -120,7 +152,7 @@
 
 .wse__section--filters {
 	padding: 40px 0 20px 0;
-	border-bottom: 2px solid $background-tertiary;
+	border-bottom: 2px solid $border;
 
 	.wse__container-fluid {
 		max-width: 1440px;
@@ -134,7 +166,7 @@
 		}
 
 		padding: 15px 0;
-		border-bottom: 1px solid $background-tertiary;
+		// border-bottom: 1px solid $border;
 	}
 
 	.wse__group--actions {
@@ -155,6 +187,11 @@
 			&>.wse__filter__option {
 				@extend %btn-filter;
 				border-radius: 0;
+
+				.wse__count {
+					background: $background-negative;
+					color: $foreground-negative;
+				}
 			}
 		}
 
@@ -238,7 +275,7 @@
 		font-size: 11px;
 		line-height: 1;
 		font-weight: 600;
-		border-radius: 4px;
+		border-radius: $badge-radius;
 		cursor: pointer;
 
 		.wse__icon {
@@ -256,14 +293,20 @@
 
 	.wse__secondary-filter {
 		margin: 12.5px;
-		padding: 10px;
-		border: 1px solid $background-tertiary;
+		// padding: 10px;
+		// border: 1px solid $background-tertiary;
 
 		&__name {
+			display: inline-block;
 			margin: 0 0 13px 0;
+			padding: 4px 7px;
 			line-height: 1;
-			font-size: 13px;
-			font-weight: 900;
+			font-size: 12px;
+			font-weight: 700;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+			background: $background-negative;
+			color: $foreground-negative;
 		}
 
 		@include media-up(lg) {
@@ -302,29 +345,31 @@
 				margin: 0 10px 2px -5px;
 				padding: 0 5px;
 				// background: $background-tertiary;
-				// border-bottom: 1px solid $background-tertiary;
+				// border-bottom: 1px solid $border;
 				color: $foreground-primary;
 				cursor: pointer;
 				*/
 
-				background: $background-tertiary;
+				// background: $background-tertiary;
 				color: $foreground;
 				margin: 0 10px 10px 0;
-				padding: 5px 6px 5px 6px;
+				// padding: 5px 6px 5px 6px;
+				padding: 0;
 				font-size: 11px;
 				line-height: 1;
 				font-weight: 600;
-				border-radius: 4px;
+				border-radius: $badge-radius;
 				transition: none;
 				cursor: pointer;
 
 				.wse__count {
-					background: $background-tertiary;
+					background: $background-negative;
+					color: $foreground-negative;
 					padding: 1px 4px 1px 4px;
-					border-radius: 3px;
+					border-radius: $badge-radius;
 					line-height: 1;
 					font-size: 0.8em;
-					margin-left: 1px;
+					margin-left: 3px;
 					margin-right: -3px;
 				}
 
@@ -338,7 +383,7 @@
 				}
 
 				&.disabled {
-					// border-bottom: 1px solid $background-tertiary;
+					// border-bottom: 1px solid $border;
 					color: $foreground;
 					opacity: 0.5;
 					pointer-events: none;
@@ -366,7 +411,7 @@
 			margin: 0;
 			@include grid-padding();
 			border: none;
-			border-bottom: 1px solid $background-tertiary;
+			// border-bottom: 1px solid $border;
 		}
 
 		.wse__nav--secondary-filters {

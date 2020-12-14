@@ -1,1 +1,24 @@
 
+@font-face {
+    font-family: 'Authentic Sans';
+    src: url('/fonts/authentic-sans/authenticsans-90-webfont.woff2') format('woff2'),
+         url('/fonts/authentic-sans/authenticsans-90-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Authentic Sans';
+    src: url('/fonts/authentic-sans/authenticsans-130-webfont.woff2') format('woff2'),
+         url('/fonts/authentic-sans/authenticsans-130-webfont.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Authentic Sans';
+    src: url('/fonts/authentic-sans/authenticsans-150-webfont.woff2') format('woff2'),
+         url('/fonts/authentic-sans/authenticsans-150-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}

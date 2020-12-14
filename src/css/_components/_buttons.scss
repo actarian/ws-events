@@ -39,7 +39,7 @@
 	font-weight: 900;
 	background: $background-tertiary;
 	// border: 1px solid $background-tertiary;
-	border-radius: 6px;
+	border-radius: $badge-radius;
 	padding: 2px 5px;
 	color: $foreground-primary;
 }
@@ -66,7 +66,7 @@
 		padding: 2px 5px;
 		line-height: 1;
 		font-size: 9px;
-		border-radius: 7px;
+		border-radius: $badge-radius;
 		transform: translate3d(0, 0, 0);
 		backface-visibility: hidden;
 	}
@@ -95,7 +95,9 @@
 	align-items: center;
 	border-radius: 25px;
 	padding: 0 25px;
-	font-weight: 600;
+	font-weight: 700;
+	border: 3px solid transparent;
+	text-transform: uppercase;
 
 	svg {
 		width: 24px;
@@ -113,21 +115,24 @@
 	&:focus,
 	&:hover,
 	&:visited {
-		background: rgb(0, 153, 255);
-		color: white;
+		border-color: $foreground;
+		background: $background;
+		color: $foreground;
 	}
 }
 
 %btn-rounded {
 	@extend %btn;
-	height: 50px;
-	line-height: 50px;
+	min-height: 60px;
+	line-height: 1;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border-radius: 25px;
-	padding: 0 25px;
-	font-weight: 600;
+	border-radius: 30px;
+    padding: 15px 22px 13px 22px;
+	font-weight: 700;
+	border: 3px solid transparent;
+	text-transform: uppercase;
 
 	.wse__count {
 		@extend %badge;
@@ -149,9 +154,18 @@
 	&:focus,
 	&:hover,
 	&:visited {
-		background: rgb(0, 153, 255);
-		color: white;
+		border-color: $foreground;
+		background: $background;
+		color: $foreground;
 	}
+}
+
+%btn-md {
+	min-height: 40px;
+	font-size: 13px;
+	letter-spacing: 0.1em;
+	border-radius: 20px;
+    padding: 5px 12px 5px 12px;
 }
 
 %btn-aside {
@@ -297,12 +311,8 @@
 	}
 }
 
-%btn-md {
-	font-size: 14px;
-	padding: 0 16px;
-	line-height: 1;
-	height: 34px;
-	border-radius: 17px;
+.wse__btn--md {
+	@extend %btn-md;
 }
 
 .wse__btn--circle {
@@ -311,25 +321,13 @@
 
 .wse__btn--rounded {
 	@extend %btn-rounded;
-
-	@include media-down(sm) {
-		font-size: 14px;
-		padding: 0 16px;
-		line-height: 1;
-		height: 34px;
-		border-radius: 17px;
-	}
 }
 
 .wse__btn--submit {
 	@extend %btn-rounded;
 
 	@include media-down(sm) {
-		font-size: 16px;
-		padding: 0 16px;
-		line-height: 1;
-		height: 34px;
-		border-radius: 17px;
+		@extend .wse__btn--md;
 	}
 }
 
@@ -342,6 +340,13 @@
 .wse__btn--mode,
 .wse__btn--filter {
 	@extend %btn-circle;
+
+	&,
+	&:active,
+	&:focus,
+	&:visited {
+		background: transparent;
+	}
 }
 
 .wse__icon {

@@ -4,6 +4,10 @@
 		max-width: 1600px;
 	}
 
+	@include media-up(md) {
+		padding-top: 20px;
+	}
+
 	@include media-down(sm) {
 		.wse__event-media {
 			margin-left: -12.5px;
@@ -48,8 +52,8 @@
 
 .wse__event-header {
 	position: relative;
-	background: rgb(237, 241, 254);
-	background: linear-gradient(0deg, rgba(237, 241, 254, 1) 0%, rgba(237, 241, 254, 0) 50%);
+	background: $background-tertiary;
+	background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 50%);
 	padding: 40px 0;
 	margin: 0 0 2px 0;
 
@@ -60,8 +64,8 @@
 		bottom: 0;
 		width: 100%;
 		left: -100%;
-		background: rgb(237, 241, 254);
-		background: linear-gradient(0deg, rgba(237, 241, 254, 1) 0%, rgba(237, 241, 254, 0) 50%);
+		background: $background-tertiary;
+		background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 50%);
 	}
 
 	&__content {
@@ -351,7 +355,7 @@
 
 .wse__group--questions {
 	padding: 40px 0 10px 0;
-	border-bottom: 2px solid $background-tertiary;
+	border-bottom: 2px solid $border;
 }
 
 .wse__group--question {
@@ -450,7 +454,7 @@
 	box-shadow: 0 20px 20px -10px rgba(0, 0, 0, .2);
 	z-index: 100;
 	padding: 5px;
-	color: $background-primary;
+	color: $foreground-primary;
 	opacity: 0;
 	pointer-events: none;
 	transition: all ease-in-out 350ms;

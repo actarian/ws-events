@@ -13,12 +13,12 @@ export default class HeaderComponent extends Component {
 		this.favourites = [];
 		UserService.sharedChanged$.pipe(
 			tap(user => this.user = user),
-			switchMap(() => combineLatest(
+			switchMap(() => combineLatest([
 				NotificationService.notifications$(),
 				FavouriteService.subscriptions$(),
 				FavouriteService.likes$(),
 				FavouriteService.favourites$(),
-			)),
+			])),
 			catchError(() => of (null)),
 			takeUntil(this.unsubscribe$)
 		).subscribe(data => {

@@ -1,5 +1,6 @@
 .wse__section--hero-reel {
 	overflow: hidden;
+	background: $orange;
 
 	.wse__container-fluid {
 		padding: 0;
@@ -7,6 +8,10 @@
 
 	.swiper-container {
 		@extend %swiper-slides;
+	}
+
+	@include media-up(md) {
+		padding-top: 50px;
 	}
 }
 
@@ -115,22 +120,33 @@
 	}
 }
 
-.wse__channel+.wse__channel {
-
-	@include media-up(md) {
-		margin-top: 2px;
-
-		/*
-		.wse__section--channel {
-			padding-top: 0;
-		}
-		*/
+.wse__channel-0 {
+	.wse__section--channel {
+		background: $pink;
 	}
+}
 
-	@include media-down(sm) {
-		.wse__section--channel {
-			padding-top: 0;
-		}
+.wse__channel-1 {
+	.wse__section--channel {
+		background: $blue;
+	}
+}
+
+.wse__channel-2 {
+	.wse__section--channel {
+		background: $yellow;
+	}
+}
+
+.wse__channel-3 {
+	.wse__section--channel {
+		background: $green;
+	}
+}
+
+.wse__channel+.wse__channel {
+	@include media-up(md) {
+		margin-top: 0;
 	}
 }
 

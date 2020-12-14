@@ -1,9 +1,13 @@
 <div class="wse__register-or-login" register-or-login-modal>
 	<div class="wse__modal__header">
-		<button type="button" class="wse__btn--rounded" (click)="close()"><span>chiudi</span></button>
+		<a href="/ws-events/" class="wse__brand">
+			<svg class="wse__icon"><use xlink:href="#brand"></use></svg>
+			<svg class="wse__icon--badge"><use xlink:href="#brand-badge"></use></svg>
+		</a>
+		<button type="button" class="wse__btn--rounded wse__btn--md" (click)="close()"><span>chiudi</span></button>
 	</div>
 	<div class="wse__modal__content">
-		<div class="wse__container">
+		<div>
 			<div class="wse__register-or-login__title">Ipsum Dolor Sit Amet</div>
 			<div class="wse__register-or-login__abstract">
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim sollicitudin tortor, vitae lacinia mauris. Morbi ut elit vel magna lacinia hendrerit. Quisque id nisi at ipsum tincidunt aliquam. Suspendisse nisi tortor, dapibus in imperdiet vitae, lacinia vitae nibh.</p>
@@ -18,18 +22,18 @@
 		<div *if="view == views.FORGOTTEN">
 			<!-- @@include ./templates/shared/user/user-forgot.html -->
 		</div>
-		<div class="wse__container" *if="view != views.SIGN_UP">
+		<div *if="view != views.SIGN_UP">
 			<div class="wse__form__title">Non sei ancora registrato?</div>
-			<div class="group--cta">
-				<button type="button" class="wse__btn--rounded" (click)="onRegister()">
+			<div class="wse__group--cta">
+				<button type="button" class="wse__btn--rounded wse__btn--md" (click)="onRegister()">
 					<span>Registrati</span>
 				</button>
 			</div>
 		</div>
-		<div class="wse__container" *if="view == views.SIGN_UP">
+		<div *if="view == views.SIGN_UP">
 			<div class="wse__form__title">Hai già un account?</div>
-			<div class="group--cta">
-				<button type="button" class="wse__btn--rounded" (click)="onLogin()">
+			<div class="wse__group--cta">
+				<button type="button" class="wse__btn--rounded wse__btn--md" (click)="onLogin()">
 					<span>Accedi</span>
 				</button>
 			</div>

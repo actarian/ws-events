@@ -19,10 +19,10 @@ $invalid: $foreground-primary;
 	display: block;
 	flex: 0 0 100%;
 	font-family: $font-secondary;
-	font-size: 13px;
-	opacity: 0.3;
-	font-weight: $font-semibold;
 	line-height: $line;
+	letter-spacing: 0.1em;
+	font-size: 12px;
+	font-weight: 700;
 	margin-bottom: 10px;
 	color: $pristine;
 	text-transform: uppercase;
@@ -35,9 +35,10 @@ $invalid: $foreground-primary;
 %group--form {
 	display: flex;
 	flex-wrap: wrap;
-	padding: 10px;
-	border: 1px solid $foreground;
-	margin-bottom: 15px;
+    margin: 0 0 20px;
+	padding: 8px;
+    border: none;
+    background: $background-tertiary;
 
 	label {
 		@extend %label;
@@ -147,7 +148,15 @@ $invalid: $foreground-primary;
 .wse__form {
 
 	&__title {
-		@extend %abstract;
+		display: inline-block;
+		padding: 0 8px;
+		margin-bottom: 40px;
+		font-size: 13px;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		background: $background-negative;
+		color: $foreground-negative;
 	}
 
 	&.valid {
@@ -169,10 +178,10 @@ $invalid: $foreground-primary;
 
 .wse__group--cta {
 	display: flex;
-	justify-content: center;
-	margin-top: 30px;
-	padding: 20px 0;
-	border-bottom: 1px solid rgba(#16255b, 0.2);
+    justify-content: flex-start;
+	padding: 10px 0 20px 0;
+	margin-bottom: 40px;
+	border-bottom: 2px solid $border;
 }
 
 .wse__group--info {
@@ -257,8 +266,9 @@ $invalid: $foreground-primary;
 	align-items: center;
 	flex-wrap: nowrap;
 	min-height: 0;
-	border: none;
 	padding: 0;
+	border: none;
+	background: none;
 
 	input {
 		width: 11px;
@@ -340,14 +350,17 @@ errors-component {
 	.wse__inner {
 		@extend %label;
 
-		margin-top: -15px;
-		margin-bottom: 15px;
-		padding: 10px 10px 0;
-		font-size: 12px;
-		background: $background;
-		color: $invalid;
+		margin-top: -20px;
+		margin-bottom: 20px;
+		padding: 5px 8px;
+		font-size: 9px;
+		line-height: 1;
 		opacity: 1;
-		text-transform: none;
+		text-transform: uppercase;
+		font-weight: 700;
+		letter-spacing: 0;
+		background: $orange;
+		color: $foreground;
 	}
 }
 
@@ -364,7 +377,7 @@ errors-component {
 	}
 }
 
-.wse__listing--form {
+.wse__listing--fields {
 	display: flex;
 	justify-content: flex-start;
 	align-items: flex-start;
@@ -377,10 +390,11 @@ errors-component {
 
 		&>div {
 			@include as-col(4, 12, $gutter);
+		}
 
-			&[control-textarea] {
-				@include as-col(12, 12, $gutter);
-			}
+		&>[control-textarea],
+		&>[control-checkbox] {
+			@include as-col(12, 12, $gutter);
 		}
 	}
 
@@ -391,10 +405,11 @@ errors-component {
 
 		&>div {
 			@include as-col(6, 12, $gutter);
+		}
 
-			&[control-textarea] {
-				@include as-col(12, 12, $gutter);
-			}
+		&>[control-textarea],
+		&>[control-checkbox] {
+			@include as-col(12, 12, $gutter);
 		}
 	}
 
@@ -404,13 +419,11 @@ errors-component {
 
 		&>div {
 			@include as-col(12, 12, 0);
+		}
 
-			&[control-textarea] {
-				flex: 1 1 100%;
-				max-width: 100%;
-				margin-left: 0;
-				margin-right: 0;
-			}
+		&>[control-textarea],
+		&>[control-checkbox] {
+			@include as-col(12, 12, 0);
 		}
 	}
 }

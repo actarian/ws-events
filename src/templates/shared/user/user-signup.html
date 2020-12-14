@@ -1,7 +1,7 @@
 <div user-signup (signUp)="onSignUp($event)" (login)="onLogin($event)">
-	<div class="wse__container" *if="!success">
+	<div *if="!success">
 		<form class="wse__form" [formGroup]="form" (submit)="onSubmit()" name="form" role="form" novalidate autocomplete="off">
-			<div class="wse__title">Registrazione</div>
+			<div class="wse__form__title">Registrazione</div>
 			<div class="wse__listing--fields">
 				<input name="checkField" [formControl]="controls.checkField" value="" type="text" style="display:none !important;" />
 				<div control-text [control]="controls.firstName" label="Nome"></div>
@@ -43,7 +43,7 @@
 			<test-component [form]="form" (test)="test($event)" (reset)="reset($event)"></test-component>
 		</form>
 	</div>
-	<div class="wse__container" *if="success">
+	<div *if="success">
 		<div class="wse__form__title"><span>Richiesta Inviata</span></div>
 		<div class="wse__form__abstract">Grazie per la tua richiesta. Verificheremo i dati e riceverai una mail con le credenziali di accesso.</div>
 	</div>

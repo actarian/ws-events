@@ -182,7 +182,7 @@
 		</div>
 	</div>
 
-	<div class="wse__section--event__listing">
+	<div class="wse__section--event__listing" *if="filteredItems && filteredItems.length">
 		<div class="wse__container-fluid">
 			<div class="wse__group--grid" *virtual="let item of filteredItems" [mode]="grid.mode" [width]="grid.width" [gutter]="grid.gutter">
 				<!-- serve un nodo figlio -->

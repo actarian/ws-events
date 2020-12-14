@@ -189,8 +189,16 @@
 				border-radius: 0;
 
 				.wse__count {
-					background: $background-negative;
+					background: rgba(0, 0, 0, 0.1);
+					color: $foreground;
+				}
+
+				&.active {
 					color: $foreground-negative;
+
+					.wse__count {
+						color: $foreground-negative;
+					}
 				}
 			}
 		}
@@ -363,8 +371,8 @@
 				cursor: pointer;
 
 				.wse__count {
-					background: $background-negative;
-					color: $foreground-negative;
+					background: rgba(0, 0, 0, 0.1);
+					color: $foreground;
 					padding: 1px 4px 1px 4px;
 					border-radius: $badge-radius;
 					line-height: 1;
@@ -374,11 +382,10 @@
 				}
 
 				&.active {
-					background: $background-primary;
 					color: $foreground-negative;
 
 					.wse__count {
-						background: $background-primary;
+						color: $foreground-negative;
 					}
 				}
 

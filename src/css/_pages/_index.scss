@@ -1,6 +1,7 @@
 .wse__section--hero-reel {
 	overflow: hidden;
 	background: $orange;
+	min-height: calc(100vh - 70px);
 
 	.wse__container-fluid {
 		padding: 0;

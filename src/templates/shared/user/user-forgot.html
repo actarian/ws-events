@@ -1,5 +1,5 @@
 <div user-forgot (sent)="onForgottenSent($event)" (login)="onLogin($event)">
-	<div class="wse__container" *if="!success">
+	<div *if="!success">
 		<form class="wse__form" [formGroup]="form" (submit)="onSubmit()" name="form" role="form" novalidate autocomplete="off">
 			<div class="wse__form__title">Recupera Password</div>
 			<div class="wse__listing--fields">
@@ -18,12 +18,15 @@
 				</button>
 			</div>
 			<div class="wse__group--info">
-				Ricordi la password? <button type="button" class="wse__btn--nav" (click)="onLogin($event)"><span>Accedi</span></button>
+				<div class="wse__form__title">Ricordi la password?</div>
+				<div class="wse__group--cta">
+					<button type="button" class="wse__btn--nav" (click)="onLogin($event)"><span>Accedi</span></button>
+				</div>
 			</div>
 			<test-component [form]="form" (test)="test($event)" (reset)="reset($event)"></test-component>
 		</form>
 	</div>
-	<div class="wse__container" *if="success">
+	<div *if="success">
 		<div class="wse__form__title"><span>Password Inviata</span></div>
 		<div class="wse__form__abstract">
 			Abbiamo inviato la password all'indirizzo email fornito.

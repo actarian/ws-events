@@ -1,13 +1,15 @@
 import { Component } from 'rxcomp';
-import { first } from 'rxjs/operators';
-import ChannelService from './channel.service';
+import { first, switchMap } from 'rxjs/operators';
+import FavouriteService from "../favourite/favourite.service";
+import UserService from '../user/user.service';
 
 export default class ChannelComponent extends Component {
 
 	toggleSubscribe() {
 		let flag = this.channel.info.subscribed;
-		ChannelService[flag ? 'unsubscribe$' : 'subscribe$'](this.channel.id).pipe(
-			first()
+		UserService.authorized$().pipe(
+			switchMap(user => FavouriteService[flag ? 'subscriptionRemove$' : 'subscriptionAdd$'](this.channel.idDoc)),
+			first(),
 		).subscribe(() => {
 			flag = !flag;
 			this.channel.info.subscribed = flag;
@@ -17,13 +19,16 @@ export default class ChannelComponent extends Component {
 				this.channel.info.subscribers--;
 			}
 			this.pushChanges();
+		}, (error) => {
+			console.log('ChannelComponent.toggleSubscribe.error', error);
 		});
 	}
 
 	toggleLike() {
 		let flag = this.channel.info.liked;
-		ChannelService[flag ? 'unlike$' : 'like$'](this.channel.id).pipe(
-			first()
+		UserService.authorized$().pipe(
+			switchMap(user => FavouriteService[flag ? 'likeRemove$' : 'likeAdd$'](this.channel.id, 'channel')),
+			first(),
 		).subscribe(() => {
 			flag = !flag;
 			this.channel.info.liked = flag;
@@ -33,6 +38,8 @@ export default class ChannelComponent extends Component {
 				this.channel.info.likes--;
 			}
 			this.pushChanges();
+		}, (error) => {
+			console.log('ChannelComponent.toggleLike.error', error);
 		});
 	}
 

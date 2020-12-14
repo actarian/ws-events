@@ -8,7 +8,7 @@ export default class SwiperRelatedDirective extends SwiperDirective {
 		node.setAttribute('id', `swiper-${this.rxcompId}`);
 		this.options = {
 			slidesPerView: 'auto',
-			spaceBetween: 1,
+			spaceBetween: 0,
 			centeredSlides: false,
 			loop: false,
 			loopAdditionalSlides: 100,

@@ -442,3 +442,79 @@
 		}
 	}
 }
+
+.wse__group--share {
+	position: absolute;
+	background: $background-tertiary;
+	border-radius: 3px;
+	box-shadow: 0 20px 20px -10px rgba(0, 0, 0, .2);
+	z-index: 100;
+	padding: 5px;
+	color: $background-primary;
+	opacity: 0;
+	pointer-events: none;
+	transition: all ease-in-out 350ms;
+
+	.wse__active & {
+		pointer-events: all;
+		opacity: 1;
+	}
+
+	@include media-up(sm) {
+		top: 30px;
+		right: 0;
+		transform: translateY(-5px);
+
+		.wse__active & {
+			transform: translateY(0);
+		}
+	}
+
+	@include media-down(xs) {
+		top: 30px;
+		left: 50%;
+		transform: translateX(-50%) translateY(-5px);
+
+		.wse__active & {
+			transform: translateX(-50%) translateY(0);
+		}
+	}
+}
+
+.wse__nav--share {
+	@extend %nav;
+	justify-content: space-around;
+
+	&>li {
+		@extend %nav-item;
+		flex-grow: 0;
+
+		&>a {
+			@extend %btn;
+			padding: 5px 8px;
+			min-width: 30px;
+			box-sizing: border-box;
+
+			svg {
+				max-width: 14px;
+				max-height: 14px;
+				fill: currentColor;
+				transition: transform ease-in-out 200ms;
+			}
+
+			&:hover {
+				svg {
+					transform: translateY(-5px);
+				}
+			}
+		}
+	}
+
+	@include media-down(xs) {
+		&>li {
+			&>a {
+				padding: 8px 5px;
+			}
+		}
+	}
+}

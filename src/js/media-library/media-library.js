@@ -35,7 +35,7 @@ export default class MediaLibraryComponent extends Component {
 		).subscribe(items => {
 			this.items = items;
 			this.pushChanges();
-			console.log('MediaLibraryComponent.items', items.length);
+			// console.log('MediaLibraryComponent.items', items.length);
 		});
 
 		this.filterService = filterService;

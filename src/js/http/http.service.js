@@ -22,7 +22,7 @@ export class HttpResponse {
 export default class HttpService {
 
 	static http$(method, url, data, format = 'json') {
-		method = url.indexOf('.json') ? 'GET' : method;
+		method = url.indexOf('.json') !== -1 ? 'GET' : method;
 		const methods = ['POST', 'PUT', 'PATCH'];
 		let response_ = null;
 		return from(fetch(url, {
@@ -52,9 +52,8 @@ export default class HttpService {
 			}
 			*/
 		})).pipe(
-			catchError(error => {
-				return throwError(this.getError(error, response_));
-			})
+			catchError(error => throwError(this.getError(error, response_)))
+			// catchError(error => from(Promise.reject(this.getError(error, response_))))
 		);
 	}
 
@@ -83,15 +82,22 @@ export default class HttpService {
 		return ''; // todo
 	}
 
-	static getError(object, response) {
-		let error = typeof object === 'object' ? object : {};
+	static getError(error, response) {
+		error = typeof error === 'string' ? { statusMessage: error } : error;
+		const data = error.data || response.data;
+		if (typeof data === 'object') {
+			Object.assign(error, data);
+		}
 		if (!error.statusCode) {
 			error.statusCode = response ? response.status : 0;
 		}
 		if (!error.statusMessage) {
-			error.statusMessage = response ? response.statusText : object;
+			error.statusMessage = response ? response.statusText : 'Unknown Error';
 		}
-		console.log('HttpService.getError', error, object);
+		if (!error.friendlyMessage) {
+			error.friendlyMessage = 'Unknown Error';
+		}
+		// console.log('HttpService.getError', error, response);
 		return error;
 	}
 

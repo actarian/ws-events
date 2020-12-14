@@ -7,7 +7,6 @@ import ControlComponent from './control.component';
 export default class ControlCustomSelectComponent extends ControlComponent {
 
 	onInit() {
-		this.label = 'label';
 		this.labels = window.labels || {};
 		this.dropped = false;
 		this.dropdownId = DropdownDirective.nextId();
@@ -41,8 +40,10 @@ export default class ControlCustomSelectComponent extends ControlComponent {
 			const { node } = getContext(this);
 			const dropdown = node.querySelector('.dropdown');
 			const navDropdown = node.querySelector('.nav--dropdown');
-			const item = navDropdown.children[index];
-			dropdown.scrollTo(0, item.offsetTop);
+			if (navDropdown) {
+				const item = navDropdown.children[index];
+				dropdown.scrollTo(0, item.offsetTop);
+			}
 		}
 	}
 
@@ -54,7 +55,7 @@ export default class ControlCustomSelectComponent extends ControlComponent {
 	*/
 
 	setOption(item) {
-		console.log('setOption', item, this.isMultiple);
+		// console.log('setOption', item, this.isMultiple);
 		if (this.isMultiple) {
 			const value = this.control.value || [];
 			const index = value.indexOf(item.id);
@@ -137,16 +138,16 @@ ControlCustomSelectComponent.meta = {
 	selector: '[control-custom-select]',
 	inputs: ['control', 'label', 'multiple'],
 	template: /* html */ `
-		<div class="group--form--select" [class]="{ required: control.validators.length, multiple: isMultiple }" [dropdown]="dropdownId" (dropped)="onDropped($event)">
+		<div class="wse__group--form--select" [class]="{ required: control.validators.length, multiple: isMultiple }" [dropdown]="dropdownId" (dropped)="onDropped($event)">
 			<label [innerHTML]="label"></label>
-			<span class="control--select" [innerHTML]="getLabel()"></span>
-			<svg class="icon icon--caret-down"><use xlink:href="#caret-down"></use></svg>
-			<span class="required__badge">required</span>
+			<span class="wse__control--select" [innerHTML]="getLabel()"></span>
+			<svg class="wse__caret-down"><use xlink:href="#caret-down"></use></svg>
+			<span class="wse__required__badge">required</span>
 		</div>
 		<errors-component [control]="control"></errors-component>
-		<div class="dropdown" [dropdown-item]="dropdownId">
-			<div class="category" [innerHTML]="label"></div>
-			<ul class="nav--dropdown" [class]="{ multiple: isMultiple }">
+		<div class="wse__dropdown" [dropdown-item]="dropdownId">
+			<div class="wse__category" [innerHTML]="label"></div>
+			<ul class="wse__nav--dropdown" [class]="{ multiple: isMultiple }">
 			<li *for="let item of control.options" (click)="setOption(item)"><span [class]="{ active: hasOption(item) }" [innerHTML]="item.name"></span></li>
 			</ul>
 		</div>

@@ -13,19 +13,30 @@ import EventDateComponent from './event/event-date.component';
 import EventPageComponent from './event/event-page.component';
 import EventComponent from './event/event.component';
 import FavouritePageComponent from './favourite/favourite-page.component';
+import ControlCheckboxComponent from './forms/control-checkbox.component';
+import ControlCustomSelectComponent from './forms/control-custom-select.component';
+import ControlEmailComponent from './forms/control-email.component';
+import ControlFileComponent from './forms/control-file.component';
+import ControlPasswordComponent from './forms/control-password.component';
+import ControlRadioComponent from './forms/control-radio.component';
+import ControlSelectComponent from './forms/control-select.component';
+import ControlTextComponent from './forms/control-text.component';
+import ControlTextareaComponent from './forms/control-textarea.component';
 import ErrorsComponent from './forms/errors.component';
 import HeaderComponent from './header/header.component';
 import HtmlPipe from './html/html.pipe';
 import IndexPageComponent from './index/index-page.component';
+import LabelPipe from './label/label.pipe';
 import LazyDirective from './lazy/lazy.directive';
 import ModalOutletComponent from './modal/modal-outlet.component';
 import ModalComponent from './modal/modal.component';
 import NotificationComponent from './notification/notification.component';
-import RegisterOrLoginComponent from './register-or-login/register-or-login.component';
+import RegisterOrLoginModal from './register-or-login/register-or-login.modal';
 import RelativeDateDirective from './relative-date/relative-date.component';
 import RelativeDatePipe from './relative-date/relative-date.pipe';
 import ScrollToDirective from './scroll-to/scroll-to.directive';
 import SecureDirective from './secure/secure.directive';
+import ShareComponent from './share/share.component';
 import SlugPipe from './slug/slug.pipe';
 import SwiperEventsDirective from './swiper/swiper-events.directive';
 import SwiperRelatedDirective from './swiper/swiper-related.directive';
@@ -33,6 +44,9 @@ import SwiperSlidesDirective from './swiper/swiper-slides.directive';
 import SwiperTopEventsDirective from './swiper/swiper-top-events.directive';
 import SwiperDirective from './swiper/swiper.directive';
 import ThronComponent from './thron/thron.component';
+import UserForgotComponent from './user/user-forgot.component';
+import UserSigninComponent from './user/user-signin.component';
+import UserSignupComponent from './user/user-signup.component';
 import VideoComponent from './video/video.component';
 import VirtualStructure from './virtual/virtual.structure';
 import YoutubeComponent from './youtube/youtube.component';
@@ -49,6 +63,16 @@ AppModule.meta = {
 		ChannelComponent,
 		ChannelPageComponent,
 		ClickOutsideDirective,
+		ControlCheckboxComponent,
+		ControlCustomSelectComponent,
+		ControlEmailComponent,
+		ControlFileComponent,
+		ControlPasswordComponent,
+		ControlRadioComponent,
+		ControlRadioComponent,
+		ControlSelectComponent,
+		ControlTextComponent,
+		ControlTextareaComponent,
 		CountPipe,
 		DatePipe,
 		DropdownDirective,
@@ -61,15 +85,17 @@ AppModule.meta = {
 		HeaderComponent,
 		HtmlPipe,
 		IndexPageComponent,
+		LabelPipe,
 		LazyDirective,
 		ModalComponent,
 		ModalOutletComponent,
 		NotificationComponent,
-		RegisterOrLoginComponent,
+		RegisterOrLoginModal,
 		RelativeDateDirective,
 		RelativeDatePipe,
 		ScrollToDirective,
 		SecureDirective,
+		ShareComponent,
 		SlugPipe,
 		SwiperDirective,
 		SwiperEventsDirective,
@@ -77,6 +103,9 @@ AppModule.meta = {
 		SwiperSlidesDirective,
 		SwiperTopEventsDirective,
 		ThronComponent,
+		UserForgotComponent,
+		UserSigninComponent,
+		UserSignupComponent,
 		VirtualStructure,
 		VideoComponent,
 		YoutubeComponent,

@@ -21,7 +21,7 @@ export default class ModalService {
 			}),
 			tap(node => this.modal$.next(node)),
 			switchMap(node => this.events$),
-		)
+		);
 	}
 
 	static load$(modal) {

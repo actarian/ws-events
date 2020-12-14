@@ -2,6 +2,11 @@ import { Component, getContext } from 'rxcomp';
 
 export default class ControlComponent extends Component {
 
+	constructor() {
+		super();
+		this.label = 'label';
+	}
+
 	onChanges() {
 		const { node } = getContext(this);
 		const control = this.control;

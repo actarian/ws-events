@@ -1,6 +1,7 @@
 import { Component } from 'rxcomp';
-import { first } from 'rxjs/operators';
+import { first, switchMap } from 'rxjs/operators';
 import FavouriteService from '../favourite/favourite.service';
+import UserService from '../user/user.service';
 
 export default class EventComponent extends Component {
 
@@ -10,8 +11,9 @@ export default class EventComponent extends Component {
 
 	toggleSubscribe() {
 		let flag = this.event.info.subscribed;
-		FavouriteService[flag ? 'subscriptionRemove$' : 'subscriptionAdd$'](this.event.id).pipe(
-			first()
+		UserService.authorized$().pipe(
+			switchMap(user => FavouriteService[flag ? 'subscriptionRemove$' : 'subscriptionAdd$'](this.event.id)),
+			first(),
 		).subscribe(() => {
 			flag = !flag;
 			this.event.info.subscribed = flag;
@@ -21,13 +23,16 @@ export default class EventComponent extends Component {
 				this.event.info.subscribers--;
 			}
 			this.pushChanges();
+		}, (error) => {
+			console.log('EventComponent.toggleSubscribe.error', error);
 		});
 	}
 
 	toggleLike() {
 		let flag = this.event.info.liked;
-		FavouriteService[flag ? 'likeRemove$' : 'likeAdd$'](this.event.id).pipe(
-			first()
+		UserService.authorized$().pipe(
+			switchMap(user => FavouriteService[flag ? 'likeRemove$' : 'likeAdd$'](this.event.id, 'event')),
+			first(),
 		).subscribe(() => {
 			flag = !flag;
 			this.event.info.liked = flag;
@@ -37,17 +42,22 @@ export default class EventComponent extends Component {
 				this.event.info.likes--;
 			}
 			this.pushChanges();
+		}, (error) => {
+			console.log('EventComponent.toggleLike.error', error);
 		});
 	}
 
 	toggleSave() {
 		let flag = this.event.info.saved;
-		FavouriteService[flag ? 'favouriteRemove$' : 'favouriteAdd$'](this.event.id).pipe(
-			first()
+		UserService.authorized$().pipe(
+			switchMap(user => FavouriteService[flag ? 'favouriteRemove$' : 'favouriteAdd$'](this.event.id)),
+			first(),
 		).subscribe(() => {
 			flag = !flag;
 			this.event.info.saved = flag;
 			this.pushChanges();
+		}, (error) => {
+			console.log('EventComponent.toggleSave.error', error);
 		});
 	}
 

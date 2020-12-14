@@ -3,7 +3,6 @@ import ControlComponent from './control.component';
 export default class ControlFileComponent extends ControlComponent {
 
 	onInit() {
-		this.label = 'label';
 		this.labels = window.labels || {};
 		this.file = null;
 		this.required = false;
@@ -19,7 +18,7 @@ export default class ControlFileComponent extends ControlComponent {
 			lastModifiedDate: file.lastModifiedDate,
 			size: file.size,
 			type: file.type,
-		}
+		};
 		const reader = new FileReader();
 		reader.addEventListener('load', this.onReaderComplete);
 		reader.readAsDataURL(file);
@@ -43,12 +42,12 @@ ControlFileComponent.meta = {
 	selector: '[control-file]',
 	inputs: ['control', 'label'],
 	template: /* html */ `
-		<div class="group--form--file" [class]="{ required: control.validators.length }">
+		<div class="wse__group--form--file" [class]="{ required: control.validators.length }">
 			<label for="file" [innerHTML]="label"></label>
-			<span class="control--select" [innerHTML]="file?.name || labels.select_file"></span>
-			<svg class="icon icon--upload"><use xlink:href="#upload"></use></svg>
-			<span class="required__badge">required</span>
-			<input name="file" type="file" accept=".pdf,.doc,.docx,*.txt" class="control--file" (change)="onInputDidChange($event)" />
+			<span class="wse__control--select" [innerHTML]="file?.name || labels.select_file"></span>
+			<svg class="wse__upload"><use xlink:href="#upload"></use></svg>
+			<span class="wse__required__badge">required</span>
+			<input name="file" type="file" accept=".pdf,.doc,.docx,*.txt" class="wse__control--file" (change)="onInputDidChange($event)" />
 		</div>
 		<errors-component [control]="control"></errors-component>
 	`

@@ -23,15 +23,16 @@ export default class FavouriteService {
 	}
 
 	static subscriptions$() {
-		return ApiService.staticGet$(`/user/subscription`).pipe(
-			map(response => {
-				if (response.static) {
-					const subscriptions = LocalStorageService.get('subscriptions') || [];
-					return EventService.fakeSaved(subscriptions);
-				} else {
-					return response.data;
-				}
-			}),
+		return ApiService.get$(`/user/subscription`).pipe(
+			map(response => EventService.mapEvents(response.data, response.static)),
+			//map(response => {
+			//	if (response.static) {
+			//		const subscriptions = LocalStorageService.get('subscriptions') || [];
+			//		return EventService.fakeSaved(subscriptions);
+			//	} else {
+			//		return response.data;
+			//	}
+			//}),
 			switchMap(subscriptions => {
 				subscriptions$_.next(subscriptions);
 				return subscriptions$_;
@@ -40,15 +41,16 @@ export default class FavouriteService {
 	}
 
 	static likes$() {
-		return ApiService.staticGet$(`/user/like`).pipe(
-			map(response => {
-				if (response.static) {
-					const likes = LocalStorageService.get('likes') || [];
-					return EventService.fakeSaved(likes);
-				} else {
-					return response.data;
-				}
-			}),
+		return ApiService.get$(`/user/like`).pipe(
+			map(response => EventService.mapEvents(response.data, response.static)),
+			//map(response => {
+			//	if (response.static) {
+			//		const likes = LocalStorageService.get('likes') || [];
+			//		return EventService.fakeSaved(likes);
+			//	} else {
+			//		return response.data;
+			//	}
+			//}),
 			switchMap(likes => {
 				likes$_.next(likes);
 				return likes$_;
@@ -57,15 +59,16 @@ export default class FavouriteService {
 	}
 
 	static favourites$() {
-		return ApiService.staticGet$(`/user/favourite`).pipe(
-			map(response => {
-				if (response.static) {
-					const favourites = LocalStorageService.get('favourites') || [];
-					return EventService.fakeSaved(favourites);
-				} else {
-					return response.data;
-				}
-			}),
+		return ApiService.get$(`/user/favourite`).pipe(
+			map(response => EventService.mapEvents(response.data, response.static)),
+			//map(response => {
+			//	if (response.static) {
+			//		const favourites = LocalStorageService.get('favourites') || [];
+			//		return EventService.fakeSaved(favourites);
+			//	} else {
+			//		return response.data;
+			//	}
+			//}),
 			switchMap(favourites => {
 				favourites$_.next(favourites);
 				return favourites$_;
@@ -74,7 +77,7 @@ export default class FavouriteService {
 	}
 
 	static subscriptionAdd$(id) {
-		return ApiService.staticPost$(`/user/subscription/add`, { id }).pipe(
+		return ApiService.post$(`/user/subscription/add`, { id }).pipe(
 			map(response => {
 				if (response.static) {
 					const subscriptions = LocalStorageService.get('subscriptions') || [];
@@ -91,7 +94,7 @@ export default class FavouriteService {
 	}
 
 	static subscriptionRemove$(id) {
-		return ApiService.staticPost$(`/user/subscription/remove`, { id }).pipe(
+		return ApiService.post$(`/user/subscription/remove`, { id }).pipe(
 			map(response => {
 				if (response.static) {
 					const subscriptions = LocalStorageService.get('subscriptions') || [];
@@ -108,8 +111,8 @@ export default class FavouriteService {
 		);
 	}
 
-	static likeAdd$(id) {
-		return ApiService.staticPost$(`/user/like/add`, { id }).pipe(
+	static likeAdd$(id, type) {
+		return ApiService.post$(`/user/like/add`, { id, type }).pipe(
 			map(response => {
 				if (response.static) {
 					const likes = LocalStorageService.get('likes') || [];
@@ -125,8 +128,8 @@ export default class FavouriteService {
 		);
 	}
 
-	static likeRemove$(id) {
-		return ApiService.staticPost$(`/user/like/remove`, { id }).pipe(
+	static likeRemove$(id, type) {
+		return ApiService.post$(`/user/like/remove`, { id, type }).pipe(
 			map(response => {
 				if (response.static) {
 					const likes = LocalStorageService.get('likes') || [];
@@ -144,35 +147,35 @@ export default class FavouriteService {
 	}
 
 	static favouriteAdd$(id) {
-		return ApiService.staticPost$(`/user/favourite/add`, { id }).pipe(
+		return ApiService.post$(`/user/favourite/add`, { id }).pipe(
 			map(response => {
-				if (response.static) {
-					const favourites = LocalStorageService.get('favourites') || [];
-					const item = favourites.find(x => x.id === id);
-					if (!item) {
-						favourites.unshift({ id });
-					}
-					favourites$_.next(favourites);
-					LocalStorageService.set('favourites', favourites);
+				//if (response.static) {
+				const favourites = LocalStorageService.get('favourites') || [];
+				const item = favourites.find(x => x.id === id);
+				if (!item) {
+					favourites.unshift({ id });
 				}
+				favourites$_.next(favourites);
+				LocalStorageService.set('favourites', favourites);
+				//}
 				return response.data;
 			}),
 		);
 	}
 
 	static favouriteRemove$(id) {
-		return ApiService.staticPost$(`/user/favourite/remove`, { id }).pipe(
+		return ApiService.post$(`/user/favourite/remove`, { id }).pipe(
 			map(response => {
-				if (response.static) {
-					const favourites = LocalStorageService.get('favourites') || [];
-					const item = favourites.find(x => x.id === id);
-					const index = item ? favourites.indexOf(item) : -1;
-					if (index !== -1) {
-						favourites.splice(index, 1);
-					}
-					favourites$_.next(favourites);
-					LocalStorageService.set('favourites', favourites);
+				//if (response.static) {
+				const favourites = LocalStorageService.get('favourites') || [];
+				const item = favourites.find(x => x.id === id);
+				const index = item ? favourites.indexOf(item) : -1;
+				if (index !== -1) {
+					favourites.splice(index, 1);
 				}
+				favourites$_.next(favourites);
+				LocalStorageService.set('favourites', favourites);
+				//}
 				return response.data;
 			}),
 		);
@@ -180,6 +183,6 @@ export default class FavouriteService {
 
 }
 
-FavouriteService.subscriptions$ = FavouriteService.subscriptions$().pipe(shareReplay(1));
-FavouriteService.likes$ = FavouriteService.likes$().pipe(shareReplay(1));
-FavouriteService.favourites$ = FavouriteService.favourites$().pipe(shareReplay(1));
+FavouriteService.sharedSubscriptions$ = FavouriteService.subscriptions$().pipe(shareReplay(1));
+FavouriteService.sharedLikes$ = FavouriteService.likes$().pipe(shareReplay(1));
+FavouriteService.sharedFavourites$ = FavouriteService.favourites$().pipe(shareReplay(1));

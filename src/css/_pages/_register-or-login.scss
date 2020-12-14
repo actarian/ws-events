@@ -1,0 +1,30 @@
+.wse__register-or-login {
+
+	.wse__modal__header {
+		padding: 20px 0;
+	}
+
+	.wse__modal__content {
+		padding: 20px 0;
+	}
+
+	@include media-up(lg) {
+		padding: 0 80px;
+		max-width: 864px;
+	}
+
+	@include media-between(md, lg) {
+		padding: 0 40px;
+		max-width: 864px;
+	}
+
+	@include media-between(sm, md) {
+		padding: 0 40px;
+		max-width: calc(100vw- 80px);
+	}
+
+	@include media-down(xs) {
+		padding: 0 20px;
+		max-width: 100%;
+	}
+}

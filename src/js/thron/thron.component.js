@@ -72,7 +72,7 @@ export default class ThronComponent extends Component {
 		const elements = window.THRONSchemaHelper.removeElementsById(schema, 'VIDEO', removedElements);
 		// A simple verify: existsElements must false
 		const existsElements = window.THRONSchemaHelper.getElementsById(schema, 'VIDEO', removedElements).coordinates.length > 0;
-		console.log('ThronComponent.onBeforeInit.existsElements', existsElements);
+		// console.log('ThronComponent.onBeforeInit.existsElements', existsElements);
 		const params = { bars: schema };
 		playerInstance.params(params);
 	}
@@ -146,7 +146,7 @@ export default class ThronComponent extends Component {
 			/*
 			this.player.on('beforeInit',
 				function(playerInstance) {
-					console.log('set action before player init', playerInstance, 'otherparams', otherparams);
+					// console.log('set action before player init', playerInstance, 'otherparams', otherparams);
 					var params = {
 						volume: 0.5,
 						autoplay: false,
@@ -162,10 +162,10 @@ export default class ThronComponent extends Component {
 				}
 			);
 			this.player.on('resize', function(playerInstance) {
-				console.log('resize', playerInstance);
+				// console.log('resize', playerInstance);
 			});
 			this.player.on('ready', function(playerInstance) {
-				console.log('ready', playerInstance);
+				// console.log('ready', playerInstance);
 			});
 			*/
 		};

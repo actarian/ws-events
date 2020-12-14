@@ -1,9 +1,10 @@
 import { combineLatest } from 'rxjs';
-import { first, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import FilterItem from '../filter/filter-item';
 import FilterService from '../filter/filter.service';
 import LocationService from '../location/location.service';
 import PageComponent from '../page/page.component';
+import UserService from '../user/user.service';
 import ChannelService from './channel.service';
 
 export default class ChannelPageComponent extends PageComponent {
@@ -23,7 +24,7 @@ export default class ChannelPageComponent extends PageComponent {
 		this.activeFilters = null;
 		this.filteredItems = [];
 		this.load$().pipe(
-			first(),
+			takeUntil(this.unsubscribe$),
 		).subscribe(data => {
 			this.channels = data[0];
 			this.channel = data[1];
@@ -36,11 +37,13 @@ export default class ChannelPageComponent extends PageComponent {
 
 	load$() {
 		const channelId = LocationService.get('channelId');
-		return combineLatest(
-			ChannelService.channels$,
-			ChannelService.detail$(channelId),
-			ChannelService.listing$(channelId),
-			ChannelService.filter$(channelId),
+		return UserService.sharedChanged$.pipe(
+			switchMap(() => combineLatest(
+				ChannelService.channels$(),
+				ChannelService.detail$(channelId),
+				ChannelService.listing$(channelId),
+				ChannelService.filter$(channelId),
+			))
 		);
 	}
 

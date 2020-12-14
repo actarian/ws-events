@@ -163,6 +163,17 @@
 		"overAYearFromNow": "tra più di un anno"
 	}
 
-	window.locale = Object.assign(defaultLocale, localeIt);
+	window.locale = defaultLocale;
+	for (var p in localeIt) {
+		defaultLocale[p] = localeIt[p];
+	}
+
+	window.labels = {
+		'select': 'Seleziona',
+		'select_file': 'Seleziona un file...',
+		'error_required': 'Il campo è obbligatorio',
+		'error_email': 'Email non valida',
+		'error_match': 'I campi non corrispondono',
+	}
 
 </script>

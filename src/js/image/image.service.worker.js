@@ -31,7 +31,7 @@ self.addEventListener("message", function(event) {
 				});
 			})
 			.catch(function(error) {
-				console.log('ImageServiceWorker', error);
+				console.log('ImageServiceWorker.error', error);
 			});
 	} else {
 		const request = new XMLHttpRequest();

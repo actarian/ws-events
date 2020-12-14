@@ -202,6 +202,7 @@
 			@extend %lazy;
 		}
 
+		/*
 		&:after {
 			content: '';
 			position: absolute;
@@ -214,7 +215,7 @@
 			transform: translateZ(0);
 			transition: background-color ease-in-out 650ms;
 		}
-
+		*/
 	}
 
 	&__content {

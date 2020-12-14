@@ -11,7 +11,9 @@ export default class NotificationService {
 	}
 
 	static notifications$() {
-		return ApiService.staticGet$(`/user/notification`).pipe(
+		//return ApiService.staticGet$(`/user/notification`).pipe(
+		//associo la campanella in alto non alle notifiche ma agli eventi a cui un utente si è scritto
+		return ApiService.get$(`/user/subscription`).pipe(
 			map((response) => EventService.mapEvents(response.data, response.static)),
 			switchMap(items => {
 				notifications$_.next(items);
@@ -22,4 +24,4 @@ export default class NotificationService {
 
 }
 
-NotificationService.notifications$ = NotificationService.notifications$().pipe(shareReplay(1));
+NotificationService.sharedNotifications$ = NotificationService.notifications$().pipe(shareReplay(1));

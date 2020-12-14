@@ -1,6 +1,6 @@
 import { Pipe } from "rxcomp";
-import relativeDate from 'tiny-relative-date';
-import relativeDateFactory from 'tiny-relative-date/lib/factory';
+import relativeDateFactory from './factory';
+import relativeDate from './tiny-relative-date';
 
 export const RELATIVE_DATE_KEYS = ["justNow", "secondsAgo", "aMinuteAgo", "minutesAgo", "anHourAgo", "hoursAgo", "aDayAgo", "daysAgo", "aWeekAgo", "weeksAgo", "aMonthAgo", "monthsAgo", "aYearAgo", "yearsAgo", "overAYearAgo", "secondsFromNow", "aMinuteFromNow", "minutesFromNow", "anHourFromNow", "hoursFromNow", "aDayFromNow", "daysFromNow", "aWeekFromNow", "weeksFromNow", "aMonthFromNow", "monthsFromNow", "aYearFromNow", "yearsFromNow", "overAYearFromNow"];
 

@@ -321,6 +321,24 @@
 	}
 }
 
+.wse__btn--submit {
+	@extend %btn-rounded;
+
+	@include media-down(sm) {
+		font-size: 16px;
+		padding: 0 16px;
+		line-height: 1;
+		height: 34px;
+		border-radius: 17px;
+	}
+}
+
+.wse__btn--nav {
+	@extend %btn-rounded;
+	@extend %btn-md;
+	display: inline-flex;
+}
+
 .wse__btn--mode,
 .wse__btn--filter {
 	@extend %btn-circle;

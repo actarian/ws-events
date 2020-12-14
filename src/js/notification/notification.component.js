@@ -1,5 +1,6 @@
-import { takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import PageComponent from '../page/page.component';
+import UserService from '../user/user.service';
 import NotificationService from './notification.service';
 
 export default class NotificationComponent extends PageComponent {
@@ -11,12 +12,18 @@ export default class NotificationComponent extends PageComponent {
 			gutter: 0,
 		};
 		this.notifications = [];
-		NotificationService.notifications$.pipe(
-			takeUntil(this.unsubscribe$)
-		).subscribe((notifications) => {
+		this.load$().pipe(
+			takeUntil(this.unsubscribe$),
+		).subscribe(notifications => {
 			this.notifications = notifications;
 			this.pushChanges();
 		});
+	}
+
+	load$() {
+		return UserService.sharedChanged$.pipe(
+			switchMap(() => NotificationService.notifications$()),
+		);
 	}
 
 }

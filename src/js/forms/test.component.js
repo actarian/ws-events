@@ -22,10 +22,10 @@ TestComponent.meta = {
 	inputs: ['form'],
 	outputs: ['test', 'reset'],
 	template: /* html */ `
-	<div class="group--form--results" *if="env.DEVELOPMENT">
+	<div class="wse__group--form--results" *if="env.DEVELOPMENT">
 		<code [innerHTML]="form.value | json"></code>
-		<button type="button" class="btn--link" (click)="onTest($event)"><span>test</span></button>
-		<button type="button" class="btn--link" (click)="onReset($event)"><span>reset</span></button>
+		<button type="button" class="wse__btn--link" (click)="onTest($event)"><span>test</span></button>
+		<button type="button" class="wse__btn--link" (click)="onReset($event)"><span>reset</span></button>
 	</div>
 	`
 };

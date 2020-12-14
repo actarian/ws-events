@@ -1,7 +1,8 @@
 import { combineLatest } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import ChannelService from '../channel/channel.service';
 import PageComponent from '../page/page.component';
+import UserService from '../user/user.service';
 import FavouriteService from './favourite.service';
 
 export const ViewModes = {
@@ -33,7 +34,7 @@ export default class FavouritePageComponent extends PageComponent {
 			gutter: 2,
 		};
 		this.load$().pipe(
-			first(),
+			takeUntil(this.unsubscribe$),
 		).subscribe(data => {
 			this.channels = data[0];
 			this.savedItems = data[1];
@@ -43,10 +44,12 @@ export default class FavouritePageComponent extends PageComponent {
 	}
 
 	load$() {
-		return combineLatest(
-			ChannelService.channels$,
-			FavouriteService.favourites$,
-			FavouriteService.likes$,
+		return UserService.sharedChanged$.pipe(
+			switchMap(() => combineLatest(
+				ChannelService.channels$(),
+				FavouriteService.favourites$(),
+				FavouriteService.likes$(),
+			))
 		);
 	}
 

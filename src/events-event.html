@@ -61,18 +61,17 @@
 											<span [innerHTML]="event.info.saved ? 'salvato' : 'salva'"></span>
 										</div>
 									</div>
-									<!--
-								<div class="wse__share" (click)="share()">
-									<div class="wse__info">
-										<svg class="wse__icon"><use xlink:href="#share"></use></svg>
-										<span>condividi</span>
+									<div class="wse__share" [class]="{ 'wse__active': event.info.sharing }" (click)="toggleShare()" (clickOutside)="toggleShare(false)">
+										<div class="wse__info">
+											<svg class="wse__icon"><use xlink:href="#share"></use></svg>
+											<span>condividi</span>
+										</div>
+										<div class="wse__label">
+											<svg class="wse__icon"><use xlink:href="#share"></use></svg>
+											<span>condividi</span>
+										</div>
+										<div class="wse__group--share" share></div>
 									</div>
-									<div class="wse__label">
-										<svg class="wse__icon"><use xlink:href="#share"></use></svg>
-										<span>condividi</span>
-									</div>
-								</div>
-								-->
 								</div>
 							</div>
 							<!-- CHANNEL -->

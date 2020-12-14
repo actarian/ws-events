@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, Validators } from 'rxcomp-form';
 import { combineLatest } from 'rxjs';
-import { first, takeUntil } from 'rxjs/operators';
+import { first, switchMap, takeUntil, tap } from 'rxjs/operators';
 import FavouriteService from '../favourite/favourite.service';
 import FilterItem from '../filter/filter-item';
 import FilterService from '../filter/filter.service';
@@ -26,13 +26,12 @@ export default class EventPageComponent extends PageComponent {
 		this.activeFilters = null;
 		this.filteredItems = [];
 		this.load$().pipe(
-			first(),
+			takeUntil(this.unsubscribe$),
 		).subscribe(data => {
 			this.event = data[0];
 			this.listing = data[1];
 			this.setFilters(data[2]);
 			this.startFilter(this.listing);
-			this.user = data[3];
 			this.pushChanges();
 		});
 		this.error = null;
@@ -51,12 +50,14 @@ export default class EventPageComponent extends PageComponent {
 	}
 
 	load$() {
-		const eventId = LocationService.get('eventId');
-		return combineLatest(
-			EventService.detail$(eventId),
-			EventService.listing$(eventId),
-			EventService.filter$(eventId),
-			UserService.me$(),
+		const eventId = LocationService.get('eventId') || this.eventId;
+		return UserService.sharedChanged$.pipe(
+			tap(user => this.user = user),
+			switchMap(() => combineLatest(
+				EventService.detail$(eventId),
+				EventService.listing$(eventId),
+				EventService.filter$(eventId),
+			))
 		);
 	}
 
@@ -144,8 +145,9 @@ export default class EventPageComponent extends PageComponent {
 
 	toggleSubscribe() {
 		let flag = this.event.info.subscribed;
-		FavouriteService[flag ? 'subscriptionRemove$' : 'subscriptionAdd$'](this.event.id).pipe(
-			first()
+		UserService.authorized$().pipe(
+			switchMap(user => FavouriteService[flag ? 'subscriptionRemove$' : 'subscriptionAdd$'](this.event.id)),
+			first(),
 		).subscribe(() => {
 			flag = !flag;
 			this.event.info.subscribed = flag;
@@ -155,13 +157,16 @@ export default class EventPageComponent extends PageComponent {
 				this.event.info.subscribers--;
 			}
 			this.pushChanges();
+		}, (error) => {
+			console.log('EventPageComponent.toggleSubscribe.error', error);
 		});
 	}
 
 	toggleLike() {
 		let flag = this.event.info.liked;
-		FavouriteService[flag ? 'likeRemove$' : 'likeAdd$'](this.event.id).pipe(
-			first()
+		UserService.authorized$().pipe(
+			switchMap(user => FavouriteService[flag ? 'likeRemove$' : 'likeAdd$'](this.event.id, 'event')),
+			first(),
 		).subscribe(() => {
 			flag = !flag;
 			this.event.info.liked = flag;
@@ -171,18 +176,28 @@ export default class EventPageComponent extends PageComponent {
 				this.event.info.likes--;
 			}
 			this.pushChanges();
+		}, (error) => {
+			console.log('EventPageComponent.toggleLike.error', error);
 		});
 	}
 
 	toggleSave() {
 		let flag = this.event.info.saved;
-		FavouriteService[flag ? 'favouriteRemove$' : 'favouriteAdd$'](this.event.id).pipe(
-			first()
+		UserService.authorized$().pipe(
+			switchMap(user => FavouriteService[flag ? 'favouriteRemove$' : 'favouriteAdd$'](this.event.id)),
+			first(),
 		).subscribe(() => {
 			flag = !flag;
 			this.event.info.saved = flag;
 			this.pushChanges();
+		}, (error) => {
+			console.log('EventPageComponent.toggleSave.error', error);
 		});
+	}
+
+	toggleShare(toggle) {
+		this.event.info.sharing = toggle !== undefined ? toggle : !this.event.info.sharing;
+		this.pushChanges();
 	}
 
 	onInputFocus(event) {
@@ -218,4 +233,5 @@ export default class EventPageComponent extends PageComponent {
 
 EventPageComponent.meta = {
 	selector: '[event-page]',
+	inputs: ['eventId']
 };

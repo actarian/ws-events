@@ -157,6 +157,15 @@
 			}
 		}
 
+		.wse__share {
+
+			&:hover,
+			&.wse__active {
+				background: $background-tertiary;
+				color: $foreground-primary;
+			}
+		}
+
 	}
 
 	@include media-down(sm) {
@@ -188,10 +197,27 @@
 		}
 
 		.wse__save {
+			span {
+				display: none;
+			}
+
 			&.wse__active {
 
 				svg {
 					fill: #FFC107;
+				}
+			}
+		}
+
+		.wse__share {
+			span {
+				display: none;
+			}
+
+			&.wse__active {
+
+				svg {
+					color: $foreground-primary;
 				}
 			}
 		}

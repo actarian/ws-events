@@ -1,0 +1,50 @@
+<div user-signup (signUp)="onSignUp($event)" (login)="onLogin($event)">
+	<div class="wse__container" *if="!success">
+		<form class="wse__form" [formGroup]="form" (submit)="onSubmit()" name="form" role="form" novalidate autocomplete="off">
+			<div class="wse__title">Registrazione</div>
+			<div class="wse__listing--fields">
+				<input name="checkField" [formControl]="controls.checkField" value="" type="text" style="display:none !important;" />
+				<div control-text [control]="controls.firstName" label="Nome"></div>
+				<div control-text [control]="controls.lastName" label="Cognome"></div>
+				<div control-text [control]="controls.company" label="Azienda"></div>
+				<div control-custom-select [control]="controls.role" label="Professione"></div>
+				<div control-custom-select [control]="controls.country" label="Nazione"></div>
+				<div control-custom-select [control]="controls.province" label="Provincia" *if="controls.province.options.length"></div>
+				<div control-text [control]="controls.address" label="Indirizzo"></div>
+				<div control-text [control]="controls.zipCode" label="Cap"></div>
+				<div control-text [control]="controls.city" label="Città"></div>
+				<div control-text [control]="controls.telephone" label="Telefono"></div>
+				<div control-text [control]="controls.fax" label="Fax"></div>
+				<div control-text [control]="controls.email" label="Email"></div>
+				<!-- eliminare se username non presente -->
+				<!-- <div control-text [control]="controls.username" label="Username"></div> -->
+				<!-- eliminare se username non presente -->
+				<!-- eliminare se password autogenerata -->
+				<div control-password [control]="controls.password" label="Password"></div>
+				<div control-password [control]="controls.passwordConfirm" label="Conferma Password"></div>
+				<!-- eliminare se password autogenerata -->
+				<div control-checkbox [control]="controls.privacy" label="Ho letto l&amp;#39;&amp;lt;a href=&amp;quot;/it/azienda/pagineinterne/informativa_sulla_privacy/&amp;quot; target=&amp;quot;_blank&amp;quot;&gt;informativa&amp;lt;/a&gt; e do il consenso al trattamento del dato"></div>
+				<div control-checkbox [control]="controls.newsletter" label="Desidero iscrivermi alla newsletter"></div>
+				<!-- eliminare se lingua non richiesta -->
+				<div control-custom-select [control]="controls.newsletterLanguage" label="Seleziona la lingua della newsletter" *if="controls.newsletter.value"></div>
+				<!-- eliminare se lingua non richiesta -->
+			</div>
+			<div class="wse__group--error" *if="error">
+				<span class="wse__friendly-message" [innerHTML]="error.friendlyMessage"></span>
+				<span class="wse__status-code" [innerHTML]="error.statusCode"></span>
+				<span class="wse__status-message" [innerHTML]="error.statusMessage"></span>
+			</div>
+			<div class="wse__group--cta">
+				<button type="submit" class="wse__btn--submit">
+					<span *if="!form.submitted">Registrati</span>
+					<span *if="form.submitted">Inviato!</span>
+				</button>
+			</div>
+			<test-component [form]="form" (test)="test($event)" (reset)="reset($event)"></test-component>
+		</form>
+	</div>
+	<div class="wse__container" *if="success">
+		<div class="wse__form__title"><span>Richiesta Inviata</span></div>
+		<div class="wse__form__abstract">Grazie per la tua richiesta. Verificheremo i dati e riceverai una mail con le credenziali di accesso.</div>
+	</div>
+</div>

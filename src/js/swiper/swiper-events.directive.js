@@ -12,11 +12,11 @@ export default class SwiperEventsDirective extends SwiperDirective {
 			breakpoints: {
 				1024: {
 					slidesPerView: 2,
-					spaceBetween: 1,
+					spaceBetween: 0,
 				},
 				1440: {
 					slidesPerView: 2.5,
-					spaceBetween: 1,
+					spaceBetween: 0,
 				},
 			},
 			centeredSlides: false,

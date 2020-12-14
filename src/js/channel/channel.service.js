@@ -16,31 +16,34 @@ export class Channel {
 export default class ChannelService {
 
 	static channels$() {
-		return ApiService.staticGet$(`/channel/channels`).pipe(
+		return ApiService.get$(`/channel/channels`).pipe(
 			map(response => ChannelService.mapChannels(response.data, response.static))
 		);
 	}
 
 	static detail$(channelId) {
-		return ApiService.staticGet$(`/channel/${channelId}/detail`).pipe(
+		return ApiService.get$(`/channel/${channelId}/detail`).pipe(
 			map(response => ChannelService.mapChannel(response.data, response.static))
 		);
 	}
 
 	static listing$(channelId) {
-		return ApiService.staticGet$(`/channel/${channelId}/listing`).pipe(
+		//return ApiService.staticGet$(`/channel/${101}/listing`).pipe(
+		return ApiService.get$(`/channel/${channelId}/listing`).pipe(
 			switchMap(response => ChannelService.mapListing(response.data, response.static, channelId))
 		);
 	}
 
 	static filter$(channelId) {
-		return ApiService.staticGet$(`/channel/${channelId}/filter`).pipe(
-			map(response => response.data)
-		);
+		//return ApiService.get$(`/channel/${channelId}/filter`).pipe(
+		//	map(response => response.data)
+		//);
+		return ApiService.get$(`/channel/filter`).pipe(map(response => response.data));
+		//return ApiService.staticGet$(`/event/${1001}/filter`).pipe(map(response => response.data));
 	}
 
 	static top$() {
-		return ApiService.staticGet$(`/channel/evidence`).pipe(
+		return ApiService.get$(`/channel/evidence`).pipe(
 			map(response => ChannelService.mapChannels(response.data, response.static))
 		);
 	}
@@ -70,7 +73,17 @@ export default class ChannelService {
 	}
 
 	static mapListing(items, isStatic, channelId) {
-		return isStatic ? ChannelService.fakeListing(channelId) : of (items);
+		if (isStatic) {
+			return ChannelService.fakeListing(101);
+		} else {
+			return of(items.map(item => {
+				if (item.type === 'event') {
+					return EventService.mapEvent(item);
+				} else {
+					return item;
+				}
+			}));
+		}
 	}
 
 	static fake(item) {
@@ -202,7 +215,6 @@ export default class ChannelService {
 					}
 					switch (type) {
 						case 'event':
-							console.log(item.url);
 							item = EventService.fake(new Event(item, true));
 							break;
 						default:
@@ -222,4 +234,4 @@ export default class ChannelService {
 
 }
 
-ChannelService.channels$ = ChannelService.channels$().pipe(shareReplay(1));
+ChannelService.sharedChannels$ = ChannelService.channels$().pipe(shareReplay(1));

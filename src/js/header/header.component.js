@@ -1,6 +1,6 @@
 import { Component } from 'rxcomp';
-import { of } from 'rxjs';
-import { catchError, takeUntil } from 'rxjs/operators';
+import { combineLatest, of } from 'rxjs';
+import { catchError, first, switchMap, takeUntil, tap } from 'rxjs/operators';
 import CssService from '../css/css.service';
 import FavouriteService from '../favourite/favourite.service';
 import NotificationService from '../notification/notification.service';
@@ -11,40 +11,21 @@ export default class HeaderComponent extends Component {
 	onInit() {
 		this.user = null;
 		this.favourites = [];
-		UserService.me$().pipe(
+		UserService.sharedChanged$.pipe(
+			tap(user => this.user = user),
+			switchMap(() => combineLatest(
+				NotificationService.notifications$(),
+				FavouriteService.subscriptions$(),
+				FavouriteService.likes$(),
+				FavouriteService.favourites$(),
+			)),
 			catchError(() => of (null)),
 			takeUntil(this.unsubscribe$)
-		).subscribe(user => {
-			console.log('HeaderComponent.me$', user);
-			this.user = user;
-			this.pushChanges();
-		});
-		FavouriteService.subscriptions$.pipe(
-			takeUntil(this.unsubscribe$)
-		).subscribe(subscriptions => {
-			this.subscriptions = subscriptions;
-			// console.log('HeaderComponent.subscriptions', subscriptions);
-			this.pushChanges();
-		});
-		FavouriteService.likes$.pipe(
-			takeUntil(this.unsubscribe$)
-		).subscribe(likes => {
-			this.likes = likes;
-			// console.log('HeaderComponent.likes', likes);
-			this.pushChanges();
-		});
-		FavouriteService.favourites$.pipe(
-			takeUntil(this.unsubscribe$)
-		).subscribe(favourites => {
-			this.favourites = favourites;
-			// console.log('HeaderComponent.favourites', favourites);
-			this.pushChanges();
-		});
-		NotificationService.notifications$.pipe(
-			takeUntil(this.unsubscribe$)
-		).subscribe(notifications => {
-			this.notifications = notifications;
-			// console.log('HeaderComponent.notifications', notifications);
+		).subscribe(data => {
+			this.notifications = data[0];
+			this.subscriptions = data[1];
+			this.likes = data[2];
+			this.favourites = data[3];
 			this.pushChanges();
 		});
 		CssService.height$().pipe(
@@ -53,6 +34,12 @@ export default class HeaderComponent extends Component {
 			// console.log('HeaderComponent.height$', height);
 		});
 		// console.log(JSON.stringify(LocaleService.defaultLocale));
+	}
+
+	doLogout($event) {
+		UserService.logout$().pipe(
+			first(),
+		).subscribe((response) => window.location.href = response.data.retUrl);
 	}
 
 	toggleAside($event) {

@@ -16,6 +16,7 @@
 				<div class="wse__btn--circle" (click)="toggleNotification($event)" (clickOutside)="dismissNotification($event)">
 					<svg class="wse__icon"><use xlink:href="#bell"></use></svg><span class="wse__count" [innerHTML]="notifications.length"></span>
 				</div>
+				<button type="button" class="wse__btn--rounded" (click)="doLogout($event)">logout</button>
 			</div>
 		</div>
 	</div>

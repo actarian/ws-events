@@ -45,7 +45,11 @@ export class Event {
 			}
 			if (this.endDate) {
 				this.endDate = new Date(this.endDate);
-				this.info.ended = this.endDate < Date.now();
+				if (this.endDate < Date.now()) {
+					this.info.ended = true;
+				} else {
+					this.endDate = null;
+				}
 			}
 			if (this.related) {
 				this.related = EventService.mapEvents(this.related, isStatic);
@@ -60,33 +64,34 @@ export class Event {
 export default class EventService {
 
 	static detail$(eventId) {
-		// return ApiService.get$(`/event/${eventId}/detail`)
-		return ApiService.staticGet$(`/event/${1001}/detail`).pipe(
+		//return ApiService.staticGet$(`/event/${1001}/detail`).pipe(
+		return ApiService.get$(`/event/${eventId}/detail`).pipe(
 			tap(response => response.data.id = parseInt(eventId)), // !!!
 			map(response => EventService.mapEvent(response.data, response.static))
 		);
 	}
 
 	static listing$(eventId) {
-		// return ApiService.get$(`/event/${eventId}/listing`)
-		return ApiService.staticGet$(`/event/${1001}/listing`).pipe(
+		// return ApiService.staticGet$(`/event/${1001}/listing`).pipe(
+		return ApiService.get$(`/event/${eventId}/listing`).pipe(
 			switchMap(response => EventService.mapListing(response.data, response.static, eventId))
 		);
 	}
 
 	static filter$(eventId) {
-		// return ApiService.get$(`/event/${eventId}/filter`)
-		return ApiService.staticGet$(`/event/${1001}/filter`).pipe(map(response => response.data));
+		return ApiService.get$(`/channel/filter`).pipe(map(response => response.data));
+		//return ApiService.staticGet$(`/event/${1001}/filter`).pipe(map(response => response.data));
 	}
 
 	static top$() {
-		return ApiService.staticGet$(`/event/evidence`).pipe(
+		//return ApiService.staticGet$(`/event/evidence`).pipe(
+		return ApiService.get$(`/event/evidence`).pipe(
 			map(response => EventService.mapEvents(response.data, response.static))
 		);
 	}
 
 	static upcoming$() {
-		return ApiService.staticGet$(`/event/upcoming`).pipe(
+		return ApiService.get$(`/event/upcoming`).pipe(
 			map(response => EventService.mapEvents(response.data, response.static))
 		);
 	}
@@ -108,8 +113,9 @@ export default class EventService {
 	}
 
 	static postQuestion$(event, body) {
-		const eventId = 1001; // event.id !!!
-		return ApiService.staticPost$(`/event/${eventId}/question`, body).pipe(
+		//const eventId = 1001; // event.id !!!
+		//return ApiService.staticPost$(`/event/${eventId}/question`, body).pipe(
+		return ApiService.post$(`/event/${event.id}/question`, body).pipe(
 			map(response => {
 				const question = QuestionService.mapQuestion(response.data, response.static);
 				if (response.static) {
@@ -132,7 +138,17 @@ export default class EventService {
 	}
 
 	static mapListing(items, isStatic, eventId) {
-		return isStatic ? EventService.fakeListing(eventId) : of (items);
+		if (isStatic) {
+			return EventService.fakeListing(eventId);
+		} else {
+			return of(items.map(item => {
+				if (item.type === 'event') {
+					return EventService.mapEvent(item);
+				} else {
+					return item;
+				}
+			}));
+		}
 	}
 
 	static fake(item) {

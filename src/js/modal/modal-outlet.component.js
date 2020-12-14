@@ -26,7 +26,7 @@ export default class ModalOutletComponent extends Component {
 
 	onInit() {
 		const { node } = getContext(this);
-		this.modalNode = node.querySelector('.modal-outlet__modal');
+		this.modalNode = node.querySelector('.wse__modal-outlet__modal');
 		ModalService.modal$.pipe(
 			takeUntil(this.unsubscribe$)
 		).subscribe(modal => {
@@ -53,9 +53,9 @@ export default class ModalOutletComponent extends Component {
 ModalOutletComponent.meta = {
 	selector: '[modal-outlet]',
 	template: /* html */ `
-	<div class="modal-outlet__container" [class]="{ active: modal }">
-		<div class="modal-outlet__background" (click)="reject($event)"></div>
-		<div class="modal-outlet__modal"></div>
+	<div class="wse__modal-outlet__container" [class]="{ active: modal }">
+		<div class="wse__modal-outlet__background" (click)="reject($event)"></div>
+		<div class="wse__modal-outlet__modal"></div>
 	</div>
 	`
 };

@@ -1,0 +1,27 @@
+<div user-signin (signIn)="onSignIn($event)" (forgot)="onForgot($event)" (register)="onRegister($event)">
+	<div class="wse__container">
+		<form class="wse__form" [formGroup]="form" (submit)="onSubmit()" name="form" role="form" novalidate autocomplete="off">
+			<div class="wse__form__title">Login</div>
+			<div class="wse__listing--fields">
+				<input name="checkField" [formControl]="controls.checkField" value="" type="text" style="display:none !important;" />
+				<div control-text [control]="controls.email" label="Email"></div>
+				<div control-password [control]="controls.password" label="Password"></div>
+			</div>
+			<div class="wse__group--error" *if="error">
+				<span class="wse__friendly-message" [innerHTML]="error.friendlyMessage"></span>
+				<span class="wse__status-code" [innerHTML]="error.statusCode"></span>
+				<span class="wse__status-message" [innerHTML]="error.statusMessage"></span>
+			</div>
+			<div class="wse__group--cta">
+				<button type="submit" class="wse__btn--submit">
+					<span *if="!form.submitted">Accedi</span>
+					<span *if="form.submitted">Inviato!</span>
+				</button>
+			</div>
+			<div class="wse__group--info">
+				Non riesci ad accedere? <button type="button" class="wse__btn--nav" (click)="onForgot($event)"><span>Recupera Password</span></button>
+			</div>
+			<test-component [form]="form" (test)="test($event)" (reset)="reset($event)"></test-component>
+		</form>
+	</div>
+</div>

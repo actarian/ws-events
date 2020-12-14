@@ -1,5 +1,8 @@
-export const STATIC = window.location.port === '40333' || window.location.host === 'actarian.github.io';
-export const DEVELOPMENT = ['localhost', '127.0.0.1', '0.0.0.0'].indexOf(window.location.host.split(':')[0]) !== -1;
+export const NODE = (typeof module !== 'undefined' && module.exports);
+export const BASE_HREF = NODE ? null : document.querySelector('base').getAttribute('href');
+export const HEROKU = NODE ? false : (window && window.location.host.indexOf('herokuapp') !== -1);
+export const STATIC = NODE ? false : (HEROKU || (window && (window.location.port === '40431' || window.location.port === '5000' || window.location.port === '6443' || window.location.host === 'actarian.github.io')));
+export const DEVELOPMENT = NODE ? false : (window && ['localhost', '127.0.0.1', '0.0.0.0'].indexOf(window.location.host.split(':')[0]) !== -1);
 export const PRODUCTION = !DEVELOPMENT;
 export const ENV = {
 	NAME: 'ws-events',
@@ -27,7 +30,7 @@ export function getSlug(url) {
 		return url;
 	}
 	if (STATIC) {
-		console.log(url);
+		// console.log(url);
 		return url;
 	}
 	url = url.replace(`/${ENV.NAME}`, '');

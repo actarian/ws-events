@@ -1,25 +1,25 @@
 {
-  "author": "Luca Zampetti <lzampetti@gmail.com>",
-  "name": "ws-events",
-  "description": "ws-events",
-  "version": "1.0.0",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/actarian/ws-events.git"
-  },
-  "engines": {
-    "node": "10.x"
-  },
-  "dependencies": {
-    "gsap": "~3.2.6",
-    "rxjs": "~6.5.4",
-    "rxcomp": "~1.0.0-beta.10",
-    "rxcomp-form": "~1.0.0-beta.9",
-    "swiper": "~5.3.8",
-    "tiny-relative-date": "~1.3.0"
-  },
-  "devDependencies": {
-    "gulpfile-config": "~1.0.0-alpha.9"
-  }
+	"author": "Luca Zampetti <lzampetti@gmail.com>",
+	"name": "ws-events",
+	"description": "ws-events",
+	"version": "1.0.0",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/actarian/ws-events.git"
+	},
+	"engines": {
+		"node": "10.x"
+	},
+	"dependencies": {
+		"gsap": "3.5.1",
+		"rxjs": "6.6.2",
+		"rxcomp": "1.0.0-beta.20",
+		"rxcomp-form": "1.0.0-beta.18",
+		"swiper": "5.3.8",
+		"tiny-relative-date": "1.3.0"
+	},
+	"devDependencies": {
+		"gulpfile-config": "1.0.0-alpha.14"
+	}
 }

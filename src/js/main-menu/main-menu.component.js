@@ -14,7 +14,7 @@ export default class MainMenuComponent extends Component {
 	}
 
 	onSearch(url, query) {
-		console.log(query);
+		// console.log(query);
 		window.location.href = `${url}?txtSiteSearch=${query}`;
 	}
 }

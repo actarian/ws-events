@@ -133,6 +133,7 @@
 	font-weight: 700;
 	border: 3px solid transparent;
 	text-transform: uppercase;
+	transition: all ease-in-out 250ms;
 
 	.wse__count {
 		@extend %badge;
@@ -147,16 +148,22 @@
 
 	span {
 		display: block;
+		position: relative;
 	}
 
 	&,
 	&:active,
 	&:focus,
-	&:hover,
 	&:visited {
 		border-color: $foreground;
 		background: $background;
 		color: $foreground;
+	}
+
+	&:hover {
+		border-color: $background-negative;
+		background: $background-negative;
+		color: $foreground-negative;
 	}
 }
 

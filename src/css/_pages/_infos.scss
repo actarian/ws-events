@@ -25,7 +25,7 @@
 	}
 
 	.wse__date {
-		font-family: 'Roboto Mono', monospace;
+		font-family: $font-secondary; // 'Roboto Mono', monospace;
 
 		&.wse__date--live {
 			background: #f70a36;
@@ -38,10 +38,12 @@
 			text-transform: uppercase;
 			color: $foreground-negative;
 
+			/*
 			.mono {
 				letter-spacing: 0.02em;
 				font-family: monospace;
 			}
+			*/
 		}
 	}
 
@@ -57,7 +59,7 @@
 		margin: 0;
 		padding: 4px 9px;
 		border-radius: $badge-radius;
-		font-family: 'Roboto Mono', monospace;
+		font-family: $font-secondary; // 'Roboto Mono', monospace;
 		font-size: 11px;
 		font-weight: $font-semibold;
 		white-space: nowrap;
@@ -282,4 +284,8 @@
 		}
 	}
 
+}
+
+.wse__date--countdown {
+	font-family: 'Roboto Mono', monospace!important;
 }

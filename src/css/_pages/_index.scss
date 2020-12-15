@@ -11,6 +11,16 @@
 		@extend %swiper-slides;
 	}
 
+	.wse__btn--rounded,
+	.wse__btn--submit,
+	.wse__btn--nav {
+		&:hover {
+			border-color: $background-negative;
+			background: $orange;
+			color: $foreground;
+		}
+	}
+
 	@include media-up(md) {
 		padding-top: 50px;
 	}
@@ -125,11 +135,29 @@
 	.wse__section--channel {
 		background: $pink;
 	}
+	.wse__btn--rounded,
+	.wse__btn--submit,
+	.wse__btn--nav {
+		&:hover {
+			border-color: $background-negative;
+			background: $pink;
+			color: $foreground;
+		}
+	}
 }
 
 .wse__channel-1 {
 	.wse__section--channel {
 		background: $blue;
+	}
+	.wse__btn--rounded,
+	.wse__btn--submit,
+	.wse__btn--nav {
+		&:hover {
+			border-color: $background-negative;
+			background: $blue;
+			color: $foreground;
+		}
 	}
 }
 
@@ -137,11 +165,29 @@
 	.wse__section--channel {
 		background: $yellow;
 	}
+	.wse__btn--rounded,
+	.wse__btn--submit,
+	.wse__btn--nav {
+		&:hover {
+			border-color: $background-negative;
+			background: $yellow;
+			color: $foreground;
+		}
+	}
 }
 
 .wse__channel-3 {
 	.wse__section--channel {
 		background: $green;
+	}
+	.wse__btn--rounded,
+	.wse__btn--submit,
+	.wse__btn--nav {
+		&:hover {
+			border-color: $background-negative;
+			background: $green;
+			color: $foreground;
+		}
 	}
 }
 

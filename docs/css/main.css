@@ -324,18 +324,24 @@ strong {
   padding: 15px 22px 13px 22px;
   font-weight: 700;
   border: 3px solid transparent;
-  text-transform: uppercase; }
+  text-transform: uppercase;
+  transition: all ease-in-out 250ms; }
   .wse__btn--rounded svg, .wse__btn--submit svg, .wse__btn--nav svg {
     width: 24px;
     height: 24px;
     margin-left: -10px;
     margin-right: 10px; }
   .wse__btn--rounded span, .wse__btn--submit span, .wse__btn--nav span {
-    display: block; }
-  .wse__btn--rounded, .wse__btn--submit, .wse__btn--nav, .wse__btn--rounded:active, .wse__btn--submit:active, .wse__btn--nav:active, .wse__btn--rounded:focus, .wse__btn--submit:focus, .wse__btn--nav:focus, .wse__btn--rounded:hover, .wse__btn--submit:hover, .wse__btn--nav:hover, .wse__btn--rounded:visited, .wse__btn--submit:visited, .wse__btn--nav:visited {
+    display: block;
+    position: relative; }
+  .wse__btn--rounded, .wse__btn--submit, .wse__btn--nav, .wse__btn--rounded:active, .wse__btn--submit:active, .wse__btn--nav:active, .wse__btn--rounded:focus, .wse__btn--submit:focus, .wse__btn--nav:focus, .wse__btn--rounded:visited, .wse__btn--submit:visited, .wse__btn--nav:visited {
     border-color: #0f0e12;
     background: #ffffff;
     color: #0f0e12; }
+  .wse__btn--rounded:hover, .wse__btn--submit:hover, .wse__btn--nav:hover {
+    border-color: #0f0e12;
+    background: #0f0e12;
+    color: #ffffff; }
 
 .wse__btn--md, .wse__btn--submit, .wse__btn--nav, .wse__card--event .wse__btn--rounded, .wse__card--top .wse__btn--rounded, .wse__card--listing .wse__btn--rounded, .wse__card--magazine .wse__btn--rounded, .wse__card--preview .wse__btn--rounded, .wse__header .wse__btn--rounded, .wse__group--input-group .wse__btn--rounded {
   min-height: 40px;
@@ -4890,7 +4896,7 @@ errors-component {
   width: 40px;
   height: 40px;
   border-radius: 20px;
-  font-family: 'Roboto mono', monospace;
+  font-family: "Authentic Sans", sans-serif;
   font-weight: 900;
   font-size: 12px;
   letter-spacing: 0.1em;
@@ -5019,7 +5025,7 @@ errors-component {
     justify-content: flex-start; }
   .wse__event__info .wse__date,
   .wse__channel__info .wse__date {
-    font-family: 'Roboto Mono', monospace; }
+    font-family: "Authentic Sans", sans-serif; }
     .wse__event__info .wse__date.wse__date--live,
     .wse__channel__info .wse__date.wse__date--live {
       background: #f70a36;
@@ -5029,11 +5035,13 @@ errors-component {
     .wse__channel__info .wse__date.wse__date--countdown {
       background: #101010;
       text-transform: uppercase;
-      color: #ffffff; }
-      .wse__event__info .wse__date.wse__date--countdown .mono,
-      .wse__channel__info .wse__date.wse__date--countdown .mono {
-        letter-spacing: 0.02em;
-        font-family: monospace; }
+      color: #ffffff;
+      /*
+			.mono {
+				letter-spacing: 0.02em;
+				font-family: monospace;
+			}
+			*/ }
   .wse__event__info .wse__date,
   .wse__event__info .wse__subscribe,
   .wse__event__info .wse__like,
@@ -5051,7 +5059,7 @@ errors-component {
     margin: 0;
     padding: 4px 9px;
     border-radius: 0;
-    font-family: 'Roboto Mono', monospace;
+    font-family: "Authentic Sans", sans-serif;
     font-size: 11px;
     font-weight: 600;
     white-space: nowrap;
@@ -5177,12 +5185,21 @@ errors-component {
   .wse__channel__info .wse__like.wse__active svg {
     fill: #f70a36; } }
 
+.wse__date--countdown {
+  font-family: "Roboto Mono", monospace !important; }
+
 .wse__section--hero-reel {
   overflow: hidden;
   background: #f67c53;
   min-height: calc(100vh - 70px); }
   .wse__section--hero-reel .wse__container-fluid {
     padding: 0; }
+  .wse__section--hero-reel .wse__btn--rounded:hover,
+  .wse__section--hero-reel .wse__btn--submit:hover,
+  .wse__section--hero-reel .wse__btn--nav:hover {
+    border-color: #0f0e12;
+    background: #f67c53;
+    color: #0f0e12; }
   @media (min-width: 1024px) {
     .wse__section--hero-reel {
       padding-top: 50px; } }
@@ -5247,14 +5264,42 @@ errors-component {
 .wse__channel-0 .wse__section--channel {
   background: #daa5ad; }
 
+.wse__channel-0 .wse__btn--rounded:hover,
+.wse__channel-0 .wse__btn--submit:hover,
+.wse__channel-0 .wse__btn--nav:hover {
+  border-color: #0f0e12;
+  background: #daa5ad;
+  color: #0f0e12; }
+
 .wse__channel-1 .wse__section--channel {
   background: #3388ff; }
+
+.wse__channel-1 .wse__btn--rounded:hover,
+.wse__channel-1 .wse__btn--submit:hover,
+.wse__channel-1 .wse__btn--nav:hover {
+  border-color: #0f0e12;
+  background: #3388ff;
+  color: #0f0e12; }
 
 .wse__channel-2 .wse__section--channel {
   background: #faff2e; }
 
+.wse__channel-2 .wse__btn--rounded:hover,
+.wse__channel-2 .wse__btn--submit:hover,
+.wse__channel-2 .wse__btn--nav:hover {
+  border-color: #0f0e12;
+  background: #faff2e;
+  color: #0f0e12; }
+
 .wse__channel-3 .wse__section--channel {
   background: #0c7d4b; }
+
+.wse__channel-3 .wse__btn--rounded:hover,
+.wse__channel-3 .wse__btn--submit:hover,
+.wse__channel-3 .wse__btn--nav:hover {
+  border-color: #0f0e12;
+  background: #0c7d4b;
+  color: #0f0e12; }
 
 @media (min-width: 1024px) {
   .wse__channel + .wse__channel {
@@ -5277,17 +5322,45 @@ errors-component {
 .wse__channel-page-0 .wse__card--top {
   background: #daa5ad; }
 
+.wse__channel-page-0 .wse__btn--rounded:hover,
+.wse__channel-page-0 .wse__btn--submit:hover,
+.wse__channel-page-0 .wse__btn--nav:hover {
+  border-color: #0f0e12;
+  background: #daa5ad;
+  color: #0f0e12; }
+
 .wse__channel-page-1,
 .wse__channel-page-1 .wse__card--top {
   background: #3388ff; }
+
+.wse__channel-page-1 .wse__btn--rounded:hover,
+.wse__channel-page-1 .wse__btn--submit:hover,
+.wse__channel-page-1 .wse__btn--nav:hover {
+  border-color: #0f0e12;
+  background: #3388ff;
+  color: #0f0e12; }
 
 .wse__channel-page-2,
 .wse__channel-page-2 .wse__card--top {
   background: #faff2e; }
 
+.wse__channel-page-2 .wse__btn--rounded:hover,
+.wse__channel-page-2 .wse__btn--submit:hover,
+.wse__channel-page-2 .wse__btn--nav:hover {
+  border-color: #0f0e12;
+  background: #faff2e;
+  color: #0f0e12; }
+
 .wse__channel-page-3,
 .wse__channel-page-3 .wse__card--top {
   background: #0c7d4b; }
+
+.wse__channel-page-3 .wse__btn--rounded:hover,
+.wse__channel-page-3 .wse__btn--submit:hover,
+.wse__channel-page-3 .wse__btn--nav:hover {
+  border-color: #0f0e12;
+  background: #0c7d4b;
+  color: #0f0e12; }
 
 .wse__section--channel__menu {
   padding: 40px 0 40px 0; }

@@ -4,6 +4,16 @@
 	& .wse__card--top {
 		background: $pink;
 	}
+
+	.wse__btn--rounded,
+	.wse__btn--submit,
+	.wse__btn--nav {
+		&:hover {
+			border-color: $background-negative;
+			background: $pink;
+			color: $foreground;
+		}
+	}
 }
 
 .wse__channel-page-1 {
@@ -11,6 +21,16 @@
 	&,
 	& .wse__card--top {
 		background: $blue;
+	}
+
+	.wse__btn--rounded,
+	.wse__btn--submit,
+	.wse__btn--nav {
+		&:hover {
+			border-color: $background-negative;
+			background: $blue;
+			color: $foreground;
+		}
 	}
 }
 
@@ -20,6 +40,16 @@
 	& .wse__card--top {
 		background: $yellow;
 	}
+
+	.wse__btn--rounded,
+	.wse__btn--submit,
+	.wse__btn--nav {
+		&:hover {
+			border-color: $background-negative;
+			background: $yellow;
+			color: $foreground;
+		}
+	}
 }
 
 .wse__channel-page-3 {
@@ -27,6 +57,16 @@
 	&,
 	& .wse__card--top {
 		background: $green;
+	}
+
+	.wse__btn--rounded,
+	.wse__btn--submit,
+	.wse__btn--nav {
+		&:hover {
+			border-color: $background-negative;
+			background: $green;
+			color: $foreground;
+		}
 	}
 }
 

@@ -3,8 +3,8 @@
 	top: 0;
 	height: 100vh;
 	padding: 65px 0 0 0;
-	background: $background;
-	border-left: 2px solid $background-tertiary;
+	background: $orange;
+	border-left: 2px solid $border;
 	transition: right ease-in-out 400ms;
 
 	.wse__container {

@@ -311,7 +311,7 @@ strong {
   .wse__btn--filter:focus, .wse__btn--circle:hover, .wse__btn--mode:hover,
   .wse__btn--filter:hover, .wse__btn--circle:visited, .wse__btn--mode:visited,
   .wse__btn--filter:visited {
-    background: #e6e6e6;
+    background: rgba(0, 0, 0, 0.15);
     color: #0f0e12; }
 
 .wse__btn--rounded, .wse__btn--submit, .wse__btn--nav {
@@ -4438,7 +4438,6 @@ errors-component {
 .wse__card--notification {
   position: relative;
   display: flex;
-  background: #ffffff;
   margin-bottom: 15px;
   text-decoration: none;
   cursor: pointer; }
@@ -4446,14 +4445,15 @@ errors-component {
     flex: 0 0 50px;
     width: 50px;
     height: 50px;
-    margin-right: 10px; }
+    margin-right: 10px;
+    border: 2px solid #0f0e12; }
     .wse__card--notification__picture--inner {
       display: block;
       position: relative;
       width: 100%;
       padding-top: 100%;
       overflow: hidden;
-      background: #e6e6e6; }
+      background: #0f0e12; }
       .wse__card--notification__picture--inner > img,
       .wse__card--notification__picture--inner > svg,
       .wse__card--notification__picture--inner > video,
@@ -4894,7 +4894,7 @@ errors-component {
   font-weight: 900;
   font-size: 12px;
   letter-spacing: 0.1em;
-  background: #e6e6e6;
+  background: rgba(0, 0, 0, 0.15);
   color: #0f0e12; }
 
 .wse__aside {
@@ -4940,8 +4940,8 @@ errors-component {
   top: 0;
   height: 100vh;
   padding: 65px 0 0 0;
-  background: #ffffff;
-  border-left: 2px solid #e6e6e6;
+  background: #f67c53;
+  border-left: 2px solid #0f0e12;
   transition: right ease-in-out 400ms; }
   .wse__notification .wse__container {
     max-width: 100%;
@@ -5572,6 +5572,7 @@ errors-component {
     max-width: 1440px; }
   .wse__section--channel__listing .wse__group--grid {
     position: relative;
+    width: 100%;
     height: 100%;
     margin: 15px 0 40px 0; }
 
@@ -5925,6 +5926,7 @@ errors-component {
     max-width: 1440px; }
   .wse__section--event__listing .wse__group--grid {
     position: relative;
+    width: 100%;
     min-height: 100%;
     margin: 15px 0 40px 0; }
 
@@ -5987,7 +5989,7 @@ errors-component {
     font-family: "Authentic Sans", sans-serif;
     font-size: 18px;
     line-height: 1.3;
-    border-bottom: 1px solid #e6e6e6;
+    border-bottom: 2px solid #0f0e12;
     -webkit-appearance: none;
             appearance: none; }
     .wse__group--message__input:-webkit-autofill, .wse__group--message__input:-webkit-autofill:hover, .wse__group--message__input:-webkit-autofill:focus {

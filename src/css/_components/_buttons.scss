@@ -81,7 +81,7 @@
 	&:focus,
 	&:hover,
 	&:visited {
-		background: $background-tertiary;
+		background: rgba(0, 0, 0, 0.15); // $background-tertiary;
 		color: $foreground-primary;
 	}
 }

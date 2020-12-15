@@ -1100,7 +1100,6 @@
 .wse__card--notification {
 	position: relative;
 	display: flex;
-	background: $background;
 	margin-bottom: 15px;
 	text-decoration: none;
 	cursor: pointer;
@@ -1110,11 +1109,12 @@
 		width: 50px;
 		height: 50px;
 		margin-right: 10px;
+		border: 2px solid $border;
 
 		&--inner {
 			display: block;
 			@include aspect-clip(1, 1);
-			background: $background-tertiary;
+			background: $border; // $background-tertiary;
 
 			&>img {
 				position: absolute;

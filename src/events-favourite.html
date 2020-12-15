@@ -56,39 +56,43 @@
 
 	<div class="wse__section--channel__listing">
 		<div class="wse__container-fluid" *if="viewMode === 'saved'">
-			<div class="wse__group--grid" *virtual="let item of savedItems" [mode]="grid.mode" [width]="grid.width" [gutter]="grid.gutter">
-				<!-- serve un nodo figlio -->
-				<div class="wse__section--channel__listing__item">
-					<div [event]="item" *if="item.type === 'event'">
-						<!-- @@include ./templates/shared/event/card-listing.html -->
-					</div>
-					<div *if="item.type === 'picture'">
-						<!-- @@include ./templates/shared/generic/card-picture.html -->
-					</div>
-					<div *if="item.type === 'product'">
-						<!-- @@include ./templates/shared/generic/card-product.html -->
-					</div>
-					<div *if="item.type === 'magazine'">
-						<!-- @@include ./templates/shared/generic/card-magazine.html -->
+			<div class="wse__row">
+				<div class="wse__group--grid" *virtual="let item of savedItems" [mode]="grid.mode" [width]="grid.width" [gutter]="grid.gutter">
+					<!-- serve un nodo figlio -->
+					<div class="wse__section--channel__listing__item">
+						<div [event]="item" *if="item.type === 'event'">
+							<!-- @@include ./templates/shared/event/card-listing.html -->
+						</div>
+						<div *if="item.type === 'picture'">
+							<!-- @@include ./templates/shared/generic/card-picture.html -->
+						</div>
+						<div *if="item.type === 'product'">
+							<!-- @@include ./templates/shared/generic/card-product.html -->
+						</div>
+						<div *if="item.type === 'magazine'">
+							<!-- @@include ./templates/shared/generic/card-magazine.html -->
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="wse__container-fluid" *if="viewMode === 'liked'">
-			<div class="wse__group--grid" *virtual="let item of likedItems" [mode]="grid.mode" [width]="grid.width" [gutter]="grid.gutter">
-				<!-- serve un nodo figlio -->
-				<div class="wse__section--channel__listing__item">
-					<div [event]="item" *if="item.type === 'event'">
-						<!-- @@include ./templates/shared/event/card-listing.html -->
-					</div>
-					<div *if="item.type === 'picture'">
-						<!-- @@include ./templates/shared/generic/card-picture.html -->
-					</div>
-					<div *if="item.type === 'product'">
-						<!-- @@include ./templates/shared/generic/card-product.html -->
-					</div>
-					<div *if="item.type === 'magazine'">
-						<!-- @@include ./templates/shared/generic/card-magazine.html -->
+			<div class="wse__row">
+				<div class="wse__group--grid" *virtual="let item of likedItems" [mode]="grid.mode" [width]="grid.width" [gutter]="grid.gutter">
+					<!-- serve un nodo figlio -->
+					<div class="wse__section--channel__listing__item">
+						<div [event]="item" *if="item.type === 'event'">
+							<!-- @@include ./templates/shared/event/card-listing.html -->
+						</div>
+						<div *if="item.type === 'picture'">
+							<!-- @@include ./templates/shared/generic/card-picture.html -->
+						</div>
+						<div *if="item.type === 'product'">
+							<!-- @@include ./templates/shared/generic/card-product.html -->
+						</div>
+						<div *if="item.type === 'magazine'">
+							<!-- @@include ./templates/shared/generic/card-magazine.html -->
+						</div>
 					</div>
 				</div>
 			</div>

@@ -67,6 +67,9 @@ export default class ChannelPageComponent extends PageComponent {
 				}, {
 					value: 'magazine',
 					label: 'Magazine',
+				}, {
+					value: 'download',
+					label: 'Downloads',
 				}]
 			},
 		};

@@ -1513,6 +1513,16 @@ var EventService = /*#__PURE__*/function () {
         picture: image_,
         category: category_
       };
+      var download_ = {
+        id: 1000,
+        type: 'download',
+        name: 'Download',
+        title: 'Download',
+        abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
+        url: '/ws-events/files/download.pdf',
+        picture: image_,
+        category: category_
+      };
       var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
       return new Array(30).fill(true).map(function (x, i) {
         var type = 'event';
@@ -1528,6 +1538,10 @@ var EventService = /*#__PURE__*/function () {
 
           if (i % 11 === 0) {
             type = 'magazine';
+          }
+
+          if (i % 13 === 0) {
+            type = 'download';
           }
         }
 
@@ -1546,6 +1560,10 @@ var EventService = /*#__PURE__*/function () {
             item = Object.assign({}, magazine_);
             break;
 
+          case 'download':
+            item = Object.assign({}, download_);
+            break;
+
           case 'event':
             item = Object.assign({}, event_);
             break;
@@ -1558,8 +1576,8 @@ var EventService = /*#__PURE__*/function () {
         if (item.picture) {
           item.picture = Object.assign({}, image_, {
             id: 100001 + i,
-            width: 700,
-            height: [700, 900, 1100][i % 3]
+            width: type === 'download' ? 340 : 700,
+            height: type === 'download' ? 480 : [700, 900, 1100][i % 3]
           });
         }
 
@@ -1806,6 +1824,16 @@ var ChannelService = /*#__PURE__*/function () {
         picture: image_,
         category: category_
       };
+      var download_ = {
+        id: 1000,
+        type: 'download',
+        name: 'Download',
+        title: 'Download',
+        abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
+        url: '/ws-events/files/download.pdf',
+        picture: image_,
+        category: category_
+      };
       var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
       return new Array(250).fill(true).map(function (x, i) {
         var type = 'event';
@@ -1821,6 +1849,10 @@ var ChannelService = /*#__PURE__*/function () {
 
           if (i % 11 === 0) {
             type = 'magazine';
+          }
+
+          if (i % 13 === 0) {
+            type = 'download';
           }
         }
 
@@ -1839,6 +1871,10 @@ var ChannelService = /*#__PURE__*/function () {
             item = Object.assign({}, magazine_);
             break;
 
+          case 'download':
+            item = Object.assign({}, download_);
+            break;
+
           case 'event':
             item = Object.assign({}, event_);
             break;
@@ -1851,8 +1887,8 @@ var ChannelService = /*#__PURE__*/function () {
         if (item.picture) {
           item.picture = Object.assign({}, image_, {
             id: 100001 + i,
-            width: 700,
-            height: [700, 900, 1100][i % 3]
+            width: type === 'download' ? 340 : 700,
+            height: type === 'download' ? 480 : [700, 900, 1100][i % 3]
           });
         }
 
@@ -2358,6 +2394,9 @@ var FilterItem = /*#__PURE__*/function () {
         }, {
           value: 'magazine',
           label: 'Magazine'
+        }, {
+          value: 'download',
+          label: 'Downloads'
         }]
       }
     };
@@ -4115,17 +4154,20 @@ EventDateComponent.meta = {
         label: 'Type',
         mode: 'select',
         options: [{
-          label: 'Event',
-          value: 'event'
+          value: 'event',
+          label: 'Event'
         }, {
-          label: 'Picture',
-          value: 'picture'
+          value: 'picture',
+          label: 'Picture'
         }, {
-          label: 'Product',
-          value: 'product'
+          value: 'product',
+          label: 'Product'
         }, {
-          label: 'Magazine',
-          value: 'magazine'
+          value: 'magazine',
+          label: 'Magazine'
+        }, {
+          value: 'download',
+          label: 'Downloads'
         }]
       }
     };
@@ -5785,7 +5827,7 @@ ScrollToDirective.meta = {
   }]);
 
   return DownloadService;
-}();var src$1 = STATIC ? '/tiemme-com/club-modal.html' : '/Viewdoc.cshtml?co_id=23649';
+}();var src$1 = STATIC ? '/ws-events/register-or-login-modal.html' : '/Viewdoc.cshtml?co_id=23649';
 
 var SecureDirective = /*#__PURE__*/function (_Directive) {
   _inheritsLoose(SecureDirective, _Directive);
@@ -5802,7 +5844,6 @@ var SecureDirective = /*#__PURE__*/function (_Directive) {
     var _getContext = rxcomp.getContext(this),
         node = _getContext.node;
 
-    this.href = node.getAttribute('href');
     rxjs.fromEvent(node, 'click').pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (event) {
       event.preventDefault();
 
@@ -5810,32 +5851,30 @@ var SecureDirective = /*#__PURE__*/function (_Directive) {
     });
   };
 
-  _proto.onChanges = function onChanges() {
-    var _getContext2 = rxcomp.getContext(this),
-        node = _getContext2.node;
-
-    this.href = node.getAttribute('href');
-  };
-
   _proto.tryDownloadHref = function tryDownloadHref() {
     var _this2 = this;
 
-    ApiService.staticGet$(this.href, undefined, 'blob').pipe(operators.first(), operators.map(function (response) {
-      return response.data;
-    })).subscribe(function (blob) {
-      DownloadService.download(blob, _this2.href.split('/').pop());
-    }, function (error) {
-      console.log('SecureDirective.tryDownloadHref.error', error);
+    var _getContext2 = rxcomp.getContext(this),
+        node = _getContext2.node;
 
-      _this2.onLogin(event);
-    });
+    var href = node.getAttribute('href');
+
+    if (href) {
+      HttpService.get$(href, undefined, 'blob').pipe(operators.first(), operators.map(function (response) {
+        return response.data;
+      })).subscribe(function (blob) {
+        DownloadService.download(blob, href.split('/').pop());
+      }, function (error) {
+        console.log('SecureDirective.tryDownloadHref.error', error);
+
+        _this2.onLogin(event);
+      });
+    }
   };
 
   _proto.onLogin = function onLogin(event) {
     var _this3 = this;
 
-    // console.log('SecureDirective.onLogin');
-    // event.preventDefault();
     ModalService.open$({
       src: src$1,
       data: {
@@ -5848,24 +5887,8 @@ var SecureDirective = /*#__PURE__*/function (_Directive) {
 
         _this3.tryDownloadHref();
       }
-    }); // this.pushChanges();
-  }
-  /*
-  onRegister(event) {
-  	// console.log('SecureDirective.onRegister');
-  	// event.preventDefault();
-  	ModalService.open$({ src: src, data: { view: 2 } }).pipe(
-  		takeUntil(this.unsubscribe$)
-  	).subscribe(event => {
-  		// console.log('SecureDirective.onRegister', event);
-  		if (event instanceof ModalResolveEvent) {
-  			UserService.setUser(event.data);
-  		}
-  	});
-  	// this.pushChanges();
-  }
-  */
-  ;
+    });
+  };
 
   return SecureDirective;
 }(rxcomp.Directive);

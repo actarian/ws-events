@@ -1,0 +1,15 @@
+<div class="wse__card--download">
+	<div class="wse__card--download__media" *if="item.picture">
+		<div class="wse__card--download__picture">
+			<img [lazy]="item.picture.src + item.picture.width + 'x' + item.picture.height + '?sig=' + item.id" />
+		</div>
+	</div>
+	<div class="wse__card--download__content">
+		<a [href]="item.category.url" class="wse__card--download__category" [innerHTML]="item.category.name"></a>
+		<a [href]="item.url" download secure class="wse__card--download__title" [innerHTML]="item.name"></a>
+		<div class="wse__card--download__abstract" [innerHTML]="item.abstract" *if="item.abstract"></div>
+		<div class="wse__card--download__group--cta">
+			<a [href]="item.url" download secure class="wse__btn--rounded"><svg class="wse__icon"><use xlink:href="#download"></use></svg> <span>Download</span></a>
+		</div>
+	</div>
+</div>

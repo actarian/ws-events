@@ -310,6 +310,16 @@ export default class EventService {
 					picture: image_,
 					category: category_,
 				};
+				const download_ = {
+					id: 1000,
+					type: 'download',
+					name: 'Download',
+					title: 'Download',
+					abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
+					url: '/ws-events/files/download.pdf',
+					picture: image_,
+					category: category_,
+				};
 				const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
 				return new Array(30).fill(true).map((x, i) => {
 					let type = 'event';
@@ -323,6 +333,9 @@ export default class EventService {
 						if (i % 11 === 0) {
 							type = 'magazine';
 						}
+						if (i % 13 === 0) {
+							type = 'download';
+						}
 					}
 					let item;
 					switch (type) {
@@ -335,6 +348,9 @@ export default class EventService {
 						case 'magazine':
 							item = Object.assign({}, magazine_);
 							break;
+						case 'download':
+							item = Object.assign({}, download_);
+							break;
 						case 'event':
 							item = Object.assign({}, event_);
 							break;
@@ -345,8 +361,8 @@ export default class EventService {
 					if (item.picture) {
 						item.picture = Object.assign({}, image_, {
 							id: (100001 + i),
-							width: 700,
-							height: [700, 900, 1100][i % 3],
+							width: type === 'download' ? 340 : 700,
+							height: type === 'download' ? 480 : [700, 900, 1100][i % 3],
 						});
 					}
 					if (item.info) {

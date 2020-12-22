@@ -63,6 +63,25 @@
     "endDate": null
   },
   {
+    "id": 1000006,
+    "type": "download",
+    "name": "Download A",
+    "title": "Download A",
+    "abstract": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>",
+    "url": "/ws-events/files/download.pdf",
+    "picture": {
+      "id": 100006,
+      "width": 700,
+      "height": 1100,
+      "src": "https://source.unsplash.com/random/"
+    },
+    "category": {
+      "id": 10006,
+      "name": "Category G",
+      "url": "/ws-events/category.html?categoryId=10006"
+    }
+  },
+  {
     "id": 1003,
     "type": "event",
     "name": "Evento C",

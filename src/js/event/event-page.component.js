@@ -74,17 +74,20 @@ export default class EventPageComponent extends PageComponent {
 				label: 'Type',
 				mode: 'select',
 				options: [{
-					label: 'Event',
 					value: 'event',
+					label: 'Event',
 				}, {
-					label: 'Picture',
 					value: 'picture',
+					label: 'Picture',
 				}, {
-					label: 'Product',
 					value: 'product',
+					label: 'Product',
 				}, {
-					label: 'Magazine',
 					value: 'magazine',
+					label: 'Magazine',
+				}, {
+					value: 'download',
+					label: 'Downloads',
 				}]
 			},
 		};

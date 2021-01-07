@@ -1,6 +1,6 @@
 /**
  * @license ws-events v1.0.0
- * (c) 2020 Luca Zampetti <lzampetti@gmail.com>
+ * (c) 2021 Luca Zampetti <lzampetti@gmail.com>
  * License: MIT
  */
 
@@ -1339,6 +1339,7 @@ var EventService = /*#__PURE__*/function () {
   EventService.fake = function fake(item) {
     // !!! todo, wrap static api response { static: true, data: ... }
     // console.log('EventService.fake', item);
+    var mediaTypes = ['thron', 'vimeo'];
     var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
     var index = item.id % 1000;
     var channelId = 100 + (item.id - index) / 1000;
@@ -1355,10 +1356,28 @@ var EventService = /*#__PURE__*/function () {
     if (item.info) {
       item.info.subscribers = 50 + Math.floor(Math.random() * 200);
       item.info.likes = 50 + Math.floor(Math.random() * 200);
-      item.media = {
-        src: 'https://gruppoconcorde-view.thron.com/api/xcontents/resources/delivery/getContentDetail?clientId=gruppoconcorde&xcontentId=16ef3c0a-ba0c-4e3a-a10a-32bc7f9a4297&pkey=yz1hpd',
-        type: 'thron'
-      };
+      var mediaType = mediaTypes[Math.floor(Math.random() * mediaTypes.length)];
+
+      switch (mediaType) {
+        case 'vimeo':
+          item.media = {
+            src: '497693771',
+            type: 'vimeo'
+          };
+          item.picture = {
+            src: 'https://i.vimeocdn.com/video/1029929333_1920x1080.webp',
+            width: 1920,
+            height: 1080
+          };
+          break;
+
+        default:
+          item.media = {
+            src: 'https://gruppoconcorde-view.thron.com/api/xcontents/resources/delivery/getContentDetail?clientId=gruppoconcorde&xcontentId=16ef3c0a-ba0c-4e3a-a10a-32bc7f9a4297&pkey=yz1hpd',
+            type: 'thron'
+          };
+      }
+
       var now = new Date();
 
       switch (index) {
@@ -4136,7 +4155,7 @@ EventDateComponent.meta = {
     node.classList.add("wse__channel-page-" + eventId % 4);
 
     if (STATIC) {
-      eventId = 1001;
+      eventId = 1001 + (eventId - 1) % 2;
     }
 
     return UserService.sharedChanged$.pipe(operators.tap(function (user) {
@@ -5443,6 +5462,43 @@ ModalComponent.meta = {
 }(PageComponent);
 NotificationComponent.meta = {
   selector: '[notification]'
+};var PicturePipe = /*#__PURE__*/function (_Pipe) {
+  _inheritsLoose(PicturePipe, _Pipe);
+
+  function PicturePipe() {
+    return _Pipe.apply(this, arguments) || this;
+  }
+
+  PicturePipe.transform = function transform(value, options) {
+    var _value$picture = value.picture,
+        src = _value$picture.src,
+        width = _value$picture.width,
+        height = _value$picture.height;
+
+    if (options) {
+      width = options.width;
+      height = options.height;
+    }
+
+    var mediaType = value.media ? value.media.type : null;
+    var url = '';
+
+    switch (mediaType) {
+      case 'vimeo':
+        url = "" + src;
+        break;
+
+      default:
+        url = "" + src + width + "x" + height + "?sig=" + value.id;
+    }
+
+    return url;
+  };
+
+  return PicturePipe;
+}(rxcomp.Pipe);
+PicturePipe.meta = {
+  name: 'picture'
 };var RegisterOrLoginModal = /*#__PURE__*/function (_Component) {
   _inheritsLoose(RegisterOrLoginModal, _Component);
 
@@ -7107,6 +7163,40 @@ var GtmService = /*#__PURE__*/function () {
 VideoComponent.meta = {
   selector: '[video]',
   inputs: ['item']
+};var VimeoComponent = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(VimeoComponent, _Component);
+
+  function VimeoComponent() {
+    return _Component.apply(this, arguments) || this;
+  }
+
+  var _proto = VimeoComponent.prototype;
+
+  _proto.onInit = function onInit() {
+    var _getContext = rxcomp.getContext(this),
+        node = _getContext.node;
+
+    node.setAttribute('id', "vimeo-" + this.rxcompId);
+    var media = this.vimeo;
+    var controls = node.hasAttribute('controls') ? 1 : 0,
+        background = controls ? 0 : 1,
+        loop = node.hasAttribute('loop') ? 1 : 0,
+        autoplay = node.hasAttribute('autoplay') ? 1 : 0,
+        live = node.hasAttribute('live') ? 1 : 0,
+        color = node.hasAttribute('color') ? node.getAttribute('color') : 'f67c53';
+    var src = "https://player.vimeo.com/video/" + media + "?autoplay=" + autoplay + "&color=" + color + "&title=0&byline=0&portrait=0&controls=" + controls + "&background=" + background + "&loop=" + loop;
+    var html =
+    /* html */
+    "\n\t\t\t<iframe\n\t\t\t\tsrc=\"" + src + "\"\n\t\t\t\tstyle=\"position:absolute;top:0;left:0;width:100%;height:100%;\"\n\t\t\t\tframeborder=\"0\"\n\t\t\t\tallow=\"autoplay; fullscreen\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>\n\t\t";
+    node.innerHTML = html;
+  };
+
+  return VimeoComponent;
+}(rxcomp.Component);
+VimeoComponent.meta = {
+  selector: '[vimeo]',
+  outputs: ['ready', 'canPlay', 'complete'],
+  inputs: ['vimeo']
 };var VirtualItem = /*#__PURE__*/function (_Context) {
   _inheritsLoose(VirtualItem, _Context);
 
@@ -7782,6 +7872,6 @@ YoutubeComponent.meta = {
 }(rxcomp.Module);
 AppModule.meta = {
   imports: [rxcomp.CoreModule, rxcompForm.FormModule],
-  declarations: [AsideComponent, ChannelComponent, ChannelPageComponent, ClickOutsideDirective, ControlCheckboxComponent, ControlCustomSelectComponent, ControlEmailComponent, ControlFileComponent, ControlPasswordComponent, ControlRadioComponent, ControlRadioComponent, ControlSelectComponent, ControlTextComponent, ControlTextareaComponent, CountPipe, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, EventPageComponent, FavouritePageComponent, HeaderComponent, HtmlPipe, IndexPageComponent, LabelPipe, LazyDirective, ModalComponent, ModalOutletComponent, NotificationComponent, RegisterOrLoginModal, RelativeDateDirective, RelativeDatePipe, ScrollToDirective, SecureDirective, ShareComponent, SlugPipe, SwiperDirective, SwiperEventsDirective, SwiperRelatedDirective, SwiperSlidesDirective, SwiperTopEventsDirective, ThronComponent, UserForgotComponent, UserSigninComponent, UserSignupComponent, VirtualStructure, VideoComponent, YoutubeComponent],
+  declarations: [AsideComponent, ChannelComponent, ChannelPageComponent, ClickOutsideDirective, ControlCheckboxComponent, ControlCustomSelectComponent, ControlEmailComponent, ControlFileComponent, ControlPasswordComponent, ControlRadioComponent, ControlRadioComponent, ControlSelectComponent, ControlTextComponent, ControlTextareaComponent, CountPipe, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, EventPageComponent, FavouritePageComponent, HeaderComponent, HtmlPipe, IndexPageComponent, LabelPipe, LazyDirective, ModalComponent, ModalOutletComponent, NotificationComponent, PicturePipe, RegisterOrLoginModal, RelativeDateDirective, RelativeDatePipe, ScrollToDirective, SecureDirective, ShareComponent, SlugPipe, SwiperDirective, SwiperEventsDirective, SwiperRelatedDirective, SwiperSlidesDirective, SwiperTopEventsDirective, ThronComponent, UserForgotComponent, UserSigninComponent, UserSignupComponent, VirtualStructure, VideoComponent, VimeoComponent, YoutubeComponent],
   bootstrap: AppComponent
 };rxcomp.Browser.bootstrap(AppModule);})));

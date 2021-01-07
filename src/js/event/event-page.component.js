@@ -56,7 +56,7 @@ export default class EventPageComponent extends PageComponent {
 		const { node } = getContext(this);
 		node.classList.add(`wse__channel-page-${eventId % 4}`);
 		if (STATIC) {
-			eventId = 1001;
+			eventId = 1001 + ((eventId - 1) % 2);
 		}
 		return UserService.sharedChanged$.pipe(
 			tap(user => this.user = user),

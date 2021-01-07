@@ -1,6 +1,6 @@
 <div class="wse__card--top">
 	<div class="wse__card--top__picture">
-		<img [lazy]="event.picture.src + '700x700?sig=' + event.id" />
+		<img [lazy]="event | picture : { width: 700, height: 700 }" />
 	</div>
 	<div class="wse__card--top__content">
 		<a [href]="event.url" class="wse__card--top__title" [innerHTML]="event.name"></a>

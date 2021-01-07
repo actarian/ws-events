@@ -3,7 +3,7 @@
 	background: $background-negative;
 
 	&__picture {
-		display: block;
+		display: flex;
 		@include aspect-clip(960, 600);
 		background: transparent;
 		// background: rgba($background-tertiary, 0.5);
@@ -12,10 +12,11 @@
 		&>img {
 			position: absolute;
 			top: 0;
-			left: 50%;
-			width: auto;
+			left: 0;
+			width: 100%;
 			height: 100%;
-			transform: translateX(-50%);
+			transform: none;
+			object-fit: cover;
 			@extend %lazy;
 		}
 
@@ -151,10 +152,6 @@
 	@include media-down(sm) {
 		&__picture {
 			@include aspect-clip(2, 3);
-
-			&>img {
-				left: 50%;
-			}
 		}
 
 		&__content {
@@ -187,7 +184,7 @@
 	background: $background;
 
 	&__picture {
-		display: block;
+		display: flex;
 		@include aspect-clip(4, 3);
 		background: $background-negative;
 		overflow: visible;
@@ -195,10 +192,11 @@
 		&>img {
 			position: absolute;
 			top: 0;
-			left: 50%;
-			width: auto;
+			left: 0;
+			width: 100%;
 			height: 100%;
-			transform: translateX(-50%);
+			transform: none;
+			object-fit: cover;
 			@extend %lazy;
 		}
 
@@ -288,10 +286,6 @@
 		&__picture {
 			@include aspect-clip(4, 3);
 
-			&>img {
-				left: 50%;
-			}
-
 			&:after {
 				display: none;
 			}
@@ -314,17 +308,18 @@
 	text-align: center;
 
 	&__picture {
-		display: block;
+		display: flex;
 		@include aspect-clip(35, 40);
 		background: $background-tertiary;
 
 		&>img {
 			position: absolute;
 			top: 0;
-			left: 50%;
-			width: auto;
+			left: 0;
+			width: 100%;
 			height: 100%;
-			transform: translateX(-50%);
+			transform: none;
+			object-fit: cover;
 			@extend %lazy;
 		}
 
@@ -418,10 +413,6 @@
 
 		&__picture {
 			@include aspect-clip(4, 3);
-
-			&>img {
-				left: 50%;
-			}
 		}
 
 		&__group--cta {
@@ -436,7 +427,7 @@
 	cursor: pointer;
 
 	&__picture {
-		display: block;
+		display: flex;
 		@include aspect-clip(1, 1);
 		background: transparent;
 		// background: rgba($background-tertiary, 0.5);
@@ -445,10 +436,11 @@
 		&>img {
 			position: absolute;
 			top: 0;
-			left: 50%;
-			width: auto;
+			left: 0;
+			width: 100%;
 			height: 100%;
-			transform: translateX(-50%);
+			transform: none;
+			object-fit: cover;
 			@extend %lazy;
 		}
 
@@ -567,7 +559,7 @@
 	cursor: pointer;
 
 	&__picture {
-		display: block;
+		display: flex;
 		@include aspect-clip(1, 1);
 		background: $background-negative;
 		// background: rgba($background-tertiary, 0.5);
@@ -576,10 +568,11 @@
 		&>img {
 			position: absolute;
 			top: 0;
-			left: 50%;
-			width: auto;
+			left: 0;
+			width: 100%;
 			height: 100%;
-			transform: translateX(-50%);
+			transform: none;
+			object-fit: cover;
 			@extend %lazy;
 		}
 
@@ -685,10 +678,6 @@
 
 		&__picture {
 			@include aspect-clip(4, 3);
-
-			&>img {
-				left: 50%;
-			}
 		}
 
 		&__category {
@@ -709,7 +698,7 @@
 	background: $background;
 
 	&__picture {
-		display: block;
+		display: flex;
 		@include aspect-clip(1, 1);
 		background: $background-negative;
 		// background: rgba($background-tertiary, 0.5);
@@ -718,10 +707,11 @@
 		&>img {
 			position: absolute;
 			top: 0;
-			left: 50%;
-			width: auto;
+			left: 0;
+			width: 100%;
 			height: 100%;
-			transform: translateX(-50%);
+			transform: none;
+			object-fit: cover;
 			@extend %lazy;
 		}
 
@@ -762,7 +752,7 @@
 	background: $background;
 
 	&__picture {
-		display: block;
+		display: flex;
 		@include aspect-clip(1, 1);
 		background: transparent;
 		// background: rgba($background-tertiary, 0.5);
@@ -771,10 +761,11 @@
 		&>img {
 			position: absolute;
 			top: 0;
-			left: 50%;
-			width: auto;
+			left: 0;
+			width: 100%;
 			height: 100%;
-			transform: translateX(-50%);
+			transform: none;
+			object-fit: contain;
 			@extend %lazy;
 		}
 
@@ -832,10 +823,6 @@
 	@include media-down(sm) {
 		&__picture {
 			@include aspect-clip(4, 3);
-
-			&>img {
-				left: 50%;
-			}
 		}
 	}
 
@@ -855,7 +842,7 @@
 	background: $background;
 
 	&__picture {
-		display: block;
+		display: flex;
 		@include aspect-clip(1, 1);
 		background: transparent;
 		// background: rgba($background-tertiary, 0.5);
@@ -864,10 +851,11 @@
 		&>img {
 			position: absolute;
 			top: 0;
-			left: 50%;
-			width: auto;
+			left: 0;
+			width: 100%;
 			height: 100%;
-			transform: translateX(-50%);
+			transform: none;
+			object-fit: cover;
 			@extend %lazy;
 		}
 
@@ -944,10 +932,6 @@
 	@include media-down(sm) {
 		&__picture {
 			@include aspect-clip(4, 3);
-
-			&>img {
-				left: 50%;
-			}
 		}
 	}
 
@@ -973,7 +957,7 @@
 	}
 
 	&__picture {
-		display: block;
+		display: flex;
 		@include aspect-clip(210, 297);
 		max-width: 120px;
 		background: rgba($background-tertiary, 0.5);
@@ -1064,7 +1048,7 @@
 	cursor: pointer;
 
 	&__picture {
-		display: block;
+		display: flex;
 		@include aspect-clip(16, 9);
 		background: $background-negative;
 		// background: rgba($background-tertiary, 0.5);
@@ -1073,10 +1057,11 @@
 		&>img {
 			position: absolute;
 			top: 0;
-			left: 50%;
-			width: auto;
+			left: 0;
+			width: 100%;
 			height: 100%;
-			transform: translateX(-50%);
+			transform: none;
+			object-fit: cover;
 			@extend %lazy;
 		}
 
@@ -1186,10 +1171,6 @@
 
 		&__picture {
 			@include aspect-clip(4, 3);
-
-			&>img {
-				left: 50%;
-			}
 		}
 
 		&__category {
@@ -1213,17 +1194,18 @@
 		border: 2px solid $border;
 
 		&--inner {
-			display: block;
+			display: flex;
 			@include aspect-clip(1, 1);
 			background: $border; // $background-tertiary;
 
 			&>img {
 				position: absolute;
 				top: 0;
-				left: 50%;
-				width: auto;
+				left: 0;
+				width: 100%;
 				height: 100%;
-				transform: translateX(-50%);
+				transform: none;
+				object-fit: cover;
 				@extend %lazy;
 			}
 		}

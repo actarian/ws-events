@@ -154,6 +154,7 @@ export default class EventService {
 	static fake(item) {
 		// !!! todo, wrap static api response { static: true, data: ... }
 		// console.log('EventService.fake', item);
+		const mediaTypes = ['thron', 'vimeo'];
 		const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
 		const index = item.id % 1000;
 		const channelId = 100 + (item.id - index) / 1000;
@@ -168,10 +169,25 @@ export default class EventService {
 		if (item.info) {
 			item.info.subscribers = 50 + Math.floor(Math.random() * 200);
 			item.info.likes = 50 + Math.floor(Math.random() * 200);
-			item.media = {
-				src: 'https://gruppoconcorde-view.thron.com/api/xcontents/resources/delivery/getContentDetail?clientId=gruppoconcorde&xcontentId=16ef3c0a-ba0c-4e3a-a10a-32bc7f9a4297&pkey=yz1hpd',
-				type: 'thron'
-			};
+			const mediaType = mediaTypes[Math.floor(Math.random() * mediaTypes.length)];
+			switch (mediaType) {
+				case 'vimeo':
+					item.media = {
+						src: '497693771',
+						type: 'vimeo'
+					};
+					item.picture = {
+						src: 'https://i.vimeocdn.com/video/1029929333_1920x1080.webp',
+						width: 1920,
+						height: 1080
+					};
+					break;
+				default:
+					item.media = {
+						src: 'https://gruppoconcorde-view.thron.com/api/xcontents/resources/delivery/getContentDetail?clientId=gruppoconcorde&xcontentId=16ef3c0a-ba0c-4e3a-a10a-32bc7f9a4297&pkey=yz1hpd',
+						type: 'thron'
+					};
+			}
 			const now = new Date();
 			switch (index) {
 				case 1:

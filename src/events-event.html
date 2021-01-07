@@ -17,6 +17,12 @@
 					<div class="wse__event-media" *if="!event.future && event.media.type == 'thron' && !event.live">
 						<!-- @@include ./templates/shared/event/player-thron.html -->
 					</div>
+					<div class="wse__event-media" *if="!event.future && event.media.type == 'vimeo' && event.live">
+						<!-- @@include ./templates/shared/event/player-vimeo-live.html -->
+					</div>
+					<div class="wse__event-media" *if="!event.future && event.media.type == 'vimeo' && !event.live">
+						<!-- @@include ./templates/shared/event/player-vimeo.html -->
+					</div>
 					<div class="wse__event-header">
 						<div class="wse__event-header__content">
 							<!-- TITLE -->

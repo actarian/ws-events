@@ -1,7 +1,7 @@
 <a [href]="event.url" class="wse__card--notification">
 	<span class="wse__card--notification__picture">
 		<div class="wse__card--notification__picture--inner">
-			<img [lazy]="event.picture.src + '64x64?sig=' + event.id" />
+			<img [lazy]="event | picture : { width: 64, height: 64 }" />
 		</div>
 	</span>
 	<span class="wse__card--notification__content">

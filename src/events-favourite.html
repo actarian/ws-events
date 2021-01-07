@@ -8,7 +8,7 @@
 		<div class="wse__container">
 			<ul class="wse__nav--menu">
 				<li class="wse__nav--menu__item" *for="let item of channels">
-					<a [href]="item.url" [innerHTML]="item.name"></a>
+					<a [href]="item.url | slug" [innerHTML]="item.name"></a>
 				</li>
 			</ul>
 		</div>

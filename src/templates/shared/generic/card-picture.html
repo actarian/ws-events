@@ -1,5 +1,5 @@
 <div class="wse__card--picture">
 	<div class="wse__card--picture__picture" [style]="{ 'padding-top': (item.picture.height / item.picture.width * 100) + '%' }">
-		<img [lazy]="item | picture" />
+		<img loading="lazy" [src]="item | picture" />
 	</div>
 </div>

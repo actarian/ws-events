@@ -1,6 +1,6 @@
 <div class="wse__card--product">
 	<div class="wse__card--product__picture">
-		<img [lazy]="item | picture" />
+		<img loading="lazy" [src]="item | picture" />
 	</div>
 	<div class="wse__card--product__content">
 		<a [href]="item.category.url" class="wse__card--product__category" [innerHTML]="item.category.name"></a>

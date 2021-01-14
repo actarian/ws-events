@@ -28,6 +28,7 @@ import HtmlPipe from './html/html.pipe';
 import IndexPageComponent from './index/index-page.component';
 import LabelPipe from './label/label.pipe';
 import LazyDirective from './lazy/lazy.directive';
+import LoadingDirective from './loading/loading.directive';
 import ModalOutletComponent from './modal/modal-outlet.component';
 import ModalComponent from './modal/modal.component';
 import NotificationComponent from './notification/notification.component';
@@ -89,6 +90,7 @@ AppModule.meta = {
 		IndexPageComponent,
 		LabelPipe,
 		LazyDirective,
+		LoadingDirective,
 		ModalComponent,
 		ModalOutletComponent,
 		NotificationComponent,

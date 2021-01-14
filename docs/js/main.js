@@ -5344,6 +5344,47 @@ var ImageService = /*#__PURE__*/function () {
 LazyDirective.meta = {
   selector: '[lazy],[[lazy]]',
   inputs: ['lazy']
+};var LoadingDirective = /*#__PURE__*/function (_Directive) {
+  _inheritsLoose(LoadingDirective, _Directive);
+
+  function LoadingDirective() {
+    return _Directive.apply(this, arguments) || this;
+  }
+
+  var _proto = LoadingDirective.prototype;
+
+  _proto.onInit = function onInit() {
+    this.onLoad = this.onLoad.bind(this);
+
+    var _getContext = rxcomp.getContext(this),
+        node = _getContext.node;
+
+    if ('loading' in HTMLImageElement.prototype) {
+      node.addEventListener('load', this.onLoad);
+    } else {
+      this.onLoad();
+    }
+  };
+
+  _proto.onLoad = function onLoad() {
+    var _getContext2 = rxcomp.getContext(this),
+        node = _getContext2.node;
+
+    node.classList.add('lazyed');
+  };
+
+  _proto.onDestroy = function onDestroy() {
+    var _getContext3 = rxcomp.getContext(this),
+        node = _getContext3.node;
+
+    node.removeEventListener('load', this.onLoad);
+  };
+
+  return LoadingDirective;
+}(rxcomp.Directive);
+LoadingDirective.meta = {
+  selector: '[loading]',
+  inputs: ['loading']
 };var ModalOutletComponent = /*#__PURE__*/function (_Component) {
   _inheritsLoose(ModalOutletComponent, _Component);
 
@@ -7883,6 +7924,6 @@ YoutubeComponent.meta = {
 }(rxcomp.Module);
 AppModule.meta = {
   imports: [rxcomp.CoreModule, rxcompForm.FormModule],
-  declarations: [AsideComponent, ChannelComponent, ChannelPageComponent, ClickOutsideDirective, ControlCheckboxComponent, ControlCustomSelectComponent, ControlEmailComponent, ControlFileComponent, ControlPasswordComponent, ControlRadioComponent, ControlRadioComponent, ControlSelectComponent, ControlTextComponent, ControlTextareaComponent, CountPipe, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, EventPageComponent, FavouritePageComponent, HeaderComponent, HtmlPipe, IndexPageComponent, LabelPipe, LazyDirective, ModalComponent, ModalOutletComponent, NotificationComponent, PicturePipe, RegisterOrLoginModal, RelativeDateDirective, RelativeDatePipe, ScrollToDirective, SecureDirective, ShareComponent, SlugPipe, SwiperDirective, SwiperEventsDirective, SwiperRelatedDirective, SwiperSlidesDirective, SwiperTopEventsDirective, ThronComponent, UserForgotComponent, UserSigninComponent, UserSignupComponent, VirtualStructure, VideoComponent, VimeoComponent, YoutubeComponent],
+  declarations: [AsideComponent, ChannelComponent, ChannelPageComponent, ClickOutsideDirective, ControlCheckboxComponent, ControlCustomSelectComponent, ControlEmailComponent, ControlFileComponent, ControlPasswordComponent, ControlRadioComponent, ControlRadioComponent, ControlSelectComponent, ControlTextComponent, ControlTextareaComponent, CountPipe, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, EventPageComponent, FavouritePageComponent, HeaderComponent, HtmlPipe, IndexPageComponent, LabelPipe, LazyDirective, LoadingDirective, ModalComponent, ModalOutletComponent, NotificationComponent, PicturePipe, RegisterOrLoginModal, RelativeDateDirective, RelativeDatePipe, ScrollToDirective, SecureDirective, ShareComponent, SlugPipe, SwiperDirective, SwiperEventsDirective, SwiperRelatedDirective, SwiperSlidesDirective, SwiperTopEventsDirective, ThronComponent, UserForgotComponent, UserSigninComponent, UserSignupComponent, VirtualStructure, VideoComponent, VimeoComponent, YoutubeComponent],
   bootstrap: AppComponent
 };rxcomp.Browser.bootstrap(AppModule);})));

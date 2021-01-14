@@ -1,6 +1,6 @@
 <div class="wse__card--event">
 	<div class="wse__card--event__picture">
-		<img [lazy]="event | picture : { width: 375, height: 282 }" />
+		<img loading="lazy" [src]="event | picture : { width: 375, height: 282 }" />
 	</div>
 	<div class="wse__card--event__content">
 		<a [href]="event.url" class="wse__card--event__title" [innerHTML]="event.name"></a>

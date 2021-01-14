@@ -1,6 +1,6 @@
 <div class="wse__card--listing">
 	<div class="wse__card--listing__picture">
-		<img [lazy]="event | picture" />
+		<img loading="lazy" [src]="event | picture" />
 	</div>
 	<div class="wse__card--listing__content">
 		<a [href]="event.url" class="wse__card--listing__title" [innerHTML]="event.name"></a>

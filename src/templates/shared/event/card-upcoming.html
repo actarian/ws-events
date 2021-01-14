@@ -1,6 +1,6 @@
 <a [href]="event.url" class="wse__card--upcoming">
 	<span class="wse__card--upcoming__picture">
-		<img [lazy]="event | picture : { width: 375, height: 375 }" />
+		<img loading="lazy" [src]="event | picture : { width: 375, height: 375 }" />
 	</span>
 	<span class="wse__card--upcoming__content">
 		<span class="wse__card--upcoming__title" [innerHTML]="event.title"></span>

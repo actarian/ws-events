@@ -1,7 +1,7 @@
 <div class="wse__card--download">
 	<div class="wse__card--download__media" *if="item.picture">
 		<div class="wse__card--download__picture">
-			<img [lazy]="item | picture" />
+			<img loading="lazy" [src]="item | picture" />
 		</div>
 	</div>
 	<div class="wse__card--download__content">

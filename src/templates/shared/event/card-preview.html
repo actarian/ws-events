@@ -1,6 +1,6 @@
 <div class="wse__card--preview">
 	<div class="wse__card--preview__picture">
-		<img [lazy]="event | picture : { width: 480, height: 270 }" />
+		<img loading="lazy" [src]="event | picture : { width: 480, height: 270 }" />
 	</div>
 	<a [href]="event.url" class="wse__card--preview__content">
 		<span class="wse__card--preview__title" [innerHTML]="event.name"></span>

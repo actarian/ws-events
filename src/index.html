@@ -27,11 +27,11 @@
 		</div>
 	</div>
 
-	<div class="wse__channel" [channel]="channel" *for="let channel of topChannels">
+	<div class="wse__channel" [class]="'wse__channel-' + index" [channel]="channel" *for="let channel of topChannels; let index = $index;">
 		<!-- @@include ./templates/shared/channel/section.html -->
 	</div>
 
-	<div class="wse__section--upcoming">
+	<div class="wse__section--upcoming" *if="upcomingEvents.length">
 		<div class="wse__container">
 			<div class="wse__section--upcoming__title">Eventi in arrivo</div>
 			<div class="wse__section--upcoming__abstract">

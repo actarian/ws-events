@@ -31,6 +31,7 @@ import LazyDirective from './lazy/lazy.directive';
 import ModalOutletComponent from './modal/modal-outlet.component';
 import ModalComponent from './modal/modal.component';
 import NotificationComponent from './notification/notification.component';
+import PicturePipe from './picture/picture.pipe';
 import RegisterOrLoginModal from './register-or-login/register-or-login.modal';
 import RelativeDateDirective from './relative-date/relative-date.component';
 import RelativeDatePipe from './relative-date/relative-date.pipe';
@@ -48,6 +49,7 @@ import UserForgotComponent from './user/user-forgot.component';
 import UserSigninComponent from './user/user-signin.component';
 import UserSignupComponent from './user/user-signup.component';
 import VideoComponent from './video/video.component';
+import VimeoComponent from './vimeo/vimeo.component';
 import VirtualStructure from './virtual/virtual.structure';
 import YoutubeComponent from './youtube/youtube.component';
 
@@ -90,6 +92,7 @@ AppModule.meta = {
 		ModalComponent,
 		ModalOutletComponent,
 		NotificationComponent,
+		PicturePipe,
 		RegisterOrLoginModal,
 		RelativeDateDirective,
 		RelativeDatePipe,
@@ -108,6 +111,7 @@ AppModule.meta = {
 		UserSignupComponent,
 		VirtualStructure,
 		VideoComponent,
+		VimeoComponent,
 		YoutubeComponent,
 	],
 	bootstrap: AppComponent,

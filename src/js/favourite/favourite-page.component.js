@@ -45,11 +45,11 @@ export default class FavouritePageComponent extends PageComponent {
 
 	load$() {
 		return UserService.sharedChanged$.pipe(
-			switchMap(() => combineLatest(
+			switchMap(() => combineLatest([
 				ChannelService.channels$(),
 				FavouriteService.favourites$(),
 				FavouriteService.likes$(),
-			))
+			]))
 		);
 	}
 

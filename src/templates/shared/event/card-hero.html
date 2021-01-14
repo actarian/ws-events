@@ -1,6 +1,6 @@
 <div class="wse__card--hero">
 	<div class="wse__card--hero__picture">
-		<img [lazy]="event.picture.src + '960x600?sig=' + event.id" />
+		<img [lazy]="event | picture : { width: 960, height: 600 }" />
 	</div>
 	<div class="wse__card--hero__content">
 		<a [href]="event.channel.url" class="wse__card--hero__category" [innerHTML]="event.channel.name"></a>

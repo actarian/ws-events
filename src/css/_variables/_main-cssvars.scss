@@ -15,6 +15,7 @@ body {
 	--btn-radius: #{$btn-radius};
 	--card-radius: #{$card-radius};
 	--bullet-size: #{$bullet-size};
+	--badge-radius: #{$badge-radius};
 }
 
 body {
@@ -23,11 +24,17 @@ body {
 	--background-primary: #{$background-primary};
 	--background-secondary: #{$background-secondary};
 	--background-tertiary: #{$background-tertiary};
+	--background-countdown: #{$background-countdown};
 	--foreground: #{$foreground};
 	--foreground-negative: #{$foreground-negative};
 	--foreground-primary: #{$foreground-primary};
 	--foreground-secondary: #{$foreground-secondary};
 	--foreground-tertiary: #{$foreground-tertiary};
+	--orange: #{$orange};
+	--pink: #{$pink};
+	--blue: #{$blue};
+	--yellow: #{$yellow};
+	--green: #{$green};
 	--border: #{$border};
 }
 

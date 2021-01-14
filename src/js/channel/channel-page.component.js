@@ -1,3 +1,4 @@
+import { getContext } from 'rxcomp';
 import { combineLatest } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import FilterItem from '../filter/filter-item';
@@ -36,14 +37,16 @@ export default class ChannelPageComponent extends PageComponent {
 	}
 
 	load$() {
-		const channelId = LocationService.get('channelId');
+		let channelId = LocationService.get('channelId') || 0;
+		const { node } = getContext(this);
+		node.classList.add(`wse__channel-page-${channelId % 4}`);
 		return UserService.sharedChanged$.pipe(
-			switchMap(() => combineLatest(
+			switchMap(() => combineLatest([
 				ChannelService.channels$(),
 				ChannelService.detail$(channelId),
 				ChannelService.listing$(channelId),
 				ChannelService.filter$(channelId),
-			))
+			]))
 		);
 	}
 
@@ -64,6 +67,9 @@ export default class ChannelPageComponent extends PageComponent {
 				}, {
 					value: 'magazine',
 					label: 'Magazine',
+				}, {
+					value: 'download',
+					label: 'Downloads',
 				}]
 			},
 		};

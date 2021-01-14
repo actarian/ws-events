@@ -2,9 +2,13 @@ import { Component } from 'rxcomp';
 import { combineLatest, of } from 'rxjs';
 import { catchError, first, switchMap, takeUntil, tap } from 'rxjs/operators';
 import CssService from '../css/css.service';
+import { STATIC } from '../environment/environment';
 import FavouriteService from '../favourite/favourite.service';
+import ModalService from '../modal/modal.service';
 import NotificationService from '../notification/notification.service';
 import UserService from '../user/user.service';
+
+const src = STATIC ? '/ws-events/register-or-login-modal.html' : '/Viewdoc.cshtml?co_id=23649';
 
 export default class HeaderComponent extends Component {
 
@@ -13,12 +17,12 @@ export default class HeaderComponent extends Component {
 		this.favourites = [];
 		UserService.sharedChanged$.pipe(
 			tap(user => this.user = user),
-			switchMap(() => combineLatest(
+			switchMap(() => combineLatest([
 				NotificationService.notifications$(),
 				FavouriteService.subscriptions$(),
 				FavouriteService.likes$(),
 				FavouriteService.favourites$(),
-			)),
+			])),
 			catchError(() => of (null)),
 			takeUntil(this.unsubscribe$)
 		).subscribe(data => {
@@ -40,6 +44,12 @@ export default class HeaderComponent extends Component {
 		UserService.logout$().pipe(
 			first(),
 		).subscribe((response) => window.location.href = response.data.retUrl);
+	}
+
+	doLogin($event) {
+		ModalService.open$({ src: src, data: { view: 1 } }).pipe(
+			takeUntil(this.unsubscribe$)
+		).subscribe();
 	}
 
 	toggleAside($event) {

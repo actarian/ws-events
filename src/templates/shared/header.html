@@ -3,7 +3,10 @@
 		<div class="wse__group--header">
 			<div class="wse__group--brand">
 				<div class="wse__btn--menu" (click)="toggleAside($event)" (clickOutside)="dismissAside($event)"><svg class="wse__icon"><use xlink:href="#menu"></use></svg></div>
-				<a href="/ws-events/" class="wse__brand"><svg class="wse__websolute"><use xlink:href="#websolute"></use></svg></a>
+				<a href="/ws-events/" class="wse__brand">
+					<svg class="wse__icon"><use xlink:href="#brand"></use></svg>
+					<svg class="wse__icon--badge"><use xlink:href="#brand-badge"></use></svg>
+				</a>
 			</div>
 			<div class="wse__group--actions" *if="user">
 				<!--
@@ -16,7 +19,10 @@
 				<div class="wse__btn--circle" (click)="toggleNotification($event)" (clickOutside)="dismissNotification($event)">
 					<svg class="wse__icon"><use xlink:href="#bell"></use></svg><span class="wse__count" [innerHTML]="notifications.length"></span>
 				</div>
-				<button type="button" class="wse__btn--rounded" (click)="doLogout($event)">logout</button>
+				<button type="button" class="wse__btn--rounded" (click)="doLogout($event)"><span>logout</span></button>
+			</div>
+			<div class="wse__group--actions" *if="!user">
+				<button type="button" class="wse__btn--rounded" (click)="doLogin($event)"><span>login</span></button>
 			</div>
 		</div>
 	</div>

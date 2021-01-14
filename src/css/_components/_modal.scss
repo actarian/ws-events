@@ -53,7 +53,48 @@
 
 .wse__modal__header {
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
+	align-items: center;
+
+	.wse__brand {
+		line-height: 0;
+
+		.wse__icon {
+			fill: $foreground-primary;
+			width: 30px;
+			height: 30px;
+		}
+
+		.wse__icon--badge {
+			fill: $foreground-primary;
+			width: 30px;
+			height: 30px;
+		}
+	}
+
+	@include media-up(sm) {
+		.wse__brand {
+			.wse__icon {
+				display: block;
+			}
+
+			.wse__icon--badge {
+				display: none;
+			}
+		}
+	}
+
+	@include media-down(xs) {
+		.wse__brand {
+			.wse__icon {
+				display: none;
+			}
+
+			.wse__icon--badge {
+				display: block;
+			}
+		}
+	}
 }
 
 @keyframes scale-up-center {

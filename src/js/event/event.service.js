@@ -154,6 +154,7 @@ export default class EventService {
 	static fake(item) {
 		// !!! todo, wrap static api response { static: true, data: ... }
 		// console.log('EventService.fake', item);
+		const mediaTypes = ['thron', 'vimeo'];
 		const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
 		const index = item.id % 1000;
 		const channelId = 100 + (item.id - index) / 1000;
@@ -168,10 +169,25 @@ export default class EventService {
 		if (item.info) {
 			item.info.subscribers = 50 + Math.floor(Math.random() * 200);
 			item.info.likes = 50 + Math.floor(Math.random() * 200);
-			item.media = {
-				src: 'https://gruppoconcorde-view.thron.com/api/xcontents/resources/delivery/getContentDetail?clientId=gruppoconcorde&xcontentId=16ef3c0a-ba0c-4e3a-a10a-32bc7f9a4297&pkey=yz1hpd',
-				type: 'thron'
-			};
+			const mediaType = mediaTypes[Math.floor(Math.random() * mediaTypes.length)];
+			switch (mediaType) {
+				case 'vimeo':
+					item.media = {
+						src: '497693771',
+						type: 'vimeo'
+					};
+					item.picture = {
+						src: 'https://i.vimeocdn.com/video/1029929333_1920x1080.webp',
+						width: 1920,
+						height: 1080
+					};
+					break;
+				default:
+					item.media = {
+						src: 'https://gruppoconcorde-view.thron.com/api/xcontents/resources/delivery/getContentDetail?clientId=gruppoconcorde&xcontentId=16ef3c0a-ba0c-4e3a-a10a-32bc7f9a4297&pkey=yz1hpd',
+						type: 'thron'
+					};
+			}
 			const now = new Date();
 			switch (index) {
 				case 1:
@@ -310,6 +326,16 @@ export default class EventService {
 					picture: image_,
 					category: category_,
 				};
+				const download_ = {
+					id: 1000,
+					type: 'download',
+					name: 'Download',
+					title: 'Download',
+					abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
+					url: '/ws-events/files/download.pdf',
+					picture: image_,
+					category: category_,
+				};
 				const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
 				return new Array(30).fill(true).map((x, i) => {
 					let type = 'event';
@@ -323,6 +349,9 @@ export default class EventService {
 						if (i % 11 === 0) {
 							type = 'magazine';
 						}
+						if (i % 13 === 0) {
+							type = 'download';
+						}
 					}
 					let item;
 					switch (type) {
@@ -335,6 +364,9 @@ export default class EventService {
 						case 'magazine':
 							item = Object.assign({}, magazine_);
 							break;
+						case 'download':
+							item = Object.assign({}, download_);
+							break;
 						case 'event':
 							item = Object.assign({}, event_);
 							break;
@@ -345,8 +377,8 @@ export default class EventService {
 					if (item.picture) {
 						item.picture = Object.assign({}, image_, {
 							id: (100001 + i),
-							width: 700,
-							height: [700, 900, 1100][i % 3],
+							width: type === 'download' ? 340 : 700,
+							height: type === 'download' ? 480 : [700, 900, 1100][i % 3],
 						});
 					}
 					if (item.info) {

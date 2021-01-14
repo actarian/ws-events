@@ -1,6 +1,8 @@
+import { getContext } from 'rxcomp';
 import { FormControl, FormGroup, Validators } from 'rxcomp-form';
 import { combineLatest } from 'rxjs';
 import { first, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { STATIC } from '../environment/environment';
 import FavouriteService from '../favourite/favourite.service';
 import FilterItem from '../filter/filter-item';
 import FilterService from '../filter/filter.service';
@@ -50,14 +52,19 @@ export default class EventPageComponent extends PageComponent {
 	}
 
 	load$() {
-		const eventId = LocationService.get('eventId') || this.eventId;
+		let eventId = LocationService.get('eventId') || this.eventId;
+		const { node } = getContext(this);
+		node.classList.add(`wse__channel-page-${eventId % 4}`);
+		if (STATIC) {
+			eventId = 1001 + ((eventId - 1) % 2);
+		}
 		return UserService.sharedChanged$.pipe(
 			tap(user => this.user = user),
-			switchMap(() => combineLatest(
+			switchMap(() => combineLatest([
 				EventService.detail$(eventId),
 				EventService.listing$(eventId),
 				EventService.filter$(eventId),
-			))
+			]))
 		);
 	}
 
@@ -67,17 +74,20 @@ export default class EventPageComponent extends PageComponent {
 				label: 'Type',
 				mode: 'select',
 				options: [{
-					label: 'Event',
 					value: 'event',
+					label: 'Event',
 				}, {
-					label: 'Picture',
 					value: 'picture',
+					label: 'Picture',
 				}, {
-					label: 'Product',
 					value: 'product',
+					label: 'Product',
 				}, {
-					label: 'Magazine',
 					value: 'magazine',
+					label: 'Magazine',
+				}, {
+					value: 'download',
+					label: 'Downloads',
 				}]
 			},
 		};

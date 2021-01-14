@@ -23,6 +23,18 @@
 
 	.wse__brand {
 		line-height: 0;
+
+		.wse__icon {
+			fill: $foreground-primary;
+			width: 30px;
+			height: 30px;
+		}
+
+		.wse__icon--badge {
+			fill: $foreground-primary;
+			width: 30px;
+			height: 30px;
+		}
 	}
 
 	.wse__websolute {
@@ -37,6 +49,30 @@
 
 	@include media-up(md) {
 		margin-bottom: 50px;
+	}
+
+	@include media-up(sm) {
+		.wse__brand {
+			.wse__icon {
+				display: block;
+			}
+
+			.wse__icon--badge {
+				display: none;
+			}
+		}
+	}
+
+	@include media-down(xs) {
+		.wse__brand {
+			.wse__icon {
+				display: none;
+			}
+
+			.wse__icon--badge {
+				display: block;
+			}
+		}
 	}
 }
 

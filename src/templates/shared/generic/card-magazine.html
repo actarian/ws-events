@@ -1,6 +1,6 @@
 <div class="wse__card--magazine">
 	<div class="wse__card--magazine__picture">
-		<img [lazy]="item.picture.src + item.picture.width + 'x' + item.picture.width + '?sig=' + item.id" />
+		<img [lazy]="item | picture" />
 	</div>
 	<div class="wse__card--magazine__content">
 		<a [href]="item.category.url" class="wse__card--magazine__category" [innerHTML]="item.category.name"></a>

@@ -1,6 +1,6 @@
 /**
  * @license ws-events v1.0.0
- * (c) 2020 Luca Zampetti <lzampetti@gmail.com>
+ * (c) 2021 Luca Zampetti <lzampetti@gmail.com>
  * License: MIT
  */
 
@@ -1339,6 +1339,7 @@ var EventService = /*#__PURE__*/function () {
   EventService.fake = function fake(item) {
     // !!! todo, wrap static api response { static: true, data: ... }
     // console.log('EventService.fake', item);
+    var mediaTypes = ['thron', 'vimeo'];
     var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
     var index = item.id % 1000;
     var channelId = 100 + (item.id - index) / 1000;
@@ -1355,10 +1356,28 @@ var EventService = /*#__PURE__*/function () {
     if (item.info) {
       item.info.subscribers = 50 + Math.floor(Math.random() * 200);
       item.info.likes = 50 + Math.floor(Math.random() * 200);
-      item.media = {
-        src: 'https://gruppoconcorde-view.thron.com/api/xcontents/resources/delivery/getContentDetail?clientId=gruppoconcorde&xcontentId=16ef3c0a-ba0c-4e3a-a10a-32bc7f9a4297&pkey=yz1hpd',
-        type: 'thron'
-      };
+      var mediaType = mediaTypes[Math.floor(Math.random() * mediaTypes.length)];
+
+      switch (mediaType) {
+        case 'vimeo':
+          item.media = {
+            src: '497693771',
+            type: 'vimeo'
+          };
+          item.picture = {
+            src: 'https://i.vimeocdn.com/video/1029929333_1920x1080.webp',
+            width: 1920,
+            height: 1080
+          };
+          break;
+
+        default:
+          item.media = {
+            src: 'https://gruppoconcorde-view.thron.com/api/xcontents/resources/delivery/getContentDetail?clientId=gruppoconcorde&xcontentId=16ef3c0a-ba0c-4e3a-a10a-32bc7f9a4297&pkey=yz1hpd',
+            type: 'thron'
+          };
+      }
+
       var now = new Date();
 
       switch (index) {
@@ -1513,6 +1532,16 @@ var EventService = /*#__PURE__*/function () {
         picture: image_,
         category: category_
       };
+      var download_ = {
+        id: 1000,
+        type: 'download',
+        name: 'Download',
+        title: 'Download',
+        abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
+        url: '/ws-events/files/download.pdf',
+        picture: image_,
+        category: category_
+      };
       var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
       return new Array(30).fill(true).map(function (x, i) {
         var type = 'event';
@@ -1528,6 +1557,10 @@ var EventService = /*#__PURE__*/function () {
 
           if (i % 11 === 0) {
             type = 'magazine';
+          }
+
+          if (i % 13 === 0) {
+            type = 'download';
           }
         }
 
@@ -1546,6 +1579,10 @@ var EventService = /*#__PURE__*/function () {
             item = Object.assign({}, magazine_);
             break;
 
+          case 'download':
+            item = Object.assign({}, download_);
+            break;
+
           case 'event':
             item = Object.assign({}, event_);
             break;
@@ -1558,8 +1595,8 @@ var EventService = /*#__PURE__*/function () {
         if (item.picture) {
           item.picture = Object.assign({}, image_, {
             id: 100001 + i,
-            width: 700,
-            height: [700, 900, 1100][i % 3]
+            width: type === 'download' ? 340 : 700,
+            height: type === 'download' ? 480 : [700, 900, 1100][i % 3]
           });
         }
 
@@ -1806,6 +1843,16 @@ var ChannelService = /*#__PURE__*/function () {
         picture: image_,
         category: category_
       };
+      var download_ = {
+        id: 1000,
+        type: 'download',
+        name: 'Download',
+        title: 'Download',
+        abstract: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dolor tincidunt, lobortis dolor eget, condimentum libero.</p>',
+        url: '/ws-events/files/download.pdf',
+        picture: image_,
+        category: category_
+      };
       var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M'];
       return new Array(250).fill(true).map(function (x, i) {
         var type = 'event';
@@ -1821,6 +1868,10 @@ var ChannelService = /*#__PURE__*/function () {
 
           if (i % 11 === 0) {
             type = 'magazine';
+          }
+
+          if (i % 13 === 0) {
+            type = 'download';
           }
         }
 
@@ -1839,6 +1890,10 @@ var ChannelService = /*#__PURE__*/function () {
             item = Object.assign({}, magazine_);
             break;
 
+          case 'download':
+            item = Object.assign({}, download_);
+            break;
+
           case 'event':
             item = Object.assign({}, event_);
             break;
@@ -1851,8 +1906,8 @@ var ChannelService = /*#__PURE__*/function () {
         if (item.picture) {
           item.picture = Object.assign({}, image_, {
             id: 100001 + i,
-            width: 700,
-            height: [700, 900, 1100][i % 3]
+            width: type === 'download' ? 340 : 700,
+            height: type === 'download' ? 480 : [700, 900, 1100][i % 3]
           });
         }
 
@@ -2328,9 +2383,14 @@ var FilterItem = /*#__PURE__*/function () {
   };
 
   _proto.load$ = function load$() {
-    var channelId = LocationService.get('channelId');
+    var channelId = LocationService.get('channelId') || 0;
+
+    var _getContext = rxcomp.getContext(this),
+        node = _getContext.node;
+
+    node.classList.add("wse__channel-page-" + channelId % 4);
     return UserService.sharedChanged$.pipe(operators.switchMap(function () {
-      return rxjs.combineLatest(ChannelService.channels$(), ChannelService.detail$(channelId), ChannelService.listing$(channelId), ChannelService.filter$(channelId));
+      return rxjs.combineLatest([ChannelService.channels$(), ChannelService.detail$(channelId), ChannelService.listing$(channelId), ChannelService.filter$(channelId)]);
     }));
   };
 
@@ -2353,6 +2413,9 @@ var FilterItem = /*#__PURE__*/function () {
         }, {
           value: 'magazine',
           label: 'Magazine'
+        }, {
+          value: 'download',
+          label: 'Downloads'
         }]
       }
     };
@@ -4085,10 +4148,20 @@ EventDateComponent.meta = {
     var _this2 = this;
 
     var eventId = LocationService.get('eventId') || this.eventId;
+
+    var _getContext = rxcomp.getContext(this),
+        node = _getContext.node;
+
+    node.classList.add("wse__channel-page-" + eventId % 4);
+
+    if (STATIC) {
+      eventId = 1001 + (eventId - 1) % 2;
+    }
+
     return UserService.sharedChanged$.pipe(operators.tap(function (user) {
       return _this2.user = user;
     }), operators.switchMap(function () {
-      return rxjs.combineLatest(EventService.detail$(eventId), EventService.listing$(eventId), EventService.filter$(eventId));
+      return rxjs.combineLatest([EventService.detail$(eventId), EventService.listing$(eventId), EventService.filter$(eventId)]);
     }));
   };
 
@@ -4100,17 +4173,20 @@ EventDateComponent.meta = {
         label: 'Type',
         mode: 'select',
         options: [{
-          label: 'Event',
-          value: 'event'
+          value: 'event',
+          label: 'Event'
         }, {
-          label: 'Picture',
-          value: 'picture'
+          value: 'picture',
+          label: 'Picture'
         }, {
-          label: 'Product',
-          value: 'product'
+          value: 'product',
+          label: 'Product'
         }, {
-          label: 'Magazine',
-          value: 'magazine'
+          value: 'magazine',
+          label: 'Magazine'
+        }, {
+          value: 'download',
+          label: 'Downloads'
         }]
       }
     };
@@ -4405,7 +4481,7 @@ var FavouritePageComponent = /*#__PURE__*/function (_PageComponent) {
 
   _proto.load$ = function load$() {
     return UserService.sharedChanged$.pipe(operators.switchMap(function () {
-      return rxjs.combineLatest(ChannelService.channels$(), FavouriteService.favourites$(), FavouriteService.likes$());
+      return rxjs.combineLatest([ChannelService.channels$(), FavouriteService.favourites$(), FavouriteService.likes$()]);
     }));
   };
 
@@ -4907,7 +4983,9 @@ var NotificationService = /*#__PURE__*/function () {
 
   return NotificationService;
 }();
-NotificationService.sharedNotifications$ = NotificationService.notifications$().pipe(operators.shareReplay(1));var HeaderComponent = /*#__PURE__*/function (_Component) {
+NotificationService.sharedNotifications$ = NotificationService.notifications$().pipe(operators.shareReplay(1));var src$1 = STATIC ? '/ws-events/register-or-login-modal.html' : '/Viewdoc.cshtml?co_id=23649';
+
+var HeaderComponent = /*#__PURE__*/function (_Component) {
   _inheritsLoose(HeaderComponent, _Component);
 
   function HeaderComponent() {
@@ -4924,7 +5002,7 @@ NotificationService.sharedNotifications$ = NotificationService.notifications$().
     UserService.sharedChanged$.pipe(operators.tap(function (user) {
       return _this.user = user;
     }), operators.switchMap(function () {
-      return rxjs.combineLatest(NotificationService.notifications$(), FavouriteService.subscriptions$(), FavouriteService.likes$(), FavouriteService.favourites$());
+      return rxjs.combineLatest([NotificationService.notifications$(), FavouriteService.subscriptions$(), FavouriteService.likes$(), FavouriteService.favourites$()]);
     }), operators.catchError(function () {
       return rxjs.of(null);
     }), operators.takeUntil(this.unsubscribe$)).subscribe(function (data) {
@@ -4943,6 +5021,15 @@ NotificationService.sharedNotifications$ = NotificationService.notifications$().
     UserService.logout$().pipe(operators.first()).subscribe(function (response) {
       return window.location.href = response.data.retUrl;
     });
+  };
+
+  _proto.doLogin = function doLogin($event) {
+    ModalService.open$({
+      src: src$1,
+      data: {
+        view: 1
+      }
+    }).pipe(operators.takeUntil(this.unsubscribe$)).subscribe();
   };
 
   _proto.toggleAside = function toggleAside($event) {
@@ -5041,7 +5128,7 @@ HtmlPipe.meta = {
 
   _proto.load$ = function load$() {
     return UserService.sharedChanged$.pipe(operators.switchMap(function () {
-      return rxjs.combineLatest(EventService.top$(), ChannelService.top$(), EventService.upcoming$());
+      return rxjs.combineLatest([EventService.top$(), ChannelService.top$(), EventService.upcoming$()]);
     }));
   };
 
@@ -5386,6 +5473,43 @@ ModalComponent.meta = {
 }(PageComponent);
 NotificationComponent.meta = {
   selector: '[notification]'
+};var PicturePipe = /*#__PURE__*/function (_Pipe) {
+  _inheritsLoose(PicturePipe, _Pipe);
+
+  function PicturePipe() {
+    return _Pipe.apply(this, arguments) || this;
+  }
+
+  PicturePipe.transform = function transform(value, options) {
+    var _value$picture = value.picture,
+        src = _value$picture.src,
+        width = _value$picture.width,
+        height = _value$picture.height;
+
+    if (options) {
+      width = options.width;
+      height = options.height;
+    }
+
+    var mediaType = value.media ? value.media.type : null;
+    var url = '';
+
+    switch (mediaType) {
+      case 'vimeo':
+        url = "" + src;
+        break;
+
+      default:
+        url = "" + src + width + "x" + height + "?sig=" + value.id;
+    }
+
+    return url;
+  };
+
+  return PicturePipe;
+}(rxcomp.Pipe);
+PicturePipe.meta = {
+  name: 'picture'
 };var RegisterOrLoginModal = /*#__PURE__*/function (_Component) {
   _inheritsLoose(RegisterOrLoginModal, _Component);
 
@@ -5770,7 +5894,7 @@ ScrollToDirective.meta = {
   }]);
 
   return DownloadService;
-}();var src$1 = STATIC ? '/tiemme-com/club-modal.html' : '/Viewdoc.cshtml?co_id=23649';
+}();var src$2 = STATIC ? '/ws-events/register-or-login-modal.html' : '/Viewdoc.cshtml?co_id=23649';
 
 var SecureDirective = /*#__PURE__*/function (_Directive) {
   _inheritsLoose(SecureDirective, _Directive);
@@ -5787,7 +5911,6 @@ var SecureDirective = /*#__PURE__*/function (_Directive) {
     var _getContext = rxcomp.getContext(this),
         node = _getContext.node;
 
-    this.href = node.getAttribute('href');
     rxjs.fromEvent(node, 'click').pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (event) {
       event.preventDefault();
 
@@ -5795,34 +5918,32 @@ var SecureDirective = /*#__PURE__*/function (_Directive) {
     });
   };
 
-  _proto.onChanges = function onChanges() {
-    var _getContext2 = rxcomp.getContext(this),
-        node = _getContext2.node;
-
-    this.href = node.getAttribute('href');
-  };
-
   _proto.tryDownloadHref = function tryDownloadHref() {
     var _this2 = this;
 
-    ApiService.staticGet$(this.href, undefined, 'blob').pipe(operators.first(), operators.map(function (response) {
-      return response.data;
-    })).subscribe(function (blob) {
-      DownloadService.download(blob, _this2.href.split('/').pop());
-    }, function (error) {
-      console.log('SecureDirective.tryDownloadHref.error', error);
+    var _getContext2 = rxcomp.getContext(this),
+        node = _getContext2.node;
 
-      _this2.onLogin(event);
-    });
+    var href = node.getAttribute('href');
+
+    if (href) {
+      HttpService.get$(href, undefined, 'blob').pipe(operators.first(), operators.map(function (response) {
+        return response.data;
+      })).subscribe(function (blob) {
+        DownloadService.download(blob, href.split('/').pop());
+      }, function (error) {
+        console.log('SecureDirective.tryDownloadHref.error', error);
+
+        _this2.onLogin(event);
+      });
+    }
   };
 
   _proto.onLogin = function onLogin(event) {
     var _this3 = this;
 
-    // console.log('SecureDirective.onLogin');
-    // event.preventDefault();
     ModalService.open$({
-      src: src$1,
+      src: src$2,
       data: {
         view: 1
       }
@@ -5833,24 +5954,8 @@ var SecureDirective = /*#__PURE__*/function (_Directive) {
 
         _this3.tryDownloadHref();
       }
-    }); // this.pushChanges();
-  }
-  /*
-  onRegister(event) {
-  	// console.log('SecureDirective.onRegister');
-  	// event.preventDefault();
-  	ModalService.open$({ src: src, data: { view: 2 } }).pipe(
-  		takeUntil(this.unsubscribe$)
-  	).subscribe(event => {
-  		// console.log('SecureDirective.onRegister', event);
-  		if (event instanceof ModalResolveEvent) {
-  			UserService.setUser(event.data);
-  		}
-  	});
-  	// this.pushChanges();
-  }
-  */
-  ;
+    });
+  };
 
   return SecureDirective;
 }(rxcomp.Directive);
@@ -6292,23 +6397,23 @@ SwiperSlidesDirective.meta = {
       breakpoints: {
         768: {
           slidesPerView: 2,
-          spaceBetween: 2
+          spaceBetween: 0
         },
         1024: {
           slidesPerView: 3,
-          spaceBetween: 2
+          spaceBetween: 0
         },
         1440: {
           slidesPerView: 4,
-          spaceBetween: 2
+          spaceBetween: 0
         },
         1920: {
           slidesPerView: 4,
-          spaceBetween: 2
+          spaceBetween: 0
         },
         2440: {
           slidesPerView: 5,
-          spaceBetween: 2
+          spaceBetween: 0
         }
       },
       centeredSlides: false,
@@ -7069,6 +7174,40 @@ var GtmService = /*#__PURE__*/function () {
 VideoComponent.meta = {
   selector: '[video]',
   inputs: ['item']
+};var VimeoComponent = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(VimeoComponent, _Component);
+
+  function VimeoComponent() {
+    return _Component.apply(this, arguments) || this;
+  }
+
+  var _proto = VimeoComponent.prototype;
+
+  _proto.onInit = function onInit() {
+    var _getContext = rxcomp.getContext(this),
+        node = _getContext.node;
+
+    node.setAttribute('id', "vimeo-" + this.rxcompId);
+    var media = this.vimeo;
+    var controls = node.hasAttribute('controls') ? 1 : 0,
+        background = controls ? 0 : 1,
+        loop = node.hasAttribute('loop') ? 1 : 0,
+        autoplay = node.hasAttribute('autoplay') ? 1 : 0,
+        live = node.hasAttribute('live') ? 1 : 0,
+        color = node.hasAttribute('color') ? node.getAttribute('color') : 'f67c53';
+    var src = "https://player.vimeo.com/video/" + media + "?autoplay=" + autoplay + "&color=" + color + "&title=0&byline=0&portrait=0&controls=" + controls + "&background=" + background + "&loop=" + loop;
+    var html =
+    /* html */
+    "\n\t\t\t<iframe\n\t\t\t\tsrc=\"" + src + "\"\n\t\t\t\tstyle=\"position:absolute;top:0;left:0;width:100%;height:100%;\"\n\t\t\t\tframeborder=\"0\"\n\t\t\t\tallow=\"autoplay; fullscreen\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>\n\t\t";
+    node.innerHTML = html;
+  };
+
+  return VimeoComponent;
+}(rxcomp.Component);
+VimeoComponent.meta = {
+  selector: '[vimeo]',
+  outputs: ['ready', 'canPlay', 'complete'],
+  inputs: ['vimeo']
 };var VirtualItem = /*#__PURE__*/function (_Context) {
   _inheritsLoose(VirtualItem, _Context);
 
@@ -7744,6 +7883,6 @@ YoutubeComponent.meta = {
 }(rxcomp.Module);
 AppModule.meta = {
   imports: [rxcomp.CoreModule, rxcompForm.FormModule],
-  declarations: [AsideComponent, ChannelComponent, ChannelPageComponent, ClickOutsideDirective, ControlCheckboxComponent, ControlCustomSelectComponent, ControlEmailComponent, ControlFileComponent, ControlPasswordComponent, ControlRadioComponent, ControlRadioComponent, ControlSelectComponent, ControlTextComponent, ControlTextareaComponent, CountPipe, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, EventPageComponent, FavouritePageComponent, HeaderComponent, HtmlPipe, IndexPageComponent, LabelPipe, LazyDirective, ModalComponent, ModalOutletComponent, NotificationComponent, RegisterOrLoginModal, RelativeDateDirective, RelativeDatePipe, ScrollToDirective, SecureDirective, ShareComponent, SlugPipe, SwiperDirective, SwiperEventsDirective, SwiperRelatedDirective, SwiperSlidesDirective, SwiperTopEventsDirective, ThronComponent, UserForgotComponent, UserSigninComponent, UserSignupComponent, VirtualStructure, VideoComponent, YoutubeComponent],
+  declarations: [AsideComponent, ChannelComponent, ChannelPageComponent, ClickOutsideDirective, ControlCheckboxComponent, ControlCustomSelectComponent, ControlEmailComponent, ControlFileComponent, ControlPasswordComponent, ControlRadioComponent, ControlRadioComponent, ControlSelectComponent, ControlTextComponent, ControlTextareaComponent, CountPipe, DatePipe, DropdownDirective, DropdownItemDirective, ErrorsComponent, EventComponent, EventDateComponent, EventPageComponent, FavouritePageComponent, HeaderComponent, HtmlPipe, IndexPageComponent, LabelPipe, LazyDirective, ModalComponent, ModalOutletComponent, NotificationComponent, PicturePipe, RegisterOrLoginModal, RelativeDateDirective, RelativeDatePipe, ScrollToDirective, SecureDirective, ShareComponent, SlugPipe, SwiperDirective, SwiperEventsDirective, SwiperRelatedDirective, SwiperSlidesDirective, SwiperTopEventsDirective, ThronComponent, UserForgotComponent, UserSigninComponent, UserSignupComponent, VirtualStructure, VideoComponent, VimeoComponent, YoutubeComponent],
   bootstrap: AppComponent
 };rxcomp.Browser.bootstrap(AppModule);})));

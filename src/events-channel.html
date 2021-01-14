@@ -72,10 +72,11 @@
 					<li class="wse__nav--filters__item wse__filter" *for="let option of filters.type.options">
 						<span class="wse__filter__option" [class]="{ active: filters.type.has(option), disabled: option.disabled }" (click)="filters.type.set(option)">
 							<span class="wse__name" *if="option.value === undefined">Tutto</span>
-							<span class="wse__name" *if="option.value === 'event'"><span class="wse__text">Eventi</span><svg class="wse__ico"><use xlink:href="#event"></use></svg></span>
-							<span class="wse__name" *if="option.value === 'picture'"><span class="wse__text">Immagini</span><svg class="wse__ico"><use xlink:href="#picture"></use></svg></span>
-							<span class="wse__name" *if="option.value === 'product'"><span class="wse__text">Prodotti</span><svg class="wse__ico"><use xlink:href="#product"></use></svg></span>
-							<span class="wse__name" *if="option.value === 'magazine'"><span class="wse__text">Magazine</span><svg class="wse__ico"><use xlink:href="#magazine"></use></svg></span>
+							<span class="wse__name" *if="option.value === 'event'"><span class="wse__text">Eventi</span><svg class="wse__icon"><use xlink:href="#event"></use></svg></span>
+							<span class="wse__name" *if="option.value === 'picture'"><span class="wse__text">Immagini</span><svg class="wse__icon"><use xlink:href="#picture"></use></svg></span>
+							<span class="wse__name" *if="option.value === 'product'"><span class="wse__text">Prodotti</span><svg class="wse__icon"><use xlink:href="#product"></use></svg></span>
+							<span class="wse__name" *if="option.value === 'magazine'"><span class="wse__text">Magazine</span><svg class="wse__icon"><use xlink:href="#magazine"></use></svg></span>
+							<span class="wse__name" *if="option.value === 'download'"><span class="wse__text">Downloads</span><svg class="wse__icon"><use xlink:href="#download"></use></svg></span>
 							<span class="wse__count" [innerHTML]="option.count"></span>
 						</span>
 					</li>
@@ -118,22 +119,27 @@
 		</div>
 	</div>
 
-	<div class="wse__section--channel__listing">
+	<div class="wse__section--channel__listing" *if="filteredItems && filteredItems.length">
 		<div class="wse__container-fluid">
-			<div class="wse__group--grid" *virtual="let item of filteredItems" [mode]="grid.mode" [width]="grid.width" [gutter]="grid.gutter">
-				<!-- serve un nodo figlio -->
-				<div class="wse__section--channel__listing__item">
-					<div [event]="item" *if="item.type === 'event'">
-						<!-- @@include ./templates/shared/event/card-listing.html -->
-					</div>
-					<div *if="item.type === 'picture'">
-						<!-- @@include ./templates/shared/generic/card-picture.html -->
-					</div>
-					<div *if="item.type === 'product'">
-						<!-- @@include ./templates/shared/generic/card-product.html -->
-					</div>
-					<div *if="item.type === 'magazine'">
-						<!-- @@include ./templates/shared/generic/card-magazine.html -->
+			<div class="wse__row">
+				<div class="wse__group--grid" *virtual="let item of filteredItems" [mode]="grid.mode" [width]="grid.width" [gutter]="grid.gutter">
+					<!-- serve un nodo figlio -->
+					<div class="wse__section--channel__listing__item">
+						<div [event]="item" *if="item.type === 'event'">
+							<!-- @@include ./templates/shared/event/card-listing.html -->
+						</div>
+						<div *if="item.type === 'picture'">
+							<!-- @@include ./templates/shared/generic/card-picture.html -->
+						</div>
+						<div *if="item.type === 'product'">
+							<!-- @@include ./templates/shared/generic/card-product.html -->
+						</div>
+						<div *if="item.type === 'magazine'">
+							<!-- @@include ./templates/shared/generic/card-magazine.html -->
+						</div>
+						<div *if="item.type === 'download'">
+							<!-- @@include ./templates/shared/generic/card-download.html -->
+						</div>
 					</div>
 				</div>
 			</div>

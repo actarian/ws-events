@@ -1,5 +1,5 @@
 <div class="wse__event-incoming">
-	<img [lazy]="event.picture.src + '1600x900?sig=' + event.id" />
+	<img [lazy]="event | picture : { width: 1600, height: 900 }" />
 	<div class="wse__event-incoming__content">
 		<a [href]="event.channel.url" class="wse__event-incoming__category" [innerHTML]="event.channel.name"></a>
 		<a [href]="event.url" class="wse__event-incoming__title" [innerHTML]="event.name"></a>

@@ -17,7 +17,7 @@
 
 		&>li {
 			@extend %nav-item;
-			margin-bottom: 2px;
+			// margin-bottom: 2px;
 
 			&>a {
 				@extend %btn-aside;

@@ -8,7 +8,7 @@ import ModalService from '../modal/modal.service';
 import NotificationService from '../notification/notification.service';
 import UserService from '../user/user.service';
 
-const src = STATIC ? '/ws-events/register-or-login-modal.html' : '/Viewdoc.cshtml?co_id=23649';
+const src = STATIC ? '/ws-events/register-or-login-modal.html' : window.linkModal;
 
 export default class HeaderComponent extends Component {
 

@@ -70,7 +70,7 @@
 			<div class="wse__container-fluid">
 				<ul class="wse__nav--filters">
 					<li class="wse__nav--filters__item wse__filter" *for="let option of filters.type.options">
-						<span class="wse__filter__option" [class]="{ active: filters.type.has(option), disabled: option.disabled }" (click)="filters.type.set(option)">
+						<span class="wse__filter__option" [class]="{ active: filters.type.has(option), disabled: option.disabled }" (click)="filters.type.set(option)" *if="option.initialCount > 0">
 							<span class="wse__name" *if="option.value === undefined">Tutto</span>
 							<span class="wse__name" *if="option.value === 'event'"><span class="wse__text">Eventi</span><svg class="wse__icon"><use xlink:href="#event"></use></svg></span>
 							<span class="wse__name" *if="option.value === 'picture'"><span class="wse__text">Immagini</span><svg class="wse__icon"><use xlink:href="#picture"></use></svg></span>

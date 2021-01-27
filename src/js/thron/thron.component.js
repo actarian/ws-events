@@ -1,4 +1,8 @@
 import { Component, getContext } from 'rxcomp';
+import { fromEventPattern } from 'rxjs';
+import { auditTime, filter, takeUntil, tap } from 'rxjs/operators';
+import GtmService from '../gtm/gtm.service';
+import UserService from '../user/user.service';
 
 export default class ThronComponent extends Component {
 
@@ -11,7 +15,7 @@ export default class ThronComponent extends Component {
 		const { node } = getContext(this);
 		node.setAttribute('id', `thron-${this.rxcompId}`);
 
-		let media = this.thron;
+		let media = this.thron.media.src;
 		if (media.indexOf('pkey=') === -1) {
 			const splitted = media.split('/');
 			const clientId = splitted[6];
@@ -56,6 +60,59 @@ export default class ThronComponent extends Component {
 		player.on('canPlay', this.onCanPlay);
 		player.on('playing', this.onPlaying);
 		player.on('complete', this.onComplete);
+
+		this.timeupdate$(player, media).pipe(
+			takeUntil(this.unsubscribe$),
+		).subscribe();
+	}
+
+	timeupdate$(player, videoId) {
+		function addTimeUpdateHandler(handler) {
+			player.on('timeupdate', handler);
+		}
+		function removeTimeUpdateHandler(handler) {
+			player.off('timeupdate', handler);
+		}
+		const steps = ['play', 'progress - 25%', 'progress - 50%', 'progress - 75%', 'progress - 90%', 'progress - 100%'];
+		const values = [0, 0.25, 0.5, 0.75, 0.9, 1];
+		const getStepIndex = (percent) => {
+			return values.reduce((p, c, i) => {
+				return percent >= c ? i : p;
+			}, 0);
+		}
+		let lastStepIndex = -1;
+		return fromEventPattern(addTimeUpdateHandler, removeTimeUpdateHandler).pipe(
+			auditTime(1000),
+			filter((event) => {
+				const currentTime = event[1];
+				const duration = event[2];
+				const stepIndex = getStepIndex(currentTime / duration);
+				if (stepIndex > lastStepIndex) {
+					lastStepIndex = stepIndex;
+					return true;
+				} else {
+					return false;
+				}
+			}),
+			tap((event) => {
+				const currentTime = event[1];
+				const duration = event[2];
+				const stepIndex = getStepIndex(currentTime / duration);
+				const user = UserService.getCurrentUser();
+				GtmService.push({
+					'event': 'PlayingEvent',
+					'videoType': 'Thron',
+					'videoId': videoId,
+					'duration': duration,
+					// 'seconds': currentTime,
+					// 'percent': currentTime / duration,
+					'progress': steps[stepIndex],
+					'eventId': this.thron.id,
+					'eventTitle': this.thron.title,
+					'userId': user ? user.id : 'not logged',
+				});
+			})
+		);
 	}
 
 	onBeforeInit(playerInstance) {

@@ -1,11 +1,11 @@
-import { BehaviorSubject, of , throwError } from 'rxjs';
+import { BehaviorSubject, of, throwError } from 'rxjs';
 import { catchError, distinctUntilChanged, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import ApiService from '../api/api.service';
 import { STATIC } from '../environment/environment';
 import LocalStorageService from '../local-storage/local-storage.service';
 import ModalService, { ModalResolveEvent } from '../modal/modal.service';
 
-const src = STATIC ? '/ws-events/register-or-login-modal.html' : '/Viewdoc.cshtml?co_id=23649';
+const src = STATIC ? '/ws-events/register-or-login-modal.html' : window.linkModal;
 
 export class User {
 	get avatar() {
